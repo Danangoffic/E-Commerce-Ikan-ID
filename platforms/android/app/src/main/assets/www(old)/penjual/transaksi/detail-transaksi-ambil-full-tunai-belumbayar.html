@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Detail Pesanan</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+</head>
+
+<body class="">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="pesanan-saya.html" class="transparent" style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
+              <b class="header">&nbsp;Detail Pesanan</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="container-fluid">
+    <div class="row" style="margin-bottom: 32px">
+      <div class="col s12" style="padding: 0px">
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-item teal-text darken-1"><b>STATUS PEMESANAN<span class="secondary-content badge red status-pemesanan white-text"  style="font-size: 15px; border-radius: 8px;">BELUM BAYAR</span></b></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span class="secondary-content NoPesanan"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span class="secondary-content WaktuPemesanan"></span></b></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <ul class="collection collection-product"></ul>
+        </div>
+
+        <div class="card pengirman-card">
+          <ul class="collection">
+            <li class="collection-item"><h5>DETAIL PENGIRIMAN</h5></li>
+            <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman">Ambil di Toko</span></li>
+            <li class="collection-item">Tanggal Pengambilan :<span class="secondary-content tanggal-pengiriman"></span></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-item"><h5>DETAIL PEMBAYARAN</h5></li>
+            <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Bayar Penuh Tunai</span></li>
+            <li class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></li>
+            <li class="collection-item teal-text darken-1"><b>Total Pemasukkan :<span class="secondary-content total-pemasukkan">Rp</span></b></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-content red darken-1 white-text">
+            <p class="flow-text center">Siapkan produk di hari <br><b><a class="waves-effect waves-light modal-trigger white-text" href="#modal1">TANGGAL PENGAMBILAN</a></b><br>dan ingatkan Pembeli umtuk melakukan pembayaran tunai sebesar <br><b><a class="waves-effect waves-light modal-trigger white-text" href="#modal2">TOTAL PEMASUKKAN</a></b></p>
+          </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal bottom-sheet">
+          <div class="modal-content">
+            <h6 class="modal-title center-align">Tanggal Pengambilan:</h6>
+            <h5 class="tanggal-pengiriman center-align red-text"></h5>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-light btn red accent-2">Tutup</a>
+          </div>
+        </div>
+        <div id="modal2" class="modal bottom-sheet">
+          <div class="modal-content">
+            <h6 class="modal-title center-align">Total Pemasukkan:</h6>
+            <h5 class="total-pemasukkan center-align red-text"></h5>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-light btn red accent-2">Tutup</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: -4px">
+          <div class="card-content green white-text">
+            <p class="flow-text center">Tekan tombol <b>PESANAN SELESAI</b> jika PEMBELI SUDAH MELUNASI PEMBAYARAN dan MENGAMBIL PRODUK</p>
+          </div>
+        </div>
+
+        <div class="fixed-action-btn">
+          <button class="waves-effect waves-light btn blue" type="button" style="width: 100%">Pesanan Selesai</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ########## END: MAIN PANEL ########## -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<!-- <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script> -->
+<!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+<!-- <script src="../assets/lib/bootstrap/bootstrap.js"></script> -->
+<script src="../../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../../assets/lib/moment/moment.js"></script>
+<script src="../../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../../assets/lib/peity/jquery.peity.js"></script>
+<!-- <script src="../assets/lib/codemirror/addon/scroll/simplescrollbars.js"></script> -->
+
+<!-- <script src="../assets/js/bracket.js"></script> -->
+<script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+
+
+<script type="text/javascript" src="../../js/mobile_script.js"></script>
+<script type="text/javascript">
+  $('.modal').modal();
+  var DetailPesanan = storage.getItem("DetailPesanan");
+  DetailPesanan = JSON.parse(DetailPesanan);
+  $(document).ready(function(){
+    // var StatusPemesanan = storage.getItem("status");
+    var IDPESANAN = DetailPesanan.ID;
+    var TotalHargaAll = DetailPesanan.TotalHargaAll;
+    var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
+    var AllPurchaseProduk = DetailPesanan.AllPurchaseProduk;
+    var waktuPemesanan = DetailPesanan.waktuPemesanan;
+    var tglPengiriman = DetailPesanan.tglPengiriman;
+    var TotalHargaProduk = DetailPesanan.TotalHargaProduk;
+    var DataUsaha = DetailPesanan.DataUsaha;
+    var DataPembeli = DetailPesanan.DataPembeli;
+    var Alamat = DataPembeli.alamat_pb;
+    var nama_usaha = DataUsaha.nama_usaha;
+    var IdUsaha = DataUsaha.id_usaha;
+    var JenisPengiriman = DetailPesanan.JenisPengiriman;
+    var TanggalPengiriman = DetailPesanan.tglPengiriman;
+    var TotalProdukPesanan = DetailPesanan.TotalProduk;
+    var TotalBeratProduk = DetailPesanan.TotalBeratProduk * 10  * TotalProdukPesanan;
+    console.log("TotalBeratProduk : " + TotalBeratProduk);
+    var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
+    var DataPembayaran = DetailPesanan.DataPembayaran;
+    var metode_pembayaran = DataPembayaran.metode_pembayaran;
+    $(".status-pemesanan").html(StatusPemesanan);
+    $(".NoPesanan").html(IDPESANAN);
+    $(".WaktuPemesanan").html(waktuPemesanan);
+    
+    var HtmlProduk = '';
+    HtmlProduk = '<li class="collection-item"><a href="#!"><h6 class="nama-toko"></h6></a></li>'+
+    '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>';
+    $.each(AllPurchaseProduk, function(i,isi){
+      var FotoProduk = base_url+ '/foto_usaha/produk/' + isi.foto_produk;
+      var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
+      var HargaProduk = isi.harga;
+      var TotalProduk = isi.jml_produk;
+      HtmlProduk += '<li class="collection-item avatar"><img src="'+FotoProduk+'" alt="" class="circle">'+
+      '<span class="title">'+NamaProduk+'</span>'+
+      '<p class="orange-text">Rp '+HargaProduk+'<br></p>'+
+      '<span class="secondary-content">'+TotalProduk+'&times;</span></li>';
+    });
+    HtmlProduk +='<li class="collection-item teal-text darken-1"><b >Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></b></li>';
+    $(".collection-product").html(HtmlProduk);
+    $(".nama-toko").html("<a href='#!' onclick='GoToDetailUsaha("+IdUsaha+")'>"+nama_usaha+"</a>");
+    $(".alamat").html(Alamat);
+    $(".tipe-pengiriman").html(JenisPengiriman);
+    $(".tanggal-pengiriman").html(TanggalPengiriman);
+    $(".total-berat").html(TotalBeratProduk+"&nbsp;Ons");
+    $(".biaya-pengiriman").html("Rp " + BiayaPengiriman);
+    $(".tipe-pembayaran").html(metode_pembayaran);
+    $(".total-harga-produk").html("Rp&nbsp;" + TotalHargaProduk);
+    $(".total-pemasukkan").html("Rp&nbsp;" + TotalHargaAll);
+  });
+
+  function LanjutkanPembayaran(){
+
+  }
+
+  function BatalkanPesanan(){
+
+  }
+</script>
+
+<!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+</body>
+</html>

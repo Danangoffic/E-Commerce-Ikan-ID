@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Ubah Produk</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+    src="../../cordova.js"></script>
+
+  <style type="text/css">
+    .input-field div.error {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color: #FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+
+    .input-field label.active {
+      width: 100%;
+    }
+
+    .input-field {
+      position: relative;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.5rem;
+    }
+  </style>
+
+</head>
+
+<body onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Ubah Produk</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="col s12 grey lighten-3">
+    <div class="container-fluid">
+      <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate"
+        data-parsley-validate>
+        <div class="card" style="margin-top: 0px; padding: 5px">
+          <div class="card-content" style="padding-bottom: 10px;">
+            <div class="row">
+              <div class="input-field col s12">
+                <input placeholder="Nama Produk" id="nama_produk" name="nama_produk" type="text" class="">
+                <label for="nama_produk">Nama Produk</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12" style="margin-top: -20px">
+                <p class="flow-text" style="margin: 5px" id="kategori-title">Kategori:</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <img src="" alt="image_ikan" id="image-ikan" class="responsive-img z-depth-0">
+              </div>
+              <div class="file-field input-field col s12" style="margin-top: 0px">
+                <div class="btn btn-small green">
+                  <span>Foto Produk</span>
+                  <input type="file" id="foto_produk" name="foto_produk">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path" type="text">
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row" style="margin-top: 0px">
+              <div class="input-field col s12">
+                <input placeholder="Harga" id="harga" name="harga" type="number" class="">
+                <label for="harga">Harga</label>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="input-field col s10">
+                <input placeholder="Berat" id="berat_produk" name="berat_produk" type="number" class="">
+                <label for="berat_produk">Berat</label>
+              </div>
+              <div class="input-field col s2">
+                <p style="color: gray; font-size: large; line-height: 40px">ons</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input placeholder="Minimal Pemesanan" id="min_pemesanan" name="min_pemesanan" type="number" class="">
+                <label for="min_pemesanan">Minimal Pemesanan</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <a class="btn btn-small green variasi" href="ubah_variasi.html" style="width: 100%">Ubah Variasi<i
+                    class="material-icons right">chevron_right</i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="bottom-navbar">
+        <div class="card-action white" style="margin: 0px; padding-bottom: 0px">
+          <button class="waves-effect waves-light btn blue" type="button" id="update"
+            style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+  <script>
+    var id_produk = localStorage.id_produk;
+    function onBackKeyDown() {
+      localStorage.removeItem("id_produk");
+      window.location.replace("produk.html");
+    }
+
+    function onLoad() {
+      loadProduk();
+    }
+
+    function loadProduk() {
+      $.getJSON(API_DETAIL_PRODUK, { id_produk: id_produk })
+        .done((e) => {
+          console.log(e);
+          $("#nama_produk").val(e.nama_produk);
+          var selectedTawar = '', selectedLaut = '';
+          if (e.kategori == "tawar") {
+            selectedTawar = 'checked';
+            console.log(selectedTawar);
+          }
+          if (e.kategori == "laut") {
+            selectedLaut = 'checked';
+          }
+          var p = '<p>' +
+            '<label>' +
+            '<input name="kategori" value="tawar" type="radio" ' + selectedTawar + ' disabled/>' +
+            '<span>Ikan Air Tawar</span>' +
+            '</label>' +
+            '</p>';
+          p += '<p>' +
+            '<label>' +
+            '<input name="kategori" value="laut" type="radio" ' + selectedLaut + ' disabled />' +
+            '<span>Ikan Air Laut</span>' +
+            '</label>' +
+            '</p>';
+          $("#kategori-title").after().html(p);
+          $("#image-ikan").attr('src', base_url + 'foto_usaha/produk/' + e.foto_produk);
+          $(".file-path").val(e.foto_produk);
+          // $("#harga").
+          $("#berat_produk").val(e.berat_produk);
+          $("#min_pemesanan").val(e.min_pemesanan);
+        });
+      // $.ajax({
+      //   url: API_DETAIL_PRODUK,
+      //   type: 'GET',
+      //   data: {id_produk: id_produk},
+      //   dataType: 'JSON',
+      //   async: false,
+      //   success: function(e){
+
+      //   }
+      // })
+    }
+
+    $("#update").click(function (e) {
+      e.preventDefault;
+      var nama_produk = $("#nama_produk"), berat_produk = $("#berat_produk"), min_pemesanan = $("#min_pemesanan");
+      const fields = [nama_produk, berat_produk, min_pemesanan];
+      function emptyFields(fields) {
+        let isEmpty;
+        for (let index = 0; index < fields.length; index++) {
+          fields[index].val().length === 0 ? isEmpty = true : isEmpty = false;
+          if (isEmpty == true) {
+            break;
+          }
+        }
+        return isEmpty;
+      };
+      console.log(emptyFields(fields));
+      if (emptyFields(fields)) { M.toast({ html: 'Gagal. Semua form harus diisi.' }); return false; }
+
+      var formData = new FormData($("form")[0]);
+      formData.append("nama_produk", nama_produk.val());
+      formData.append("berat_produk", berat_produk.val());
+      formData.append("id_produk", storage.id_produk);
+      formData.append("id_toko", storage.id_usaha);
+      formData.append("minOrder", min_pemesanan.val());
+      // formData.append('')
+      $.ajax({
+        url: base_url + 'Produk/prosesupdate_produk',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        type: 'POST',
+        dataType: 'json',
+        success: function (e) {
+          if (e.status == "berhasil") {
+            M.toast({ html: "Berhasil Ubah Produk <a href='#!'><i class='material-icons teal-text toast-action'>check_circle</i></a>" });
+            window.setTimeout(function () { window.location.replace("produk.html") }, 1200);
+            loadProduk();
+          }
+        }
+      })
+    });
+
+  </script>
+</body>
+</html>

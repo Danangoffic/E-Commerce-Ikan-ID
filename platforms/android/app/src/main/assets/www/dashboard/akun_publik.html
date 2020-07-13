@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Akun Saya</title>
+
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+
+  <style type="text/css">
+    .carousel {
+      height: 200px !important;
+    }
+
+    .card.small {
+      height: 170px;
+    }
+
+    #user-profile .user-section-negative-margin {
+      position: relative;
+      margin-top: -115px;
+    }
+
+    /* @media only screen and (max-device-width: 1024px) */
+    .user-profile {
+      margin-top: 1rem;
+    }
+
+    .page-footer {
+      padding-top: 0px !important;
+    }
+
+    .pt-5 {
+      padding-top: 5px !important;
+    }
+
+    .p0 {
+      padding: 0px auto !important;
+    }
+  </style>
+</head>
+
+<body onload="onLoad()" class="">
+  <header>
+    <!-- header -->
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+          <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+            style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+          <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Akun</b>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <main>
+    <div class="col s12">
+      <div class="container-fluid">
+        <div class="user-profile mt-1 ml-0 mr-0">
+          <img class="responsive-img" alt="" src="../img/user-back.jpg"
+            style="height: 150px !important; width: 100% !important">
+        </div>
+        <div class="section" id="user-profile">
+          <div class="col s12 m4 l3 user-section-negative-margin">
+            <div class="col s12 center-align">
+              <img class="responsive-img circle z-depth-5 fotoPj" width="80" src="../img/blank-picture.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12">
+        <ul class="collection with-header">
+          <li class="collection-item">
+            <!-- Modal Trigger -->
+            <a href="#login" class="btn blue waves-effect z-depth-0 modal-trigger" type="button"
+              style="width: 100%; text-transform: capitalize">LOGIN</a>
+            <!-- Modal Structure -->
+            <div id="login" class="modal">
+              <div class="" style="background: url('../assets/img/bg1.jpg')">
+                <center>
+                  <div class="login-wrapper wd-100p wd-xs-100p mg-15 pd-5 pd-xs-39 rounded shadow-base"
+                    style="background-color: rgba(255,255,255, 0.8)">
+                    <div class="row" style="display: inline-block; padding: 0px 20px 0px 20px;">
+                      <form action="#" class="col s12">
+                        <div class="section"></div>
+                        <h4 class="">Selamat Datang</h4>
+                        <h6 class="">Silahkan Login</h6>
+                        <!-- end .login_header -->
+                        <div class="row">
+                          <div class="input-field col s12" style="margin-top: 32px;">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input type="text" id="username" class="validate">
+                            <label class="" for="username">Username</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12" style="margin-top: -24px;">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" type="password" class="validate">
+                            <label class="" for="password">Password</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <center>
+                            <div class='col s12' style="margin-bottom: 20px;">
+                              <button class="col s12 btn waves-effect waves-light submit"
+                                style="background-image: linear-gradient(to left, #021B79, #0575E6);" type="button"
+                                id="btnsubmit">Masuk
+                                <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                            <div class='col s12' style="margin-bottom: 20px; margin-top: -10px">
+                              <a href="login_kurir.html" class="blue-text"><u>MASUK SEBAGAI KURIR</u></a>
+                            </div>
+                          </center>
+                        </div>
+                        <div class="row">
+                          <div class="col s12 center-align" style="margin-bottom: 20px;">
+                            <strong class="black-text">Belum punya akun?</strong>
+                          </div>
+                          <div class="col s12 center-align mg-b-5" style="margin-bottom: 10px;"><a
+                              href="../login/sign_up_penjual.html"
+                              class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai
+                              Penjual</a></div>
+                          <div class="col s12 center-align mg-b-15" style="margin-bottom: 10px;"><a
+                              href="../login/sign_up_pembeli.html"
+                              class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai
+                              Pembeli</a></div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </center>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="collection bantuan">
+        <a href="bantuan.html" class="collection-item waves-effect"><b>Bantuan<i
+              class="material-icons left">help_outline </i></b></a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer blue bottom-navbar">
+    <div class="center row" style="margin-bottom: 0px !important;">
+      <div class="col s3 pt-5"><a class="center blue white-text" href="index_publik.html"><span
+            class="material-icons">home</span><br>Home</a></div>
+      <div class="col s3 pt-5"><a class="center blue white-text" href="cari_publik.html"><span
+            class="material-icons">search</span><br>Cari</a></div>
+      <div class="col s3 pt-5"><a class="center blue white-text" style="" href="pesanan_publik.html"><span
+            class="material-icons">receipt</span><br>Pesanan</a></div>
+      <div class="col s3 pt-5 white"><a class="center" href="#"><span class="material-icons">person</span><br>Akun</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../cordova.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js">
+  </script>
+  <script type="text/javascript">
+    function onLoad() {
+      $('.modal').modal();
+      document.addEventListener("deviceready", onDeviceReady, false);
+      onDeviceReady();
+      $("#btnsubmit").click(kirim_data);
+      // $("form").submit(kirim_data);
+    }
+    function onDeviceReady() {
+      // $("#btn-submit").click(kirim_data);
+      // document.querySelector(".submit").addEventListener("click", kirim_data, true);
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+      // Add similar listeners for other events
+    }
+    function onPause() {
+      // Handle the pause event
+    }
+    function onResume() {
+      // Handle the resume event
+    }
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+    function kirim_data() {
+      event.preventDefault();
+      var username = $('#username').val();
+      var password = $('#password').val();
+
+      $.ajax({
+        url: base_url + 'user/proseslogin',
+        // data: 'username=' + username + '&password=' + password, 
+        data: { username: username, password: password },
+        type: 'POST',
+        dataType: 'json',
+        success: function (resp, status) {
+          console.log('muncul di console');
+          console.log(resp.status);
+          if (status == 'success') {
+            M.toast({ html: 'Anda berhasil masuk!' });
+            // alert('Anda berhasil masuk');
+            window.localStorage.setItem('sukses_login', '1');
+            window.localStorage.setItem('username', username);
+            window.localStorage.setItem('usergroup', resp.usergroup);
+            window.localStorage.setItem('id_akun', resp.id_akun);
+            window.localStorage.setItem('jenis_petani', resp.jenis_petani);
+            if (localStorage.usergroup == "penjual") {
+              localStorage.setItem("id_usaha", resp.data_usaha.id_usaha);
+              localStorage.setItem("data_usaha", JSON.stringify(resp.data_usaha));
+            }
+            var keranjang = JSON.stringify(Array());
+            window.localStorage.setItem('keranjang', JSON.parse(keranjang));
+            console.log(window.localStorage.getItem(usergroup));
+            console.log(window.localStorage.getItem(username));
+            setTimeout(redirectPage, 17);
+          } else {
+            M.toast({ html: 'Anda gagal masuk' });
+          }
+        }
+      });
+    }
+    function redirectPage() {
+      if (localStorage.usergroup == "penjual") {
+        window.location.href = "../penjual/index.html";
+      } else if (localStorage.usergroup == "pembeli") {
+        window.location.href = "../pembeli/index.html";
+      }
+    }
+  </script>
+</body>
+
+</html>

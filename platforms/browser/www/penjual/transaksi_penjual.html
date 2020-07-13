@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bracket">
+    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/bracket">
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+    <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+    <meta property="og:image:secure_url"
+          content="http://themepixels.me/bracket/img/bracket-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+    <meta name="theme-color" content="#5559db">
+
+    <title>Edit Profile Penjual - Ikan</title>
+
+    <!-- vendor css -->
+    <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+
+    <!-- Bracket CSS -->
+    <link rel="stylesheet" href="../assets/css/bracket.css">
+</head>
+
+<body>
+
+<!-- ########## START: LEFT PANEL ########## -->
+<div class="br-logo"><a href=""><span>[</span>Ikan<span>]</span></a></div>
+<div class="br-sideleft overflow-y-auto">
+    <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
+    <div class="br-sideleft-menu" id="NavUser">
+        <a href="../dashboard/index.html" class="br-menu-link">
+            <div class="br-menu-item">
+                <i class="fa fa-home"></i>
+                <span class="menu-item-label">Halaman Utama</span>
+            </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+
+    </div><!-- br-sideleft-menu -->
+    <br>
+</div><!-- br-sideleft -->
+<!-- ########## END: LEFT PANEL ########## -->
+
+
+<!--  -->
+<!-- ########## START: HEAD PANEL ########## -->
+<div class="br-header">
+    <div class="br-header-left">
+        <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i
+                class="icon ion-navicon-round"></i></a></div>
+        <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i
+                class="icon ion-navicon-round"></i></a></div>
+
+    </div>
+
+    <!-- ########### START: RIGHT PANEL ######## -->
+    <div class="br-header-right">
+
+    </div>
+</div><!-- br-header -->
+<!-- ########## END: HEAD PANEL ########## -->
+
+<!-- ########## START: MAIN PANEL ########## -->
+
+<div class="br-mainpanel br-profile-page">
+
+      <!-- card -->
+      <div class="ht-70 bg-gray-100 pd-x-20 d-flex align-items-center justify-content-center shadow-base">
+        <ul class="nav nav-outline active-info align-items-center flex-row" role="tablist">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#trans_new" role="tab" aria-expanded="true">Baru</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#trans_paid" role="tab" aria-expanded="false">Terbayar</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#trans_sent" role="tab" aria-expanded="false">Terkirim</a></li>
+        </ul>
+      </div>
+
+      <div class="tab-content br-profile-body">
+        <div class="tab-pane fade active show" id="trans_new" aria-expanded="true">
+          <div class="row mg-t-10 text-center">
+            <h6 class="col-12">Pesanan Belum Dibayar</h6>
+          </div>
+          <div class="row data-trans">
+            <div class="col-12 pd-x-0 mg-b-5">
+              <div class="media-list bg-white rounded shadow-base pd-0">
+                <div class="media pd-20 pd-xs-10">
+                  <img src="http://via.placeholder.com/100x100" alt="" class="wd-40 rounded-circle">
+                  <div class="media-body mg-l-20">
+                    <div class="d-flex justify-content-between mg-b-10">
+                      <div>
+                        <h6 class="mg-b-2 tx-inverse tx-14">{{trans_id_new}}}</h6>
+                        <span class="tx-12 tx-gray-500">{{trans_items_new}}</span>
+                      </div>
+                      <span class="tx-10 tx-orange">{{view_trans_new}}</span>
+                    </div>
+                    <p class="mg-b-20 tx-orange tx-12">{{trans_price_total_new}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- row -->
+        </div><!-- tab-pane -->
+
+        <div class="tab-pane fade" id="trans_paid" aria-expanded="true">
+          <div class="row mg-t-10 text-center">
+            <h6 class="col-12">Pesanan Perlu Dikirim</h6>
+          </div>
+          <div class="row data-trans-paid">
+            <div class="col-12 pd-x-0 mg-b-5">
+              <div class="media-list bg-white rounded shadow-base pd-0">
+                <div class="media pd-20 pd-xs-10">
+                  <img src="http://via.placeholder.com/100x100" alt="" class="wd-40 rounded-circle">
+                  <div class="media-body mg-l-20">
+                    <div class="d-flex justify-content-between mg-b-10">
+                      <div>
+                        <h6 class="mg-b-2 tx-inverse tx-14">{{trans_id_paid}}}</h6>
+                        <span class="tx-12 tx-gray-500">{{trans_items_paid}}</span>
+                      </div>
+                      <span class="tx-10 tx-orange">{{view_trans_paid}}</span>
+                    </div>
+                    <p class="mg-b-20 tx-orange tx-12">{{trans_price_total_paid}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="trans_sent" aria-expanded="true">
+          <div class="row mg-t-10 text-center">
+            <h6 class="col-12">Pesanan Sudah Terkirim</h6>
+          </div>
+          <div class="row data-trans-sent">
+            <div class="col-12 pd-x-0 mg-b-5">
+              <div class="media-list bg-white rounded shadow-base pd-0">
+                <div class="media pd-20 pd-xs-10">
+                  <img src="http://via.placeholder.com/100x100" alt="" class="wd-40 rounded-circle">
+                  <div class="media-body mg-l-20">
+                    <div class="d-flex justify-content-between mg-b-10">
+                      <div>
+                        <h6 class="mg-b-2 tx-inverse tx-14">{{trans_id_sent}}}</h6>
+                        <span class="tx-12 tx-gray-500">{{trans_items_sent}}</span>
+                      </div>
+                      <span class="tx-10 tx-orange">{{view_trans_sent}}</span>
+                    </div>
+                    <p class="mg-b-20 tx-orange tx-12">{{trans_price_total_sent}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+<!-- ########## END: MAIN PANEL ########## -->
+
+<!-- ########## END: MAIN PANEL ########## -->
+
+<script src="../assets/lib/jquery/jquery.js"></script>
+<script src="../assets/lib/popper.js/popper.js"></script>
+<script src="../assets/lib/bootstrap/bootstrap.js"></script>
+<script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../assets/lib/moment/moment.js"></script>
+<script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../assets/lib/peity/jquery.peity.js"></script>
+
+<script src="../assets/js/bracket.js"></script>
+<script type="text/javascript" src="../js/mobile_script.js"></script>
+<script type="text/javascript">
+        nav2 = "<div class=\"wd-110 transition\">"+
+            "<span class=\"\">"+
+            "<h5 class=\"mg-t-20 mg-l-10\">Transaksi</h5>"+
+            "</span>"+
+            "</div>";
+            $(".br-header-left").append(nav2);
+</script>
+<script type="text/javascript">
+  function get_trans_new(){
+    $.ajax({
+      url: base_url + 'penjual/data_transaksi',
+      type: 'post',
+      dataType: 'json',
+      data: {id_usaha:id_usaha, status:'Baru'},
+      success: function(e){
+        var html_trans_new = '';
+        $.each(e, function(key, val){
+          html_trans_new += '<div class="col-12 pd-x-0 mg-b-5" onclick="lihat_transaksi_baru('+val.id_pemesanan+')">'+
+              '<div class="media-list bg-white rounded shadow-base pd-0">'+
+                '<div class="media pd-20 pd-xs-0">'+
+                  '<div class="media-body mg-l-20">'+
+                    '<div class="d-flex justify-content-between mg-b-10">'+
+                      '<div>'+
+                        '<h6 class="mg-b-2 tx-inverse tx-14">'+val.id_pemesanan+'</h6>'+
+                        '<span class="tx-12 tx-gray-500">'+ambil_produk_transaksi(val.id_pemesanan)+'</span>'+
+                      '</div>'+
+                      '<span class="tx-10 tx-orange"><a href="#" onclick="lihat_transaksi_baru('+val.id_pemesanan+')">Lihat Detail</a></span>'+
+                    '</div>'+
+                    '<p class="mg-b-20 tx-orange tx-12">'+val.total_harga_transaksi+'</p>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>';
+        });
+      }
+    });
+  }
+
+  function get_trans_paid(){
+    $.ajax({
+      url: base_url + 'penjual/data_transaksi',
+      type: 'post',
+      dataType: 'json',
+      data: {id_usaha:id_usaha, status:'Terbayar'},
+      success: function(e){
+        var html_trans_new = '';
+        $.each(e, function(key, val){
+          html_trans_new += '<div class="col-12 pd-x-0 mg-b-5" onclick="lihat_transaksi_baru('+val.id_pemesanan+')">'+
+              '<div class="media-list bg-white rounded shadow-base pd-0">'+
+                '<div class="media pd-20 pd-xs-0">'+
+                  '<div class="media-body mg-l-20">'+
+                    '<div class="d-flex justify-content-between mg-b-10">'+
+                      '<div>'+
+                        '<h6 class="mg-b-2 tx-inverse tx-14">'+val.id_pemesanan+'</h6>'+
+                        '<span class="tx-12 tx-gray-500">'+ambil_produk_transaksi(val.id_pemesanan)+'</span>'+
+                      '</div>'+
+                      '<span class="tx-10 tx-orange"><a href="#" onclick="lihat_transaksi_baru('+val.id_pemesanan+')">Lihat Detail</a></span>'+
+                    '</div>'+
+                    '<p class="mg-b-20 tx-orange tx-12">'+val.total_harga_transaksi+'</p>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>';
+        });
+      }
+    });
+  }
+
+  function get_trans_sent(){
+    $.ajax({
+      url: base_url + 'penjual/data_transaksi',
+      type: 'post',
+      dataType: 'json',
+      data: {id_usaha:id_usaha, status:'Terkirim'},
+      success: function(e){
+        var html_trans_new = '';
+        $.each(e, function(key, val){
+          html_trans_new += '<div class="col-12 pd-x-0 mg-b-5" onclick="lihat_transaksi_baru('+val.id_pemesanan+')">'+
+              '<div class="media-list bg-white rounded shadow-base pd-0">'+
+                '<div class="media pd-20 pd-xs-0">'+
+                  '<div class="media-body mg-l-20">'+
+                    '<div class="d-flex justify-content-between mg-b-10">'+
+                      '<div>'+
+                        '<h6 class="mg-b-2 tx-inverse tx-14">'+val.id_pemesanan+'</h6>'+
+                        '<span class="tx-12 tx-gray-500">'+ambil_produk_transaksi(val.id_pemesanan)+'</span>'+
+                      '</div>'+
+                      '<span class="tx-10 tx-orange"><a href="#" onclick="lihat_transaksi_baru('+val.id_pemesanan+')">Lihat Detail</a></span>'+
+                    '</div>'+
+                    '<p class="mg-b-20 tx-orange tx-12">'+val.total_harga_transaksi+'</p>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</div>';
+        });
+      }
+    });
+  }
+
+  function ambil_produk_transaksi(id_pemesanan) {
+    var produk = '';
+    $.ajax({
+      url: base_url + 'produk/ambil_produk_transaksi',
+      type: 'post',
+      dataType: 'json',
+      data: {id_pemesanan:id_pemesanan},
+      success: function(e){
+        $.each(e, function(key, val){
+          produk += val.nama_produk + '<br>';
+        });
+      },
+      error: function(){
+        produk = 'Gagal Ambil Produk Transaksi';
+      }
+    });
+    return produk;
+  }
+
+  function lihat_transaksi_baru(id_pemesanan) {
+    window.localStorage.setItem('id_pemesanan', id_pemesanan);
+    window.location.href="detail_transaksi_baru.html";
+  }
+</script>
+</body>
+</html>

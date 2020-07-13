@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Detail Pesanan</title>
+
+  <!-- vendor css -->
+  <link href="../../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="profil.html" onclick="return onBackKeyDown()" class="transparent"
+                style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
+              <b class="header">&nbsp;Detail Pesanan</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="container-fluid">
+    <div class="row" style="margin-bottom: -10px">
+      <div class="col s12" style="padding: 0px">
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-item teal-text darken-1"><b>STATUS PEMESANAN<span
+                  class="secondary-content badge blue status-pemesanan white-text"
+                  style="font-size: 15px; border-radius: 8px;">PESANAN DITERIMA</span></b></li>
+          </ul>
+        </div>
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span
+                  class="secondary-content NoPesanan"></span></b></li>
+            <li class="collection-item"><b>Waktu Pemesanan :<span class="secondary-content WaktuPemesanan"></span></b>
+            </li>
+            <li class="collection-item"><b>Waktu Pembayaran :<span class="secondary-content WaktuPembayaran"></span></b>
+            </li>
+            <li class="collection-item"><b>Waktu Pengiriman :<span class="secondary-content WaktuPengiriman"></span></b>
+            </li>
+            <li class="collection-item"><b>Waktu Pesanan Selesai :<span
+                  class="secondary-content WaktuPesananSelesai"></span></b>
+          </ul>
+        </div>
+        <a class="collection-item" href="#!">
+          <h6 class="nama-toko">Nama Toko (Link Toko)</h6>
+        </a>
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-header" style="padding-left: 10px">
+              <h5>DAFTAR PRODUK</h5>
+            </li>
+            <li class="collection-item avatar collection-product">
+              <span class="title">Nama Produk</span>
+              <p>Harga Produk<br>
+              </p>
+              <span class="badge">Total Produk</span>
+            </li>
+            <b><a class="collection-item">Total Harga Produk :<span class="badge">Rp</span></a></b>
+          </ul>
+        </div>
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-header" style="padding-left: 10px">
+              <h5>DETAIL PENGIRIMAN</h5>
+            </li>
+            <li class="collection-item">Alamat Pengiriman :<span class="secondary-content alamat">Jl. Rw Bahagia No.
+                14</span></li>
+            <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman">Biasa</span>
+            </li>
+            <li class="collection-item">Tanggal Pengiriman yang Diajukan :<span
+                class="secondary-content tanggal-pengiriman">02/01/2020</span></li>
+            <li class="collection-item teal-text darken-1"><b>Total Biaya Pengiriman :<span
+                  class="secondary-content biaya-pengiriman">Rp</span>
+                <p class="total-berat" style="margin-top: -5px; margin-bottom: 0px">(xxx ons)</li></b>
+            </a>
+            <ul class="collection">
+              <li class="collection-item avatar kendaraan-kurir">
+                <span class="title nama_kurir">Nama Kurir</span>
+                <p class="jenis_kendaraan">Jenis Kendaraan<br></p>
+                <p class="plat_kendaraan">No. Plat<br>
+                </p>
+              </li>
+            </ul>
+          </ul>
+        </div>
+        <div class="card">
+          <ul class="collection">
+            <li class="collection-header" style="padding-left: 10px">
+              <h5>DETAIL PEMBAYARAN</h5>
+            </li>
+            <li class="collection-item">Metode Pembayaran :<span class="secondary-content tipe-pembayaran">Bayar Penuh
+                Transfer</span></li>
+            <li class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span>
+            </li>
+            <li class="collection-item">Total Biaya Pengiriman :<span
+                class="secondary-content biaya-pengiriman">Rp</span></li>
+            <li class="collection-item" style="margin-bottom: -5px"><b>Total Pembayaran :<span
+                  class="secondary-content total-pembayaran">Rp</span></b>
+              </a>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../../cordova.js"></script>
+  <script type="text/javascript" src="../../../js/mobile_script.js"></script>
+  <script type="text/javascript" src="detailpesanan.js"></script>
+  <script type="text/javascript">
+    $('.modal').modal();
+
+    $(document).ready(detail_pesanan);
+
+    function detail_pesanan() {
+      var DetailPesanan = storage.getItem("DetailPesanan");
+      DetailPesanan = JSON.parse(DetailPesanan);
+      var StatusPemesanan = storage.getItem("status");
+      var IDPESANAN = DetailPesanan.ID;
+      var TotalHargaAll = DetailPesanan.TotalHargaAll;
+      var MinTransfer = TotalHargaAll * (30 / 100);
+      var SisaTagihan = TotalHargaAll - MinTransfer;
+      var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
+      var AllPurchaseProduk = DetailPesanan.AllPurchaseProduk;
+      var waktuPemesanan = DetailPesanan.waktuPemesanan;
+      var tglPengiriman = DetailPesanan.tglPengiriman;
+      var TotalHargaProduk = DetailPesanan.TotalHargaProduk;
+      var DataUsaha = DetailPesanan.DataUsaha;
+      var DataPembeli = DetailPesanan.DataPembeli;
+      var Alamat = DataPembeli.alamat_pb + ', ' + DataPembeli.kel_pb + ', ' + DataPembeli.kec_pb + ', ' + DataPembeli.kab_pb;
+      var nama_usaha = DataUsaha.nama_usaha;
+      var IdUsaha = DataUsaha.id_usaha;
+      var JenisPengiriman = DetailPesanan.JenisPengiriman;
+      var TanggalPengiriman = DetailPesanan.tglPengiriman;
+      var TotalProdukPesanan = DetailPesanan.TotalProduk;
+      var TotalBeratProduk = DetailPesanan.TotalBeratProduk * 10 * TotalProdukPesanan;
+      console.log("TotalBeratProduk : " + TotalBeratProduk);
+      var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
+      var DataPembayaran = DetailPesanan.DataPembayaran;
+      var metode_pembayaran = DataPembayaran.metode_pembayaran;
+      // $(".status-pemesanan").attr("data-badge-caption", StatusPemesanan);
+      if (storage.StatusPemesanan == "Terkirim") {
+        $(".status-pemesanan").html("PESANAN DITERIMA");
+      }
+      $(".NoPesanan").html(IDPESANAN);
+      $(".WaktuPemesanan").html("<?=$DisplayWaktuPemesanan?>");
+      $(".WaktuPembayaran").html("<?=$DisplayWaktuPembayaran?>");
+      $(".WaktuPengiriman").html("<?=$DisplayWaktuPengiriman?>");
+      var HtmlProduk = '';
+      HtmlProduk += '<li class="collection-item"><h6 class="nama-toko">Nama Toko (Link Toko)</h6></li>' +
+        '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>'
+      $.each(AllPurchaseProduk, function (i, isi) {
+        var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
+        var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
+        var HargaProduk = isi.harga;
+        var TotalProduk = isi.jml_produk;
+        HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
+          '<span class="title">' + NamaProduk + '</span>' +
+          '<p>Rp ' + HargaProduk + '<br></p>' +
+          '<span class="secondary-content"><b>' + TotalProduk + '&times;</b></span></li>';
+      });
+      HtmlProduk += '<b><a class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></a></b>';
+      $(".collection-product").html(HtmlProduk);
+      $(".nama-toko").html("<a href='#!' onclick='GoToDetailUsaha(" + IdUsaha + ")'>" + nama_usaha + "</a>");
+      $(".alamat").html(Alamat);
+      $(".tipe-pengiriman").html(JenisPengiriman);
+      $(".tanggal-pengiriman-diajukan").html("<?=$DisplayWaktuPengirimanDiajukan;?>");
+      $(".total-berat").html(TotalBeratProduk + "&nbsp;Ons");
+      $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
+      $(".tipe-pembayaran").html(metode_pembayaran);
+      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
+      $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
+      $(".pembayaran1").html("Rp&nbsp;" + formatNumber(MinTransfer));
+      $(".pembayaran2").html("Rp&nbsp;" + formatNumber(SisaTagihan));
+    }
+
+    function formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+  </script>
+  <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+</body>
+
+</html>

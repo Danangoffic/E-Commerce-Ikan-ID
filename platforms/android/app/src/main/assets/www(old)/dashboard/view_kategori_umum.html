@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Daftar Produk Saya - Ikan</title>
+
+  <!-- vendor css -->
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../assets/lib/highlightjs/github.css" rel="stylesheet">
+  <link href="../assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+  <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet">
+
+  <!-- Bracket CSS -->
+  <link rel="stylesheet" href="../assets/css/bracket.css">
+
+</head>
+
+<body>
+
+  <!-- ########## START: LEFT PANEL ########## -->
+  <div class="br-logo"><a href="../dashboard/index.html"><span>[</span>Ikan<span>]</span></a></div>
+  <div class="br-sideleft overflow-y-auto">
+    <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
+    <div class="br-sideleft-menu" id="NavUser">
+      <a href="../dashboard/index.html" class="br-menu-link">
+        <div class="br-menu-item">
+          <i class="fa fa-home"></i>
+          <span class="menu-item-label">Halaman Utama</span>
+        </div><!-- menu-item -->
+      </a><!-- br-menu-link -->
+
+    </div><!-- br-sideleft-menu -->
+    <br>
+  </div><!-- br-sideleft -->
+  <!-- ########## END: LEFT PANEL ########## -->
+
+
+  <!--  -->
+  <!-- ########## START: HEAD PANEL ########## -->
+  <div class="br-header">
+    <div class="br-header-left">
+      <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>
+      <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a></div>
+      
+    </div>
+
+      <!-- ########### START: RIGHT PANEL ######## -->
+      <div class="br-header-right">
+        
+      </div>
+  </div><!-- br-header -->
+  <!-- ########## END: HEAD PANEL ########## -->
+
+    <!-- ########## START: MAIN PANEL ########## -->
+    <div class="br-mainpanel">
+      <!-- <div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">
+        <h4 class="tx-gray-800 mg-b-5">Data Produk</h4> -->
+        <!-- <p class="mg-b-0">DataTables is a plug-in for the jQuery Javascript library.</p> -->
+      <!-- </div> -->
+
+      <div class="br-pagebody">
+        <div class="br-section-wrapper pd-t-5">
+          <!-- <div class="row"><a href="input_produk.html" style="margin-bottom: 10px" class="btn btn-info m-l-10 btn-sm pull-right"><i class="fa fa-plus"></i> TAMBAH DATA PRODUK</a></div> -->
+
+            <div class="row mg-b-20" id="produk_kategori">
+              <div class="col-md">
+                <div class="pd-15" id="data_produk_kategori">
+                  
+                </div>
+              </div>
+            </div>
+          </div><!-- table-wrapper -->
+
+        </div><!-- br-section-wrapper -->
+      </div>
+    </div><!-- br-mainpanel -->
+
+    <!-- ########## END: MAIN PANEL ########## -->
+
+    <script src="../assets/lib/jquery/jquery.js"></script>
+    <script src="../assets/lib/popper.js/popper.js"></script>
+    <script src="../assets/lib/bootstrap/bootstrap.js"></script>
+    <script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="../assets/lib/moment/moment.js"></script>
+    <script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+    <script src="../assets/lib/peity/jquery.peity.js"></script>
+    <script src="../assets/lib/highlightjs/highlight.pack.js"></script>
+    <script src="../assets/lib/datatables/jquery.dataTables.js"></script>
+    <script src="../assets/lib/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="../assets/lib/select2/js/select2.min.js"></script>
+    <script src="../assets/js/bracket.js"></script>
+    <script type="text/javascript" src="../js/mobile_script.js"></script>
+
+    <script>
+      
+      var kategori = window.localStorage.getItem('viewID_kategori');
+      window.localStorage.removeItem('id_produk');
+      nav2 = "<div class=\"wd-110 transition\">"+
+              "<span class=\"\">"+
+                "<h5 class=\"mg-t-20 mg-l-10\">"+kategori.charAt(0).toUpperCase()+kategori.slice(1)+"</h5>"+
+              "</span>"+
+            "</div>";
+      $(".br-header-left").html('<div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>'+
+            '<div class="navicon-left hidden-lg-up"><a id="#" href="#" onclick="window.history.back();"><i class="fa fa-chevron-left"></i></a></div>');
+      $(".br-header-left").append(nav2);
+      $.ajax({
+        url: base_url + 'produk/ambil_produk_kategori',
+        type: 'post',
+        data: {kat:kategori},
+        dataType: 'JSON',
+        crossDomain: true,
+        success: function(e){
+          $.each(e, function(key, val){
+            var harga = '';
+            if(val.harga_produk!=null){
+              harga = 'Rp ' + val.harga_produk;
+            }
+            $("#data_produk_kategori").append('<div onclick="view_produk('+val.id_produk+', '+val.id_usaha+')" class="media align-items-center mg-b-15">'+
+                                '<img src="'+base_url+'foto_usaha/produk/'+val.foto_produk+'" class="wd-70 ht-70 rounded-20" alt="'+val.nama_produk+'">'+
+                                '<div class="media-body pd-l-10">'+
+                                    '<h6 class="mg-b-2 tx-inverse tx-18">'+val.nama_produk+'</h6>'+
+                                    '<span class="tx-13 tx-orange">'+val.minprice+' - '+val.maxprice+'</span>'+
+                                '</div>'+
+                            '</div>'+
+                            '<hr class="mg-t-10">');
+          });
+        },
+        error: function(e){
+          $("#produk_kategori").html('<div class="bd-l bd-3 bd-danger bg-gray-200 pd-x-20 pd-y-25">'+
+                                  '<h5 class="tx-danger">Data Gagal Dimuat!</h5>'+
+                                  '<p class="mg-b-0">Mohon Dimuat ulang atau koneksi anda mungkin lemot :(</p>'+
+                                  '</div>');
+        }
+      });
+function view_produk(id, id_usaha){
+  window.localStorage.setItem('id_produk', id);
+  window.localStorage.setItem('id_usaha', id_usaha);
+  window.location.href="../penjual/detail_usaha_by_pembeli.html";
+ }
+         
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+Folder PATH listing for volume D A T A
+Volume serial number is 60A2-FDAA
+D:.
+|   cordova.js
+|   cordova_plugins.js
+|   index.html
+|   tes_lokasi.html
+|   tr.txt
+|   tree.txt
+|   
++---cordova-js-src
+|   |   exec.js
+|   |   platform.js
+|   |   
+|   +---android
+|   |       nativeapiprovider.js
+|   |       promptbasednativeapi.js
+|   |       
+|   \---plugin
+|       \---android
+|               app.js
+|               
++---css
+|       index.css
+|       slider.css
+|       
++---dashboard
+|       debug.log
+|       index_pembeli.html
+|       index_penjual.html
+|       index_publik.html
+|       
++---icon
+|       exploreLogin.png
+|       femaleAva.png
+|       locationAccess.png
+|       maleAva.png
+|       orderSelesai.png
+|       paymentProcessed.png
+|       pesananBerhasil.png
+|       
++---img
+|       logo.png
+|       
++---js
+|       ajaxmobile.js
+|       imgSlider.js
+|       index.js
+|       jquery-1.8.3.min.js
+|       jquery.min.js
+|       mobile_script.js
+|       
++---kurir
+|       index.html
+|       
++---login
+|       debug.log
+|       index.html
+|       logout.html
+|       signup_penjual(old).html
+|       sign_up_pembeli.html
+|       sign_up_penjual.html
+|       
++---materialize-css
+|   |   CHANGELOG.md
+|   |   Gruntfile.js
+|   |   LICENSE
+|   |   package.json
+|   |   README.md
+|   |   
+|   +---dist
+|   |   +---css
+|   |   |       materialize.css
+|   |   |       materialize.min.css
+|   |   |       
+|   |   \---js
+|   |           materialize.js
+|   |           materialize.min.js
+|   |           
+|   +---extras
+|   |   \---noUiSlider
+|   |           nouislider.css
+|   |           nouislider.js
+|   |           nouislider.min.js
+|   |           
+|   +---js
+|   |       anime.min.js
+|   |       autocomplete.js
+|   |       buttons.js
+|   |       cards.js
+|   |       carousel.js
+|   |       cash.js
+|   |       characterCounter.js
+|   |       chips.js
+|   |       collapsible.js
+|   |       component.js
+|   |       datepicker.js
+|   |       dropdown.js
+|   |       forms.js
+|   |       global.js
+|   |       materialbox.js
+|   |       modal.js
+|   |       parallax.js
+|   |       pushpin.js
+|   |       range.js
+|   |       scrollspy.js
+|   |       select.js
+|   |       sidenav.js
+|   |       slider.js
+|   |       tabs.js
+|   |       tapTarget.js
+|   |       timepicker.js
+|   |       toasts.js
+|   |       tooltip.js
+|   |       waves.js
+|   |       
+|   \---sass
+|       |   materialize.scss
+|       |   
+|       \---components
+|           |   _badges.scss
+|           |   _buttons.scss
+|           |   _cards.scss
+|           |   _carousel.scss
+|           |   _chips.scss
+|           |   _collapsible.scss
+|           |   _color-classes.scss
+|           |   _color-variables.scss
+|           |   _datepicker.scss
+|           |   _dropdown.scss
+|           |   _global.scss
+|           |   _grid.scss
+|           |   _icons-material-design.scss
+|           |   _materialbox.scss
+|           |   _modal.scss
+|           |   _navbar.scss
+|           |   _normalize.scss
+|           |   _preloader.scss
+|           |   _pulse.scss
+|           |   _sidenav.scss
+|           |   _slider.scss
+|           |   _table_of_contents.scss
+|           |   _tabs.scss
+|           |   _tapTarget.scss
+|           |   _timepicker.scss
+|           |   _toast.scss
+|           |   _tooltip.scss
+|           |   _transitions.scss
+|           |   _typography.scss
+|           |   _variables.scss
+|           |   _waves.scss
+|           |   
+|           \---forms
+|                   _checkboxes.scss
+|                   _file-input.scss
+|                   _forms.scss
+|                   _input-fields.scss
+|                   _radio-buttons.scss
+|                   _range.scss
+|                   _select.scss
+|                   _switches.scss
+|                   
++---new
+|       detail-pesanan.html
+|       index.html
+|       pesanan-saya.html
+|       sign_up_pembeli2.html
+|       
++---pembeli
+|   |   pembayaran.html
+|   |   profil.html
+|   |   ubah_profil.html
+|   |   unggah-bukti.html
+|   |   
+|   \---pesanan-saya
+|           detail-pesanan-baru-dp-ambil.html
+|           detail-pesanan-baru-dp-kirim.html
+|           detail-pesanan-baru-full-transfer-ambil.html
+|           detail-pesanan-baru-full-transfer-kirim.html
+|           detail-pesanan-baru-full-tunai-ambil.html
+|           detail-pesanan-terbayar-dp-ambil.html
+|           detail-pesanan-terbayar-dp-kirim.html
+|           detail-pesanan-terbayar-full-transfer-ambil.html
+|           detail-pesanan-terbayar-full-transfer-kirim.html
+|           detail-pesanan-terbayar-full-tunai-ambil.html
+|           
++---penjual
+|   |   debug.log
+|   |   detail_usaha_by_pembeli.html
+|   |   edit_profile.html
+|   |   edit_tani.html
+|   |   index (2).html
+|   |   index.html
+|   |   profil.html
+|   |   tambah_rekening.html
+|   |   transaksi_penjual.html
+|   |   
+|   +---penjual-new
+|   |       index.html
+|   |       profil.html
+|   |       ubah_profil.html
+|   |       ubah_rekening.html
+|   |       ubah_tani.html
+|   |       
+|   +---produk
+|   \---transaksi
++---plugins
+|   +---cordova-plugin-badge
+|   |   \---www
+|   |           badge.js
+|   |           
+|   +---cordova-plugin-camera
+|   |   \---www
+|   |           Camera.js
+|   |           CameraConstants.js
+|   |           CameraPopoverHandle.js
+|   |           CameraPopoverOptions.js
+|   |           
+|   +---cordova-plugin-device
+|   |   \---www
+|   |           device.js
+|   |           
+|   +---cordova-plugin-dialogs
+|   |   \---www
+|   |       |   notification.js
+|   |       |   
+|   |       \---android
+|   |               notification.js
+|   |               
+|   +---cordova-plugin-file
+|   |   \---www
+|   |       |   DirectoryEntry.js
+|   |       |   DirectoryReader.js
+|   |       |   Entry.js
+|   |       |   File.js
+|   |       |   FileEntry.js
+|   |       |   FileError.js
+|   |       |   FileReader.js
+|   |       |   FileSystem.js
+|   |       |   fileSystemPaths.js
+|   |       |   fileSystems-roots.js
+|   |       |   fileSystems.js
+|   |       |   FileUploadOptions.js
+|   |       |   FileUploadResult.js
+|   |       |   FileWriter.js
+|   |       |   Flags.js
+|   |       |   LocalFileSystem.js
+|   |       |   Metadata.js
+|   |       |   ProgressEvent.js
+|   |       |   requestFileSystem.js
+|   |       |   resolveLocalFileSystemURI.js
+|   |       |   
+|   |       +---android
+|   |       |       FileSystem.js
+|   |       |       
+|   |       \---browser
+|   |               isChrome.js
+|   |               
+|   +---cordova-plugin-file-transfer
+|   |   \---www
+|   |           FileTransfer.js
+|   |           FileTransferError.js
+|   |           
+|   +---cordova-plugin-geolocation
+|   |   \---www
+|   |       |   PositionError.js
+|   |       |   
+|   |       \---android
+|   |               geolocation.js
+|   |               
+|   +---cordova-plugin-local-notification
+|   |   \---www
+|   |           local-notification-core.js
+|   |           local-notification-util.js
+|   |           local-notification.js
+|   |           
+|   +---cordova-plugin-network-information
+|   |   \---www
+|   |           Connection.js
+|   |           network.js
+|   |           
+|   \---cordova-plugin-statusbar
+|       \---www
+|               statusbar.js
+|               
++---produk
+|       debug.log
+|       detail_keranjang_saya_shop.html
+|       detail_pesanan_saya.html
+|       detail_produk_shop.html
+|       detail_variasi_shop.html
+|       edit_variasi.html
+|       index.html
+|       index2.html
+|       input_produk.html
+|       tambah_variasi.html
+|       update_produk.html
+|       view_kategori_umum.html
+|       
++---transaksi
+|       pembayaran.html
+|       transaksi.html
+|       upload-bukti.html
+|       upload_bukti_payment.html
+|       
+\---usaha
+        index.html
+        

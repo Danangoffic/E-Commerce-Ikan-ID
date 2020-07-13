@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Produk</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  
+
+  <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+  src="cordova.js"></script>
+
+  <style type="text/css">
+    .carousel{
+      height: 200px !important;
+    }
+    .card.small{
+      height: 170px;
+    }
+    #cariIkan::placeholder, #cariIkan { /* Firefox, Chrome, Opera */ 
+      /* background-color: #eeeeee; */
+      color: #757575;
+    }
+
+    .loader {
+      margin: 40%;
+      border: 8px solid #f3f3f3; /* Light grey */
+      border-top: 8px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <!-- header -->
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row"> -->
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent" style="margin-left: 14px; line-height: 52px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 14px; line-height: 52px">Produk Saya</b>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </nav>
+    <nav class="navbar white">
+      <div class="row nav-wrapper z-depth-0">
+        <form class="col s6" name="searchIkan" onsubmit="Searching($('#cariIkan').val())" action="#">
+          <div class="search-field">
+            <input onsubmit="Searching(this.value)" id="cariIkan" type="search" required name="cariIkan" placeholder="Cari produk" style="margin-left: 10px">
+          </div>
+        </form>
+        <div class="col s6" style="margin-top: 4px;">
+          <div class="input-field input-inline" style="margin-right: 10px">
+            <select id="filter-produk" onchange="filtering(this.value);" style="font-size: small">
+              <option value="terbaru">Terbaru</option>
+              <option value="harga_murah">Harga Termurah</option>
+              <option value="harga_mahal">Harga Termahal</option>
+              <option value="stok_sedikit">Stok Paling Sedikit</option>
+              <option value="terlaris">Terlaris</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>  
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+
+   <div class="col s12 grey lighten-3">
+    <div class="container-fluid">
+      
+      <div class="card">
+        <ul class="collection" id="dataProducts">
+          <div class="loader center-align"></div>
+        </ul>
+      </div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px">
+      <a class="btn-floating btn-large waves-effect waves-light blue right" href="tambah_produk.html"><i class="material-icons">add</i></a>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<!-- <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script> -->
+<!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+<!-- <script src="../assets/lib/bootstrap/bootstrap.js"></script> -->
+<script src="../../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../../assets/lib/moment/moment.js"></script>
+<script src="../../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../../assets/lib/peity/jquery.peity.js"></script>
+<!-- <script src="../assets/lib/codemirror/addon/scroll/simplescrollbars.js"></script> -->
+
+<!-- <script src="../assets/js/bracket.js"></script> -->
+<script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+<script type="text/javascript" src="../../js/mobile_script.js"></script>
+<script type="text/javascript" src="../../js/plugins/jquery-validation/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+var isFiltered = storage.getItem('filterProduk')!=null ? storage.getItem('filterProduk') : $("#filter-produk").val();
+var id_usaha;
+$.ajax({
+  url: base_url+"Penjual/ambil_data_profile",
+  type:'POST',
+  data:{id_akun:storage.id_akun},
+  dataType: 'json',
+  success: function(e){
+    id_usaha = e.id_usaha;
+  }
+})
+  function onLoad(){
+    localStorage.removeItem("id_produk");
+    filtering(isFiltered);
+  }
+  function onBackKeyDown() {
+    window.history.back();
+  }
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+  
+  function filtering(val) {
+    var filterBy = val;
+    var selected = $("#filter-produk").children("option");
+    console.log(selected);
+    for (let index = 0; index < selected.length; index++) {
+      const element = selected[index];
+      console.log(element);
+    }
+    $.ajax({
+      async: false,
+      url: base_url+'Produk/ambil_produk_penjual_by_id',
+      type: 'GET',
+      data: {filter:filterBy, id_usaha: storage.id_usaha},
+      dataType: 'JSON',
+      beforeSend: function(){
+        $("#dataProducts").html('<div class="loader center-align"></div>');
+      },
+      success: function(e){
+        console.log(e);
+        var product = '';
+        $.each(e, function(i, isi){
+          product += '<li class="collection-item avatar" onclick="viewProduct('+isi.id_produk+')">'+
+                '<img src="'+base_url+'foto_usaha/produk/'+isi.foto_produk+'" alt="" class="circle fotoProduk">'+
+                '<span class="title namaProduk">'+isi.nama_produk+'</span>'+
+                '<p class="hargaProduk orange-text">Rp&nbsp;'+formatNumber(isi.minprice)+'<br></p>'+
+                '<a class="secondary-content" href="#" onclick="viewProduct('+isi.id_produk+')"><i class="material-icons teal-text small">chevron_right</i></a>'+
+              '</li>';
+        });
+        $("#dataProducts").html(product);
+      },
+      error: function(e){
+        $("#dataProducts").html("<p class='valign-wrapper center-align'>LOAD DATA FAILED</p>");
+      }
+    });
+  }
+
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+  }
+
+  function Searching(toSearch){
+    if(toSearch!=null || toSearch!=""){
+      console.log("Searching");
+      $.ajax({
+        async: false,
+        url: base_url + 'Produk/cariProdukLike',
+        type: 'GET',
+        data: {produk: toSearch},
+        dataType: 'JSON',
+        beforeSend: function(){
+          $("#dataProducts").html('<div class="loader center-align"></div>');
+        },
+        success: function(e){
+          var product = '';
+          $.each(e, function(i, isi){
+            product += '<li class="collection-item avatar" onclick="viewProduct('+isi.id_produk+')">'+
+                  '<img src="'+base_url+'foto_usaha/produk/'+isi.foto_produk+'" alt="" class="circle fotoProduk">'+
+                  '<span class="title namaProduk">'+isi.nama_produk+'</span>'+
+                  '<p class="hargaProduk orange-text">Rp&nbsp;'+formatNumber(isi.minprice)+'<br></p>'+
+                  '<a class="secondary-content" href="#" onclick="viewProduct('+isi.id_produk+')"><i class="material-icons teal-text small">chevron_right</i></a>'+
+                '</li>';
+          });
+          $("#dataProducts").html(product);
+        },
+        error: function(e){
+          M.toast({html: 'Data Tidak Ditemukan'});
+        }
+      });
+    }
+  }
+
+  function viewProduct(id_produk){
+    storage.setItem('id_produk', id_produk);
+    window.location.href='detail_produk_shop.html';
+    // $.get('')
+  }
+</script>
+
+</body>
+</html>

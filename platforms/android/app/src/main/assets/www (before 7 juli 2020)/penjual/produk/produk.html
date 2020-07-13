@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Produk</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+    src="../../cordova.js"></script>
+
+  <style type="text/css">
+    .carousel {
+      height: 200px !important;
+    }
+
+    .card.small {
+      height: 170px;
+    }
+
+    #cariIkan::placeholder,
+    #cariIkan {
+      /* Firefox, Chrome, Opera */
+      /* background-color: #eeeeee; */
+      color: #757575;
+    }
+
+    .loader {
+      margin: 40%;
+      border: 8px solid #f3f3f3;
+      /* Light grey */
+      border-top: 8px solid #3498db;
+      /* Blue */
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <!-- header -->
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row"> -->
+          <div class="col s12 m10 offset-m1">
+            <a id="#" href="#" onclick="onBackKeyDown()" class="transparent"
+              style="margin-left: 14px; line-height: 52px"><span class="fa fa-chevron-left"></span></a>
+            <b class="header" style="font-size: large; margin-left: 14px; line-height: 52px">Produk Saya</b>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </nav>
+    <nav class="navbar white">
+      <div class="row nav-wrapper z-depth-0">
+        <form class="col s6" name="searchIkan" onsubmit="Searching($('#cariIkan').val())" action="#">
+          <div class="search-field">
+            <input onsubmit="Searching(this.value)" id="cariIkan" type="search" required name="cariIkan"
+              placeholder="Cari produk" style="margin-left: 10px">
+          </div>
+        </form>
+        <div class="col s6" style="margin-top: 4px;">
+          <div class="input-field input-inline" style="margin-right: 10px">
+            <select id="filter-produk" onchange="filtering(this.value);" style="font-size: small">
+              <option value="terbaru">Terbaru</option>
+              <option value="harga_murah">Harga Termurah</option>
+              <option value="harga_mahal">Harga Termahal</option>
+              <option value="stok_sedikit">Stok Paling Sedikit</option>
+              <option value="terlaris">Terlaris</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <div class="row">
+    <div class="col s12">
+      <div class="container-fluid">
+
+        <!-- <div class="card"> -->
+        <ul class="collection" id="dataProducts">
+          <div class="loader center-align"></div>
+        </ul>
+        <!-- </div> -->
+      </div>
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px">
+        <a class="btn-floating btn-large waves-effect waves-light blue right" href="tambah_produk.html"><i
+            class="material-icons">add</i></a>
+      </div>
+    </div>
+
+    <div class="col s12">
+      <div class="container-fluid">
+        <h4 class="header">Produk Tidak Akitf</h4>
+        <div class="card">
+          <ul id="produk-tidak-aktif" class="collection grey lighten-3">
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalDelete" class="modal">
+    <div class="modal-content">
+      <h4 id="title-modal-delete"></h4>
+      <p id="text-modal-delete"></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" href="#!" class="btn modal-close waves-effect waves-red btn-flat"
+        id="doHapus">Non Aktifkan</button>
+      <button type="button" href="#!" class="btn modal-close waves-effect waves-red green">Batal</button>
+    </div>
+  </div>
+
+  <div id="modalAktifkanProduk" class="modal">
+    <div class="modal-content">
+      <h4 id="title-modal-aktifkan"></h4>
+      <p id="text-modal-aktifkan"></p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" href="#!" class="btn modal-close waves-effect waves-light green"
+        id="doAktifkan">Aktifkan</button>
+      <button type="button" href="#!" class="btn modal-close waves-effect waves-red grey darken-1">Batal</button>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+
+  <script type="text/javascript">
+    var isFiltered = storage.getItem('filterProduk') != null ? storage.getItem('filterProduk') : $("#filter-produk").val();
+    var id_produk;
+    const URL_GET_PRODUK_FILTERED = base_url + "api/produk/filtered";
+    const URL_NONAKTIF_PRODUK = base_url + "api/produk/non-aktifkan";
+    const URL_AKTIFKAN_PRODUK = base_url + "api/produk/aktifkan";
+    const URL_SEARCH_PRODUK = base_url + "api/produk/search";
+    function onLoad() {
+      $(".modal").modal();
+      localStorage.removeItem("id_produk");
+      filtering(isFiltered);
+    }
+    function onBackKeyDown() {
+      location.replace("../akun.html");
+    }
+    $(document).ready(function () {
+      $('select').formSelect();
+      $("#doHapus").click(() => { doHapus(id_produk) });
+      $("#doAktifkan").click(() => { doAktifkan(id_produk) });
+      // document.getElementById("doHapus").addEventListener("click", doHapus(id_produk), false);
+    });
+
+    function filtering(val) {
+      var filterBy = val;
+      var selected = $("#filter-produk").children("option");
+      console.log(selected);
+      for (let index = 0; index < selected.length; index++) {
+        const element = selected[index];
+        console.log(element);
+      }
+      $.ajax({
+        async: false,
+        url: URL_GET_PRODUK_FILTERED,
+        type: 'GET',
+        data: { filter: filterBy, id_usaha: storage.id_usaha },
+        dataType: 'JSON',
+        beforeSend: function () {
+          $("#dataProducts").html('<div class="loader center-align"></div>');
+        },
+        success: function (e) {
+          console.log(e);
+          var product = '';
+          var product_non_aktif = '';
+          $.each(e, function (i, isi) {
+            var display_harga = (isi.minprice == 0) ? isi.maxprice : isi.minprice;
+            if (isi.status_p == "aktif") {
+              product += '<li class="collection-item avatar" id="PRODUK-' + isi.id_produk + '">' +
+                '<img src="' + base_url + 'foto_usaha/produk/' + isi.foto_produk + '" alt="" class="circle fotoProduk" onclick="viewProduct(' + isi.id_produk + ')">' +
+                '<span class="title namaProduk" id="product-name-' + isi.id_produk + '" onclick="viewProduct(' + isi.id_produk + ')">' + isi.nama_produk + '</span>' +
+                '<p class="hargaProduk orange-text" onclick="viewProduct(' + isi.id_produk + ')">Rp&nbsp;' + formatNumber(display_harga) + '<br></p>' +
+                '<a class="secondary-content" href="#" onclick="openModalDelete(' + isi.id_produk + ')"><i class="material-icons red-text small">cancel</i></a>' +
+                '</li>';
+            } else {
+              product_non_aktif += '<li class="collection-item avatar grey lighten-3" id="PRODUK-' + isi.id_produk + '">' +
+                '<img src="' + base_url + 'foto_usaha/produk/' + isi.foto_produk + '" alt="" class="circle fotoProduk" onclick="viewProduct(' + isi.id_produk + ')">' +
+                '<span class="title namaProduk" id="product-name-' + isi.id_produk + '" onclick="viewProduct(' + isi.id_produk + ')">' + isi.nama_produk + '</span>' +
+                '<p class="hargaProduk orange-text" onclick="viewProduct(' + isi.id_produk + ')">Rp&nbsp;' + formatNumber(display_harga) + '<br></p>' +
+                '<a class="secondary-content" href="#" onclick="openModalAktifkanProduk(' + isi.id_produk + ')"><i class="material-icons green-text small">check_circle</i></a>' +
+                '</li>';
+            }
+
+          });
+          if(product_non_aktif==''){
+            product_non_aktif = '<li class="collection-item grey lighten-3 center"><strong class="title">Kosong</strong></li>';
+          }
+          $("#dataProducts").html(product);
+          document.getElementById("produk-tidak-aktif").innerHTML = product_non_aktif;
+        },
+        error: function (e) {
+          $("#dataProducts").html("<p class='valign-wrapper center-align'>LOAD DATA FAILED</p>");
+        }
+      });
+    }
+
+    function openModalAktifkanProduk(id) {
+      id_produk = id;
+      const product_name = document.getElementById("product-name-" + id_produk).innerText;
+      document.getElementById("title-modal-aktifkan").innerText = "Aktifkan Produk";
+      document.getElementById("text-modal-aktifkan").innerHTML = "Apakah anda akan Mengaktifkan kembali produk <b class='green-text'>" + product_name + "</b> ?";
+      $("#modalAktifkanProduk").modal("open");
+    }
+
+    function openModalDelete(id) {
+      id_produk = id;
+      const product_name = document.getElementById("product-name-" + id_produk).innerText;
+      document.getElementById("title-modal-delete").innerText = "Non Aktifkan Produk";
+      document.getElementById("text-modal-delete").innerText = "Apakah anda akan Menonaktifkan produk " + product_name + " ?";
+      $("#modalDelete").modal("open");
+    }
+
+    function doHapus(id_produk) {
+      const formData = new FormData();
+      formData.append("produk", id_produk);
+      fetch(URL_NONAKTIF_PRODUK, {
+        method: "POST",
+        body: formData
+      })
+        .then(Response => Response.json())
+        .then(data => {
+          console.log(data);
+          if (data.status == "berhasil") {
+            document.getElementById("title-modal-delete").innerText = "";
+            document.getElementById("text-modal-delete").innerText = "";
+            document.getElementById("PRODUK-" + id_produk).remove();
+            $(".modalDelete").modal("close");
+            filtering(isFiltered);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      
+    }
+
+    function doAktifkan(id_produk) {
+      const formData = new FormData();
+      formData.append('id_produk', id_produk);
+      $.post(URL_AKTIFKAN_PRODUK, { id_produk: id_produk }, (e) => {
+        if (e.status == "berhasil") {
+          document.getElementById("title-modal-aktifkan").innerText = "";
+          document.getElementById("text-modal-aktifkan").innerText = "";
+          document.getElementById("PRODUK-" + id_produk).remove();
+          $(".modalAktifkanProduk").modal("close");
+          filtering(isFiltered);
+        }
+      })
+    }
+
+    function formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function Searching(toSearch) {
+      if (toSearch != null || toSearch != "") {
+        console.log("Searching");
+        $.ajax({
+          async: false,
+          url: URL_SEARCH_PRODUK,
+          type: 'GET',
+          data: { produk: toSearch },
+          dataType: 'JSON',
+          beforeSend: function () {
+            $("#dataProducts").html('<div class="loader center-align"></div>');
+          },
+          success: function (e) {
+            var product = '';
+            $.each(e, function (i, isi) {
+              product += '<li class="collection-item avatar" onclick="viewProduct(' + isi.id_produk + ')">' +
+                '<img src="' + base_url + 'foto_usaha/produk/' + isi.foto_produk + '" alt="" class="circle fotoProduk">' +
+                '<span class="title namaProduk">' + isi.nama_produk + '</span>' +
+                '<p class="hargaProduk orange-text">Rp&nbsp;' + formatNumber(isi.minprice) + '<br></p>' +
+                '<a class="secondary-content" href="#" onclick="viewProduct(' + isi.id_produk + ')"><i class="material-icons teal-text small">chevron_right</i></a>' +
+                '</li>';
+            });
+            $("#dataProducts").html(product);
+          },
+          error: function (e) {
+            M.toast({ html: 'Data Tidak Ditemukan' });
+          }
+        });
+      }
+    }
+
+    function viewProduct(id_produk) {
+      storage.setItem('id_produk', id_produk);
+      window.location.href = 'detail_produk_shop.html';
+      // $.get('')
+    }
+  </script>
+
+</body>
+
+</html>

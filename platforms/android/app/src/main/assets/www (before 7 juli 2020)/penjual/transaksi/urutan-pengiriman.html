@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Urutkan Pengiriman</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style type="text/css">
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row">   -->
+          <div class="left col s12" style="margin-left: 8px">
+            <a id="#" href="" class="transparent" style="margin: auto 10px;"><span
+                class="fa fa-chevron-left"></span></a>
+            <b class="header" style="font-size: large; margin-left: 14px; line-height: 64px">Urutan Pengiriman</b>
+          </div>
+        </div>
+      </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12 cyan lighten-4" style="margin-top: -4px; min-height: 200px;" id="pesanan-prioritas">
+          <p class="center black-text">PRIORITAS</p>
+
+        </div>
+        <div class="col s12" style="min-height: 200px; margin-bottom: 24px;" id="pesanan-normal">
+
+        </div>
+        <div class="bottom-navbar">
+          <div class="card-action white" style="margin: 8px">
+            <a class="waves-effect waves-light btn blue modal-trigger" href="#kurir" type="button"
+              style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Lanjut</a>
+          </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="kurir" class="modal">
+          <div class="modal-content" style="padding: 8px; text-align: center;">
+            <!-- <h6>Pilih Kurir dan Kendaraan :</h6> -->
+            <form action="#">
+              <div class="row">
+                <div class="col s12 m6 l3">
+                  <p class="flow-text" id="pilih-kurir" style="text-align: left;">Pilih Kurir :</p>
+                  <!-- HTML OPTION KURIR -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 m6 l3">
+                  <p class="flow-text" id="pilih-kendaraan" style="text-align: left;">Pilih Kendaraan :</p>
+                  <!-- HTML OPTION KENDARAAN -->
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 m6 l3">
+                  <p class="flow-text" id="pilih-jam-pengiriman" style="text-align: left;">Pilih Jam Pengiriman :</p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="card-action white" style="margin: 0px">
+              <button type="button" id="lanjutkan-pengiriman" class="waves-effect waves-light btn blue" style="width: 100%; font-size: small">Lanjutkan Pengiriman</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+  <script type="text/javascript">
+    $('.modal').modal();
+    $(document).ready(onDeviceReady);
+    function onLoad() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      loadPesananPriority();
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+      document.addEventListener("backbutton", onBackKeyDown, false);
+      document.getElementById("lanjutkan-pengiriman").addEventListener("click", lanjut_pengiriman, false);
+      // Add similar listeners for other events
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+
+    function onBackKeyDown() {
+      // Handle the back button
+    }
+
+    function lanjut_pengiriman() {
+      var form = $("form").serializeArray();
+      form[3] = {name:"priority_pesanan", value: localStorage.priority};
+      console.log(form);
+      $.post(base_url + "Pemesanan/procced_order_to_delivery", form).then(onSuccessPengiriman);
+    }
+
+    function onSuccessPengiriman(response, status) {
+      console.log(response);
+      console.log(status);
+    }
+
+    function loadPesananPriority() {
+      var priority = JSON.parse(localStorage.priority);
+      $.getJSON(API_PESANAN_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananPriority).done(loadPesananNonPriority);
+    }
+
+    function onSuccessLoadPesananPriority(response, status) {
+      if (response.statusMessage == "success" && status == "success") {
+        var data_pesanan = response.data_pesanan;
+        var html_priority = '<p class="center black-text">PRIORITAS</p>';
+        $.each(data_pesanan, (k, v) => {
+          var detail_pembeli = v.detail_pembeli;
+          html_priority += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
+        });
+        if (html_priority == '') {
+          empty_priority();
+        } else {
+          document.getElementById("pesanan-prioritas").innerHTML = html_priority;
+        }
+      }
+    }
+
+    function empty_priority() {
+      var html_priority = '<p class="center black-text">PRIORITAS</p>';
+      html_priority += '<div class="card"><ul class="collection"><li class="collection-item"><span class="title" id="prioritas-kosong">Prioritas Kosong<span></li></ul></div>';
+      document.getElementById("pesanan-prioritas").innerHTML = html_priority;
+    }
+
+    function loadPesananNonPriority() {
+      var priority = JSON.parse(localStorage.priority);
+      $.getJSON(API_PRODUK_NON_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananNonPriority).done(loadKurir);
+    }
+
+    function onSuccessLoadPesananNonPriority(response, status) {
+      console.log(response);
+      if (response.statusMessage == "success" && status == "success") {
+        var data_pesanan = response.data_pesanan;
+        console.log(data_pesanan);
+        var html_normal = '';
+        $.each(data_pesanan, (k, v) => {
+          var detail_pembeli = v.detail_pembeli;
+          html_normal += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
+        });
+        if (html_normal == '') {
+          empty_pesanan();
+        } else {
+          document.getElementById("pesanan-normal").innerHTML = html_normal;
+        }
+      }
+    }
+
+    function empty_pesanan() {
+      var html_normal = '';
+      html_normal += '<div class="card"><ul class="collection"><li class="collection-item"><span class="title" id="prioritas-kosong">Prioritas Kosong<span></li></ul></div>';
+      document.getElementById("pesanan-prioritas").innerHTML = html_normal;
+    }
+
+    function loadKurir() {
+      $.getJSON(API_KURIR, { id_usaha: localStorage.id_usaha }).then(onSuccessLoadKurir).done(loadKendaraan);
+    }
+
+    function onSuccessLoadKurir(response, status) {
+      if (status == "success") {
+        var html_kurir = '';
+        var data_kurir = response.data;
+        $.each(data_kurir, (k, v) => {
+          html_kurir += '<p style="text-align: left;">' +
+            '<label class="btn white black-text" for="kurir-' + v.id_kurir + '" style="width: 100%; text-align: left;">' +
+            '<input type="radio" id="kurir-' + v.id_kurir + '" name="kurir" value="' + v.id_kurir + '" />' +
+            '<span>' + v.nama_kurir + '</span>' +
+            '</label>' +
+            '</p>';
+        });
+        if (html_kurir == '') {
+          empty_kurir();
+        } else {
+          $("#pilih-kurir").append(html_kurir);
+        }
+      }
+    }
+
+    function empty_kurir(params) {
+
+    }
+
+    function loadKendaraan() {
+      $.getJSON(API_KENDARAAN_PENJUAL, { id_usaha: localStorage.id_usaha }).then(onSuccessLoadKendaraan).done(loadJamPengiriman);
+    }
+
+    function onSuccessLoadKendaraan(response, status) {
+      if (status == "success") {
+        var html_kendaraan = '';
+        var data_kendaraan = response.data_kendaraan;
+        $.each(data_kendaraan, (k, v) => {
+          html_kendaraan += '<p style="text-align: left;">' +
+            '<label class="btn white black-text" for="kendaraan-'+v.id_kendaraan+'" style="width: 100%; text-align: left;">' +
+            '<input type="radio" id="kendaraan-'+v.id_kendaraan+'" name="kendaraan" value="'+v.id_kendaraan+'" />' +
+            '<span>'+v.jenis_kendaraan+' ('+v.plat_kendaraan+')</span>' +
+            '</label>' +
+            '</p>';
+        });
+        if(html_kendaraan==''){
+
+        }else{
+          $("#pilih-kendaraan").append(html_kendaraan);
+        }
+      }
+    }
+
+    function loadJamPengiriman(params) {
+      $.getJSON(API_JAM_PENGIRIMAN, {id_usaha: localStorage.id_usaha}).then(onSuccessLoadJamPengirman);
+    }
+
+    function onSuccessLoadJamPengirman(response, status) {
+      if(status=="success"){
+        var html_jam = '';
+        var jam_pengiriman = response;
+        console.log(jam_pengiriman);
+        $.each(jam_pengiriman, (k, v)=>{
+          html_jam += '<p style="text-align: left;">'+
+                    '<label class="btn white black-text" for="jam-pengiriman-'+v.id_jampengiriman+'" style="width: 100%; text-align: left;">'+
+                      '<input type="radio" id="jam-pengiriman-'+v.id_jampengiriman+'" name="jam_pengiriman" value="'+v.id_jampengiriman+'" />'+
+                      '<span>'+v.jam_pengiriman+'</span>'+
+                    '</label>'+
+                  '</p>';
+        });
+        console.log(html_jam);
+        if(html_jam==''){
+
+        }else{
+          $("#pilih-jam-pengiriman").append(html_jam);
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

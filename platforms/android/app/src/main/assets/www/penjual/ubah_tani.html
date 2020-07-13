@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Kelompok Tani</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Ubah Tani</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="col s12">
+    <div class="container-fluid">
+      <form name="kelompok-tani" method="POST">
+        <div class="card" style="margin-top: -10px">
+          <div class="card-content" style="margin: 10px">
+            <p class="flow-text" style="margin-bottom: 10px; font-size: large;">Jenis Petani :</p>
+            <p>
+              <label>
+                <input name="jenis_petani" type="radio" value="Tawar" disabled />
+                <span>Air Tawar</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="jenis_petani" type="radio" value="Laut" disabled />
+                <span>Air Laut</span>
+              </label>
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content" style="margin: 10px">
+            <p class="flow-text" style="margin-bottom: 10px; font-size: large">Pilih Kelompok Tani :</p>
+            <div id="checkboxes-tani"></div>
+          </div>
+        </div>
+      </form>
+      <div class="bottom-navbar">
+        <div class="card-action white" style="margin: 8px">
+          <button class="waves-effect waves-light btn blue" id="simpan" type="button"
+            style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../cordova.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+  <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+
+  <script>
+    function onLoad() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+      loadData();
+      $("#simpan").click(simpan);
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+    function onBackKeyDown() {
+      window.history.back();
+    }
+
+    function simpan() {
+      // var kel_tani = $("[name=tani]:checkbox:checked").val();
+      var formData = new FormData($("form")[0]);
+      formData.append("id_akun", storage.id_akun);
+      $.ajax({
+        url: base_url + "Penjual/simpan_kel_tani",
+        data: $("form").serialize(),
+        type: 'POST',
+        dataType: 'json',
+        success: function (resp) {
+          if (resp.status == 'berhasil') {
+            // alert('Selamat, Anda Berhasil Mendaftar');
+            storage.setItem("dataProfile", JSON.stringify(formData));
+            M.toast({ html: "Berhasil Ubah Kelompok Tani" });
+            setTimeout(function () { window.location.assign('akun.html#penjual') }, 1000);
+          } else {
+            // alert('Data gagal disimpan');
+            M.toast({ html: "Gagal Ubah Kelompok Tani" });
+          }
+        }
+      })
+    }
+
+    function loadData() {
+      var id_akun = storage.id_akun;
+      $.getJSON(API_KELOMPOK_TANI, { id_akun: id_akun },
+        (e) => {
+          if (e.status == "success") {
+            var data = e.data;
+            var html = "";
+            $.each(data, function (i, isi) {
+              html += '<p>';
+              html += '<label>';
+              html += '<input class="indeterminate-checkbox" type="checkbox" name="kel_tani[]" value="' + isi.id + '" ' + isi.check + '/>';
+              html += '<span>' + isi.label + '</span>';
+              html += '</label>';
+              html += '</p>';
+            });
+            $("#checkboxes-tani").html(html);
+            $("#checkboxes-tani").before("<input type='hidden' name='id_akun'>");
+            $("[name=id_akun]").val(id_akun);
+          }
+        }).done(()=>{
+          $.getJSON(API_DETAIL_PENJUAL, {id_akun:id_akun}, 
+          (e)=>{
+            $("[name=jenis_petani][value=" + e.jenis_petani + "]:radio").prop("checked", true);
+          });
+        })
+      // $.ajax({
+      //   url: API_KELOMPOK_TANI,
+      //   type: "POST",
+      //   data: { id_akun: id_akun },
+      //   dataType: "JSON",
+      //   success: function (e) {
+
+
+      //   }
+      // });
+      // $.ajax({
+      //   url: API_DETAIL_PENJUAL,
+      //   type: "POST",
+      //   data: { id_akun: id_akun },
+      //   success: function (e) {
+      //     $("[name=jenis_petani][value=" + e.jenis_petani + "]:radio").prop("checked", true);
+      //   }
+      // })
+    }
+  </script>
+</body>
+
+</html>

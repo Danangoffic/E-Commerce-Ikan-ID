@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Usaha Saya</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js" src="cordova.js">
+  </script>
+
+  <style type="text/css">
+    .input-field div.error {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color: #FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+
+    .input-field label.active {
+      width: 100%;
+    }
+
+    #map {
+      width: auto !important;
+      height: 300px !important;
+      display: block;
+    }
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Ubah Usaha</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="col s12 grey lighten-3">
+    <div class="container-fluid">
+      <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate"
+        data-parsley-validate>
+        <input type="hidden" name="id">
+        <div class="card z-depth-0" style="margin-top: 0px">
+          <div class="card-content" style="padding-bottom: 10px; margin: 10px">
+            <div class="col s12">
+              <div class="input-field">
+                <input placeholder="Nama Usaha" id="nama_usaha" name="nama_usaha" type="text" class="validate">
+                <label for="nama_usaha">Nama Usaha</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <img src="" alt="image_usaha" id="image-usaha" class="responsive-img z-depth-0">
+              </div>
+              <div class="file-field input-field col s12">
+                <div class="btn btn-small green">
+                  <span>Foto usaha</span>
+                  <input placeholder="Foto Usaha" type="file" id="foto_usaha" name="foto_usaha">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path" type="text">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card z-depth-0">
+          <div class="card-content" style="padding-bottom: 10px; margin: 10px">
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix small icon-demo">access_time</i>
+                <input placeholder="Jam Buka" id="jamBuka" name="jamBuka" type="text" class="timepicker validate">
+                <label for="jamBuka">Jam Buka</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="material-icons prefix small icon-demo">access_time</i>
+                <input placeholder="Jam Tutup" id="jamTutup" name="jamTutup" type="text" class="timepicker validate">
+                <label for="jamTutup">Jam Tutup</label>
+              </div>
+            </div>
+            <div class="row" id="petani-tawar">
+              <div class="input-field col s12">
+                <input placeholder="Jumlah Kolam" id="jml_kolam" name="jml_kolam" type="text" class="validate">
+                <label for="jml_kolam">Jumlah Kolam</label>
+              </div>
+            </div>
+            <!-- <div class="row" id="patani-laut">
+              <div class="input-field col s6">
+                <input placeholder="Jumlah Kapal" id="jml_kapal" name="jml_kapal" type="number" class="validate">
+                <label for="jml_kapal">Jumlah Kapal</label>
+              </div>
+              <div class="input-field col s6">
+                <input placeholder="Kapasitas Kapal" id="kapasitas_kapal" name="kapasitas_kapal" type="number"
+                  class="validate">
+                <label for="kapasitas_kapal">Kapasitas Kapal</label>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="card z-depth-0" style="margin-bottom: 16px">
+          <div class="card-content" style="margin: 10px">
+            <div class="col s12">
+              <div class="input-field">
+                <textarea placeholder="Alamat Lengkap" id="alamat_usaha" name="alamat_usaha" type="text"
+                  class="materialize-textarea validate"></textarea>
+                <label for="alamat_usaha">Alamat Lengkap</label>
+              </div>
+            </div>
+            <div class="col s12">
+              <div class="input-field">
+                <input placeholder="Kota/Kabupaten" id="kab_pb" name="kab_usaha" type="text" class="validate">
+                <label for="kab">Kota/Kabupaten</label>
+              </div>
+            </div>
+            <div class="col s12">
+              <div class="input-field">
+                <input placeholder="Kecamatan" id="kec_pb" name="kec_usaha" type="text" class="validate">
+                <label for="kec">Kecamatan</label>
+              </div>
+            </div>
+            <div class="col s12">
+              <div class="input-field">
+                <input placeholder="Kelurahan" id="kel_pb" name="kel_usaha" type="text" class="validate">
+                <label for="kel">Kelurahan</label>
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 36px">
+              <p class="flow-text" style="font-size: large;">Lokasi Usaha di Peta : </p>
+              <input type="hidden" name="latitude">
+              <input type="hidden" name="longitude">
+            </div>
+            <div class="col s12" id="map">
+            </div>
+            <div class="col s12">
+              <p class="flow-text red-text" style="font-size: medium">Note:</p>
+            </div>
+            <div class="row">
+              <div class="col s6 right">
+                <button class="btn btn-small waves-effect waves-light green-grey" href=""
+                  style="margin-top:10px; width:100%" type="button" onclick="first()">Lokasi Saat
+                  Ini</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="bottom-navbar">
+    <div class="card-action white" style="margin: 8px">
+      <button class="waves-effect waves-light btn blue" type="button"
+        style="width: 100%; height: 40px; line-height: 44px; font-size: medium" onclick="simpan()">Simpan</button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <!-- <script type="text/javascript" src="../cordova.js"></script> -->
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+  <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+  </script>
+
+  <script>
+    var firstLt, firstLg;
+    const URL_GET_DETAIL_USAHA = base_url + "api/user/penjual/usaha/detail";
+    const URL_GET_DETAIL_PENJUAL = base_url + "api/user/penjual/detail";
+    var jenis_petani = '';
+    var latitude, longitude;
+    // var lat, lng;
+    $(document).ready(onDeviceReady);
+    function onBackKeyDown() {
+      window.location.assign("akun.html");
+    }
+    function onLoad() {
+      $("#jamBuka").timepicker({
+        defaultTime: '06:00',
+        twelveHour: false
+      });
+      $("#jamTutup").timepicker({
+        defaultTime: '16:00',
+        twelveHour: false
+      });
+      load_penjual();
+      // loadUsaha();
+      document.addEventListener("deviceready", onDeviceReady, false);
+
+    }
+
+    function load_penjual() {
+      const id_akun = localStorage.id_akun;
+      if (id_akun == null || id_akun == "") {
+        window.location.assign("../dashboard/index_publik.html");
+      }
+      $.get(URL_GET_DETAIL_PENJUAL, { id_akun: id_akun }, (response) => {
+        jenis_petani = response.jenis_petani;
+      }
+      ).done(() => { loadUsaha(); });
+    }
+
+    function loadUsaha() {
+      var id_usaha = storage.id_usaha;
+      if (id_usaha == null || id_usaha == "") {
+        window.location.assign("../dashboard/index_publik.html");
+      }
+      $.get(API_DETAIL_USAHA, { id_usaha: id_usaha }, (e) => {
+        var jamBuka = e.jamBuka;
+        var jamTutup = e.jamTutup;
+        $("[name=nama_usaha]").val(e.nama_usaha);
+        $("[name=jamBuka]").val(jamBuka.substring(0, 5));
+        $("[name=jamTutup]").val(jamTutup.substring(0, 5));
+        $("[name=jml_kolam]").val(e.jml_kolam);
+        $("[name=alamat_usaha]").val(e.alamat_usaha);
+        $("[name=kab_usaha]").val(e.kab);
+        $("[name=kec_usaha]").val(e.kec);
+        $("[name=kel_usaha]").val(e.kel);
+        $("[name=latitude]").val(e.latitude);
+        $("[name=longitude]").val(e.longitude);
+        $("[name=id]").val(e.id_usaha);
+        $("[name=jml_kapal]").val(e.jml_kapal);
+        $("[name=kapasitas_kapal]").val(e.kapasitas_kapal);
+        $("#image-usaha").attr('src', base_url + 'foto_usaha/' + e.foto_usaha);
+        $(".file-path").val(e.foto_usaha);
+        initMap(e.latitude, e.longitude);
+      });
+      // $.ajax({
+      //   url: URL_GET_DETAIL_USAHA,
+      //   type: "GET",
+      //   data: { id_usaha: id_usaha },
+      //   success: function (e) {
+
+
+      //   },
+      //   complete: first
+      // })
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+
+      // Add similar listeners for other events
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+
+
+    function first() {
+      if (jenis_petani == "Laut") {
+        $("#petani-tawar").toggle();
+      } else if (jenis_petani == "Tawar") {
+        $("#petani-laut").toggle();
+      }
+      var onSuccess = function (position) {
+        var element = document.getElementById('map');
+        var marker;
+        var posisilat;
+        var posisilng;
+        firstLt = position.coords.latitude;
+        firstLg = position.coords.longitude;
+        console.log("latitude: " + firstLt);
+        console.log("longitude: " + firstLg);
+        initMap(firstLt, firstLg);
+      };
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    function getCurrentLocation() {
+      var success = function (position) {
+        var element = document.getElementById("map");
+        var marker;
+        var posisilat, posisilng;
+        posisilat = position.coords.latitude;
+        posisilng = position.coords.longitude;
+        initMap(posisilat, posisilng);
+      };
+      navigator.geolocation.getCurrentPosition(success, error);
+      var error = function (error) {
+        var x = document.getElementById("map");
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            x.innerHTML = "Anda belum menmberi akses lokasi"
+            break;
+          case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Informasi lokasi tidak ada."
+            break;
+          case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+          case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+        }
+      }
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      alert('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+    }
+
+    function taruhMarker(peta, posisiTitik) {
+      if (marker) {
+        // pindahkan marker
+        marker.setPosition(posisiTitik);
+      } else {
+        // buat marker baru
+        marker = new google.maps.Marker({
+          position: posisiTitik,
+          map: peta
+        });
+      }
+      posisilat = posisiTitik.lat();
+      posisilng = posisiTitik.lng();
+      console.log("Posisi marker: " + posisilat + "," + posisilng);
+      $("body").find("input[name='latitude']").val(posisilat);
+      $("body").find("input[name='longitude']").val(posisilng);
+    }
+    function initMap(lat, lng) {
+      $("body").find("input[name='latitude']").val(lat);
+      $("body").find("input[name='longitude']").val(lng);
+      var propertiPeta = {
+        center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+        zoom: 14, //semakin banyak semakin dekat min 1 maksimal
+        mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+      };
+      var point = new google.maps.LatLng(lat, lng);
+      var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+      marker = new google.maps.Marker({
+        position: point,
+        map: peta
+        //icon
+      });
+      google.maps.event.addListener(peta, 'click', function (event) {
+        taruhMarker(this, event.latLng);
+      });
+    }
+
+    function simpan() {
+      var nama_usaha = $("[name=nama_usaha]").val();
+      var jamBuka = $("[name=jamBuka]").val();
+      var jamTutup = $("[name=jamTutup]").val();
+      var jml_kolam = $("[name=jml_kolam]").val();
+      var alamat_usaha = $("[name=alamat_usaha]").val();
+      var kab = $("[name=kab_usaha]").val();
+      var kec = $("[name=kec_usaha]").val();
+      var kel = $("[name=kel_usaha]").val();
+      var latitudeForm = parseFloat($("[name=latitude]").val());
+      var longitudeForm = parseFloat($("[name=longitude]").val());
+      var formData = new FormData($("form")[0]);
+      formData.append('id_usaha', localStorage.id_usaha);
+      formData.append("id_akun", localStorage.id_akun);
+      // formData.append("nama_usaha", nama_usaha);
+      // formData.append("jamBuka", jamBuka);
+      // formData.append("jamTutup", jamTutup);
+      // formData.append("jml_kolam", jml_kolam);
+      // formData.append("alamat_usaha", alamat_usaha);
+      // formData.append("kab", kab);
+      // formData.append("kec", kec);
+      // formData.append("kel", kel);
+      // formData.append("latitude", latitudeForm);
+      // formData.append("longitude", longitudeForm);
+
+      $.ajax({
+        // base_url+'proses_mobile/penjual/prosessignuppenjual.php',
+        url: API_UPDATE_USAHA,
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        type: 'POST',
+        dataType: 'json',
+        success: function (resp) {
+          if (resp.status == 'success') {
+            // alert('Berhasil Ubah Usaha Anda');
+            // M.toast({ html: "Berhasil Ubah Produk <a href='#!'><i class='material-icons teal-text toast-action'>check_circle</i></a>" });
+            // window.setTimeout(function () { window.location.replace("produk.html") }, 1200);
+            // loadProduk();
+            M.toast({ html: "Berhasil Ubah Usaha <a href='#!'><i class='material-icons teal-text toast-action'>check_circle</i></a>" });
+            // window.setTimeout(function () { window.location.replace("../akun.html") }, 1200);
+            setTimeout(function () { load_penjual(); }, 1500);
+          } else {
+            alert('Data gagal disimpan');
+            M.toast({ html: resp.message });
+          }
+        }
+      });
+    }
+  </script>
+
+
+</body>
+
+</html>

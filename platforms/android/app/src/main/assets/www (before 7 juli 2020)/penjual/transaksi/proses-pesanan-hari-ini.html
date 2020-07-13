@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Pesanan Hari Ini</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style type="text/css">
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row">   -->
+          <div class="left col s12" style="margin-left: 8px">
+            <a id="#" href="#!" onclick="onBackKeyDown()" class="transparent" style="margin: auto 10px;"><span
+                class="fa fa-chevron-left"></span></a>
+            <b class="header" style="font-size: large; margin-left: 14px; line-height: 64px">Pesanan Hari Ini</b>
+          </div>
+        </div>
+      </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12">
+          <div class="card cyan lighten-4">
+            <div class="card-content center">
+              <p id="dateNow"><b>(30 April 2020)</b></p><br>
+              <p>Pilih Pesanan yang akan <b>Diprioritaskan</b></p>
+              <p>(Dikirim lebih awal)</p>
+            </div>
+          </div>
+          <form action="#">
+            <div id="fast-priority">
+
+            </div>
+            <p class="red-text" style="margin-bottom: 0px; position: relative; text-align: justify; margin: 8px;">*Jika
+              tidak ada Pesanan yang <b>Diprioritaskan</b>, klik <b>Urutkan Pengiriman</b></p>
+            <div id="normal-priority">
+
+            </div>
+          </form>
+        </div>
+        <div class="bottom-navbar">
+          <div class="card-action white" style="margin: 8px">
+            <button class="waves-effect waves-light btn blue" type="button"
+              style="width: 100%; height: 40px; line-height: 44px; font-size: medium" id="urutkan-pengiriman">Urutkan
+              Pengiriman</button>
+          </div>
+        </div>
+      </div>
+  </main>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+
+  <script>
+
+    // CHROME WEB EVENT
+    $(document).ready(onDeviceReady);
+
+    function onLoad() {
+      $('.modal').modal();
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // device APIs are available
+    // MOBILE EVENT
+    function onDeviceReady() {
+      get_pesanan_siap_kirim();
+      const simpan_berat = document.getElementById("urutkan-pengiriman");
+      simpan_berat.addEventListener("click", () => {
+        urutkanPengiriman();
+      }, false);
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+      document.addEventListener("backbutton", onBackKeyDown, false);
+      // Add similar listeners for other events
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+
+    function onBackKeyDown() {
+      // Handle the back button
+      window.location.replace("konfirmasi-berat-produk.html");
+    }
+
+    function get_pesanan_siap_kirim() {
+      preload_pesanan();
+      const id_usaha = localStorage.id_usaha;
+      // const API_GET_PESANAN = base_url + "Pemesanan/get_pesanan_siap_kirim";
+      $.get(API_PRODUK_TO_DELIVERY_PESANAN, { id_usaha: id_usaha }).then(onSuccessLoadPesanan);
+    }
+
+    function onSuccessLoadPesanan(response) {
+      if (response.status == "sukses") {
+        var html_list_fast = '', html_list_normal = '';
+        var data_pemesanan = response.data_pemesanan;
+        $.each(data_pemesanan, function (k, v) {
+          document.getElementById("dateNow").innerHTML = '<b>' + v.date + '</b>';
+          if (v.tipe_pengiriman == "Cepat") {
+            html_list_fast += '<div class="card">';
+            html_list_fast += '<div class="card-content">';
+            html_list_fast += '<p>';
+            html_list_fast += '<label for="check-pesanan-' + v.no_pesanan + '" class="black-text">';
+            html_list_fast += '<input type="checkbox" id="check-pesanan-' + v.no_pesanan + '" value="'+v.id_pemesanan+'" name="pesanan" />';
+            html_list_fast += '<span id="nama_pb">' + v.nama_pembeli + '<br>';
+            html_list_fast += '<span id="alamat_pb">' + v.alamat;
+            html_list_fast += '<p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p>';
+            html_list_fast += '</span>';
+            html_list_fast += '</span>';
+            html_list_fast += '</label>';
+            html_list_fast += '</p>';
+            html_list_fast += '</div>';
+            html_list_fast += '</div>';
+          } else {
+            html_list_normal += '<div class="card">';
+            html_list_normal += '<div class="card-content">';
+            html_list_normal += '<p>';
+            html_list_normal += '<label for="check-pesanan-' + v.no_pesanan + '" class="black-text">';
+            html_list_normal += '<input disabled="disabled" type="checkbox" id="check-pesanan-' + v.no_pesanan + '" value="1" name="pesanan" />';
+            html_list_normal += '<span id="nama_pb">' + v.nama_pembeli + '<br>';
+            html_list_normal += '<span id="alamat_pb">' + v.alamat;
+            html_list_normal += '<p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p>';
+            html_list_normal += '</span>';
+            html_list_normal += '</span>';
+            html_list_normal += '</label>';
+            html_list_normal += '</p>';
+            html_list_normal += '</div>';
+            html_list_normal += '</div>';
+          }
+
+        });
+        if (html_list_fast !== '') {
+          document.getElementById("fast-priority").innerHTML = html_list_fast;
+        } else {
+          document.getElementById("fast-priority").innerHTML = '';
+        }
+        if (html_list_normal !== '') {
+          document.getElementById("normal-priority").innerHTML = html_list_normal;
+        }
+      }
+    }
+
+    function urutkanPengiriman() {
+      var pesanan = $("[name=pesanan]:checkbox:checked");
+      var priority = [];
+      $.each(pesanan, function (i, isi) {
+        priority.push(isi.value);
+      });
+      var PriorityStorage = JSON.stringify(priority);
+      window.localStorage.setItem("priority", PriorityStorage);
+      // storage.setItem("priority", PriorityStorage);
+      location.assign("urutan-pengiriman.html");
+      // alert(PriorityStorage);
+    }
+
+    function preload_pesanan() {
+      let HTML_PESANAN_PRELOAD = '';
+      HTML_PESANAN_PRELOAD = '<div class="preloader-wrapper small active"><div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
+      document.getElementById("fast-priority").innerHTML = HTML_PESANAN_PRELOAD;
+    }
+  </script>
+  <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+</body>
+
+</html>

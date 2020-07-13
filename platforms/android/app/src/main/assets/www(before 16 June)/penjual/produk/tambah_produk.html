@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Tambah Produk</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+  src="../../cordova.js"></script>
+
+  <style type="text/css">
+    .input-field div.error
+    {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color:#FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+    .input-field label.active
+    {
+      width:100%;
+    }
+    .input-field {
+      position: relative;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.5rem;
+    }
+  </style>
+</head>
+
+<body class="">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent" style="margin: auto 10px; line-height: 60px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 60px">Tambah Produk</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="col s12 grey lighten-3" style="margin-top: -10px">
+    <div class="container-fluid">
+      <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate" data-parsley-validate>
+        <div class="card" style="padding: 8px 16px 16px 16px">
+          <div class="card-content" style="margin-bottom: -20px">
+            <div class="row">
+              <div class="input-field">
+                <input placeholder="Nama Produk" id="nama_produk" name="nama_produk" type="text" class="">
+                <label for="nama_produk">Nama Produk</label>
+              </div>
+            </div>
+            <div class="row" style="margin-top: -20px">
+              <p class="flow-text">Kategori:</p>
+              <p>
+                <label>
+                  <input name="kategori" value="tawar" type="radio" checked disabled="" />
+                  <span>Ikan Air Tawar</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input name="kategori" value="laut" type="radio" />
+                  <span>Ikan Air Laut</span>
+                </label>
+              </p>
+            </div>
+            <div class="row" style="margin-top: 30px">
+              <div class="file-field input-field">
+                <div class="btn btn-small green">
+                  <span>Foto Produk</span>
+                  <input type="file" id="foto_produk" name="foto_produk" class="">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path " type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input placeholder="Harga" id="harga" name="harga" type="number" class="">
+                <label for="harga">Harga</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input placeholder="Berat (ons)" id="berat_produk" name="berat_produk" type="number" class="">
+                <label for="berat_produk">Berat (ons)</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input placeholder="Minimal Pemesanan" id="min_pemesanan" name="min_pemesanan" type="number" class="">
+                <label for="min_pemesanan">Minimal Pemesanan</label>
+              </div>
+            </div>
+            <div class="row">
+              <a class="btn btn-small green variasi" href="tambah_variasi.html" style="width: 100%">Atur Variasi<i class="material-icons right">chevron_right</i></a>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="bottom-navbar">
+      <div class="card-action white" style="margin: 0px; padding-bottom: 8px">
+        <a class="waves-effect waves-light btn blue" href="tambah_rekening.html" type="button" style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Simpan</a>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+<script type="text/javascript" src="../../cordova.js"></script>
+<script type="text/javascript" src="../../js/mobile_script.js"></script>
+
+<script>
+  function onBackKeyDown() {
+    window.history.back();
+  }
+</script>
+
+</body>
+</html>

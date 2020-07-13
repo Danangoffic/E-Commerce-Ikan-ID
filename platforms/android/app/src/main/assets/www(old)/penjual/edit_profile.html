@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url"
+  content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+  <meta name="theme-color" content="#5559db">
+
+  <title>Edit Profile Penjual - Ikan</title>
+
+  <!-- vendor css -->
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+
+  <!-- Bracket CSS -->
+  <link rel="stylesheet" href="../assets/css/bracket.css">
+</head>
+
+<body>
+
+  <!-- ########## START: LEFT PANEL ########## -->
+  <div class="br-logo"><a href=""><span>[</span>Ikan<span>]</span></a></div>
+  <div class="br-sideleft overflow-y-auto">
+    <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
+    <div class="br-sideleft-menu" id="NavUser">
+      <a href="../dashboard/index.html" class="br-menu-link">
+        <div class="br-menu-item">
+          <i class="fa fa-home"></i>
+          <span class="menu-item-label">Halaman Utama</span>
+        </div><!-- menu-item -->
+      </a><!-- br-menu-link -->
+
+    </div><!-- br-sideleft-menu -->
+    <br>
+  </div><!-- br-sideleft -->
+  <!-- ########## END: LEFT PANEL ########## -->
+
+
+  <!--  -->
+  <!-- ########## START: HEAD PANEL ########## -->
+  <div class="br-header">
+    <div class="br-header-left">
+      <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i
+        class="icon ion-navicon-round"></i></a></div>
+        <div class="navicon-left hidden-lg-up"><a id="#" onclick="removeStorageProfile();"><i
+          class="fa fa-chevron-left fa-fw"></i></a></div>
+
+        </div>
+
+        <!-- ########### START: RIGHT PANEL ######## -->
+        <div class="br-header-right">
+
+        </div>
+      </div><!-- br-header -->
+      <!-- ########## END: HEAD PANEL ########## -->
+
+      <!-- ########## START: MAIN PANEL ########## -->
+
+      <div class="br-mainpanel br-profile-page">
+
+
+        <form class="" name="fupload" action="" method="post" enctype="multipart/form-data">
+          <div class="card pd-t-20 pd-20 pd-xs-30 bd-0 mg-b-25 mg-t-25" id="InformasiPenjual">
+            <div class="form-group">
+              <label class="label-control" for="nama_lengkap2">Nama&nbsp;:</label>
+              <input class="form-control" name="nama_lengkap2" id="nama_lengkap2" autofocus placeholder="Isi Nama Lengkap Anda" required title="Mohon Isi Nama Anda">
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-12 label-control">Foto&nbsp;Profil&nbsp;:</label>
+              <div class="col-sm-9">
+                <div class="col-sm-12 text-center" id="FormFoto">
+                </div>
+                <label class="col-sm-12">
+                  <input type="file" id="foto_pj" name="foto_pj"
+                  class="form-control custom-file-input"
+                  onchange="readURL(this);">
+                  <span class="custom-file-control"></span>
+                </label>
+                <small style="color:red !important;text-align:right">*Ukuran Foto
+                  Maksimal 2MB
+                </small>
+              </div>
+              <!-- <button type="submit" id="btn-submit">Simpan</button> -->
+            </div>
+
+            <div class="form-group">
+              <label class="label-control" for="noKTP">No.&nbsp;KTP&nbsp;:</label>
+              <input class="form-control" name="noKTP" id="noKTP" placeholder="Isi No. KTP Anda" required title="Mohon Isikan No. KTP Anda">
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-12 label-control">Foto&nbsp;KTP&nbsp;:</label>
+              <div class="col-sm-9">
+                <div class="col-sm-12 text-center" id="FormFoto2">
+                </div>
+                <label class="col-sm-12">
+                  <input type="file" id="foto_ktp" name="foto_ktp"
+                  class="form-control custom-file-input"
+                  onchange="readURL2(this);">
+                  <span class="custom-file-control"></span>
+                </label>
+                <small style="color:red !important;text-align:right">*Ukuran Foto
+                  Maksimal 2MB
+                </small>
+              </div>
+              <!-- <button type="submit" id="btn-submit">Simpan</button> -->
+            </div>
+
+            <div class="form-group">
+              <label class="label-control">Jenis&nbsp;Kelamin&nbsp;:</label>
+              <div class="col-sm-12">
+                <label class="form-check form-check-inline">
+                  <input name="jk_pj" value="Laki-laki" type="radio"  required="" title="Mohon Pilih Jenis Kelamin">
+                  <span>Laki-laki</span>
+                </label>
+                <label class="form-check form-check-inline" required="">
+                  <input name="jk_pj" value="Perempuan" type="radio"  required="" title="Mohon Pilih Jenis Kelamin">
+                  <span>Perempuan</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="label-control">Tanggal Lahir : </label>
+              <div class="input-group form_datetime1">
+                <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                <input type="date" required="" class="form-control form-control-sm" placeholder="MM/DD/YYYY" name="tgllahir_pj" id="tgllahir_pj">
+              </div>
+              <small style="color:red !important;text-align:right" id="ctrltgllahir_pb">
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label class="label-control" for="NoHp">No&nbsp;HP&nbsp;:</label>
+              <input class="form-control" name="NoHp" id="NoHp" required title="Mohon Isikan No. HP Anda">
+            </div>
+
+            <div class="form-group">
+              <label class="label-control" for="alamat">Alamat&nbsp;:</label>
+              <input class="form-control" name="Alamat" id="Alamat" required placeholder="Isikan Alamat Anda" title="Mohon Isikan Alamat Dengan Lengkap">
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-success btn-block" id="Save" type="button">Simpan</button>
+            </div>
+          </div>
+
+
+        </form>
+        <div id="buat-modal"></div>
+      </div><!-- br-mainpanel -->
+      <!-- ########## END: MAIN PANEL ########## -->
+
+      <!-- ########## END: MAIN PANEL ########## -->
+
+      <script src="../assets/lib/jquery/jquery.js"></script>
+      <script src="../assets/lib/popper.js/popper.js"></script>
+      <script src="../assets/lib/bootstrap/bootstrap.js"></script>
+      <script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+      <script src="../assets/lib/moment/moment.js"></script>
+      <script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+      <script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+      <script src="../assets/lib/peity/jquery.peity.js"></script>
+
+      <script src="../assets/js/bracket.js"></script>
+      <script type="text/javascript" src="../js/mobile_script.js"></script>
+      <script type="text/javascript">
+        nav2 = "<div class=\"wd-110 transition\">"+
+        "<span class=\"\">"+
+        "<h5 class=\"mg-t-20 mg-l-10\">Edit Informasi</h5>"+
+        "</span>"+
+        "</div>";
+        $(".br-header-left").append(nav2);
+        var modal_gagal = '<div id=\"modaldemo2\" class="modal fade modal-hapus-s">'+
+        '<div class="modal-dialog modal-sm" role="document">'+
+        '<div class="modal-content bd-0">'+
+        '<div class="modal-header pd-y-20 pd-x-25">'+
+        '<h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold" id="titleHapus">Gagal Mengubah Profile</h6>'+
+        '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+        '<span aria-hidden="true">&times;</span>'+
+        '</button>'+
+        '</div>'+
+        '<div class="modal-body pd-25">'+
+        '<h4 class="lh-4 mg-b-20 tx-danger" id="TextHapus">Gagal Mengubah Data Profile, Silahkan Lengkapi Formnya.</p>'+
+        '</div>'+
+        '<div class="modal-footer">'+
+        '<button type="button" class="btn btn-dark tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal" aria-label="Close">Close</button>'+
+        '</div>'+
+        '</div>'+
+        '</div>'+
+        '</div>';
+        var nama_lengkap = window.localStorage.getItem('nama_lengkap', nama_lengkap);
+        var noKTP = window.localStorage.getItem('noKTP', noKTP);
+        var jenisKel = window.localStorage.getItem('jenisKel', jenisKel);
+        var foto = window.localStorage.getItem('foto', foto);
+        var alamat = window.localStorage.getItem('alamat', alamat);
+        var telp = window.localStorage.getItem('telp',telp);
+        var fotoktp_pj = window.localStorage.getItem('fotoktp_pj',fotoktp_pj);
+        var tgllahir_pj = window.localStorage.getItem('tgllahir_pj', tgllahir_pj);
+
+
+        $("#nama_lengkap").val(nama_lengkap);
+        $("#nama_lengkap2").val(nama_lengkap);
+        $("#noKTP").val(noKTP);
+        $("#jenisKel").html(jenisKel);
+        $("#Alamat").val(alamat);
+        $("#NoHp").val(telp);
+        $("input[name=jk_pj][value=" + jenisKel + "]").attr('checked', 'checked');
+        $("#JenisPetani").html("Petani Air " + jenis_petani);
+        $("#tgllahir_pj").val(tgllahir_pj);
+        if(foto!==""){
+          $("#FormFoto").html("<img class=\"mg-b-20 mg-t-20\" width=\"100\" height=\"100\" src=\""+base_url+ "foto_penjual/"+foto+"\" alt=\"Foto Penjual\" id=\"fotoPJ\">");
+        }else{
+          $("#FormFoto").html("<img class=\"mg-b-20 mg-t-20\" src=\""+base_url+ "assets/img/logo.png\" alt=\"Foto Penjual\" id=\"fotoPJ\">");
+        }
+        if(fotoktp_pj!==""){
+          $("#FormFoto2").html("<img class=\"mg-b-20 mg-t-20\" width=\"100\" height=\"100\" src=\""+base_url+ "foto_ktp_penjual/"+fotoktp_pj+"\" alt=\"Foto KTP Penjual\" id=\"fotoKTPPJ\">");
+        }else{
+          $("#FormFoto2").html("<img class=\"mg-b-20 mg-t-20\" width=\"100\" height=\"100\" src=\""+base_url+ "assets/img/logo.png\" alt=\"Foto KTP Penjual\" id=\"fotoKTPPJ\">");
+        }
+
+        $('#Save').click(function(e){
+          var nama_pj2 = $('#nama_lengkap2').val();
+          var foto_pj = $('#foto_pj').val();
+          var noKTP2 = $('#noKTP').val();
+          var foto_ktp = $('#foto_ktp').val();
+          var jk_pj2 = $('input:radio[name=jk_pj]:checked').val();
+          var tgllahir_pj2 = $('#tgllahir_pj').val();
+          var NoHp2 = $('#NoHp').val();
+          var Alamat2 = $('#Alamat').val();
+          if(nama_pj2!==""&&noKTP2!==""&&jk_pj2!==""&&tgllahir_pj2!==""&&NoHp2!==""&&Alamat2!==""){
+            var username = window.localStorage.getItem('username');
+            var formData = new FormData($("form")[0]);
+            formData.append("nama_pj2",nama_pj2);
+            formData.append("foto_pj",foto_pj);
+            formData.append("foto_ktp",foto_ktp);
+            formData.append("jk_pj2",jk_pj2);
+            formData.append("tgllahir_pj2",tgllahir_pj2);
+            formData.append("NoHp2",NoHp2);
+            formData.append("Alamat2",Alamat2);
+            formData.append("noKTP2",noKTP2);
+            formData.append("username",username);
+               // DO UPDATE
+               $.ajax({
+                 url : base_url + 'proses_mobile/penjual/update_profile.php',
+                 data: formData,
+                 type: 'POST',
+                 contentType: false,
+                 cache: false,
+                 processData: false,
+                 success: function(e){
+                  if(e.response=='berhasil'){
+                    window.localStorage.removeItem('nama_lengkap');
+                    window.localStorage.removeItem('noKTP');
+                    window.localStorage.removeItem('jenisKel');
+                    window.localStorage.removeItem('foto');
+                    window.localStorage.removeItem('alamat');
+                    window.localStorage.removeItem('telp');
+                    window.localStorage.removeItem('fotoktp_pj');
+                    window.localStorage.removeItem('tgllahir_pj');
+                    window.location.href = 'profil.html';
+                              //alert(JSON.stringify(e));
+                            }else{
+                              $("#buat-modal").html(modal_gagal);
+                              $("#modaldemo2").modal('toggle');
+                            }
+                          },
+                          error: function(e){
+                            $("#buat-modal").html(modal_gagal);
+                            $("#modaldemo2").modal('toggle');
+                          }
+                        });
+             }else{
+              $("#buat-modal").html(modal_gagal);
+              $("#modaldemo2").modal('toggle');
+            }
+
+
+          });
+
+        </script>
+        <script type="text/javascript">
+          function removeStorageProfile(){
+            window.localStorage.removeItem('noKTP');
+            window.localStorage.removeItem('jenisKel');
+            window.localStorage.removeItem('foto');
+            window.localStorage.removeItem('alamat');
+            window.localStorage.removeItem('telp');
+            window.localStorage.removeItem('fotoktp_pj');
+            window.localStorage.removeItem('tgllahir_pj');
+            return window.history.back();
+          }
+          function readURL(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                console.log(e.target);
+                $('#FormFoto').html("<img class=\"text-center mg-b-20 mg-t-20\" id=\"blah\" src=\""+e.target.result+"\" alt=\"Foto Produk\" width=\"50%\" height=\"20%\" />");
+              };
+
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+
+          function readURL2(input) {
+            if (input.files && input.files[0]) {
+              var reader = new FileReader();
+
+              reader.onload = function (e) {
+                console.log(e.target);
+                $('#FormFoto2').html("<img class=\"text-center mg-b-20 mg-t-20\" id=\"blah\" src=\""+e.target.result+"\" alt=\"Foto Produk\" width=\"50%\" height=\"20%\" />");
+              };
+
+              reader.readAsDataURL(input.files[0]);
+            }
+          }
+        </script>
+      </body>
+      </html>

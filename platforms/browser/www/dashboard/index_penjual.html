@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Halamana Awal</title>
+
+  <!-- vendor css -->
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+
+  <!-- Bracket CSS -->
+  <link rel="stylesheet" href="../assets/css/bracket.css">
+</head>
+
+<body>
+
+<!-- ########## START: LEFT PANEL ########## -->
+<div class="br-logo"><a href=""><span>[</span>Ikan<span>]</span></a></div>
+<div class="br-sideleft overflow-y-auto">
+  <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
+  <div class="br-sideleft-menu" id="NavUser">
+    <a href="../dashboard/index.html" class="br-menu-link">
+      <div class="br-menu-item">
+        <i class="fa fa-home"></i>
+        <span class="menu-item-label">Halaman Utama</span>
+      </div><!-- menu-item -->
+    </a><!-- br-menu-link -->
+
+  </div><!-- br-sideleft-menu -->
+  <br>
+</div><!-- br-sideleft -->
+<!-- ########## END: LEFT PANEL ########## -->
+
+
+<!--  -->
+<!-- ########## START: HEAD PANEL ########## -->
+<div class="br-header">
+  <div class="br-header-left">
+    <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>
+    <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a></div>
+
+  </div>
+
+  <!-- ########### START: RIGHT PANEL ######## -->
+  <div class="br-header-right">
+
+  </div>
+</div><!-- br-header -->
+<!-- ########## END: HEAD PANEL ########## -->
+
+<!-- ########## START: MAIN PANEL ########## -->
+<div class="br-mainpanel">
+  <!-- <div class="br-pageheader pd-y-15 pd-l-20">
+    <nav class="breadcrumb pd-0 mg-0 tx-12">
+      <span class="breadcrumb-item active">Home</span>
+    </nav>
+  </div> -->
+  <!-- br-pageheader -->
+  <!-- <div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">
+    <h4 class="tx-gray-800 mg-b-5"></h4>
+    <p class="mg-b-0"></p>
+  </div> -->
+
+  <div class="br-pagebody">
+    <div class="br-section-wrapper">
+
+    </div>
+    <!-- start you own content here -->
+
+  </div><!-- br-pagebody -->
+
+</div><!-- br-mainpanel -->
+<!-- ########## END: MAIN PANEL ########## -->
+
+<script src="../assets/lib/jquery/jquery.js"></script>
+<script src="../assets/lib/popper.js/popper.js"></script>
+<script src="../assets/lib/bootstrap/bootstrap.js"></script>
+<script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../assets/lib/moment/moment.js"></script>
+<script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../assets/lib/peity/jquery.peity.js"></script>
+
+<script src="../assets/js/bracket.js"></script>
+
+<script type="text/javascript" src="../js/mobile_script.js"></script>
+<script type="text/javascript">
+      if(usergroup == 'penjual'){
+        $.ajax({
+          url: base_url+'proses_mobile/data_dashboard.php',
+          data: {username : username},
+          success: function(e){
+
+          }
+        })
+      }
+      else if(usergroup == 'pembeli'){
+        window.location.href='index_pembeli.html';
+      }
+      else{
+        window.location.href='index_pembeli.html';
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Detail Produk</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+    src="cordova.js"></script>
+
+  <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM">
+  </script>
+  <style type="text/css">
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    #user-profile .user-section-negative-margin {
+      position: relative;
+      margin-top: -150px;
+      padding: 0px;
+      height: 500px;
+    }
+
+    #user-profile {
+      margin-bottom: -30px;
+    }
+
+    .user-profile {
+      margin-top: 1rem;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    .bottom-sheet {
+      max-height: 100% !important;
+      height: 42% !important;
+    }
+  </style>
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <!-- <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../assets/lib/highlightjs/github.css" rel="stylesheet">
+  <link href="../assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+  <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet"> -->
+
+  <!-- Bracket CSS -->
+  <!-- <link rel="stylesheet" href="../assets/css/bracket.css"> -->
+</head>
+
+<body class="grey lighten-3" onload="onLoad()">
+  <header class="navbar-fixed">
+    <nav class="top-nav nav-extended"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row"> -->
+          <div class="col s12 m10 offset-m1">
+            <a id="#" href="#" onclick="onBackKeyDown()" class="transparent" style="margin: auto 10px;"><span
+                class="fa fa-chevron-left"></span></a>
+            <b class="header" style="font-size: large; margin-left: 14px;"></b>
+            <b class="right"><i class="tiny material-icons shopping_basket"
+                onclick="openBasket()">shopping_basket</i><span class="badge red white-text"
+                style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <main>
+    <div class="row">
+      <div class="grey lighten-3" style="margin-top: -12px; margin-bottom: 14px">
+        <div class="container-fluid">
+          <div class="row white" style="margin-bottom: 8px">
+            <div class="user-profile mt-1 ml-0 mr-0" style="height: 150px">
+              <img class="responsive-img" alt="" style="width: 50% !important">
+            </div>
+            <div class="section" id="user-profile" style="padding: 24px">
+              <div class="col s12 m4 l3 user-section-negative-margin"
+                style="height: auto !important; max-height: auto">
+                <div class="col s12 center-align">
+                  <div class="responsive-img z-depth-0 circle image-produk" alt="" style="max-width: 100%">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card z-depth-0" style="padding: 24px 24px 4px 24px; margin: 0px 0px">
+            <div class="card-title nama_produk"
+              style="margin: -12px 0px 8px 8px; font-size: x-large; font-weight: bold"></div>
+            <h6 class="orange-text harga_produk mg-t-5" style="font-weight: bold; margin-left: 8px"></h6>
+            <div class="row" style="padding: 4px; margin-bottom: 0px" id="manage-produk">
+              <div class="input field col s8 left-align" style="margin-left: -8px">
+                <label for="variasi" class="right-align">Variasi</label>
+                <select class="variasi col s12" name="variasi" id="variasi" onchange="pilihVariasi()"
+                  autocomplete="off">
+                  <option value="" label="Pilih Variasi" disabled selected>Pilih Variasi</option>
+                </select>
+              </div>
+              <div class="input-field col s4 right-align">
+                <label for="qty" style="right: 0; top: 0">Jumlah (Kg)</label>
+                <i class="material-icons prefix removeQTY" style="margin-left: -16px">remove_circle_outline</i>
+                <input class="center" type="number" name="qty" id="qty" value="0"
+                  style="border: 0;width: 32px !important; margin-right: 16px; text-align: center;" disabled>
+                <i class="material-icons prefix addQTY" style="margin-left: -16px;">add_circle_outline</i>
+              </div>
+            </div>
+            <div class="row" style="margin-top: -8px; margin-bottom: 8px" id="manage-stok-produk">
+              <div class="col s6">
+                <p class="left" style="font-size: small;">Stok :</p>
+              </div>
+              <div class="col s6">
+                <p class="right stok" style="font-size: small;"></p>
+              </div>
+            </div>
+          </div>
+          <div class="card z-depth-0" style="margin-bottom: 0px">
+            <div class="card-content" id="content-produk">
+              <div class="row">
+                <div class="col s12">
+                  <p class="left" style="font-size: large; font-weight: bold">Informasi Produk</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s6">
+                  <p class="left" style="font-size: small;">Berat :</p>
+                </div>
+                <div class="col s6">
+                  <p class="right berat" style="font-size: small;"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s6">
+                  <p class="left" style="font-size: small;">Kategori :</p>
+                </div>
+                <div class="col s6">
+                  <p class="right Kategori_produk" style="font-size: small"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s6">
+                  <p class="left" style="font-size: small;">Minimal Pemesanan :</p>
+                </div>
+                <div class="col s6">
+                  <p class="right min_order" style="font-size: small;"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-panel white z-depth-0" style="padding: 12px 12px" id="card-usaha">
+            <div class="row valign-wrapper">
+              <div class="col s3" style="margin-left: -4px">
+                <img src="../img/blank-picture.png" alt="" class="circle responsive-img"
+                  style="width: 56px; height: 56px" id="img-usaha">
+              </div>
+              <div class="col s6" style="margin-left: -12px">
+                <a href="../penjual/usaha.html" class="nama-usaha green-text" style="font-weight: bold"
+                  id="nama-usaha">(Nama Usaha)</a><br>
+                <span id="kab-usaha">(Kabupaten Usaha)<span>
+              </div>
+              <div class="col s3">
+                <a class="secondary-content btn btn-small green right white-text"
+                  style="margin-top: 8px; margin-right: -4px" href="../penjual/usaha.html">Kunjungi</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row fixed-action-btn">
+          <div class="card-action white" style="padding: 8px">
+            <a class="btn waves-effect text-center blue button-beli" id="openSheet"
+              style="width: 100%; font-size: medium;" type="button">Beli</a>
+            <a class="btn waves-effect text-center blue button-login" id="openLogin"
+              style="width: 100%; font-size: medium;" type="button">Beli</a>
+          </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal bottom-sheet half-heigth-bottom-sheet">
+          <div class="modal-content">
+            <h5 id="title-modal-sheet">Konfirmasi Pemilihan</h5>
+            <p>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p>
+            <div class="row">
+              <div class="input-field col s6">
+                <textarea id="jml_ikan" class="materialize-textarea" data-length="100"></textarea>
+                <label for="jml_ikan">Jumlah Ikan per Kg</label>
+              </div>
+              <div class="input-field col s6">
+                <textarea id="jml_potong" class="materialize-textarea" data-length="100"></textarea>
+                <label for="jml_potong">Jumlah Potong per Ekor</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" id="bottom-sheet-footer">
+            <button type="button" id="setuju" class="modal-close waves-effect waves-light btn green">YA</button>
+            <button type="button" id="tidak" class="modal-close waves-effect waves-light btn red">TIDAK</button>
+          </div>
+        </div>
+
+        <div id="modalLogin" class="modal bottom-sheet full-heigth-bottom-sheet">
+          <div class="modal-content">
+            <div class="row">
+              <form action="#" class="col s12">
+                <h6 class="">Silahkan Login</h6>
+                <!-- end .login_header -->
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input type="text" id="username" class="validate">
+                    <label class="" for="username">Username</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12" style="margin-top: -24px;">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" type="password" class="validate">
+                    <label class="" for="password">Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 center-align" style="margin-bottom: 8px;">
+                    <strong class="black-text">Belum punya akun?</strong>
+                  </div>
+                  <div class="col s12 center-align mg-b-15"><a href="../login/sign_up_pembeli2.html"
+                      class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Pembeli</a></div>
+                </div>
+                <button type="button" id="login" class="modal-close waves-effect waves-light btn-small btn blue"
+                  style="width: 100%; margin-top: -14px;">LOGIN</button>
+                <!-- end .login--form -->
+                <!-- end .cardify -->
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer" id="bottom-sheet-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <!-- ########## END: MAIN PANEL ########## -->
+  <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../cordova.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+  <script src="detail_produk.js"></script>
+</body>
+
+</html>

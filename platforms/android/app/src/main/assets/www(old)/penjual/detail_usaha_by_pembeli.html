@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bracket">
+    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/bracket">
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+    <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+    <meta property="og:image:secure_url"
+          content="http://themepixels.me/bracket/img/bracket-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+    <meta name="theme-color" content="#5559db">
+
+    <title>Edit Profile Penjual - Ikan</title>
+
+    <!-- vendor css -->
+    <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+
+    <!-- Bracket CSS -->
+    <!-- <link rel="stylesheet" href="../assets/css/bracket.css"> -->
+    <style type="text/css">
+      .widget-4 .card-body{
+        padding-top: 70px !important;
+      }
+      .widget-4 .card-profile-img{
+        position: absolute;
+        text-align: center;
+        pointer-events: none;
+        left: none !important;
+        top: 25px;
+        margin-left: none !important;
+      }
+    </style>
+</head>
+
+<body>
+  <header>
+        <!-- <nav class="top-nav">
+            
+        </nav> -->
+        <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+        <div class="container-fluid">
+          <div class="nav-wrapper">
+            <div class="row">
+              <div class="col s12 m10 offset-m1">
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <b class="header">Penjual</b>
+                <!-- <div class="right">
+                    <i class="tiny material-icons">shopping_cart</i><span class="badge teal white-text" style="margin-top: -50px; border-radius: 10px; ">0</span>
+                </div> -->
+                <!-- <b class="right"></b> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+            <!-- <div class="nav-wrapper">
+                
+                <a href="#!" class="brand-logo"></a>
+                
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="../dashboard/index_publik.html"><i class="material-icons">home</i> Home</a></li>
+                    <li><a href="../login/index.html"><i class="material-icons">lock</i> Masuk</a></li>
+                </ul>
+            </div>
+ -->
+             
+            <ul class="sidenav sidenav-fixed" id="mobile-demo">
+                <li>
+                    <div class="user-view" style="min-height: 55px;">
+                      <div class="background" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+                        <img src="images/office.jpg">
+                      </div>
+                  <!-- <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+                  <a href="#name"><span class="black-text name">John Doe</span></a>
+                  <a href="#email"><span class="black-text email">jdandturk@gmail.com</span></a> -->
+                    </div>
+                </li>
+                <!-- <li class="logo"><a href=""><span>[</span>Ikan<span>]</span></a><a id="logo-container" href="/" class="brand-logo">Logo</a></li> -->
+                <li class="active"><a href="../dashboard/index_publik.html"><i class="material-icons">home</i> Home</a></li>
+                <li><a href="../login/index.html"><i class="material-icons">lock</i> Masuk</a></li>
+            </ul>        
+    </header>
+<!-- ########## END: HEAD PANEL ########## -->
+
+<!-- ########## START: MAIN PANEL ########## -->
+<main>
+  <div class="container-fluid">
+    <div class="section">
+      <div class="row">
+        <div class="col s12" style="padding: none !important; margin-bottom: 0px">
+          <div class="card" style="padding: none !important margin:none !important">
+            <div class="card-image">
+              <img src="http://via.placeholder.com/80x80" alt="" class="rounded-circle foto-usaha" width="100" height="130">              
+            </div>
+            <div class="card-content">
+              <h5 class="card-title nama-usaha">{{nama_usaha}}</h5>
+              <h6 class="text-left lokasi-usaha">{{lokasi_usaha}}</h6>
+            </div>
+            <div class="card-action">
+              <a href="#" class="btn btn-outline-info btn-sm pd-x-3 pd-y-0 tx-size-sm tx-info lihat-detail-usaha">{{lihat_detail}}</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <ul id="tabs-swipe-demo" class="tabs">
+          <li class="tab col s3"><a href="#produk" class="blue-text">Produk</a></li>
+        </ul>
+        <div class="row">
+          <div id="produk" class="col s12 data-produk-usaha">{{produk}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- ########## END: MAIN PANEL ########## -->
+
+<!-- ########## END: MAIN PANEL ########## -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<!-- <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script> -->
+<!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+<!-- <script src="../assets/lib/bootstrap/bootstrap.js"></script> -->
+<script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../assets/lib/moment/moment.js"></script>
+<script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../assets/lib/peity/jquery.peity.js"></script>
+<!-- <script src="../assets/lib/codemirror/addon/scroll/simplescrollbars.js"></script> -->
+
+<!-- <script src="../assets/js/bracket.js"></script> -->
+<script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+
+
+<script type="text/javascript" src="../js/mobile_script.js"></script>
+<script type="text/javascript">
+  $('.sidenav').sidenav();
+</script>
+<script type="text/javascript">
+        nav2 = "<div class=\"wd-110 transition\">"+
+            "<span class=\"\">"+
+            "<h5 class=\"mg-t-20 mg-l-10\"></h5>"+
+            "</span>"+
+            "</div>";
+            $(".br-header-left").append(nav2);
+        var id_usaha = window.localStorage.getItem('id_usaha');
+        var id_produk = window.localStorage.getItem('id_produk');
+        var load_usaha = 0;
+        $('.tabs').tabs();
+        $.ajax({
+          url: base_url + 'penjual/detail_usaha',
+          type: 'POST',
+          dataType: 'JSON',
+          data: {id_usaha:id_usaha},
+          success: function(e){
+            var src = "http://via.placeholder.com/80x80";
+            if(e.foto_usaha!=""){
+              src = base_url + 'foto_usaha/' + e.foto_usaha;
+            }
+            $(".foto-usaha").attr("src", src);
+            $(".nama-usaha").html(e.nama_usaha);
+            $(".lihat-detail-usaha").attr('href', 'detail_usaha.html');
+            $(".lihat-detail-usaha").html("Lihat Detail");
+            $(".lokasi-usaha").html(e.alamat_usaha + '. ' + e.kec + ',<br>Yogyakarta.');
+            load_usaha = 1;
+          }
+        });
+        $.ajax({
+            url: base_url + 'produk/ambil_produk_penjual_by_id',
+            type: 'post',
+            dataType: 'json',
+            data: {id_usaha:id_usaha},
+            success: function(event){
+              var data_produk = "<ul class='collection'>";
+              
+              var src_produk = 'http://via.placeholder.com/280x280';
+              $.each(event, function(key, val){
+                if(val.foto_produk!=""){
+                  src_produk = base_url + 'foto_usaha/produk/' + val.foto_produk;
+                }
+                data_produk += "<li class='collection-item avatar' onclick='view_produk("+val.id_produk+", "+val.id_usaha+")'>"+
+                                "<img src='"+src_produk+"' alt='' height='100' width='100%' class='circle'>"+
+                                "<h5 class='title'>"+val.nama_produk+"</h5>"+
+                                '<span class="tx-13 orange-text"> Rp'+val.minprice+' - Rp'+val.maxprice+'</span>'+
+                                "<a href='#' onclick='viewProduk('+val.id_produk+')' class='secondary-content orange-text'>Lihat Detail</a>"+
+                                "</li>";
+              });
+              data_produk += "</ul>";
+              $('.data-produk-usaha').html(data_produk);
+            }
+          });
+
+function view_produk(id, id_usaha){
+  window.localStorage.setItem('id_produk', id);
+  window.localStorage.setItem('id_usaha', id_usaha);
+  window.location.href="../dashboard/detail_produk_shop.html";
+  }
+
+</script>
+<script type="text/javascript">
+function removeStorageProfile(){
+    window.localStorage.removeItem('noKTP');
+    window.localStorage.removeItem('jenisKel');
+    window.localStorage.removeItem('foto');
+    window.localStorage.removeItem('alamat');
+    window.localStorage.removeItem('telp');
+    window.localStorage.removeItem('fotoktp_pj');
+    window.localStorage.removeItem('tgllahir_pj');
+    return window.history.back();
+}
+         function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                  console.log(e.target);
+                    $('#FormFoto').html("<img class=\"text-center mg-b-20 mg-t-20\" id=\"blah\" src=\""+e.target.result+"\" alt=\"Foto Produk\" width=\"50%\" height=\"20%\" />");
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURL2(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                  console.log(e.target);
+                    $('#FormFoto2').html("<img class=\"text-center mg-b-20 mg-t-20\" id=\"blah\" src=\""+e.target.result+"\" alt=\"Foto Produk\" width=\"50%\" height=\"20%\" />");
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    if(storage.id_produk!=null){
+      window.location.assign("../dashboard/detail_produk_shop.html");
+    }
+  });
+</script>
+</body>
+</html>

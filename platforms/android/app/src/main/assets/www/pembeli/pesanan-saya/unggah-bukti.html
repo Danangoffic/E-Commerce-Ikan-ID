@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Unggah Bukti Pembayaran</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <style type="text/css">
+    .input-field div.error
+    {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color:#FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+    .input-field label.active
+    {
+      width:100%;
+    }
+  </style>
+</head>
+
+<body class="">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#!" onclick="onBackKeyDown()" class="transparent" style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
+              <b class="header">&nbsp;Unggah Bukti Pembayaran</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- <div class="col s12"> -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12" style="margin-top: 8px">
+          <div class="card">
+            <div class="card-content content-form" style="margin-top: -4px">
+              <form name="bukti_pembayaran" method="POST" class="row" style="margin-bottom: 0px">
+                <div class="input-field col s12">
+                  <select name="bankTerpilih" id="bankTerpilih">
+                  </select>
+                  <label>Pilih Bank</label>
+                </div>
+                <div class="input-field col s12">
+                  <input placeholder="No. Rekening" id="noRek" name="noRek" type="number" class="validate">
+                  <label for="noRek">No. Rekening: </label>
+                </div>
+                <div class="input-field col s12">
+                  <input placeholder="Nama Pemilik Rekening" id="namaRekening" name="namaRekening" type="text" class="validate">
+                  <label for="namaRekening">Nama Pemilik Rekening :</label>
+                </div>
+                <div class="file-field input-field col s12" >
+                  <div class="btn teal darken-1 white-text">
+                    <span>Struk Pembayaran</span>
+                    <input type="file" id="struk_pembayaran" name="struk_pembayaran" class="validate">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="bottom-navbar">
+            <div class="card-action white" style="margin: 8px">
+              <button class="waves-effect waves-light btn blue" onclick="unggah()" type="button" style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Unggah Bukti Pembayaran</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+
+    <!-- ########## END: MAIN PANEL ########## -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="../../cordova.js"></script>
+    <script type="text/javascript" src="../../js/mobile_script.js"></script>
+    <script type="text/javascript">
+      $('select').formSelect();
+      function onLoad() {
+          document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      // device APIs are available
+      //
+      function onDeviceReady() {
+        RekeningUsaha();
+          document.addEventListener("pause", onPause, false);
+          document.addEventListener("resume", onResume, false);
+          document.addEventListener("menubutton", onMenuKeyDown, false);
+          document.addEventListener("backbutton", onBackKeyDown, false);
+          // Add similar listeners for other events
+      }
+
+      function onPause() {
+          // Handle the pause event
+      }
+
+      function onResume() {
+          // Handle the resume event
+      }
+
+      function onMenuKeyDown() {
+          // Handle the menubutton event
+      }  
+      
+      function onBackKeyDown() {
+        // Handle the back button
+        history.back();
+      }
+      var DetailPesanan = storage.getItem("DetailPesanan");
+      DetailPesanan = JSON.parse(DetailPesanan);
+      var idPemesanan = DetailPesanan.idPemesanan;
+      var TotalHargaAll = DetailPesanan.TotalHargaAll;
+      var DataUsaha = DetailPesanan.DataUsaha;
+      var idUsaha = DataUsaha.id_usaha;
+      $(".total-pembayaran").html(formatNumber(TotalHargaAll));
+      $(document).ready(onDeviceReady);
+
+      function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+      }
+
+      function RekeningUsaha(){
+        var data = {"id_akun" : idUsaha};
+        $.getJSON(base_url + "api/rekening/bank", data).then(onSuccess).done(onDone);
+      }
+
+      function onSuccess(result, status) {
+        var html_option = '<option selected disabled> Pilih Bank </option>';
+        if (status == 'success') {
+          var data_bank = result.data;
+          $.each(data_bank, (k,v)=>
+          {
+            html_option += '<option value = "'+v.kode_bank+'" label="'+v.nama_bank+'" >'+v.nama_bank+'</option>';
+          });
+          if (html_option == '') {
+            
+          } else {
+            document.getElementById('bankTerpilih').innerHTML=html_option;
+          }
+        }
+      }
+
+      function onDone() {
+        $('select').formSelect();
+      }
+
+      function unggah() {
+        console.log("Uploading");
+        var bankTerpilih = $("#bankTerpilih").val();
+        var noRek = $("#noRek").val();
+        var namaRekening = $("#namaRekening").val();
+        var struk_pembayaranFile = $("#struk_pembayaran").val();
+        var formData = new FormData($("form")[0]);
+        formData.append("bankTerpilih", bankTerpilih);
+        formData.append("noRek", noRek);
+        formData.append("namaRekening", namaRekening);
+        formData.append("struk_pembayaranFile", struk_pembayaranFile);
+        formData.append("idPemesanan", idPemesanan);
+
+        var statusProses = 1;
+        if(bankTerpilih==""){
+          M.toast({html: 'Pilih Bank Tujuan Yang Sudah Anda Transfer'});
+          statusProses=0;
+        }
+        if(noRek=="" || noRek.length==0 || noRek==null){
+          M.toast({html: 'Nomor Rekening Anda Harus'});
+          statusProses=0;
+        }
+
+        if(namaRekening=="" || namaRekening.length==0 || namaRekening==null){
+          M.toast({html: 'Nama Rekening Anda Harus Diisi'});
+          statusProses=0;
+        }
+
+        if(struk_pembayaranFile=="" || struk_pembayaranFile==null){
+          M.toast({html: 'Foto struk harus di unggah'});
+          statusProses=0;
+        }
+        if(statusProses==0){
+          M.toast({html: 'Gagal untuk mengunggah Bukti'});
+        }else{
+          M.toast({html: 'Mengunggah Bukti Transfer Anda..'});
+          $.ajax({
+            // base_url+'proses_mobile/penjual/prosessignuppenjual.php',
+            url: base_url+'Pembayaran/ProsesUnggahBuktiPembayaran_Pemesanan',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            type: 'POST',
+            dataType: 'json',
+            success: function (resp){
+              console.log(resp);
+              if(resp.status == 'berhasil'){
+                alert('Selamat, Anda Berhasil Mengunggah Bukti Pembayaran');
+                window.location.href = "pesanan-saya.html";
+              } else {
+                alert('Data gagal disimpan');
+              }
+            }
+          });
+        }
+      }
+    </script>
+    <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+  </body>
+  </html>

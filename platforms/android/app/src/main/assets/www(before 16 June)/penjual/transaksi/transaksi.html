@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Transaksi</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style type="text/css">
+    .carousel{
+      height: 200px !important;
+    }
+    .card.small{
+      height: 170px;
+    }
+    #cariIkan::placeholder, #cariIkan { /* Firefox, Chrome, Opera */ 
+      color: white; 
+    } 
+    #cariIkan:focus{
+      padding: 5px;
+      border-radius: 10px;
+      height: 30px;
+      width: 100%;
+      background-color: rgba(255,255,255,0.4);
+      color: black;
+    }
+    input[type=search]{
+      border-bottom: 1px solid white !important;
+    }
+    .collection .collection-item.avatar {
+      line-height: 2rem;
+      min-height: 52px;
+      padding-left: 72px;
+      position: relative;
+    }
+    .tabs .indicator{
+      background-color: red;
+    }
+    .page-footer{
+      padding-top: 0px !important;
+    }
+    .pt-5{
+      padding-top: 5px !important;
+    }
+    .p0{
+      padding: 0px auto !important;
+    }
+    .dropdown-content {
+      width: 250px !important;
+      left: 0px;
+      top: -58px;
+    }
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row">   -->
+            <div class="left col s12" style="margin-left: 8px">
+              <b class="header" style="font-size: large; margin-left: 14px; line-height: 64px">Transaksi</b>
+            </div>
+            <div class="right" style="margin-right: 12px">
+              <a class='dropdown-trigger' href='#' data-target='dropdown1'><i class='material-icons'>more_vert</i></a>
+              <ul id='dropdown1' class='dropdown-content' style="width: 300px">
+                <li><a href="proses-pesanan-hari-ini.html"><i class="material-icons">autorenew</i>Proses Pesanan Hari ini</a></li>
+                <li><a href="#!"><i class="material-icons">airport_shuttle</i>Lacak Pengiriman</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>    
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+
+  <main>
+    <div class="container-fluid">
+      <div class="row" style="">
+        <ul class="tabs white darken-1 tabs-fixed-width blue-text col s12" style="padding: 0px; margin-top: -4px">
+          <li class="tab col s4 tab1"><a class="blue-text active" href="#baru">BARU</a></li>
+          <li class="tab col s4 tab2"><a class="blue-text" href="#ambilditoko">AMBIL DI TOKO</a></li>
+          <li class="tab col s4 tab3"><a class="blue-text" href="#perludikirim">PERLU DIKIRIM</a></li>
+          <li class="tab col s4 tab3"><a class="blue-text" href="#selesai">SELESAI</a></li>
+        </ul>
+        <div id="baru" class="col s12" style="height: auto; padding: 0px 8px">
+          <div class="row" style="display: relative; margin: 4px">
+            <p class="flow-text center" style="font-size: small; width: 100%">Tidak ada Transaksi</p>
+          </div>
+        </div>
+        <div id="ambilditoko" class="col s12" style="height: auto; padding: 0px 8px">
+          <div class="row" style="display: relative; margin: 4px">
+            <p class="flow-text center" style="font-size: small; width: 100%">Tidak ada Transaksi</p>
+          </div>
+        </div>
+        <div id="perludikirim" class="col s12" style="height: auto; padding: 0px 8px">
+          <div class="row" style="display: relative; margin: 4px">
+            <p class="flow-text center" style="font-size: small; width: 100%">Tidak ada Transaksi</p>
+          </div>
+        </div>
+        <div id="selesai" class="col s12" style="height: auto; padding: 0px 8px">
+          <div class="row" style="display: relative; margin: 4px">
+            <p class="flow-text center" style="font-size: small; width: 100%">Tidak ada Transaksi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer blue bottom-navbar">
+    <div class="center row" style="margin-bottom: 0px !important;">
+      <div class="col s4 pt-5"><a class="center blue white-text" href="../index.html"><span class="material-icons">home</span><br>Home</a></div>
+      <div class="col s4 pt-5 white"><a class="center" style="" href="#!"><span class="material-icons">receipt</span><br>Transaksi</a></div>
+      <div class="col s4 pt-5"><a class="center blue white-text" href="../akun.html"><span class="material-icons">person</span><br>Akun</a></div>
+    </div>
+  </footer>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+  <script type="text/javascript">
+    var Pesanan, PesananPaid, PesananSent, PesananTake;
+    var idUsaha = "";
+    function onLoad(){
+      $(document).ready(onDeviceReady);
+    }
+
+    function onDeviceReady(){
+      var id_akun = storage.getItem('id_akun');
+      $.ajax({
+        url: base_url+"Penjual/ambil_data_usaha",
+        data: {id_akun : id_akun},
+        type: 'POST',
+        dataType: 'JSON',
+        success: function(e){
+          console.log(e);
+          idUsaha= e.id_usaha;
+          console.log(idUsaha);
+          loadPesanan(idUsaha,"Baru");
+          loadPesanan(idUsaha, "Terbayar");
+          loadPesanan(idUsaha, "Terkirim");
+          loadPesananTake(idUsaha);
+        }
+      });
+      $('.tabs').tabs();
+      $('.dropdown-trigger').dropdown();
+
+
+    }
+
+    function loadPesanan(idUsaha,status){
+      var data = {'id_usaha': idUsaha, 'status':status};
+      $.ajax({
+        url: base_url+"Pemesanan/getAllTransaksiPenjual",
+        type: 'post',
+        dataType: 'JSON',
+        data: data,
+        success: function(result){
+          console.log(result);
+          var Html = '';
+          if(result.responseCode=="00"){
+            var dataPesanan = result.dataPesanan;
+            if(status=="Baru"){
+              Pesanan = dataPesanan;
+            }else if(status=="Terbayar"){
+              PesananPaid = dataPesanan;
+            }else if(status=="Terkirim"){
+              PesananSent = dataPesanan;
+            }
+
+            if(dataPesanan.length > 0){
+              $.each(dataPesanan, function(i,isi){
+                var idPemesanan = isi.idPemesanan;
+                  // console.log(idPemesanan);
+                  var totalHargaAll = isi.TotalHargaAll;
+                  var display = isi.display;
+                  var namaProduk = display.namaProduk;
+                  var hargaProduk = display.hargaProduk;
+                  var totalProduk = display.totalProduk;
+                  var fotoProduk = display.fotoProduk;
+                  var JenisPengiriman = isi.JenisPengiriman;
+                  var metode_pembayaran = isi.DataPembayaran.metode_pembayaran;
+                  console.log(" totalHargaAll: Rp " + totalHargaAll);
+                  console.log(" Yang perlu ditampilin: ");
+                  // console.log(display);
+                  var StatusPemesanan = "";
+                  if(status=="Baru"){
+                    StatusPemesanan = "Baru";
+                  }else if(status=="Terbayar"){
+                    StatusPemesanan = "Terbayar";
+                  }else if(status=="Terkirim"){
+                    StatusPemesanan = "Terkirim";
+                  }
+                  Html += '<div class="card">'+
+                  '<ul class="collection">'+
+                  '<li class="collection-item avatar" onclick="GoToDetail(\''+idPemesanan+'\', \''+status+'\')">'+
+                  '<img src="'+base_url+'/foto_usaha/produk/'+fotoProduk+'" alt="Foto '+namaProduk+'" class="circle">'+
+                  '<span class="title">'+namaProduk+'</span>'+
+                  '<p class="orange-text">Rp '+formatNumber(hargaProduk)+'<br></p>'+
+                  '<span class="secondary-content">'+totalProduk+' Ons</span>'+
+                  '</li>'+
+                  '<li class="collection-item teal-text darken-1"><b>Total Pemasukkan :<span class="secondary-content orange-text">Rp '+formatNumber(totalHargaAll)+'</span></b></li>';
+                  
+                  Html +='</ul></div>';
+                });
+            }else{
+              // Html = "Pesanan Kosong";
+              Html = '<div id="baru" class="col s12" style="height: auto; padding: 0px 8px">'+
+              '<div class="row" style="display: relative; margin: 4px">' +
+              '<p class="flow-text center" style="font-size: small; width: 100%">Tidak ada Transaksi</p>'+
+              '</div>' +
+              '</div>';
+            }
+            if(status=="Baru"){
+              $("#baru").html(Html);
+            }else if(status=="Terbayar"){
+              $("#perludikirim").html(Html);
+            }else if(status=="Terkirim"){
+              $("#selesai").html(Html);
+            }
+          }else{
+            Html = "Pesanan Kosong";
+            if(status=="Baru"){
+              $("#baru").html(Html);
+            }else if(status=="Terbayar"){
+              $("#perludikirim").html(Html);
+            }else if(status=="Terkirim"){
+              $("#selesai").html(Html);
+            }
+          }
+        }
+      });
+    }
+
+    function loadPesananTake(idUsaha){
+      var data = {'id_usaha': idUsaha, tipePengiriman:"Ambil Di Toko"};
+      $.ajax({
+        url: base_url+"Pemesanan/getAllTransaksiPenjual",
+        type: 'post',
+        dataType: 'JSON',
+        data: data,
+        success: function(result){
+          console.log(result);
+          var Html = '';
+          if(result.responseCode=="00"){
+            var dataPesanan = result.dataPesanan;
+            PesananTake = dataPesanan;
+            if(dataPesanan.length > 0){
+              $.each(dataPesanan, function(i,isi){
+                var idPemesanan = isi.idPemesanan;
+                var totalHargaAll = isi.TotalHargaAll;
+                var display = isi.display;
+                var namaProduk = display.namaProduk;
+                var hargaProduk = display.hargaProduk;
+                var totalProduk = display.totalProduk;
+                var fotoProduk = display.fotoProduk;
+                var JenisPengiriman = isi.JenisPengiriman;
+                var metode_pembayaran = isi.DataPembayaran.metode_pembayaran;
+                console.log(" totalHargaAll: Rp " + totalHargaAll);
+                console.log(" Yang perlu ditampilin: ");
+                console.log(display);
+                Html += '<div class="card">'+
+                '<ul class="collection">';
+                if(isi.DataPembayaran.status_pembayaran=="" || isi.DataPembayaran.status_pembayaran==null){
+                  Html += '<div class="red accent-3 white-text center"><span>Pesanan Belum Dibayar</span></div>';
+                }
+                Html += '<li class="collection-item avatar" onclick="GoToDetail(\''+idPemesanan+'\', \''+status+'\')">'+
+                '<img src="'+base_url+'/foto_usaha/produk/'+fotoProduk+'" alt="Foto '+namaProduk+'" class="circle">'+
+                '<span class="title">'+namaProduk+'</span>'+
+                '<p class="orange-text">Rp '+formatNumber(hargaProduk)+'<br></p>'+
+                '<span class="secondary-content">'+totalProduk+'&nbsp Ons</span>'+
+                '</li>'+
+                '<li class="collection-item teal-text darken-1"><b>Total Pemasukkan :<span class="secondary-content orange-text">Rp '+formatNumber(totalHargaAll)+'</span></b></li>';
+
+                Html +='</ul></div>';
+              });
+            }else{
+              Html = "Pesanan Kosong";
+            }
+            $("#ambilditoko").html(Html);
+          }else{
+            Html = "Pesanan Kosong";
+            $("#ambilditoko").html(Html);
+          }
+        }
+      });
+    }
+
+    function formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function GoToDetail(idPemesanan, status){
+      console.log("Id Pemesanan : " + idPemesanan);
+      console.log("status : " + status);
+      var LokasiHalaman = "", inEach;
+      storage.setItem('id_pesanan', idPemesanan);
+      if(status=="Baru"){
+        inEach = Pesanan;
+      }else if(status=="Terbayar"){
+        inEach = PesananPaid;
+      }else if(status == "Terkirim"){
+        inEach = PesananSent;
+      }else{
+        inEach = PesananTake;
+      }
+      var isi = inEach.find(isinya => isinya.idPemesanan === idPemesanan);
+      // $.each(inEach, function(i,isi){
+      //   var IDPESANAN = isi.idPemesanan;
+      //   console.log("IDPESANAN : " + IDPESANAN);
+      //   if(idPemesanan==IDPESANAN){
+        var AllPurchaseProduk = isi.AllPurchaseProduk;
+        AllPurchaseProduk = JSON.stringify(AllPurchaseProduk);
+        var ID = isi.ID;
+        var JenisPengiriman = isi.JenisPengiriman;
+        var DataPembayaran = isi.DataPembayaran;
+        var metodePembayaran = DataPembayaran.metode_pembayaran;
+        console.log(JenisPengiriman);
+        console.log(metodePembayaran);
+        console.log("Status: " + status);
+          // return false;
+          storage.setItem("statusPemesanan", status);
+          storage.setItem("JenisPengiriman", JenisPengiriman);
+          storage.setItem("metodePembayaran", metodePembayaran);
+          if(status=="Baru"){
+            storage.setItem("statusPemesanan", "Baru");
+            storage.setItem("metodePembayaran", metodePembayaran);
+            window.location.href="detail-transaksi-belumbayar-all-no-pick.html";
+          }else if(status=="Terbayar"){
+            storage.setItem("statusPemesanan", "Terbayar");
+            storage.setItem("metodePembayaran", metodePembayaran);
+            window.location.href="detail-transaksi-perludikirim-all-no-pick.html";
+          }else if(status == "Terkirim"){
+            storage.setItem("statusPemesanan", "Terkirim");
+            storage.setItem("metodePembayaran", metodePembayaran);
+            window.location.href = "detail-transaksi-selesai-all.html";
+            // inEach = PesananSent;
+          }else{
+            storage.setItem("statusPemesanan", "");
+            storage.setItem("metodePembayaran", metodePembayaran);
+            window.location.href = "detail-transaksi-ambil-all.html";
+          }
+          storage.setItem('idPemesanan',idPemesanan);
+          storage.setItem("DetailPesanan", JSON.stringify(isi));
+          storage.setItem("AllPurchaseProduk", AllPurchaseProduk);
+          storage.setItem("status", status);
+          storage.setItem("NOPESANAN", ID);
+          return true;
+        // }
+      // }
+    // );
+  }
+
+</script>
+<!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+</body>
+</html>

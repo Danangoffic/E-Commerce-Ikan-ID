@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Jadwal Pengiriman</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+  <style>
+    .modal {
+      max-height: 100%;
+    }
+  </style>
+</head>
+
+<body class="">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a href="akun.html" onclick="return onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Jadwal Pengiriman</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="col s12 grey lighten-3">
+    <div class="container-fluid" id="content-jam-pengiriman">
+
+
+    </div>
+    <div class="bottom-navbar">
+      <div class="card-action white" style="margin: 8px">
+        <button class="btn blue darken-1 modal-trigger" data-target="modalTambah" id="add" style="width: 100%;"
+          onclick="add"><i class="material-icons">add</i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modalEdit" class="modal" style="width:100%;height:100%;">
+    <div class="modal-content">
+      <h4>Edit Jam Pengiriman</h4>
+      <!-- <form action="#!" method="POST" name="jam_pengirman_edit"> -->
+      <input type="text" name="jam_pengrimanEdit" class="timepicker">
+      <input type="hidden" name="id_edit">
+      <!-- </form> -->
+    </div>
+    <div class="modal-footer">
+      <button class="waves-effect waves-green btn blue accent-4" id="simpanEditJam">Simpan</button>
+      <button class="waves-effect waves-red btn-flat modal-close" id="batalEditJam">Batal</button>
+    </div>
+  </div>
+
+  <div id="modalTambah" class="modal" style="width:100%;height:100%;">
+    <div class="modal-content">
+      <h4>Tambah Jam Pengiriman</h4>
+      <!-- <form action="#!" method="POST" name="jam_pengirman_edit"> -->
+      <input type="text" name="jam_pengrimanAdd" class="timepicker">
+      <!-- <input type="hidden" name="id_edit"> -->
+      <!-- </form> -->
+    </div>
+    <div class="modal-footer">
+      <button class="waves-effect waves-green btn blue accent-4" id="simpanAddJam">Simpan</button>
+      <button class="waves-effect modal-close waves-red btn-flat" id="batalAddJam">Batal</button>
+    </div>
+  </div>
+
+
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../cordova.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+  <script>
+    $('.timepicker').timepicker();
+    $('.modal').modal();
+    $(document).ready(onDeviceReady);
+    function onLoad() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      loadJamPengiriman();
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+      // Add similar listeners for other events
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+      window.location.assign('akun.html');
+    }
+
+    function loadJamPengiriman() {
+      var id_usaha = storage.id_usaha;
+      $.ajax({
+        url: base_url + "api/user/penjual/jam-pengiriman",
+        type: "get",
+        data: { id_usaha: id_usaha },
+        success: function (e) {
+          if (e.length > 0 || e !== null || e !== "") {
+            var html = "";
+            $.each(e, function (i, isi) {
+              var jam_pengiriman = isi.jam_pengiriman;
+              jam_pengiriman = jam_pengiriman.substring(0, 5);
+              var id = isi.id_jampengiriman;
+              html += '<div class="card" style="margin-top: 0px; margin-bottom: 4px">';
+              html += '<div class="card-content" style="padding: 4px 24px 4px 24px">';
+              html += '<div class="row">';
+              html += '<div class="input-field">';
+              html += '<div class="col s6">';
+              html += '<p><i class="material-icons small">access_time</i>';
+              html += '<b>' + jam_pengiriman + '</b></p>';
+              html += '</div>';
+              html += '<div class="col s6 right" style="margin-top: -12px">';
+              html += '<button type="button" class="btn waves-effect waves-light success right" onclick="editJam(' + id + ')"><i class="material-icons">edit</i></button>';
+              html += '<button type="button" class="btn waves-effect waves-light red right" onclick="deleteJam(' + id + ')"><i class="material-icons">delete</i></button>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
+              html += '</div>';
+            });
+            $("#content-jam-pengiriman").html(html);
+          }
+        }
+      })
+    }
+
+    function editJam(id) {
+      $.ajax({
+        url: base_url + "Penjual/ambil_jam_pengiriman_usaha_by_id",
+        type: "POST",
+        data: { id_jampengiriman: id },
+        success: function (e) {
+          console.log(e);
+          $("[name=jam_pengrimanEdit]").val(e.jam_pengiriman.substring(0, 5));
+          $("[name=id_edit]").val(id);
+          $("#modalEdit").modal("open");
+          $("#simpanEditJam").click(simpanEdit);
+        },
+        error: function () {
+
+        }
+      })
+    }
+
+    function simpanEdit() {
+      var jam = $("[name=jam_pengrimanEdit]").val();
+      var id = $("[name=id_edit]").val();
+      $.ajax({
+        url: base_url + "Penjual/ubah_jam_pengiriman_usaha",
+        type: "POST",
+        data: { id_jampengiriman: id, jam: jam },
+        success: function (e) {
+          if (e.status == "berhasil") {
+            $("#modalEdit").modal("close");
+            M.toast({ html: "Berhasil Ubah Jam Pengiriman" });
+            loadJamPengiriman();
+          } else {
+            M.toast({ html: "Gagal Ubah Jam Pengiriman" });
+          }
+        }
+      })
+    }
+
+    function deleteJam(id) {
+      var confirm = navigator.notification.confirm(
+        'You are the winner!', // message
+        onConfirm,            // callback to invoke with index of button pressed
+        'Game Over',           // title
+        ['Restart', 'Exit']     // buttonLabels
+      );
+      if(confirm){
+        $.ajax({
+          url: base_url + "Penjual/hapus_jam_pengiriman_usaha",
+          type: "POST",
+          data: {id_jampengiriman: id},
+          success: function(e){
+            if(e.status=="berhasil"){
+              M.toast({ html: "Berhasil Hapus Jam Pengiriman" });
+              loadJamPengiriman();
+            }else{
+              M.toast({ html: "Gagal Hapus Jam Pengiriman" });
+              // loadJamPengiriman();
+            }
+          }
+        })
+      }
+    }
+
+    $("#simpanAddJam").click(function () {
+      var jam_pengiriman = $("[name=jam_pengrimanAdd]").val();
+      var id_usaha = storage.id_usaha;
+      $.ajax({
+        url: base_url + "Penjual/simpan_jam_pengiriman_usaha",
+        type: "POST",
+        data: { id_usaha: id_usaha, jam: jam_pengiriman },
+        success: function (e) {
+          if (e.status == "berhasil") {
+            loadJamPengiriman();
+            $("#modalTambah").modal("close");
+            M.toast({ html: "Berhasil Tambahkan Jam Pengiriman" });
+          } else {
+            M.toast({ html: "Gagal Menambahkan Jam Pengiriman" });
+          }
+        }
+      })
+    });
+  </script>
+</body>
+
+</html>

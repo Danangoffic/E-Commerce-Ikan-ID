@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Kendaraan Saya</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+
+  <!-- <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet"> -->
+
+  <style type="text/css">
+    .carousel{
+      height: 200px !important;
+    }
+    .card.small{
+      height: 170px;
+    }
+    .collection.with-header {
+      margin-top: -24px; margin-bottom: -24px;
+      margin-right: -24px; margin-left: -24px;
+    }
+    .card-content {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  </style>
+</head>
+
+<body class="" onload="onload();">
+  <header>
+    <!-- header -->
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent" style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Kendaraan Saya</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <body>
+
+    <div class="col s12 grey lighten-3" id="penjual" style="margin-bottom: 24px">
+      <div class="container-fluid">
+        <div class="card">
+        </div>
+        <div class="bottom-navbar">
+          <div class="card-action white" style="margin: 0px; padding-bottom: 8px">
+            <a class="waves-effect waves-light btn blue" href="tambah_rekening.html" type="button" style="width: 100%; height: 40px; line-height: 44px; font-size: medium">+ Tambah Kendaraan Baru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ########## END: MAIN PANEL ########## -->
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script> -->
+    <!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+
+      <!-- <script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+      <script src="../assets/lib/moment/moment.js"></script>
+      <script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+      <script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+      <script src="../assets/lib/peity/jquery.peity.js"></script> -->
+      <!-- <script src="../assets/lib/codemirror/addon/scroll/simplescrollbars.js"></script> -->
+      <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+      <script type="text/javascript" src="../js/mobile_script.js">
+      </script>
+      <script>
+        function onBackKeyDown() {
+          window.history.back();
+        }
+      </script>
+      <script type="text/javascript">
+        // $('.collapsible').collapsible();
+        var id_usaha = storage.getItem('id_usaha');
+        storage.setItem('id_kendaraan', '');
+        loadKendaraan(id_usaha);
+        function onLoad() {
+          document.addEventListener("deviceready", onDeviceReady, false);
+        }
+
+        // device APIs are available
+        //
+        function onDeviceReady() {
+          document.addEventListener("pause", onPause, false);
+          document.addEventListener("resume", onResume, false);
+          document.addEventListener("menubutton", onMenuKeyDown, false);
+            // Add similar listeners for other events
+          }
+
+          function onPause() {
+            // Handle the pause event
+          }
+
+          function onResume() {
+            // Handle the resume event
+          }
+
+          function onMenuKeyDown() {
+            // Handle the menubutton event
+          }
+
+          function loadKendaraan(id_usaha) {
+            var data = {'id_usaha' : id_usaha};
+            $.ajax({
+              url: base_url + "Penjual/getKendaraanByIdPenjual_html",
+              type: 'POST',
+              dataType: 'html',
+              data: data,
+              success: function(e){
+                $(".card").after(e);
+                $('.modal').modal();
+              }
+            });
+          }
+
+          function UbahKendaraan(id_kendaraan) {
+            storage.setItem('id_kendaraan', id_kendaraan);
+            window.location.href='ubah_kendaraan.html';
+          }
+        </script>
+
+      </body>
+      </html>

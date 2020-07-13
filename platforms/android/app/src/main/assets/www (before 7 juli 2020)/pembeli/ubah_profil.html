@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Ubah Profil</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="./../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+    src="cordova.js"></script>
+
+  <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM">
+  </script>
+  <style type="text/css">
+    .input-field div.error {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color: #FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+
+    .input-field label.active {
+      width: 100%;
+    }
+  </style>
+  <style>
+    #map {
+      height: 400px;
+      /* The height is 400 pixels */
+      width: 100%;
+      /* The width is the width of the web page */
+    }
+  </style>
+
+
+</head>
+
+<body class="">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <a id="#" href="profil.html" onclick="return onBackKeyDown()" class="transparent"
+            style="margin-left: 14px;"><span class="fa fa-chevron-left"></span></a>
+          <b class="header">&nbsp;Ubah Profil</b>
+        </div>
+      </div>
+    </nav>
+
+    <div class="card z-depth-0" style="padding: 0px; margin: 0px 0px 24px 0px">
+      <div class="card-content form-content">
+        <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate"
+          data-parsley-validate>
+          <div class="card z-depth-0">
+
+            <div class="col s12">
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo">contacts</i>
+                <input id="nama_pb" name="nama_pb" type="text" class="validate" autocomplete="off" autofocus="">
+                <label class="active" for="nama_pb">Nama Lengkap</label>
+              </div>
+            </div>
+            <div class="col s12 m4 l3 user-section-negative-margin">
+              <div class="col s12 center-align">
+                <img class="responsive-img circle z-depth-5 foto_pb" id="foto_pb" width="100" alt=""
+                  style="margin-top: 5px">
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 24px">
+              <div class="file-field input-field col s12">
+                <div class="btn green">
+                  <span>Foto Profil</span>
+                  <input placeholder="Foto Profil" id="foto_pb" name="foto_pb" type="file" class="validate"
+                    accept="image/*">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 24px">
+              <div class="input-field">
+                <p class="flow-text">Jenis Kelamin :</p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="jk_pb" value="Laki-laki" type="radio" />
+                    <span>Laki-laki</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="jk_pb" value="Perempuan" type="radio" />
+                    <span>Perempuan</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 36px">
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo">date_range</i>
+                <input id="tgllahir_pb" name="tgllahir_pb" type="text" class="datepicker" autocomplete="off">
+                <label class="active" for="tgllahir_pb">Tanggal Lahir</label>
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 24px">
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo">phone</i>
+                <input id="telp_pb" name="telp_pb" type="tel" class="validate" autocomplete="off">
+                <label class="active" for="telp_pb">No. Hp</label>
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 24px">
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo">home</i>
+                <textarea id="alamat_pb" name="alamat_pb" type="text" class="materialize-textarea"
+                  autocomplete="off"></textarea>
+                <label class="active" for="alamat_pb">Alamat Lengkap</label>
+              </div>
+            </div>
+            <div class="col s12" style="margin-top: 24px">
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo"></i>
+                <input id="kab_pb" name="kab_pb" type="text" class="validate" autocomplete="off">
+                <label class="active" for="kab_pb">Kota/Kabupaten</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo"></i>
+                <input id="kec_pb" name="kec_pb" type="text" class="validate" autocomplete="off">
+                <label class="active" for="kec_pb">Kecamatan</label>
+              </div>
+              <div class="input-field">
+                <i class="material-icons prefix small icon-demo"></i>
+                <input id="kel_pb" name="kel_pb" type="text" class="validate" autocomplete="off">
+                <label class="active" for="kel_pb">Kelurahan</label>
+              </div>
+            </div>
+            <div class="col s12">
+              <b class="flow-text">Lokasi Alamat di Peta : </b>
+            </div>
+            <div class="col s12" id="map">
+            </div>
+            <div class="col s12">
+              <p class="flow-text red-text" style="font-size: medium">Note:</p>
+            </div>
+            <div class="col s12">
+              <input type="hidden" name='latitude' id="latitude">
+              <input type="hidden" name='longitude' id="longitude">
+              <!-- <h6><h6>Note:</h6></p> -->
+            </div>
+            <div class="col s12">
+              <div class="row">
+                <div class="col s6 right">
+                  <a class="btn btn-small waves-effect waves-light green-grey" style="margin-top:10px; width:100%"
+                    type="button" onclick="getCurrentLocation()">Lokasi Saat Ini</a>
+                </div>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="bottom-navbar">
+      <div class="card-action white" style="margin: 8px; z-index: 10;">
+        <button type="button" class="waves-effect waves-light btn blue" id="simpan" style="width: 100%; z-index: 10;"
+          onclick="M.toast({html: 'Memproses'})">Simpan</button>
+      </div>
+    </div>
+
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h1 class="center"><span class="material-icons teal-text darken-1 waves-effect waves-light"
+            style="font-size: 7rem">check_circle</span></h1>
+        <b>Pembaruan Profile Sukses</b>
+      </div>
+      <div class="modal-footer">
+        <a href="profil.html" class="modal-close waves-effect waves-green btn-flat teal-text darken-1">Tutup</a>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="../cordova.js"></script>
+    <script type="text/javascript" src="../js/mobile_script.js"></script>
+    <!-- <script type="text/javascript" src="../js/plugins/jquery-validation/jquery.validate.min.js"></script> -->
+    <script type="text/javascript">
+      var dataProfile = JSON.parse(localStorage.dataProfile);
+      var latitudeForm = 0, longitudeForm = 0;
+      const source = base_url + "foto_pembeli/";
+      // var id_pb = dataProfile.id_pb;
+      var d = new Date();
+      d.setFullYear(1997, 12, 31);
+      // dataProfile = dataProfile[0];
+      // var idAkun = dataProfile.id_pb;
+      // var nama = dataProfile.nama_pb;
+      // var foto = dataProfile.foto_pb;
+      // var jk = dataProfile.jk_pb;
+      // var tgl = dataProfile.tgllahir_pb;
+      // var telp = dataProfile.telp_pb;
+      // var alamat = dataProfile.alamat_pb;
+      // var kab = dataProfile.kab_pb;
+      // var kec = dataProfile.kec_pb;
+      // var kel = dataProfile.kel_pb;
+      // var latitude = dataProfile.latitude;
+      // var longitude = dataProfile.longitude;
+      // $(".foto_pb").attr("src", source + foto);
+      // $(".file-path").val(foto);
+      // $("[name=nama_pb]").val(nama);
+      // $("[name=jk_pb][value=" + jk + "]").prop("checked", true);
+      // $("[name=tgllahir_pb]").val(tgl);
+      // $("[name=telp_pb]").val(telp);
+      // $("[name=alamat_pb]").val(alamat);
+      // $("[name=kab_pb]").val(kab);
+      // $("[name=kec_pb]").val(kec);
+      // $("[name=kel_pb]").val(kel);
+      // $('[name=tgllahir_pb]').datepicker();
+      $(window).on("load", reload);
+      // document.getElementsByTagName("body").addEventListener("load", reload, false);
+      $(document).ready(() => {
+
+        document.getElementById("simpan").addEventListener("click", doSimpan, false);
+        // $("#simpan").on("click", doSimpan);
+      });
+
+      function getCurrentLocation() {
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      }
+
+      function onSuccess(position) {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        // document.getElementById("longitude").value = lng;
+        // document.getElementById("latitude").value = lat;
+        console.log("lat: " + lat);
+        console.log("lng: " + lng);
+        initMap(lat, lng);
+      }
+      function onError(error) {
+        M.toast({ html: error.message });
+      }
+
+      function taruhMarker(peta, posisiTitik) {
+        if (marker) {
+          // pindahkan marker
+          marker.setPosition(posisiTitik);
+        } else {
+          // buat marker baru
+          marker = new google.maps.Marker({
+            position: posisiTitik,
+            map: peta
+          });
+        }
+        posisilat = posisiTitik.lat();
+        posisilng = posisiTitik.lng();
+        latitudeForm = posisilat;
+        longitudeForm = posisilng;
+        console.log("Posisi marker: " + posisilat + "," + posisilng);
+        $("body").find("input[name='latitude']").val(posisilat);
+        $("body").find("input[name='longitude']").val(posisilng);
+        // $("body").find("input[name='latitude_pb']").val(posisilat);
+        //$("#latitude_pb").val(posisilat);
+        //$("#longitude_pb").val(posisilng);
+        // $("body").find("input[name='longitude_pb']").val(posisilng);
+      }
+      function initMap(lat, lng) {
+        $("body").find("input[name='latitude']").val(lat);
+        $("body").find("input[name='longitude']").val(lng);
+        var propertiPeta = {
+          center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+          zoom: 17, //semakin banyak semakin dekat min 1 maksimal
+          mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+        };
+        console.log("lat: " + lat + " long : " + lng);
+        var point = new google.maps.LatLng(lat, lng);
+        var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+        marker = new google.maps.Marker({
+          position: point,
+          map: peta
+          //icon
+        });
+        google.maps.event.addListener(peta, 'click', function (event) {
+          taruhMarker(this, event.latLng);
+        });
+      }
+
+      function doSimpan() {
+        // M.toast({html: "Memproses"});
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var nama_pb = $("#nama_pb").val();
+        var jk_pb = $('input:radio[name=jk_pb]:checked').val();
+        var tgllahir_pb = $("#tgllahir_pb").val();
+        var telp_pb = $("#telp_pb").val();
+        var alamat_pb = $("#alamat_pb").val();
+        var kab_pb = $("#kab_pb").val();
+        var kec_pb = $("#kec_pb").val();
+        var kel_pb = $("#kel_pb").val();
+        // var longitude_pb = $("#longitude").val();
+        // var latitude_pb = $("#latitude").val();
+        var foto_pb = $("#foto_pb").val();
+        var formData = new FormData($("form")[0]);
+        console.log("FormData");
+        console.log(formData);
+        formData.append("nama_pb", nama_pb);
+        formData.append("jk_pb", jk_pb);
+        formData.append("tgllahir_pb", tgllahir_pb);
+        formData.append("telp_pb", telp_pb);
+        formData.append("alamat_pb", alamat_pb);
+        formData.append("kab_pb", kab_pb);
+        formData.append("kec_pb", kec_pb);
+        formData.append("kel_pb", kel_pb);
+        // formData.append("longitude", longitude_pb);
+        // formData.append("latitude", latitude_pb);
+        formData.append("idAkun", localStorage.id_akun);
+        $.ajax({
+          data: formData,
+          contentType: false,
+          cache: false,
+          processData: false,
+          type: 'POST',
+          dataType: 'json',
+          url: API_PEMBELI_UPDATE,
+          success: onSuccessSubmit
+        });
+      }
+
+      function reload() {
+        $.getJSON(API_PEMBELI, { id_akun: storage.id_akun }, onSuccessReload);
+      }
+
+      function onSuccessReload(result) {
+        // result = JSON.parse(result);
+        var r = result[0];
+        console.log(result[0]);
+        const source = base_url + "foto_pembeli/";
+        $(".foto_pb").attr("src", source + r.foto_pb);
+        $("[name=nama_pb]").val(r.nama_pb);
+        $("[name=jk_pb][value=" + r.jk_pb + "]").prop("checked", true);
+        $("[name=tgllahir_pb]").val(r.tgllahir_pb);
+        $("[name=telp_pb]").val(r.telp_pb);
+        $("[name=alamat_pb]").val(r.alamat_pb);
+        $("[name=kab_pb]").val(r.kab_pb);
+        $("[name=kec_pb]").val(r.kec_pb);
+        $("[name=kel_pb]").val(r.kel_pb);
+        $("[name=latitude]").val(r.latitude);
+        $("[name=longitude]").val(r.longitde)
+        initMap(r.latitude, r.longitude);
+        M.updateTextFields();
+        storage.setItem('dataProfile', JSON.stringify(result));
+      }
+
+      function onSuccessSubmit(resp) {
+        if (resp.status == 'berhasil') {
+          M.toast({ html: "Berhasil Ubah Profil" });
+          setTimeout(reload, 400);
+        }
+      }
+      // $("#formValidate").validate({
+      //   rules: {
+      //     username: {
+      //       required: true,
+      //       minlength: 5
+      //     },
+      //     password: {
+      //       required: true,
+      //       minlength: 5
+      //     },
+      //     nama_pb: {
+      //       required: true,
+      //       minlength: 10
+      //     },
+      //     foto_pb:"required",
+      //     jk_pb:"required",
+      //     tgllahir_pb:"required",
+      //     telp_pb: {
+      //       required: true,
+      //       minlength: 10
+      //     },
+      //     alamat_pb: {
+      //       required: true,
+      //       minlength: 10
+      //     },
+      //     kab_pb: {
+      //       required: true,
+      //       minlength: 5
+      //     },
+      //     kec_pb: {
+      //       required: true,
+      //       minlength: 5
+      //     },
+      //     kel_pb: {
+      //       required: true,
+      //       minlength: 5
+      //     },
+      //   },
+      //   //For custom messages
+      //   messages: {
+      //     username:{
+      //       required: "Masukkan Username",
+      //       minlength: "Username minimal 5 karakter"
+      //     },
+      //     password:{
+      //       required: "Masukkan Password",
+      //       minlength: "Password minimal 5 karakter"
+      //     },
+      //     nama_pb:{
+      //       required: "Masukkan Nama Lengkap",
+      //       minlength: "Nama Lengkap minimal 10 karakter"
+      //     },
+      //     foto_pb: "Belum Memilih Foto Profil",
+      //     jk_pb: "Belum Memilih Jenis Kelamin",
+      //     tgllahir_pb: "Belum Memasukkan Tanggal Lahir",
+      //     telp_pb:{
+      //       required: "Masukkan No. Hp",
+      //       minlength: "No. Hp minimal 10 karakter"
+      //     },
+      //     alamat_pb:{
+      //       required: "Masukkan Alamat Lengkap",
+      //       minlength: "Alamat Lengkap minimal 10 karakter"
+      //     },
+      //     kab_pb:{
+      //       required: "Masukkan Nama Kota/Kabupaten",
+      //       minlength: "Nama Kota/Kabupaten minimal 5 karakter"
+      //     },
+      //     kec_pb:{
+      //       required: "Masukkan Nama Kecamatan",
+      //       minlength: "Nama Kecamatan minimal 5 karakter"
+      //     },
+      //     kel_pb:{
+      //       required: "Masukkan Nama Kelurahan",
+      //       minlength: "Nama Kelurahan minimal 5 karakter"
+      //     },
+      //   },
+      //   errorElement : 'div',
+      //   errorPlacement: function(error, element) {
+      //     var placement = $(element).data('error');
+      //     if (placement) {
+      //       $(placement).append(error)
+      //     } else {
+      //       error.insertAfter(element);
+      //     }
+      //   }
+      // });
+
+
+    </script>
+    <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+</body>
+
+</body>
+
+</html>

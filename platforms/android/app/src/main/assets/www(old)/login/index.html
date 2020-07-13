@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- viewport meta -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <meta name="description" content="MartPlace - Complete Online Multipurpose Marketplace HTML Template">
+  <meta name="keywords" content="app, app landing, product landing, digital, material, html5">
+
+
+  <title>HaiFish - Login</title>
+
+  <!-- inject:css -->
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+
+  <!-- Bracket CSS -->
+  <!-- <link rel="stylesheet" href="../assets/css/bracket.css"> -->
+
+  <!-- endinject -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .input-field input[type=date]:focus + label,
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field input[type=password]:focus + label {
+      color: #e91e63;
+    }
+
+    .input-field input[type=date]:focus,
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field input[type=password]:focus {
+      border-bottom: 2px solid #e91e63;
+      box-shadow: none;
+    }
+  </style>
+</head>
+
+<body class="" style="background: url('../assets/img/bg1.jpg'); padding: 120px 20px 0px 20px;">
+    <!--================================
+    START LOGIN AREA
+    =================================-->
+    <!-- <section class="login_area  section--padding2"> -->
+      <main>
+        <center>
+          <div class="login-wrapper wd-100p wd-xs-100p mg-15 pd-5 pd-xs-39 rounded shadow-base" style="background-color: rgba(255,255,255, 0.8)">
+            <div class="row" style="display: inline-block; padding: 0px 20px 0px 20px;">
+              <form action="#" class="col s12">
+                <div class="section"></div>
+                <h4 class="">Selamat Datang</h4>
+                <h6 class="">Silahkan Login</h6>
+                <!-- end .login_header -->
+                <div class="row">
+                  <div class="input-field col s12" style="margin-top: 30px;">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input type="text" id="username" class="validate">
+                    <label class="" for="username">Username</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12" style="margin-top: 0px;">
+                    <i class="material-icons prefix">lock</i>
+                    <input id="password" type="password" class="validate">
+                    <label class="" for="password">Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <center>
+                    <div class='col s12' style="margin-bottom: 20px;">
+                      <button class="col s12 btn waves-effect waves-light " style="background-image: linear-gradient(to left, #021B79, #0575E6);" type="button" id="btn-submit">Masuk
+                        <i class="material-icons right">send</i>
+                      </button>        
+                    </div>
+                    <div class='col s12' style="margin-bottom: 20px; margin-top: -10px">
+                      <a href="login_kurir.html" class="blue-text"><u>MASUK SEBAGAI KURIR</u></a>
+                      </button>        
+                    </div>
+                  </center>
+                </div>
+                <div class="row">
+                  <div class="col s12 center-align" style="margin-bottom: 20px;">
+                    <strong class="black-text">Belum punya akun?</strong>
+                  </div>
+                  <div class="col s12 center-align mg-b-5"  style="margin-bottom: 10px;"><a href="sign_up_penjual.html" class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Penjual</a></div>
+                  <div class="col s12 center-align mg-b-15"  style="margin-bottom: 10px;"><a href="sign_up_pembeli.html" class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Pembeli</a></div>
+                </div>
+                <!-- end .login--form -->
+                <!-- end .cardify -->
+              </form>
+            </div>
+            <!-- end .row -->
+          </div>
+        </center>
+      </main>
+
+      <!-- end .container -->
+      <!-- </section> -->
+      <!--================================
+      END LOGIN AREA
+      =================================-->
+      <!--//////////////////// JS GOES HERE ////////////////-->
+
+
+      <!-- inject:js -->
+
+      <script src="../assets/lib/jquery/jquery.js"></script>
+      <!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+      <!-- <script src="../assets/lib/bootstrap/bootstrap.js"></script> -->
+      <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+
+      <script type="text/javascript" src="../js/mobile_script.js"></script>
+      <!-- <script src="./../assets2/js/map.js"></script> -->
+      <script>
+        $('#btn-submit').click(kirim_data);
+        function kirim_data(){
+          var username = $('#username').val();
+          var password = $('#password').val();
+        // alert('button sign in diklik' +username+" pass : " +password);
+
+        $.ajax({
+          url: base_url+'user/proseslogin',
+        // data: 'username=' + username + '&password=' + password, 
+        data: {username : username, password : password},
+        type: 'POST',
+        dataType: 'json',
+        success: function (resp){
+          console.log('muncul di console');
+          console.log(resp.status);
+          if(resp.status == 'berhasil'){
+            M.toast({html: 'Anda berhasil masuk!'});
+            // alert('Anda berhasil masuk');
+            window.localStorage.setItem('sukses_login','1');
+            window.localStorage.setItem('username', username);
+            window.localStorage.setItem('usergroup', resp.usergroup);
+            window.localStorage.setItem('id_akun', resp.id_akun);
+            window.localStorage.setItem('jenis_petani', resp.jenis_petani);
+            var keranjang = JSON.stringify(Array());
+            window.localStorage.setItem('keranjang',JSON.parse(keranjang));
+            var usergroup = window.localStorage.getItem('usergroup');
+            setTimeout(redirectPage(usergroup), 400000);
+            console.log(window.localStorage.getItem(usergroup));
+            console.log(window.localStorage.getItem(username));
+          } else {
+            M.toast({html: 'Anda gagal masuk'});
+          }
+        } 
+      });
+      }
+
+      function redirectPage(usergroup){
+        if(usergroup == "penjual"){
+          window.location.href = "../penjual/index.html";
+        }else if(usergroup == "pembeli"){
+          window.location.href = "../pembeli/index.html";
+        }
+      }
+    </script>
+    <script>
+      console.log('sukses_login' + window.localStorage.getItem('sukses_login'));
+    </script>
+    <!-- endinject -->
+  </body>
+
+  </html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Daftar Produk Saya - Ikan</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1 0 auto;
+      }
+    </style>
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <!-- <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../assets/lib/highlightjs/github.css" rel="stylesheet">
+  <link href="../assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+  <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet"> -->
+
+  <!-- Bracket CSS -->
+  <!-- <link rel="stylesheet" href="../assets/css/bracket.css"> -->
+</head>
+
+<body class="bg-white" onload="onLoad()">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="onBackKeyDown()" class="transparent" style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
+              <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+              <b class="header"></b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <ul class="sidenav sidenav-fixed" id="mobile-demo">
+        <li>
+            <div class="user-view" style="min-height: 55px;">
+              <div class="background" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+                <img src="images/office.jpg">
+              </div>
+          <!-- <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+          <a href="#name"><span class="black-text name">John Doe</span></a>
+          <a href="#email"><span class="black-text email">jdandturk@gmail.com</span></a> -->
+            </div>
+        </li>
+        <!-- <li class="logo"><a href=""><span>[</span>Ikan<span>]</span></a><a id="logo-container" href="/" class="brand-logo">Logo</a></li> -->
+        <li class="active"><a href="../dashboard/index_publik.html"><i class="material-icons">home</i> Home</a></li>
+        <li><a href="../login/index.html"><i class="material-icons">lock</i> Masuk</a></li>
+    </ul>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+    <!-- ########## START: MAIN PANEL ########## -->
+    <div class="section no-pad-bot">
+      <div class="container-fluid">
+        <div class="image-produk"></div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-content">
+          <h4 class="card-title">Informasi Produk</h4>
+          <!-- BERAT -->
+          <div class="row valign-wrapper">
+            <b class="col s8">Berat Produk</b>
+            <b class="col s4 tx-black berat"></b>
+          </div>
+          <!-- KATEGORI -->
+          <div class="row valign-wrapper">
+            <b class="col s8">Kategori</b>
+            <b class="col s4 Kategori_produk"></b>
+          </div>
+          <!-- MIN ORDER -->
+          <div class="row valign-wrapper">
+            <b class="col s8">Min. Pemesanan</b>
+            <b class="col s4 min_order"></b>
+          </div>
+        </div>
+        
+      </div> 
+    </div>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title nama_produk" style="margin-bottom: 5px;"></span>
+          <p class="orange-text harga_produk mg-t-5"></p>
+        </div>
+      </div> 
+    </div>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-content row valign-wrapper">
+          <h4 class="card-title col s6">Pilih Variasi</h4>
+          <!-- <button class="col s6 btn btn-small blue btn-block waves-effect waves-light text-right modal-trigger" type="button" data-toggle="modal" data-target="#modalVariasi">Pilih Varasi</button> -->
+          <label class="label-control hasil-variasi"></label>  
+          <a class="col s6 btn btn-small blue btn-block waves-effect waves-light text-right modal-trigger" href="#modalVariasi">Variasi</a>
+        </div>
+      </div> 
+    </div>
+    <footer class="page-footer white">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col s12">
+            <button class="btn text-center blue pesan-variasi2 modal-trigger" data-target="modalVariasi" style="width: 100%; height: 35px; margin: 32px auto;" type="button">Beli</button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="modalVariasi" class="modal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content tx-size-sm">
+          <div class="modal-body">
+            <h5 class="lh-4 mg-b-20 title-modal"></h5>
+            <div class="row">
+              <form class="col s12">
+                <div class="row form">
+                  <!-- <div class=""></div> -->
+                </div>
+                <div class="row">
+                  <div class="col s12 stok">Stok: </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 fieldQty">
+                    
+                  </div>
+              </div>
+              </form>
+            </div>
+          </div><!-- modal-body -->
+          <div class="modal-footer">
+            <button type="button" class="waves-effect waves-light btn blue btn-block pesan-variasi" disabled onclick="beli()">Pesan Sekarang</button>  
+          </div>
+        </div>
+      </div><!-- modal-dialog -->
+    </div><!-- modal -->
+    
+
+    <!-- ########## END: MAIN PANEL ########## -->
+
+    <!-- ########## END: MAIN PANEL ########## -->
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<!-- <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script> -->
+<!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+<!-- <script src="../assets/lib/bootstrap/bootstrap.js"></script> -->
+<script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../assets/lib/moment/moment.js"></script>
+<script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../assets/lib/peity/jquery.peity.js"></script>
+<!-- <script src="../assets/lib/codemirror/addon/scroll/simplescrollbars.js"></script> -->
+
+<!-- <script src="../assets/js/bracket.js"></script> -->
+<script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+
+
+<script type="text/javascript" src="../js/mobile_script.js"></script>
+<script type="text/javascript">
+      $('.sidenav').sidenav();
+      $('.modal').modal();
+</script>
+
+    <script>
+      //read onLoad function first//
+      var id_produk = window.localStorage.getItem('id_produk');
+      var variasi = window.localStorage.getItem('variasi'), nama_produk, harga_produk, berat, namaVariasi, imgProduk;
+      function pilihVariasi(id_produk) {
+        var variasi = $("#variasi").val();
+        if(variasi!=""){
+          $(".pesan-variasi").removeAttr("disabled");
+          storage.setItem('variasi', variasi);
+          $(".pesan-variasi").removeAttr('disabled');
+          $.ajax({
+            url: base_url + 'produk/ambil_stok_variasi',
+            type: 'post',
+            data: {variasi:variasi, id_produk:id_produk},
+            dataType: 'JSON',
+            success: function(e){
+              maxStokItem=e.stok;
+              namaVariasi=e.nama_variasi;
+              $(".stok").html("Stok: "+e.stok);
+              if(e.stok==0){
+                $(".pesan-variasi").attr('disabled');
+              }else{
+                $(".fieldQty").html('<input id="qty" name="qty" type="number" class="validate" max="'+e.stok+'" min="1" step="1">'+
+                        '<label for="qty">Quantity: </label>'+
+                        '<span class="helper-text textQty" data-error="wrong" data-success="right"></span>');
+              }
+              harga_produk = e.harga;
+            },
+            error: function(){
+              $(".stok").html("Stok: 0");
+            }
+          });
+        }else{
+          $(".pesan-variasi").attr("disabled");
+        }
+      }
+      $(".variasi").change(function(){
+        variasi = $(this).val();
+      });
+
+      function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+      }
+
+      function beli() {
+        variasi = $("#variasi").val();
+        var qty = $("#qty").val();
+        if(variasi==""||variasi==null||variasi=="null"){
+          M.toast({html: 'Anda belum memilih variasi Produk'});
+          return false;
+        }
+        
+        if(qty==0||qty==null){
+          M.toast({html: 'Anda belum mengisi jumlah item'});
+          return false;
+        }
+        if(qty<1){
+          M.toast({html: 'Jumlah item yang Anda pilih tidak sesuai stok yang tersedia'});
+          return false;
+        }
+        if(qty>parseInt(maxStokItem)){
+           M.toast({html: 'Jumlah item yang Anda pilih melebihi stok yang tersedia'});
+          return false;
+        }
+        if(qty>=1&&qty<=parseInt(maxStokItem)){
+          window.localStorage.setItem('nama_produk', nama_produk);
+          window.localStorage.setItem('harga_produk', harga_produk);
+          window.localStorage.setItem('berat_produk', berat);
+          window.localStorage.setItem('variasi', variasi);
+          window.localStorage.setItem('qty', qty);
+          storage.setItem('namaVariasi', namaVariasi);
+          window.localStorage.setItem('fotoProduk', imgProduk);
+          
+          return window.location.href="detail_variasi_shop.html";
+        }
+      }
+      // Handle the back button
+      //
+      function onBackKeyDown() {
+        // e.preventDefault();
+        storage.removeItem('id_produk');
+        storage.removeItem('qty');
+        storage.removeItem('berat_produk');
+        storage.removeItem('lautImg');
+        storage.removeItem('tawarImg');
+        storage.removeItem('namaVariasi');
+        window.location.href="../penjual/detail_usaha_by_pembeli.html";
+      }
+
+      function goto_detail_usaha() {
+        storage.removeItem('id_produk');
+        window.location.href="../penjual/detail_usaha_by_pembeli.html";
+      }
+
+      function onLoad() {
+        storage.removeItem('variasi');
+        variasi=null;
+        var maxStokItem;
+        nav2 = "<div class=\"wd-110 transition\">"+
+                "<span class=\"\">"+
+                  "<h5 class=\"mg-t-20 mg-l-10 title-produk\"></h5>"+
+                "</span>"+
+              "</div>";
+        $(".br-header-left").html('<div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>'+
+              '<div class="navicon-left hidden-lg-up"><a id="#" href="#" onclick="onBackKeyDown()"><i class="fa fa-chevron-left"></i></a></div>');
+        $(".br-header-left").append(nav2);
+        
+        if(variasi=="null"||variasi==null||variasi==""){
+          variasi = "";
+        }
+        if(id_produk==null){
+          window.location.href = '../dashboard/index_pembeli.html';
+        }
+        
+          if($(".variasi").val()!==null || $(".variasi").val() !==""){
+            $(".pesan-variasi, .pesan-variasi2").removeAttr('disabled');
+          }
+        $.ajax({
+          url: base_url + 'produk/detail_produk',
+          type: 'post',
+          data: {id_produk:id_produk},
+          dataType: 'JSON',
+          success: function(e){
+            $(".image-produk").html('<img src="'+base_url+'foto_usaha/produk/'+e.foto_produk+'" class="responsive-img" alt="'+e.nama_produk+'">');
+            $(".nama_produk, .title-produk, .header").html(e.nama_produk);
+            $(".harga_produk").html('Rp&nbsp;' + (e.minprice) +' ~ Rp&nbsp;' + (e.maxprice));
+            $(".berat").html(e.berat_produk + '&nbsp;Kg');
+            $(".Kategori_produk").html(e.kategori);
+            $(".min_order").html(e.min_pemesanan + "&nbsp;Kg");
+            nama_produk = e.nama_produk;
+            harga_produk = e.minprice;
+            berat = e.berat_produk;
+            imgProduk = base_url+'foto_usaha/produk/'+e.foto_produk;
+          },
+          error: function(e){
+            $(".image-produk").html('<img src="'+base_url+'foto_usaha/produk/default.png" class="wd-100p" alt="Gambar Kosong">');
+          }
+        });
+      $.ajax({
+          url: base_url + 'produk/ambil_variasi_produk2',
+          type: 'post',
+          data: {id_produk:id_produk},
+          dataType: 'JSON',
+          success: function(e) {
+            var selected = '';
+            var $html = '<div class="input-field col s12">'+
+            '<select class="variasi btn-block blue" name = "variasi" id="variasi" onchange="pilihVariasi('+id_produk+')">'+
+            '<option selected="true" disabled="true" value="">Pilih Variasi</option>';
+            $.each(e, function(key ,val){
+              if(variasi==val.id_variasiproduk){
+                selected = 'selected="true"';
+              }else{
+                selected = '';
+              }
+              $html += '<option value="'+val.id_variasiproduk+'" label="'+val.nama_variasi+'" '+selected+'>'+val.nama_variasi+'</label>';
+            });
+            $html += '</select>'+
+            '</div>';
+            $(".title-modal").html("Pilih Variasi " + nama_produk + ":&nbsp;");
+            $(".form").html($html);
+          }
+        });
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+        document.addEventListener("backbutton", onBackKeyDown, true);
+      // Add similar listeners for other events
+      }
+</script>
+</body>
+</html>

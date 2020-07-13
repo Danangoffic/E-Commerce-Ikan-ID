@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Daftar Penjual</title>
+
+  <!-- vendor css -->
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../assets/lib/highlightjs/github.css" rel="stylesheet">
+  <link href="../assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+  <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet">
+
+  <!-- Bracket CSS -->
+  <link rel="stylesheet" href="../assets/css/bracket.css">
+
+  <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+  src="cordova.js"></script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXMNHIbmIKC4y_QUQpQdyhcTiDIKuCx4U">
+</script>
+<style>
+  #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+  }
+
+
+</style>
+
+
+<script>
+  $(document).ready(function () {
+    var onSuccess = function(position) {
+      var element = document.getElementById('map');
+      var marker;
+      var posisilat;
+      var posisilng;
+      initMap(position.coords.latitude, position.coords.longitude);
+    };
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+  alert('code: '    + error.code    + '\n' +
+    'message: ' + error.message + '\n');
+}
+function taruhMarker(peta, posisiTitik) {
+  if (marker) {
+                // pindahkan marker
+                marker.setPosition(posisiTitik);
+              } else {
+                // buat marker baru
+                marker = new google.maps.Marker({
+                  position: posisiTitik,
+                  map: peta
+                });
+              }
+              posisilat = posisiTitik.lat();
+              posisilng = posisiTitik.lng();
+              console.log("Posisi marker: " + posisilat + "," + posisilng);
+              $("body").find("input[name='latitude_pb']").val(posisilat);
+            //$("#latitude_pb").val(posisilat);
+            //$("#longitude_pb").val(posisilng);
+            $("body").find("input[name='longitude_pb']").val(posisilng);
+          }
+          navigator.geolocation.getCurrentPosition(onSuccess, onError);
+          var url = "http://192.168.43.98/ikan/";
+
+          function initMap(lat, lng) {
+            var propertiPeta = {
+                center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+                zoom: 10, //semakin banyak semakin dekat min 1 maksimal
+                mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+              };
+              var point = new google.maps.LatLng(lat, lng);
+            var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+            marker = new google.maps.Marker({
+              position: point,
+              map: peta
+                //icon
+              });
+            google.maps.event.addListener(peta, 'click', function (event) {
+              taruhMarker(this, event.latLng);
+            });
+          }
+          $("#simpan").click(function (e) {
+            e.preventDefault();
+            var data_form = $("form").serialize();
+            console.log(data_form);
+            $.ajax({
+              dataType: 'json',
+              type: 'POST',
+              url: url + "proses_mobile/pembeli/server_form_maps.php",
+              data: data_form,
+              success: function (resp) {
+              }
+            });
+          });
+        });
+
+
+      </script>
+    </head>
+
+    <body>
+      <!-- ########## START: MAIN PANEL ########## -->
+      <div class="br-mainpanel">
+        <div class="br-pagebody">
+          <div class="br-section-wrapper">
+            <div class="pd-sm-t-5">
+              <h4 class="tx-gray-800 mg-b-5">INFORMASI PRIBADI</h4>
+              <form method="POST" action="" enctype="multipart/form-data" name="fupload" class="col-sm-12" style="margin-top: 30px !important;" data-parsley-validate>
+                <div class="form-layout form-layout-5">
+                  <div class="form-group row">
+                    <label class="label-control col-sm-3">Username : </label>
+                    <div class="col-sm-8">
+                      <div id="fnWrapper" class="parsley-input">
+                        <input type="text" id="username" name="username" required class="form-control input-sm" placeholder="Contoh: ichel.lalusu" data-parsley-class-handler="#usWrapper" data-parsley-errors-container="#usErrorContainer">
+                      </div>
+                    </div>
+                    <div id="usErrorContainer"></div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="label-control col-sm-3">Password : </label>
+                    <div class="col-sm-8">
+                      <input type="password" id="password" name="password" required class="form-control input-sm" placeholder="Contoh: password">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-group row">
+                    <label class="label-control col-sm-3">Nama Lengkap : </label>
+                    <div class="col-sm-8">
+                      <input type="text" id="nama_pj" name="nama_pj" required class="form-control input-sm" placeholder="Contoh: Riselda Rahma Annisa Lalusu">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="label-control col-sm-3">Foto Profil : </label>
+                    <div class="col-sm-8">
+                      <input type="file" id="foto_pj" name="foto_pj"
+                      class="form-control form-control-sm"
+                      placeholder="Foto Profil">
+                  <!-- <small style="color:red !important;text-align:right">*Ukuran Foto
+                  Maksimal 2MB </small> -->
+                </div>
+                <!-- <button type="submit" id="btn-submit">Simpan</button> -->
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">No. KTP : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="noktp_pj" name="noktp_pj" required class="form-control input-sm" placeholder="(16 digit)">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Foto KTP : </label>
+                <div class="col-sm-8">
+                  <input type="file" id="fotoktp_pj" name="fotoktp_pj"
+                  class="form-control form-control-sm"
+                  placeholder="Foto KTP">
+                  <!-- <small style="color:red !important;text-align:right">*Ukuran Foto
+                  Maksimal 2MB</small> -->
+                </div>
+                <!-- <button type="submit" id="btn-submit">Simpan</button> -->
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Jenis Kelamin : </label>
+                <div class="col-sm-8">
+                  <label class="rdiobox">
+                    <input name="jk_pj" value="Laki-laki" type="radio"  required>
+                    <span>Laki-laki</span>
+                  </label>
+                  <label class="rdiobox" required>
+                    <input name="jk_pj" value="Perempuan" type="radio"  required>
+                    <span>Perempuan</span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Tanggal Lahir : </label>
+                <div class="col-sm-8">
+                  <div class="input-group form_datetime1">
+                    <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                    <input type="date" required="" class="form-control form-control-sm" placeholder="MM/DD/YYYY" name="tgllahir_pj" id="tgllahir_pj">
+                  </div>
+                  <small style="color:red !important;text-align:right" id="ctrltgllahir_pb">
+                  </small>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Alamat Lengkap : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="alamat_pj" name="alamat_pj" required class="form-control" placeholder="Alamat, Kecamatan. Kabupaten, Provinsi"></input>              
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Telepon : </label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-phone tx-16 lh-0 op-6"></i></span>
+                    <input type="text" id="telp_pj" class="form-control" name="telp_pj" required type="tel" pattern="" placeholder="Contoh: 085261641500">
+                    <!-- <input class="form-control" id="phoneMask" name="telp_pj" required="" type="tel" pattern="^\d[0-9]{10-13}" placeholder=""> -->
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">No. Rekening : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="norek_pj" name="norek_pj" required class="form-control" pattern="" placeholder="10-16 digit">
+                  <!-- <input type="text" name="norek_pj" required="" class="form-control" pattern="^\d[0-9]{10-16}" placeholder="10-16 digit"> -->
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Jenis Petani : </label>
+                <div class="col-sm-8">
+                  <select required class="form-control" name="jenis_petani" id="jenis_petani">
+                    <option disabled="" selected="" label="Pilih Jenis Petani" value="">Pilih Jenis Petani</option>
+                    <option value = "tawar">Petani Air Tawar</option>
+                    <option value = "laut">Petani Air Laut</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- br-pagebody -->
+
+      <div class="br-pagebody">
+        <div class="br-section-wrapper">
+          <div class="pd-sm-t-5">
+            <h4 class="tx-gray-800 mg-b-5">INFORMASI USAHA</h4>
+            <div class="form-layout form-layout-5">
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Nama Usaha : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="nama_toko" name="nama_toko" required class="form-control input-sm" placeholder="Contoh: Pemancingan Moro Kangen">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Foto Tempat Usaha: </label>
+                <div class="col-sm-8">
+                  <input type="file" id="foto_toko" name="foto_toko"
+                  class="form-control form-control-sm"
+                  placeholder="Foto Tempat Usaha">
+                  <!-- <small style="color:red !important;text-align:right">*Ukuran Foto
+                  Maksimal 2MB</small> -->
+                </div>
+                <!-- <button type="submit" id="btn-submit">Simpan</button> -->
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Alamat Lengkap : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="alamat_toko" name="alamat_toko" required class="form-control" placeholder="Alamat, Kecamatan. Kabupaten, Provinsi"></input>              
+                </div>
+              </div>
+              <div id="laut" class="hidden" style="display: none;">
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Jumlah Kapal : </label>
+                  <div class="col-sm-8">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-plus tx-16 lh-0 op-6"></i></span>
+                      <input type="number" id="jml_kapal" name="jml_kapal" required="" class="form-control form-control-sm " placeholder="">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Kapasitas Kapal : </label>
+                  <div class="col-sm-8">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-plus tx-16 lh-0 op-6"></i></span>
+                      <input type="number" id="kapasitas_kapal" name="kapasitas_kapal" required="" class="form-control form-control-sm " placeholder="(Kg)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="tawar" class="hidden" style="display: none;">
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Jumlah Kolam : </label>
+                  <div class="input-group col-sm-9">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-plus tx-16 lh-0 op-6"></i></span>
+                      <input type="number" id="jml_kolam" name="jml_kolam" required="" class="form-control form-control-sm" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Kota/Kabupaten : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="kab_toko" name="kab_toko" required class="form-control input-sm" placeholder="Contoh: Yogyakarta">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Kecamatan : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="kec_toko" name="kec_toko" required class="form-control input-sm" placeholder="Contoh: Gondokusuman">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Kelurahan : </label>
+                <div class="col-sm-8">
+                  <input type="text" id="kel_toko" name="kel_toko" required class="form-control input-sm" placeholder="Contoh: Terban">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label-control col-sm-3">Lokasi Alamat di Map : </label>
+                <div class="col-sm-8">
+                  <div id="map"></div>
+                </div>
+                <!--<label>Lokasi</label><br>-->
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-8">
+                  <label class="label-control">Latitude : </label>
+                  <input type="text" class="form-control" id="latitude_pb" name="latitude_pb"
+                  value="-7.765993040246785" readonly>
+                  <label class="label-control">Longitude : </label>
+                  <input type="text" class="form-control" id="longitude_pb"
+                  name="longitude_pb" value="110.35743000274658" readonly>
+                  <br><br>
+                </div>
+              </div>
+              <div class="col-sm-12 text-center">
+                <button class="btn btn-primary" type="submit" id="simpan">Daftar</button>
+                <div style="margin-top: 10px">
+                  <p>Sudah Punya Akun? 
+                    <a href="index.html">Masuk</a>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- start you own content here -->
+    </div><!-- br-pagebody -->
+
+  </div><!-- br-mainpanel -->  
+</div>
+<!-- ########## END: MAIN PANEL ########## -->
+</div><!-- br-mainpanel -->
+
+<script src="../assets/lib/jquery/jquery.js"></script>
+<script src="../assets/lib/popper.js/popper.js"></script>
+<script src="../assets/lib/bootstrap/bootstrap.js"></script>
+<script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="../assets/lib/moment/moment.js"></script>
+<script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+<script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+<script src="../assets/lib/peity/jquery.peity.js"></script>
+<script src="../assets/lib/highlightjs/highlight.pack.js"></script>
+<script src="../assets/lib/datatables/jquery.dataTables.js"></script>
+<script src="../assets/lib/datatables-responsive/dataTables.responsive.js"></script>
+<script src="../assets/lib/select2/js/select2.min.js"></script>
+<script src="../assets/lib/parsleyjs/parsley.js"></script>
+<script src="../assets/js/bracket.js"></script>
+<script>
+  var url = "http://localhost/";
+</script>
+
+<script>
+  $(document).ready(function(){
+    $("#jenis_petani").change(function () {
+      if($("#jenis_petani").val()!==""){
+        var jenis_petani = $("#jenis_petani").val();
+        if(jenis_petani=="tawar"){
+          $("#tawar").show();
+          $("#laut").hide();
+        }else if(jenis_petani=="laut"){
+          $("#laut").show();
+          $("#tawar").hide();
+        }
+        // $("#JPetani").html(div_jenis);
+      }
+    })
+  });
+</script>
+
+<script>
+  $(document).ready(function(){
+    $('#simpan').click(function (e) {
+      $('#fupload').parsley();
+      e.preventDefault();
+      var username = $("#username").val();
+      var password = $("#password").val();
+      var nama_pj = $("#nama_pj").val();
+      var foto_pj = $("#foto_pj").val();
+      var noktp_pj = $("#noktp_pj").val();
+      var fotoktp_pj = $("#fotoktp_pj").val();
+      var jk_pj = $('input:radio[name=jk_pj]:checked').val();
+      var tgllahir_pj = $("#tgllahir_pj").val();
+      var alamat_pj = $("#alamat_pj").val();
+      var telp_pj = $("#telp_pj").val();
+      var jenis_petani = $("#jenis_petani option:selected").val();
+      var nama_toko = $("#nama_toko").val();
+      var foto_toko = $("#foto_toko").val();
+      var alamat_toko = $("#alamat_toko").val();
+      var jml_kapal = $("#jml_kapal").val();
+      var kapasitas_kapal = $("#kapasitas_kapal").val();
+      var jml_kolam = $("#jml_kolam").val();
+      var kab_toko = $("#kab_toko").val();
+      var kec_toko = $("#kec_toko").val();
+      var kel_toko = $("#kel_toko").val();
+      var longitude = $("#longitude").val();
+      var latitude = $("#latitude").val();
+      var formData = new FormData($("form")[0]);
+      formData.append("username", username);
+      formData.append("password", password);
+      formData.append("nama_pj", nama_pj);
+      formData.append("noktp_pj", noktp_pj);
+      formData.append("fotoktp_pj", fotoktp_pj);
+      formData.append("jk_pj", jk_pj);
+      formData.append("tgllahir_pj", tgllahir_pj);
+      formData.append("alamat_pj", alamat_pj);
+      formData.append("telp_pj", telp_pj);
+      formData.append("jenis_petani", jenis_petani);
+      formData.append("nama_toko", nama_toko);
+      formData.append("foto_toko", foto_toko);
+      formData.append("alamat_toko", alamat_toko);
+      formData.append("jml_kapal", jml_kapal);
+      formData.append("kapasitas_kapal", kapasitas_kapal);
+      formData.append("jml_kolam", jml_kolam);
+      formData.append("kab_toko", kab_toko);
+      formData.append("kel_toko", kel_toko);
+      formData.append("kec_toko", kec_toko);
+      formData.append("longitude", longitude);
+      formData.append("latitude", latitude);
+      // var data_form = $("form").serialize();
+      // console.log(jk_pj);
+      // console.log(jenis_petani);
+      console.log(foto_pj);
+      console.log(fotoktp_pj);
+      console.log(foto_toko);
+      console.log(formData);
+                // <!--var formData = new FormData($('form')[0]);-->
+                // <!--console.log($('#signup-fotosim').val());-->
+                // <!--console.log(formData);-->
+
+                // if(telp_pj.length<10||telp_pj.length>13){
+                //   $("#telp_pj").css("border","2px solid #ffdddd")
+                //   alert("Nomor Telp Tidak Memenuhi Minimal Input");
+                //     // $("#ctrlTelepon").html("Nomor Hp minimal 10 digit, maksimal 13 digit");
+                //   }else{
+                //     $("#telp_pj").css("border","2px solid #88FF88");
+                //     $("#ctrlTelepon").html("");
+                //   }
+                //   if(noktp_pj.length<16||noktp_pj.length>16){
+                //     $("#noktp_pj").css("border","2px solid #ffdddd")
+                //     alert("Nomor KTP Harus 16 Digit");
+                //     // $("#ctrlKtp").html("No. KTP Harus 16 Digit");
+                //   }else{
+                //     $("#noktp_pj").css("border","2px solid #88FF88");
+                //     $("#ctrlKtp").html("");
+                //   }
+                //   if(foto_pj==""){
+                //     $("#foto_pj").css("border","2px solid #ffdddd")
+                //     alert("Foto Profil Kosong, Harap memilih foto");
+                //   }else{
+                //     $("#foto_pj").css("border","2px solid #88FF88");
+                //   }
+                //   if(fotoktp_pj==""){
+                //     $("#fotoktp_pj").css("border","2px solid #ffdddd")
+                //     alert("Foto KTP Kosong, Harap memilih foto");
+                //   }else{
+                //     $("#fotoktp_pj").css("border","2px solid #88FF88");
+                //   }
+                //   if(foto_toko==""){
+                //     $("#foto_toko").css("border","2px solid #ffdddd")
+                //     alert("Foto Tempat Usaha Kosong, Harap memilih foto");
+                //   }else{
+                //     $("#foto_toko").css("border","2px solid #88FF88");
+                //   }
+                //   if($("#username").length < 3){
+                //     $("#username").css("border","2px solid #ffdddd");
+                //     $("#ctrlUsername").html("Username harus lebih dari 3 huruf");
+                //   }else{
+                //     $("#username").css("border","2px solid #BBFFBB");
+                //     $("#ctrlUsername").html("");
+                //   }
+                //   if($("#password").length==0){
+                //     $("#password").css("border", "2px solid #ffdddd");
+                //     $("#ctrlPassword").html("Password harap diisi");
+                //   }else{
+                //     $("#password").css("border", "2px solid #BBFFBB");
+                //     $("#ctrlPassword").html("");}
+                //     if($("#nama_pj").length < 3){
+                //       $("#nama_pj").css("border", "2px solid #ffdddd");
+                //       $("#ctrlnama_pj").html("Nama Harap diisi lebih dari 3 karakter");
+                //     }else{
+                //       $("#nama_pj").css("border", "2px solid #BBFFBB");
+                //       $("#ctrlnama_pj").html("");
+                //     }
+                //     if($("#jk_pj").val==""){
+                //       alert("Jenis Kelamin Harap Diisi");
+                //     }
+                //     if($("#tgllahir_pj").val()==""){
+                //       $("#tgllahir_pj").css("border","2px solid #ffdddd");
+                //       $("#ctrltgllahir_pj").html("Tanggal lahir Harap Diisi");
+                //     }else{
+                //       $("#tgllahir_pj").css("border","2px solid #BBFFBB");
+                //       $("#ctrltgllahir_pj").html("");
+                //     }
+                //     if($("#alamat_pj").val()==""){
+                //       $("#alamat_pj").css("border","2px solid #ffdddd");
+                //       $("ctrlALamat").html("Alamat Lengkap Harap Diisi");
+                //     }else{
+                //       $("#alamat_pj").css("border","2px solid #bbddbb");
+                //       $("ctrlALamat").html("");
+                //     }
+                //     if($("#kab_toko").val()==""){
+                //       $("#kab_pj").css("border", "2px solid #ffdddd");
+                //       $("#ctrlKota").html("Kota/Kabupaten Harap Diisi");
+                //     }else{
+                //       $("#kel").css("border", "2px solid #BBFFBB");
+                //       $("#ctrlKota").html("");
+                //     }
+                //     if(kel_toko==""){
+                //       $("#kel_pj").css("border", "2px solid #ffdddd");
+                //       $("#ctrlKelurahan").html("Kelurahan Harap Diisi");
+                //     }else{
+                //       $("#kel_pj").css("border", "2px solid #BBFFBB");
+                //       $("#ctrlKelurahan").html("");
+                //     }
+                $.ajax({
+                  url: url+'ikan/proses_mobile/penjual/prosessignuppenjual.php',
+                  data: formData,
+                  contentType: false,
+                  cache: false,
+                  processData: false,
+                  type: 'POST',
+                  dataType: 'json',
+                  success: function (resp){
+                    if(resp.status == 'berhasil'){
+                      alert('Selamat, Anda Berhasil Mendaftar');
+                      window.location.href = "../login/index.html";
+                    } else {
+                      alert('Data gagal disimpan');
+                    }
+                  }
+                });
+              });
+})
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Ubah Kurir</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+    src="cordova.js"></script>
+
+  <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM">
+  </script>
+  <style type="text/css">
+    .input-field div.error {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color: #FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+
+    .input-field label.active {
+      width: 100%;
+    }
+  </style>
+
+</head>
+
+<body class="" onlaod="onload()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Ubah Kurir</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="col s12 grey lighten-3">
+    <div class="container-fluid">
+      <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate"
+        data-parsley-validate>
+        <input type="hidden" name="id">
+        <div class="card z-depth-0" style="margin-top: 0px">
+          <div class="card-content" style="padding: 24px">
+            <div class="row" style="margin-bottom: 0px">
+              <div class="input-field col s12">
+                <i class="material-icons prefix small icon-demo">contacts</i>
+                <input placeholder="Nama Lengkap" id="nama_kurir" name="nama_kurir" type="text" class="">
+                <label for="nama_kurir">Nama Lengkap</label>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 0px">
+              <div class="col s12">
+                <img src="" alt="image_kurir" id="image-kurir" class="responsive-img z-depth-0">
+              </div>
+              <div class="file-field input-field col s12">
+                <div class="btn btn-small green">
+                  <span>Foto Profil</span>
+                  <input type="file" id="foto_kurir" name="foto_kurir" class="">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <p class="flow-text" style="margin: 5px">Jenis Kelamin :</p>
+                <p>
+                  <label>
+                    <input name="jk_kurir" value="Laki-laki" type="radio" />
+                    <span>Laki-laki</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input name="jk_kurir" value="Perempuan" type="radio" />
+                    <span>Perempuan</span>
+                  </label>
+                </p>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 0px">
+              <div class="input-field col s12">
+                <i class="material-icons prefix small icon-demo">phone</i>
+                <input placeholder="No. Hp" id="telp_kurir" name="telp_kurir" type="number" class="">
+                <label for="telp_kurir">No. Hp</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="bottom-navbar">
+        <div class="card-action white" style="margin: 8px">
+          <button class="waves-effect waves-light btn blue" onclick="ubah()" type="button"
+            style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../cordova.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+  <script type="text/javascript" src="../js/plugins/jquery-validation/jquery.validate.min.js"></script>
+
+  <script>
+    function onBackKeyDown() {
+      window.history.back();
+    }
+
+    function onLoad() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    $(document).ready(onDeviceReady);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+      loadData();
+      // Add similar listeners for other events
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+
+    function loadData(){
+      var data = JSON.parse(storage.data_edit_kurir);
+      $("[name=nama_kurir]").val(data.nama_kurir);
+      $("[name=jk_kurir][value="+data.jk_kurir+"]:radio").prop("checked", true);
+      $("[name=telp_kurir]").val(data.telp_kurir);
+      $("[name=id]").val(data.id_kurir);
+      $("#image-kurir").attr("src", base_url+'foto_kurir/' + data.foto_kurir);
+    }
+
+    function ubah() {
+      var nama_kurir = $("[name=nama_kurir]").val();
+      var jk_kurir = $("[name=jk_kurir]:radio:checked").val();
+      var telp_kurir = $("[name=telp_kurir]").val();
+      var formData = new FormData($("form")[0]);
+      formData.append("jk_kurir2", jk_kurir);
+      formData.append("id_usaha", storage.id_usaha);
+      $.ajax({
+        url: API_UPDATE_KURIR,
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        type: 'POST',
+        dataType: 'json',
+        success: function (resp) {
+          if (resp.status == 'berhasil') {
+            // $("form")[0].reset();
+            M.toast({html: "Berhasil Ubah Kurir"});
+            setTimeout(function(){window.location.href="kurir.html";}, 1000);
+          } else {
+            alert('Data gagal disimpan');
+            M.toast({html: resp.message});
+          }
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>

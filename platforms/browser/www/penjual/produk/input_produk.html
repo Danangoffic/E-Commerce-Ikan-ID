@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url"
+  content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Data Table Design - Bracket Responsive Bootstrap 4 Admin Template</title>
+
+  <!-- vendor css -->
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../assets/lib/highlightjs/github.css" rel="stylesheet">
+  <link href="../assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+  <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet">
+
+  <!-- Bracket CSS -->
+  <link rel="stylesheet" href="../assets/css/bracket.css">
+</head>
+
+<body>
+
+  <!-- ########## START: LEFT PANEL ########## -->
+  <div class="br-logo"><a href="../dashboard/index.html"><span>[</span>Ikan<span>]</span></a></div>
+  <div class="br-sideleft overflow-y-auto">
+    <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
+    <div class="br-sideleft-menu" id="NavUser">
+      <a href="../dashboard/index.html" class="br-menu-link">
+        <div class="br-menu-item">
+          <i class="fa fa-home"></i>
+          <span class="menu-item-label">Halaman Utama</span>
+        </div><!-- menu-item -->
+      </a><!-- br-menu-link -->
+
+    </div><!-- br-sideleft-menu -->
+    <br>
+  </div><!-- br-sideleft -->
+  <!-- ########## END: LEFT PANEL ########## -->
+
+
+  <!--  -->
+  <!-- ########## START: HEAD PANEL ########## -->
+  <div class="br-header">
+    <div class="br-header-left">
+      <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i
+        class="icon ion-navicon-round"></i></a></div>
+        <div class="navicon-left hidden-lg-up"><a id="#" href="#" onclick="window.history.back();"><i
+          class="fa fa-arrow-left fa-fw"></i></a></div>
+
+        </div>
+
+        <!-- ########### START: RIGHT PANEL ######## -->
+        <div class="br-header-right">
+
+        </div>
+      </div><!-- br-header -->
+      <!-- ########## END: HEAD PANEL ########## -->
+
+      <!-- ########## START: RIGHT PANEL ########## -->
+      <div class="br-sideright">
+
+
+        <!-- Tab panes -->
+
+      </div><!-- br-sideright -->
+      <!-- ########## END: RIGHT PANEL ########## --->
+
+      <!-- ########## START: MAIN PANEL ########## -->
+      <div class="br-mainpanel">
+        <div class="br-pagebody">
+          <div class="br-section-wrapper pd-x-0">
+            <div class="row">
+              <form method="POST" action="" enctype="multipart/form-data" name="fupload"
+              class="col-sm-12" style="margin-top: 0px !important;">
+              <input type="hidden" name="id_pj" value="">
+              <input type="hidden" name="id_toko" value="">
+              <div class="col-12">
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Nama&nbsp;Produk&nbsp;:&nbsp;</label>
+                  <div class="col-sm-9">
+                    <input type="text" id="nama_produk" name="nama_produk" required=""
+                    class="form-control input-sm"
+                    placeholder="Masukkan Nama Produk Anda">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Kategori&nbsp;:&nbsp;</label>
+                  <div class="col-sm-9">
+                    <input class="form-control" name="Kategori" id="KategoriProduk"
+                    placeholder="Kategori Produk" required="" readonly="">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Foto&nbsp;Produk&nbsp;:&nbsp;</label>
+                  <div class="col-sm-9">
+                    <div class="col-sm-12 text-center" id="FormFoto">
+                      <img class="text-center mg-b-20 mg-t-20"
+                      src="../foto_usaha/produk/ikan2.png" width="50%"
+                      height="20%" alt="Produk"/>
+                    </div>
+                    <label class="col-sm-12">
+                      <input type="file" id="fotoProduk" name="fotoProduk"
+                      class="form-control custom-file-input"
+                      onchange="readURL(this);">
+                      <span class="custom-file-control"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Harga : </label>
+                  <div class="col-sm-8">
+                    <input type="text" id="harga_produk" name="harga_produk" required=""
+                    class="form-control input-sm"
+                    placeholder="Masukkan Harga Produk (Rp)">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Berat : </label>
+                  <div class="col-sm-8">
+                    <div class="input-group">
+                      <input type="number" id="berat_produk" name="berat_produk"
+                      required="" class="form-control"
+                      placeholder="Masukkan Berat Produk (Kg)">
+                      <span class="input-group-addon">Kg</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="label-control col-sm-3">Minimal&nbsp;Pemesanan&nbsp;:&nbsp;</label>
+                  <div class="col-sm-8">
+                    <div class="input-group">
+                      <input type="number" id="minOrder" name="minOrder" required=""
+                      class="form-control"
+                      placeholder="Masukkan Minimal Pemesanan Produk (Kg)">
+                      <span class="input-group-addon">Kg</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8 text-center">
+                    <a class="btn btn-block btn-light btn-outline-primary" href="tambah_variasi.html">Tambah Variasi</a>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-3">&nbsp;</div>
+                  <div class="col-sm-8 text-center">
+                    <input type="reset" class="btn btn-primary-light" style="width:30%;">
+                    <button class="btn btn-success" style="width:69%;" type="button" id="simpan">Simpan
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="br-pagebody">
+
+          <!-- start you own content here -->
+
+        </div><!-- br-pagebody -->
+
+      </div><!-- br-mainpanel -->
+    </div>
+    <!-- ########## END: MAIN PANEL ########## -->
+  </div><!-- br-mainpanel -->
+
+  <script src="../assets/lib/jquery/jquery.js"></script>
+  <script src="../assets/lib/popper.js/popper.js"></script>
+  <script src="../assets/lib/bootstrap/bootstrap.js"></script>
+  <script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+  <script src="../assets/lib/moment/moment.js"></script>
+  <script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+  <script src="../assets/lib/peity/jquery.peity.js"></script>
+  <script src="../assets/lib/highlightjs/highlight.pack.js"></script>
+  <script src="../assets/lib/datatables/jquery.dataTables.js"></script>
+  <script src="../assets/lib/datatables-responsive/dataTables.responsive.js"></script>
+  <script src="../assets/lib/select2/js/select2.min.js"></script>
+  <script src="../assets/js/bracket.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+
+  <script type="text/javascript">
+    nav2 = "<div class=\"wd-110 transition\">"+
+    "<span class=\"\">"+
+    "<h5 class=\"mg-t-20 mg-l-10\">Tambah Produk</h5>"+
+    "</span>"+
+    "</div>";
+    $(".br-header-left").append(nav2);
+    var data_variasi = "";
+    var Kategori = '';
+    $(document).ready(function(){
+      $.ajax({
+        url: base_url+'penjual/ambil_data_profile',
+        type: 'POST',
+        data: {id_akun:id_akun},
+        dataType: 'JSON',
+        success: function(e){
+          $("#KategoriProduk").val(e.jenis_petani);
+          Kategori = e.jenis_petani;
+          console.log("hasil Ambil Detail : " + e.jenis_petani);
+        },
+        error: function(e){
+
+        }
+      });
+      /*$.ajax({
+        url: base_url+'produk/ambil_data_variasi',
+        type: 'POST',
+        dataType: 'JSON',
+        success: function(s){
+          if(s.length>0){
+            console.log(s);
+            $.each(s, function(key, value){
+              $("#variasi").append("<option value\""+value.id+"\" label=\""+value.text+"\">"+value.text+"</option>");
+            });
+            data_variasi = s;
+          }else{
+
+          }
+          $('.select2').select2();
+        }
+      });*/
+    });
+
+
+  </script>
+
+  <script>
+    $('#simpan').on("click", (function(e){
+      e.preventDefault();
+      var nama_produk = $('#nama_produk').val();
+      var harga_produk = $('#harga_produk').val();
+      var berat_produk = $('#berat_produk').val();
+      // var Kategori = $("#Kategori").val();
+      var minOrder = $("#minOrder").val();
+      var variasi = $("#variasi").val();
+      var fotoProduk = $("#fotoProduk").val();
+      var formData = new FormData($("form")[0]);
+      formData.append("nama_produk",nama_produk);
+      formData.append("harga_produk",harga_produk);
+      formData.append("berat_produk",berat_produk);
+      formData.append("Kategori",Kategori);
+      formData.append("minOrder",minOrder);
+      formData.append("variasi",variasi);
+      formData.append("fotoProduk",fotoProduk);
+      formData.append("id_akun",id_akun);
+
+      console.log('nama :'+nama_produk+'\n'+
+        'harga :'+harga_produk+'\n' +
+        'berat :' +berat_produk+'\n'+
+        'Kategori :'+Kategori+'\n'+
+        'minOrder :'+minOrder+'\n'+
+        'variasi :'+variasi+'\n'+
+        'fotoProduk :'+fotoProduk+'\n'+
+        'id_akun :'+id_akun+'\n');
+
+      // /{nama_produk:nama_produk, harga_produk:harga_produk,berat_produk:berat_produk,minOrder:minOrder,variasi:variasi, fotoProduk:fotoProduk,id_akun:id_akun}
+      if(formData){
+        // $.post(base_url+'proses_mobile/produk/prosesinput_produk.php', formData, function (resp){
+        //     if(resp.status == 'berhasil'||resp.status=="Berhasil Menambahkan Produk Dengan Variasi"||resp.status=="Berhasil Menginput Produk"){
+        //       alert('Data berhasil disimpan');
+        //       window.location.href = "index.html";
+        //     } else {
+        //       alert('Data gagal disimpan');
+        //     }
+        //   });
+
+        $.ajax({
+          url: base_url+'produk/prosesinput_produk',
+          data: formData,
+          type: 'POST',
+          contentType: false,
+          cache: false,
+          processData: false,
+          success: function (resp){
+            if(resp.status == 'berhasil'||resp.status=="Berhasil Menambahkan Produk Dengan Variasi"||resp.status=="Berhasil Menginput Produk"){
+              alert('Data berhasil disimpan');
+              window.location.href = "index.html";
+            } else {
+              alert('Data gagal disimpan');
+            }
+          },
+        });
+      }
+    }));
+    function simpan_produk() {
+
+    }
+
+
+  </script>
+  <script type="text/javascript">
+   function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        console.log(e.target);
+        $('#FormFoto').html("<img class=\"text-center mg-b-20 mg-t-20\" id=\"blah\" src=\""+e.target.result+"\" alt=\"Foto Produk\" width=\"50%\" height=\"20%\" />");
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Daftar Produk Saya - Ikan</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+  <style type="text/css">
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    #user-profile .user-section-negative-margin {
+      position: relative;
+      margin-top: -150px;
+      padding: 0px;
+      height: 500px;
+    }
+    #user-profile {
+      margin-bottom: -30px;
+    }
+    .user-profile {
+      margin-top: 1rem;
+    }
+    main {
+      flex: 1 0 auto;
+    }
+  </style>
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <!-- <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../assets/lib/highlightjs/github.css" rel="stylesheet">
+  <link href="../assets/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+  <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet"> -->
+
+  <!-- Bracket CSS -->
+  <!-- <link rel="stylesheet" href="../assets/css/bracket.css"> -->
+</head>
+
+<body class="bg-white" onload="onLoad()">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="onBackKeyDown()" class="transparent" style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
+              <b class="header"></b>
+              <b class="right"><i class="tiny material-icons shopping_basket" onclick="openBasket()">shopping_basket</i><span class="badge red white-text" style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <main>
+    <div class="col s12 grey lighten-3" style="margin-top: -12px; margin-bottom: 54px">
+      <div class="container-fluid">
+        <div class="col s12 white" style="margin-bottom: 32px">
+          <div class="user-profile mt-1 ml-0 mr-0" style="height: 150px">
+            <img class="responsive-img grey lighten-2" alt="" style="height: 100px !important; width: 100% !important">
+          </div>
+          <div class="section" id="user-profile" style="padding: 24px">
+            <div class="col s12 m4 l3 user-section-negative-margin" style="height: 200px !important">
+              <div class="col s12 center-align">
+                <div class="responsive-img z-depth-0 circle image-produk" alt="" style="width: 100% !important">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card z-depth-0" style="padding: 24px 24px 4px 24px; margin-top: 0px; margin-bottom: 0px">
+          <div class="card-title nama_produk" style="margin-bottom: 5px; margin-top: -12px; font-size: x-large; font-weight: bold"></div>
+          <h6 class="orange-text harga_produk mg-t-5" style="font-weight: bold;"></h6>
+          <div class="row" style="padding: 10px; margin-bottom: 0px">
+            <div class="input field col s8 left-align" style="margin-left: -8px">
+              <label for="variasi" class="right-align">Variasi</label>
+              <select class="variasi col s12" name = "variasi" id="variasi" onchange="pilihVariasi()">
+                <option value="" label="Pilih Variasi" disabled selected>Pilih Variasi</option>
+              </select>
+            </div>
+            <div class="input-field col s4 right-align">
+              <label for="qty" style="right: 0; top: 0">Jumlah (ons)</label>
+              <i class="material-icons prefix removeQTY" style="margin-left: -16px">remove_circle_outline</i>
+              <input class="center" type="number" name="qty" id="qty" value="0" style="border: 0;width: 32px !important; margin-right: 16px; text-align: center;" disabled>
+              <i class="material-icons prefix addQTY" style="margin-left: -16px;">add_circle_outline</i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <p class="left" style="font-size: small;">Stok :</p>
+            </div>
+            <div class="col s6">
+              <p class="right stok" style="font-size: small;"></p>
+            </div>
+          </div>
+        </div>
+        <div class="card z-depth-0" style="margin-bottom: 0px">
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12">
+                <p class="left" style="font-size: large; font-weight: bold">Informasi Produk</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6">
+                <p class="left" style="font-size: small;">Berat :</p>
+              </div>
+              <div class="col s6">
+                <p class="right berat" style="font-size: small;"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6">
+                <p class="left" style="font-size: small;">Kategori :</p>
+              </div>
+              <div class="col s6">
+                <p class="right Kategori_produk" style="font-size: small"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6">
+                <p class="left" style="font-size: small;">Minimal Pemesanan :</p>
+              </div>
+              <div class="col s6">
+                <p class="right min_order" style="font-size: small;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-panel white z-depth-0" style="padding-top: 12px; padding-bottom: 12px; margin-bottom: 4px" id="card-usaha">
+          <div class="row valign-wrapper">
+            <div class="col s3" style="margin-left: -12px">
+              <img src="../img/blank-picture.png" alt="" class="circle responsive-img" style="width: 56px; height: 56px" id="img-usaha">
+            </div>
+            <div class="col s5" style="margin-left: -12px">
+              <a href="../penjual/usaha.html" class="nama-usaha green-text" style="font-weight: bold" id="nama-usaha">(Nama Usaha)</a><br>
+              <span id="kab-usaha" >(Kabupaten Usaha)<span>
+              </div>
+              <div class="col s5">
+                <a class="secondary-content btn btn-small green right white-text" style="margin-top: 8px; margin-right: -4px" href="../penjual/usaha.html">Lihat Toko</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-navbar">
+        <div class="card-action white" style="padding: 12px">
+          <a class="btn text-center blue pesan-variasi2" style="width: 100%; height: 40px; line-height: 44px" type="button" onclick="beli()">Beli</a>
+        </div>
+      </div>
+    </main>
+  <!-- <div class="container-fluid">
+    <div class="card">
+      <div class="card-content row valign-wrapper">
+        <h4 class="card-title col s6">Pilih Variasi</h4>
+        <label class="label-control hasil-variasi"></label>  
+        <a class="col s6 btn btn-small blue btn-block waves-effect waves-light text-right modal-trigger" href="#modalVariasi">Variasi</a>
+      </div>
+    </div> 
+  </div> -->
+  
+
+  <!-- ########## END: MAIN PANEL ########## -->
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <!-- <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script> -->
+  <!-- <script src="../assets/lib/popper.js/popper.js"></script> -->
+  <!-- <script src="../assets/lib/bootstrap/bootstrap.js"></script> -->
+  <script src="../assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+  <script src="../assets/lib/moment/moment.js"></script>
+  <script src="../assets/lib/jquery-ui/jquery-ui.js"></script>
+  <script src="../assets/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+  <script src="../assets/lib/peity/jquery.peity.js"></script>
+  <!-- <script src="../assets/lib/codemirror/addon/scroll/simplescrollbars.js"></script> -->
+
+  <!-- <script src="../assets/js/bracket.js"></script> -->
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+
+
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+  <script type="text/javascript">
+    $('.sidenav').sidenav();
+    $('.modal').modal();
+    $('.variasi').formSelect();
+  </script>
+
+  <script>
+      //read onLoad function first//
+      var variasiStatus = 0, countQTY=0;
+      var id_produk = window.localStorage.getItem('id_produk');
+      var variasi = window.localStorage.getItem('variasi'), nama_produk, harga_produk, berat, namaVariasi, imgProduk;
+      function pilihVariasi() {
+        var variasi = $("#variasi").val();
+        if(variasi!=""){
+
+          $(".pesan-variasi").removeAttr("disabled");
+          storage.setItem('variasi', variasi);
+          $(".pesan-variasi").removeAttr('disabled');
+          $.ajax({
+            url: base_url + 'produk/ambil_stok_variasi',
+            type: 'post',
+            data: {variasi:variasi, id_produk:id_produk},
+            dataType: 'JSON',
+            success: function(e){
+              maxStokItem=e.stok;
+              namaVariasi=e.nama_variasi;
+              $(".stok").html("Stok:&nbsp;"+e.stok);
+              if(e.stok==0){
+                $(".pesan-variasi").attr('disabled');
+              }else{
+                variasiStatus = 1;
+                $("#qty").removeAttr('disabled');
+                $(".harga_produk").html('Rp ' + formatNumber(e.harga));
+                $(".fieldQty").html('<input id="qty" name="qty" type="number" class="validate" max="'+e.stok+'" min="1" step="1">'+
+                  '<label for="qty">Quantity: </label>'+
+                  '<span class="helper-text textQty" data-error="wrong" data-success="right"></span>');
+              }
+              harga_produk = e.harga;
+            },
+            error: function(){
+              $(".stok").html("Stok: 0");
+            }
+          });
+        }else{
+          $(".pesan-variasi").attr("disabled");
+        }
+      }
+      $(".variasi").change(function(){
+        variasi = $(this).val();
+      });
+      $(".addQTY").click(function(){
+        if(variasiStatus==1){
+          countQTY +=10;
+          $("#qty").val(countQTY);
+        }
+      });
+      $(".removeQTY").click(function(){
+        if(variasiStatus==1){
+          if(countQTY > 0){
+            countQTY -=10;
+            $("#qty").val(countQTY);
+          }
+        }
+      });
+      function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+      }
+
+      function beli() {
+        var variasiNow = $("#variasi").val();
+        var qty = $("#qty").val();
+        if(variasiNow==""||variasiNow==null||variasiNow=="null"){
+          M.toast({html: 'Anda belum memilih variasi Produk'});
+          return false;
+        }
+        
+        if(qty==0||qty==null){
+          M.toast({html: 'Anda belum mengisi jumlah item'});
+          return false;
+        }
+        if(qty<1){
+          M.toast({html: 'Jumlah item yang Anda pilih tidak sesuai stok yang tersedia'});
+          return false;
+        }
+        if(qty>parseInt(maxStokItem)){
+         M.toast({html: 'Jumlah item yang Anda pilih melebihi stok yang tersedia'});
+         return false;
+       }
+       if(qty>=1&&qty<=parseInt(maxStokItem)){
+		
+        variasi = $("#variasi").val();
+        var new_prods = {id_produk: id_produk, 
+          nama_produk:nama_produk, 
+          variasi:variasi, 
+          harga_produk:harga_produk, 
+          total_harga:(harga_produk*qty), 
+          qty:qty,
+          namaVariasi:namaVariasi,
+          fotoProduk: imgProduk};
+          console.log(new_prods);
+          if(storage.getItem('keranjang')=="" || storage.getItem('keranjang')==null){
+            storage.setItem('keranjang', "[]");
+          }
+          var Keranjang = JSON.parse(storage.keranjang);
+          console.log("length keranjang : ");
+          if(Keranjang.length==0){
+            var data_prod = Array();
+            data_prod.push(new_prods);
+          }else{
+            var data_prod = Array();
+            data_prod = JSON.parse(storage.keranjang);
+            var updated = 0;
+            $.each(data_prod, function(key,val){
+              console.log("val data : " + data_prod[key]['qty']);
+              if((val.id_produk==new_prods.id_produk) && (val.variasi==new_prods.variasi)){
+                var qtyKeranjang = parseInt(val.qty);
+                var newQty = parseInt(new_prods.qty);
+                var totalQty = qtyKeranjang+newQty;
+                data_prod[key]['qty'] = parseInt(val.qty)+parseInt(new_prods.qty);
+                data_prod[key]['total_harga'] = parseInt(val.total_harga)+parseInt(new_prods.total_harga);
+                updated = 1;
+              }            
+            });
+            if(updated==0){
+              data_prod.push(new_prods);
+            }
+          }
+          storage.setItem('keranjang', JSON.stringify(data_prod));
+          //window.location.href="detail_pesanan_saya.html";
+        
+        return window.location.href="../pembeli/pesanan-saya/detail_pesanan_saya.html";
+      }
+    }
+      // Handle the back button
+      //
+      function onBackKeyDown() {
+        // e.preventDefault();
+        storage.removeItem('id_produk');
+        storage.removeItem('qty');
+        storage.removeItem('berat_produk');
+        storage.removeItem('lautImg');
+        storage.removeItem('tawarImg');
+        storage.removeItem('namaVariasi');
+        window.location.href="../penjual/usaha.html";
+      }
+
+      function goto_detail_usaha() {
+        storage.removeItem('id_produk');
+        window.location.href="../penjual/usaha.html";
+      }
+
+      function onLoad() {
+        storage.removeItem('variasi');
+        variasi=null;
+        var maxStokItem;
+        
+        if(variasi=="null"||variasi==null||variasi==""){
+          variasi = "";
+        }
+        if(id_produk==null){
+          window.location.href = '../dashboard/index_pembeli.html';
+        }
+        
+        if($(".variasi").val()!==null || $(".variasi").val() !==""){
+          $(".pesan-variasi, .pesan-variasi2").removeAttr('disabled');
+        }
+        $.ajax({
+          url: base_url + 'produk/detail_produk',
+          type: 'post',
+          data: {id_produk:id_produk},
+          dataType: 'JSON',
+          success: function(e){
+            $(".image-produk").html('<img src="'+base_url+'foto_usaha/produk/'+e.foto_produk+'" class="responsive-img" style="width: 100% !important" alt="'+e.nama_produk+'">');
+            $(".nama_produk, .title-produk, .header").html(e.nama_produk);
+            $(".harga_produk").html('Rp&nbsp;' + (e.minprice) +' ~ Rp&nbsp;' + (e.maxprice));
+            $(".berat").html(e.berat_produk + '&nbsp;Ons');
+            $(".Kategori_produk").html("Air &nbsp;" + e.kategori);
+            $(".min_order").html(e.min_pemesanan + "&nbsp;Ons");
+            nama_produk = e.nama_produk;
+            harga_produk = e.minprice;
+            berat = e.berat_produk;
+            imgProduk = base_url+'foto_usaha/produk/'+e.foto_produk;
+          },
+          error: function(e){
+            $(".image-produk").html('<img src="'+base_url+'foto_usaha/produk/default.png" class="wd-100p" alt="Gambar Kosong">');
+          }
+        });
+        $.ajax({
+          url: base_url + 'produk/ambil_variasi_produk2',
+          type: 'post',
+          data: {id_produk:id_produk},
+          dataType: 'JSON',
+          success: function(e) {
+            var selected = '';
+            var $html = '';
+            $.each(e, function(key ,val){
+              if(variasi==val.id_variasiproduk){
+                selected = 'selected="true"';
+              }else{
+                selected = '';
+              }
+              $html += '<option value="'+val.id_variasiproduk+'" label="'+val.nama_variasi+'" '+selected+'>'+val.nama_variasi+'</label>';
+            });
+            $(".title-modal").html("Pilih Variasi " + nama_produk + ":&nbsp;");
+            $(".variasi").append($html);
+            $('select').formSelect();
+          }
+        });
+		$.ajax({
+          url: base_url+'Penjual/detail_usaha',
+          type: 'POST',
+          data: {id_usaha: storage.id_usaha},
+          dataType: 'JSON',
+          async: false,
+          success: function(e){
+            // console.log("Data Usaha:" + JSON.stringify(e));
+            var nama_usaha = e.nama_usaha, kab = e.kab, foto_usaha = e.foto_usaha;
+            $("#img-usaha").attr("src", base_url+"foto_usaha/"+foto_usaha);
+            $("#nama-usaha").html(nama_usaha);
+            $("#kab-usaha").html(kab);
+          }
+        });
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      function onDeviceReady() {
+
+        document.addEventListener("backbutton", onBackKeyDown, true);
+      // Add similar listeners for other events
+    }
+  </script>
+</body>
+</html>

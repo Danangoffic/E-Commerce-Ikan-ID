@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Rekening Saya</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+
+  <style type="text/css">
+    .card-content {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <!-- header -->
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Rekening Usaha</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+
+  <!-- ########## START: MAIN PANEL ########## -->
+
+  <body>
+    <div class="col s12 grey lighten-3" id="penjual" style="margin-bottom: 24px">
+      <div class="container-fluid" id="data-rekening">
+        
+      </div>
+    </div>
+    <div class="bottom-navbar">
+      <div class="card-action white" style="margin: 0px; padding-bottom: 8px">
+        <a class="waves-effect waves-light btn blue" href="tambah_rekening.html" type="button"
+          style="width: 100%; height: 40px; line-height: 44px; font-size: medium">+ Tambah Rekening Baru</a>
+      </div>
+    </div>
+
+    <!-- MODAL EDIT -->
+    <div id="modalEdit" class="modal" style="height: 50%;">
+      <div class="modal-content">
+        <div class="row">
+          <form action="#!" id="formEdit">
+            <div class="input-field col-12">
+              <select name="bank_edit" id="bank_edit"></select>
+              <label for="bank">Pilih Bank</label>
+            </div>
+            <div class="input-field col-12">
+              <input placeholder="No. Rekening" id="no_rekening" name="no_rekening" type="text" class="validate">
+              <label for="noRek">No. Rekening: </label>
+            </div>
+            <div class="input-field col-12">
+              <input placeholder="Nama Pemilik Rekening" id="nama_rekening" name="nama_rekening" type="text" class="validate">
+              <label for="namaRekening">Nama Pemilik Rekening :</label>
+            </div>
+            <input  name="id_rekening" type="hidden">
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn blue accent-4 waves-effect waves-green" id="simpanEdit">Simpan</button>
+        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Batal</a>
+      </div>
+    </div>
+
+    <!-- MODAL DELETE -->
+    <div id="modalDelete" class="modal">
+      <div class="modal-content">
+        <h4>Konfirmasi Hapus Rekening</h4>
+        <p id="text-konfirmasi">Apakah Anda Akan Menghapus Data Rekening Ini?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn blue accent-4 waves-effect waves-green" id="doHapus">Hapus</button>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Batal</a>
+      </div>
+    </div>
+
+
+    <!-- ########## END: MAIN PANEL ########## -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="../cordova.js"></script>
+    <script type="text/javascript" src="../js/mobile_script.js"></script>
+    </script>
+    <script>
+      function onBackKeyDown() {
+        window.location.assign("akun.html");
+      }
+
+      function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+      }
+
+      $(document).ready(onDeviceReady);
+
+      function onDeviceReady() {
+        document.addEventListener("pause", onPause, false);
+        document.addEventListener("resume", onResume, false);
+        document.addEventListener("menubutton", onMenuKeyDown, false);
+        loadData();
+        // Add similar listeners for other events
+      }
+
+      function onPause() {
+        // Handle the pause event
+      }
+
+      function onResume() {
+        // Handle the resume event
+      }
+
+      function onMenuKeyDown() {
+        // Handle the menubutton event
+      }
+
+      function loadData() {
+        $(".modal").modal();
+
+        var id_akun = storage.id_akun;
+        $.ajax({
+          url: base_url + "Penjual/ambil_rekening",
+          type: "POST",
+          data: { id_akun: id_akun },
+          success: function (e) {
+            if (e.status == "success") {
+              var data = e.data;
+              var html = "";
+              $.each(data, function (i, isi) {
+                html += '<div class="card" style="margin-top: -12px; padding-bottom: 4px" id="rekening' + isi.id_rekening + '">' +
+                  '<p class="flow-text large" style="padding: 15px 15px 0px 20px">Informasi Rekening</p>' +
+                  '<div class="card-content" style="padding: 0px; margin-bottom: 5px">' +
+                  '<div class="row" style="margin: -8px">' +
+                  '<div class="col s12">' +
+                  '<div class="col s5">' +
+                  '<p class="left" style="font-size: small;">Nama Bank :</p>' +
+                  '</div>' +
+                  '<div class="col s7">' +
+                  '<p class="right nama_bank" style="font-size: small;">' + isi.nama_bank + '</p>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="row" style="margin: -8px">' +
+                  '<div class="col s12">' +
+                  '<div class="col s5">' +
+                  '<p class="left" style="font-size: small;">No. Rekening :</p>' +
+                  '</div>' +
+                  '<div class="col s7">' +
+                  '<p class="right no_rekening" style="font-size: small;">' + isi.no_rekening + '</p>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="row" style="margin: -8px">' +
+                  '<div class="col s12">' +
+                  '<div class="col s6">' +
+                  '<p class="left" style="font-size: small;">Nama Pemilik Rekening :</p>' +
+                  '</div>' +
+                  '<div class="col s6">' +
+                  '<p class="right nama_rekening" style="font-size: small;">' + isi.nama_rekening + '</p>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="row" style="padding-top: 24px">' +
+                  '<div class="col 12 right">' +
+                  '<div class="card-action" style="padding: 0px">' +
+                  '<button onclick="openEdit(' + isi.id_rekening + ')" class="btn-floating waves-effect waves-light btn green"><i class="material-icons" style="height: 40px; width: 40px">edit</i></button>' +
+                  '<button onclick="openDelete(' + isi.id_rekening + ')" class="btn-floating waves-effect waves-light btn red"><i class="material-icons" style="height: 40px; width: 40px">delete</i></button>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>';
+              });
+              $("#data-rekening").html(html);
+            }else if(e.status=="Not Found"){
+              var button = '<a href="tambah_rekening.html" class="btn blue accent-4" style="widht:100%">Tambahkan Rekening</a>';
+              $("#data-rekening").html(button);
+            }
+          },
+          error: function(e){
+            if(e.status=="Not Found"){
+              var card = "<div class='card'><div class='card-content'><h6>Data Kosong</h6></div></div>";
+            }
+          }
+        })
+      }
+
+      function loadAllBank() {
+        $.ajax({
+          url: base_url + "Penjual/ambil_all_bank",
+          success: function (e) {
+            if (e.status == "success") {
+              var data = e.data;
+              var option = "<option value='' selected disabled>Pilih Bank</option>";
+              $.each(data, function (i, isi) {
+                option += "<option value='" + isi.kode_bank + "' label='" + isi.nama_bank + "'>" + isi.nama_bank + "</option>";
+              });
+              $("[name=bank_edit]").html(option);
+             
+            }
+          }
+        })
+      }
+
+      function openEdit(id) {
+        loadAllBank();
+        $.ajax({
+          url: base_url + "Penjual/ambil_rekening_by_id",
+          type: "POST",
+          data: {id_rekening: id},
+          success: function(e){
+            if(e.status=="success"){
+              var data = e.data;
+              $("select[name=bank_edit] option[value='"+data.kode_bank+"']").attr("selected", "selected");
+              $("[name=no_rekening]").val(data.no_rekening);
+              $("[name=nama_rekening]").val(data.nama_rekening);
+              $("[name=id_rekening]").val(id);
+              $("#simpanEdit").click(updateRekening);
+              $("#modalEdit").modal("open");
+              $('select').formSelect();
+            }
+          }
+        });
+      }
+
+      function updateRekening() {
+        // var formData = new FormData($("form")[0]);
+        var bank = $("[name=bank_edit] option:selected").val();
+        if(bank=="" || bank==null){
+          M.toast({html: "Jenis Bank Belum Dipilih"});
+          return false;
+        }
+        $.ajax({
+          url: base_url + "Penjual/ubah_rekening",
+          type: "POST",
+          data: $("#formEdit").serialize(),
+          success: function(e){
+            if(e.status=="berhasil"){
+              M.toast({html: "Berhasl Ubah Data Rekening"});
+              loadData();
+              $("#formEdit").reset();
+              $("#modalEdit").modal("close");
+            }
+          }
+        })
+      }
+
+      function openDelete(id) {
+        $("#doHapus").click(function(){
+          doHapus(id);
+        });
+        $("#modalDelete").modal("open");
+      }
+
+      function doHapus(id){
+        $.ajax({
+          url: base_url + "Penjual/hapus_rekening",
+          type: "POST",
+          data: {id_rekening: id},
+          success: function(e){
+            if(e.status=="berhasil"){
+              $("#rekening"+id).hide();
+              M.toast({html: "Berhasil Hapus Data Rekening"});
+              $("#modalDelete").modal("close");
+            }else{
+              M.toast({html: "Gagal Menghapus Data Rekening"});
+            }
+          },
+          error: function(e){
+            M.toast({html: "Error Dalam Menghapus Data Rekening"});
+          }
+        })
+      }
+    </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Profil Penjual</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+  <style type="text/css">
+    .carousel {
+      height: 200px !important;
+    }
+
+    .card.small {
+      height: 170px;
+    }
+
+    #user-profile .user-section-negative-margin {
+      position: relative;
+      margin-top: -150px;
+      padding: 0px
+    }
+
+    #user-profile {
+      margin-bottom: -30px;
+    }
+
+    /* @media only screen and (max-device-width: 1024px) .user-profile {
+      margin-top: 1rem;
+    } */
+
+    .collection.with-header {
+      margin-top: -24px;
+      margin-bottom: -24px;
+      margin-right: -24px;
+      margin-left: -24px;
+    }
+
+    .card-content {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  </style>
+</head>
+
+<body class="">
+  <header>
+    <!-- header -->
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="akun.html" onclick="" class="transparent" style="margin: auto 10px"><span
+                  class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px">Profil Saya</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+
+  <!-- ########## START: MAIN PANEL ########## -->
+
+  <body onload="onLoad()">
+    <div class="col s12 grey lighten-3">
+      <div class="container-fluid grey lighten-3">
+        <div class="user-profile mt-1 ml-0 mr-0">
+          <img class="responsive-img" alt="" src="../img/user-back.jpg"
+            style="height: 150px !important; width: 100% !important">
+        </div>
+        <div class="section" id="user-profile">
+          <div class="col s12 m4 l3 user-section-negative-margin">
+            <div class="col s12 center-align">
+              <img class="responsive-img circle z-depth-5 foto_pj" src="../img/blank-picture.png" alt="" style="height: 100px; width: 100px; margin-top: 5px">
+            </div>
+            <a class="btn-floating btn-large waves-effect waves-light green right" href="ubah_profil.html"
+              style="margin-right: 20px"><i class="material-icons">edit</i></a>
+          </div>
+        </div>
+        <div class="card z-depth-0">
+          <div class="card-content" style="padding: 15px; margin-bottom: 5px;">
+            <div class="row" style="margin-top: 24px;">
+              <div class="col s5">
+                <p class="left" style="font-size: small;">Nama :</p>
+              </div>
+              <div class="col s7">
+                <p class="right nama_pj" style="font-size: small;"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s5">
+                <p class="left" style="font-size: small;">No. KTP :</p>
+              </div>
+              <div class="col s7">
+                <p class="right noktp_pj" style="font-size: small;"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s5">
+                <p class="left" style="font-size: small;">Jenis Kelamin :</p>
+              </div>
+              <div class="col s7">
+                <p class="right jk_pj" style="font-size: small;"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s5">
+                <p class="left" style="font-size: small;">Tanggal Lahir :</p>
+              </div>
+              <div class="col s7">
+                <p class="right tgllahir_pj" style="font-size: small;"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s5">
+                <p class="left" style="font-size: small;">No. Hp :</p>
+              </div>
+              <div class="col s7">
+                <p class="right telp_pj" style="font-size: small;"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s5">
+                <p class="left" style="font-size: small;">Alamat :</p>
+              </div>
+              <div class="col s7">
+                <p class="right alamat_pj" style="font-size: small;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ########## END: MAIN PANEL ########## -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="../cordova.js"></script>
+    <script type="text/javascript" src="../js/mobile_script.js"></script>
+    </script>
+    <script type="text/javascript">
+      function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+        $(document).ready(onDeviceReady);
+      }
+      // device APIs are available
+      //
+      function onDeviceReady() {
+        document.addEventListener("pause", onPause, false);
+        document.addEventListener("resume", onResume, false);
+        document.addEventListener("menubutton", onMenuKeyDown, false);
+        // Add similar listeners for other events
+		loadData();
+      }
+
+      function onPause() {
+        // Handle the pause event
+      }
+
+      function onResume() {
+        // Handle the resume event
+      }
+
+      function onMenuKeyDown() {
+        // Handle the menubutton event
+      }
+	  
+	  function loadData() {
+        $.post(base_url + 'Penjual/ambil_data_profile', { id_akun: storage.id_akun }, function (result) {
+          // result = JSON.parse(result);
+          var r = result;
+          console.log(result);
+          $(".nama_pj").html(r.nama_pj);
+          $(".foto_pj").attr('src', base_url + 'foto_penjual/' + r.foto_pj);
+          $(".noktp_pj").html(r.noktp_pj);
+          $(".fotoktp_pj").attr('src', base_url + 'foto_ktp_penjual/' + r.fotoktp_pj);
+          $(".jk_pj").html(r.jk_pj);
+          $(".tgllahir_pj").html(r.tgllahir_pj);
+          $(".telp_pj").html(r.telp_pj);
+          $(".alamat_pj").html(r.alamat_pj);
+          storage.setItem('dataProfile', JSON.stringify(result));
+        });
+      }
+    </script>
+
+  </body>
+
+</html>

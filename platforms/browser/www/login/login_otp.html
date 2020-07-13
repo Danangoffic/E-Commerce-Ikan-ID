@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <!-- viewport meta -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <meta name="description" content="MartPlace - Complete Online Multipurpose Marketplace HTML Template">
+  <meta name="keywords" content="app, app landing, product landing, digital, material, html5">
+
+  <title>HaiFish - Login</title>
+
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+  <style>
+    input[type=number] {
+      height: 45px;
+      width: 45px;
+      font-size: 25px;
+      text-align: center;
+      border: 1px solid #000000;
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+  <script>
+    function getCodeBoxElement(index) {
+      return document.getElementById('codeBox' + index);
+    }
+    function onKeyUpEvent(index, event) {
+      const eventCode = event.which || event.keyCode;
+      if (getCodeBoxElement(index).value.length === 1) {
+        if (index !== 4) {
+          getCodeBoxElement(index+ 1).focus();
+        } else {
+          getCodeBoxElement(index).blur();
+            // Submit code
+            console.log('submit code ');
+          }
+        }
+        if (eventCode === 8 && index !== 1) {
+          getCodeBoxElement(index - 1).focus();
+        }
+      }
+      function onFocusEvent(index) {
+        for (item = 1; item < index; item++) {
+          const currentElement = getCodeBoxElement(item);
+          if (!currentElement.value) {
+            currentElement.focus();
+            break;
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body class="" style="background: url('../assets/img/bg1.jpg'); padding: 120px 20px 0px 20px;">
+    <main>
+      <center>
+        <div class="login-wrapper wd-120p wd-xs-100p mg-4 pd-10 pd-xs-39 rounded shadow-base" style="background-color: rgba(255,255,255, 0.8); margin-top: 100px">
+          <div class="row" style="display: inline-block; padding: 0px 0px 0px 0px;">
+            <form action="#" class="col s12">
+              <div class="section"></div>
+              <div class="row">
+                <div class="col s12"></div>
+                <img src="#">
+              </div>
+              <h5 class="">Masukkan Kode OTP</h5>
+              <!-- end .login_header -->
+              <div class="row">
+                <div class="input-field col s12" style="margin-top: 30px;">
+                  <input placeholder="4 Digit Kode OTP" minlength="1" maxlength="3" type="number" id="otp" class="otp">
+                  <label class="" for="otp"></label>
+                </div>
+              </div>
+              <div class="row">
+                <center>
+                  <div class='col s12' style="margin-bottom: 20px;">
+                    <button class="col s12 btn waves-effect waves-light" style="background-image: linear-gradient(to left, #021B79, #0575E6);" type="button" id="btn-submit">Verifikasi
+                    </button>        
+                  </div>
+                </center>
+              </div>
+              <!-- end .login--form -->
+              <!-- end .cardify -->
+            </form>
+          </div>
+          <!-- end .row -->
+        </div>
+      </center>
+    </main>
+  </body>
+
+
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+
+  </html>

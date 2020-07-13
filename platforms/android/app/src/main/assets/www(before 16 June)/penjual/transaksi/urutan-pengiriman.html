@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Urutkan Pengiriman</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+  <link href="../../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style type="text/css">
+  </style>
+</head>
+
+<body class="" onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <!-- <div class="row">   -->
+          <div class="left col s12" style="margin-left: 8px">
+            <a id="#" href="" class="transparent" style="margin: auto 10px;"><span
+                class="fa fa-chevron-left"></span></a>
+            <b class="header" style="font-size: large; margin-left: 14px; line-height: 64px">Urutan Pengiriman</b>
+          </div>
+        </div>
+      </div>
+      </div>
+    </nav>
+  </header>
+  <!-- ########## END: HEAD PANEL ########## -->
+
+  <!-- ########## START: MAIN PANEL ########## -->
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12 cyan lighten-4" style="margin-top: -4px;">
+          <p class="center black-text">PRIORITAS</p>
+          <div class="card">
+            <ul class="collection">
+              <li class="collection-item">
+                <span class="title" id="nama_pb">(Nama Pembeli)<br><span>(Alamat Pembeli)</span></span>
+                <p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman
+                  Cepat)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <ul class="collection">
+              <li class="collection-item">
+                <span class="title" id="nama_pb">(Nama Pembeli)<br><span>(Alamat Pembeli)</span></span>
+                <p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman
+                  Cepat)</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="card">
+            <ul class="collection">
+              <li class="collection-item">
+                <span class="title" id="nama_pb">(Nama Pembeli)<br><span>(Alamat Pembeli)</span></span>
+                <p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman
+                  Cepat)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <ul class="collection">
+              <li class="collection-item">
+                <span class="title" id="nama_pb">(Nama Pembeli)<br><span>(Alamat Pembeli)</span></span>
+                <p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman
+                  Biasa)</p>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <ul class="collection">
+              <li class="collection-item">
+                <span class="title" id="nama_pb">(Nama Pembeli)<br><span>(Alamat Pembeli)</span></span>
+                <p class="teal-text" id="jenis-pengiriman" style="position: relative; text-align: right;">(Pengiriman
+                  Biasa)</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="bottom-navbar">
+          <div class="card-action white" style="margin: 8px">
+            <a class="waves-effect waves-light btn blue modal-trigger" href="#kurir" type="button"
+              style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Lanjut</a>
+          </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="kurir" class="modal">
+          <div class="modal-content" style="padding: 8px; text-align: center;">
+            <!-- <h6>Pilih Kurir dan Kendaraan :</h6> -->
+            <form action="#">
+              <div class="row">
+                <div class="col s12">
+                  <p class="flow-text" style="text-align: left;">Pilih Kurir :</p>
+                  <p style="text-align: left;">
+                    <label class="btn white black-text" for="kurirA" style="width: 100%; text-align: left;">
+                      <input type="radio" id="kurirA"/>
+                      <span>Kurir A</span>
+                    </label>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <p class="flow-text" style="text-align: left;">Pilih Kendaraan :</p>
+                  <p style="text-align: left;">
+                    <label class="btn white black-text" for="kendaraanA" style="width: 100%; text-align: left;">
+                      <input type="radio" id="kendaraanA" />
+                      <span>Kendaraan A</span>
+                    </label>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="card-action white" style="margin: 0px">
+              <a class="waves-effect waves-light btn blue modal-trigger" href="#kurir" type="button"
+                style="width: 100%; font-size: small">Lanjutkan Pengiriman</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <!-- <script type="text/javascript" src="../../cordova.js"></script> -->
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+  </script>
+</body>
+
+</html>

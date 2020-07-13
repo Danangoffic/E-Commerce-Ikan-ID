@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  <title>Logout</title>
+</head>
+
+<body>
+
+  <!-- ########## START: LEFT PANEL ########## -->
+  
+  <!-- ########## END: LEFT PANEL ########## -->
+
+  <!-- ########## START: HEAD PANEL ########## -->
+  
+    <!-- ########## END: HEAD PANEL ########## -->
+
+    <!-- ########## START: MAIN PANEL ########## -->
+    
+    <!-- ########## END: MAIN PANEL ########## -->
+
+    <script src="../assets/lib/jquery/jquery.js"></script>
+    <script type="text/javascript">
+      $(window).ready(function(){
+        window.localStorage.setItem('sukses_login', 0);
+        window.localStorage.setItem('username', "");
+        window.localStorage.setItem('usergroup', "");
+        window.localStorage.setItem('id_akun',"");
+        window.localStorage.removeItem('nama_lengkap');
+        window.localStorage.removeItem('noKTP');
+        window.localStorage.removeItem('jenisKel');
+        window.localStorage.removeItem('foto');
+        window.localStorage.removeItem('alamat');
+        window.localStorage.removeItem('telp');
+        window.localStorage.removeItem('fotoktp_pj');
+        window.localStorage.removeItem('tgllahir_pj');
+        storage.removeItem('usaha');
+        storage.removeItem('nama_usaha');
+        storage.removeItem('viewID_kategori');
+        storage.removeItem('usergroup');
+        storage.removeItem('keranjang');
+        storage.removeItem('jenis_petani');
+
+        window.location.href = "../dashboard/index_publik.html";
+      })
+    </script>
+    <script type="text/javascript" src="../js/mobile_script.js"></script>
+    <script type="text/javascript" src="../cordova.js"></script>
+  </body>
+  </html>

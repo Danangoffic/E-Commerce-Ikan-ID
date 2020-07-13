@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Form Pendaftaran Pembeli</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+  <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+  src="cordova.js"></script>
+
+  <script async defer
+  src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM">
+</script>
+<style type="text/css">
+  .input-field div.error
+  {
+    position: relative;
+    top: 0rem;
+    left: 0rem;
+    font-size: 0.8rem;
+    color:#FF4081;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+  .input-field label.active
+  {
+    width:100%;
+  }
+</style>
+<style>
+  #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+  }
+</style>
+
+<script type="text/javascript">
+  var firstLt, firstLg;
+  first();
+  function first() {
+    var onSuccess = function(position) {
+      var element = document.getElementById('map');
+      var marker;
+      var posisilat;
+      var posisilng;
+      firstLt = position.coords.latitude;
+      firstLg = position.coords.longitude;
+      initMap(firstLt, firstLg);
+    /*if(function_exists('initMap')){
+      initMap(position.coords.latitude, position.coords.longitude);  
+    }*/
+
+  };
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+    }
+  </script>
+
+  <script type="text/javascript">
+
+    function taruhMarker(peta, posisiTitik) {
+      if (marker) {
+            // pindahkan marker
+            marker.setPosition(posisiTitik);
+          } else {
+            // buat marker baru
+            marker = new google.maps.Marker({
+              position: posisiTitik,
+              map: peta
+            });
+          }
+          posisilat = posisiTitik.lat();
+          posisilng = posisiTitik.lng();
+          console.log("Posisi marker: " + posisilat + "," + posisilng);
+          $("body").find("input[name='latitude_pb']").val(posisilat);
+        //$("#latitude_pb").val(posisilat);
+        //$("#longitude_pb").val(posisilng);
+        $("body").find("input[name='longitude_pb']").val(posisilng);
+      }
+
+
+      function initMap(lat, lng) {
+        $("body").find("input[name='latitude']").val(lat);
+        $("body").find("input[name='longitude']").val(lng);
+        var propertiPeta = {
+            center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+            zoom: 17, //semakin banyak semakin dekat min 1 maksimal
+            mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+          };
+          var point = new google.maps.LatLng(lat, lng);
+        var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+        marker = new google.maps.Marker({
+          position: point,
+          map: peta
+            //icon
+          });
+        google.maps.event.addListener(peta, 'click', function (event) {
+          taruhMarker(this, event.latLng);
+        });
+      }
+      $("#simpan").click(function (e) {
+        e.preventDefault();
+        var data_form = $("form").serialize();
+        console.log(data_form);
+        $.ajax({
+          dataType: 'json',
+          type: 'POST',
+          url: url + "proses_mobile/pembeli/server_form_maps.php",
+          data: data_form,
+          success: function (resp) {
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body class="">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col s12">
+          <div class="card" style="margin-bottom:none">
+            <div class="card-content" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+              <div class="card-title" style="margin-bottom: 0px; color: white"><center><b>INFORMASI PRIBADI PEMBELI</b></center></div>
+            </div>
+            <div class="card-content">
+              <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate" data-parsley-validate>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix small icon-demo">account_circle</i>
+                    <label for="username" class="active">Username</label>
+                    <input id="username" name="username" type="text" class="validate">
+                  </div>
+                </div>
+                <div class="row" style="">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix small icon-demo">lock</i>
+                    <input id="password" name="password" type="text" class="validate">
+                    <label for="password">Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix small icon-demo">contacts</i>
+                    <input id="nama_pb" name="nama_pb" type="text" class="validate">
+                    <label for="nama_pb">Nama Lengkap</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="file-field input-field col s12">
+                    <div class="waves-effect waves-light btn-small">
+                      <span>Foto Profil</span>
+                      <input placeholder="Foto Profil" id="foto_pb" name="foto_pb" type="file" class="validate"> 
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input class="file-path validate" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12" style="">
+                    <p class="flow-text">Jenis Kelamin :</p>
+                    <p>
+                      <label>
+                        <input name="jk_pb" value="Laki-laki" type="radio" />
+                        <span>Laki-laki</span>
+                      </label>
+                      <label>
+                        <input name="jk_pb" value="Perempuan" type="radio" />
+                        <span>Perempuan</span>
+                      </label>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12"  style="margin-top: 0px">
+                    <i class="material-icons prefix small icon-demo">date_range</i>
+                    <input id="tgllahir_pb" name="tgllahir_pb" type="text" class="datepicker">
+                    <label for="tgllahir_pb">Tanggal Lahir</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12" style="margin-top: -10px">
+                    <i class="material-icons prefix small icon-demo">phone</i>
+                    <input id="telp_pb" name="telp_pb" type="tel" class="validate">
+                    <label for="telp_pb">No. Hp</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12" style="margin-top: -10px">
+                    <i class="material-icons prefix small icon-demo">home</i>
+                    <textarea id="alamat_pb" name="alamat_pb" type="text" class="materialize-textarea"></textarea>
+                    <label for="alamat_pb">Alamat Lengkap</label>
+                  </div>
+                </div>
+                <div class="row" style="margin-left: 10%">
+                  <div class="input-field col s12" style="margin-top: -20px">
+                    <input id="kab_pb" name="kab_pb" type="text" class="validate">
+                    <label for="kab_pb">Kota/Kabupaten</label>
+                  </div>
+                  <div class="input-field col s12" style="margin-top: 0px">
+                    <input id="kec_pb" name="kec_pb" type="text" class="validate">
+                    <label for="kec_pb">Kecamatan</label>
+                  </div>
+                  <div class="input-field col s12" style="margin-top: 0px">
+                    <input id="kel_pb" name="kel_pb" type="text" class="validate">
+                    <label for="kel_pb">Kelurahan</label>
+                  </div>
+                </div>
+                <div class="">
+                  <p class="flow-text">Lokasi Alamat di Peta : </p>
+                </div>
+                <div class="" id="map">
+                </div>
+                <div class="">
+                  <p><h6>Note:</h6></p>
+                </div>
+                <div class="row">
+                  <div class="col s6 offset-s6">
+                    <button class="waves-effect waves-light btn green-grey" style="margin-top:10px; width:100%" type="button" onclick="initMap(firstLt, firstLg)">Lokasi Saya</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="card-action">
+            <button class="waves-effect waves-light btn blue" onclick="Daftar()" type="button" style="width: 100%">Daftar
+              <i class="material-icons right">send</i></button>
+              <div class=""><center>
+                <p class="flow-text">Sudah Punya Akun? 
+                  <a href="../dashboard/akun_publik.html">Masuk</a>
+                </p></center>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="../js/mobile_script.js"></script>
+    <script type="text/javascript" src="../cordova.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.datepicker').datepicker();
+      });
+    </script>
+
+    <!-- <script type="text/javascript">
+      $("#formValidate").validate({
+        rules: {
+          username: {
+            required: true,
+            minlength: 5
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          nama_pb: {
+            required: true,
+            minlength: 10
+          },
+          foto_pb:"required",
+          jk_pb:"required",
+          tgllahir_pb:"required",
+          telp_pb: {
+            required: true,
+            minlength: 10
+          },
+          alamat_pb: {
+            required: true,
+            minlength: 10
+          },
+          kab_pb: {
+            required: true,
+            minlength: 5
+          },
+          kec_pb: {
+            required: true,
+            minlength: 5
+          },
+          kel_pb: {
+            required: true,
+            minlength: 5
+          },
+        },
+        //For custom messages
+        messages: {
+          username:{
+            required: "Masukkan Username",
+            minlength: "Username minimal 5 karakter"
+          },
+          password:{
+            required: "Masukkan Password",
+            minlength: "Password minimal 5 karakter"
+          },
+          nama_pb:{
+            required: "Masukkan Nama Lengkap",
+            minlength: "Nama Lengkap minimal 10 karakter"
+          },
+          foto_pb: "Belum Memilih Foto Profil",
+          jk_pb: "Belum Memilih Jenis Kelamin",
+          tgllahir_pb: "Belum Memasukkan Tanggal Lahir",
+          telp_pb:{
+            required: "Masukkan No. Hp",
+            minlength: "No. Hp minimal 10 karakter"
+          },
+          alamat_pb:{
+            required: "Masukkan Alamat Lengkap",
+            minlength: "Alamat Lengkap minimal 10 karakter"
+          },
+          kab_pb:{
+            required: "Masukkan Nama Kota/Kabupate",
+            minlength: "Nama Kota/Kabupaten minimal 5 karakter"
+          },
+          kec_pb:{
+            required: "Masukkan Nama Kecamatan",
+            minlength: "Nama Kecamatan minimal 5 karakter"
+          },
+          kel_pb:{
+            required: "Masukkan Nama Kelurahan",
+            minlength: "Nama Kelurahan minimal 5 karakter"
+          },
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
+      });
+    </script> -->
+    
+    <script type="text/javascript">
+      function Daftar(){
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var nama_pb = $("#nama_pb").val();
+        
+      }
+    </script>
+    <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+  </body>
+
+</body>
+</html>

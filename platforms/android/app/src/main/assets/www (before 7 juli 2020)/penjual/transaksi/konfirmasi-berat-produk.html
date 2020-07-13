@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@themepixels">
+    <meta name="twitter:creator" content="@themepixels">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bracket">
+    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="http://themepixels.me/bracket">
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+    <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+    <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+
+    <title>Konfirmasi Berat Produk</title>
+
+    <!-- vendor css -->
+    <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../assets/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <link href="../../assets/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
+    <link href="../../assets/custom.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style type="text/css">
+        .carousel {
+            height: 200px !important;
+        }
+
+        .card.small {
+            height: 170px;
+        }
+
+        .collection .collection-item.avatar {
+            line-height: 2rem;
+            min-height: 52px;
+            padding-left: 72px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="" onload="onLoad()">
+    <header>
+        <nav class="top-nav"
+            style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+            <div class="container-fluid">
+                <div class="nav-wrapper">
+                    <!-- <div class="row">   -->
+                    <div class="left col s12" style="margin-left: 8px">
+                        <a id="#" href="" onclick="onBackKeyDown()" class="transparent" style="margin: auto 10px;"><span
+                                class="fa fa-chevron-left"></span></a>
+                        <b class="header" style="font-size: large; margin-left: 14px; line-height: 64px">Konfirmasi
+                            Berat Produk</b>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </nav>
+    </header>
+    <!-- ########## END: HEAD PANEL ########## -->
+
+    <!-- ########## START: MAIN PANEL ########## -->
+
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col s12" id="list-pesanan-siap-kirim">
+
+                </div>
+            </div>
+            <div class="bottom-navbar">
+                <div class="card-action white" style="margin: 8px">
+                    <button class="waves-effect waves-light btn blue" onclick="go_to_kirim()" type="button"
+                        style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="modalBerat" class="modal" style="width: 90%;">
+        <div class="modal-content" style="width: 100%; height: auto; min-height: 50px">
+            <div class="center">
+                <strong>Silahkan isi berat masing-masing produk sesuai dengan yang sudah Anda kemas</strong>
+            </div>
+            <div class="row" style="margin-top: 24px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th>Berat Awal</th>
+                            <th>Berat Akhir</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-verifikasi-berat-detail-pesanan">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-close waves-effect waves-green btn-flat" type="button">Batal</button>
+            <button class="waves-effect waves-green btn-flat blue white-text"
+                id="simpan-data-verifikasi-berat-detail-pesanan" type="button">Simpan</button>
+        </div>
+    </div>
+
+    <!-- ########## END: MAIN PANEL ########## -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="../../cordova.js"></script>
+    <script type="text/javascript" src="../../js/mobile_script.js"></script>
+    <script type="text/javascript">
+        var ID_PEMESANAN;
+
+        $(document).ready(onDeviceReady);
+
+        function onLoad() {
+            $('.modal').modal();
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+
+        // device APIs are available
+        //
+        function onDeviceReady() {
+            get_pesanan_siap_kirim();
+            const simpan_berat = document.getElementById("simpan-data-verifikasi-berat-detail-pesanan");
+            simpan_berat.addEventListener("click", () => {
+                send_simpan_berat_akhir(ID_PEMESANAN);
+            }, false);
+            document.addEventListener("pause", onPause, false);
+            document.addEventListener("resume", onResume, false);
+            document.addEventListener("menubutton", onMenuKeyDown, false);
+            document.addEventListener("backbutton", onBackKeyDown, false);
+            // Add similar listeners for other events
+        }
+
+        function onPause() {
+            // Handle the pause event
+        }
+
+        function onResume() {
+            // Handle the resume event
+        }
+
+        function onMenuKeyDown() {
+            // Handle the menubutton event
+        }
+
+        function onBackKeyDown() {
+            // Handle the back button
+        }
+
+        function get_pesanan_siap_kirim() {
+            preload_pesanan();
+            const id_usaha = localStorage.id_usaha;
+            $.get(API_PRODUK_TO_DELIVERY_PESANAN, { id_usaha: id_usaha }).then(onSuccessLoadPesanan);
+        }
+
+        function onSuccessLoadPesanan(response) {
+            if (response.status == "sukses") {
+                var html_list = '';
+                var data_pemesanan = response.data_pemesanan;
+                $.each(data_pemesanan, function (k, v) {
+                    var detail_pesanan = v.detail_pemesanan;
+                    html_list += '<div class="card">';
+                    html_list += '<ul class="collection" >';
+                    html_list += '<li class="collection-item teal-text darken-1">';
+                    html_list += '<b>' + v.no_pesanan + '&nbsp;<b class="orange-text">' + v.nama_pembeli + '</b></b>';
+                    html_list += '</li>';
+                    html_list += '<li class="collection-item">';
+                    $.each(detail_pesanan, function (k2, v2) {
+                        const berat_akhir = v2.berat_akhir;
+                        const berat_produk = (berat_akhir !== null) ? berat_akhir + ' Ons' : v2.jml_produk + ' Ons';
+                        const color_berat = (berat_akhir !== null) ? "orange-text" : "";
+                        html_list += '<p><span class="title">' + v2.nama_produk + ' ' + v2.nama_variasi + '</span><span class="secondary-content ' + color_berat + '">' + berat_produk + '</span></p>';
+                    });
+                    html_list += '</li>';
+                    html_list += '<button class="waves-effect waves-light btn btn-small blue modal-trigger" data-target="modalBerat" onclick="verifikasi_berat(' + v.id_pemesanan + ')" type="button" style="width: 100%">Input Berat Produk<i class="material-icons right">chevron_right</i></button>';
+                    html_list += '</ul>';
+                    html_list += '</div>';
+                });
+                if (html_list !== '') {
+                    document.getElementById("list-pesanan-siap-kirim").innerHTML = html_list;
+                }
+            }
+        }
+
+        function verifikasi_berat(id_pemesanan) {
+            // const API_GET_DETAIL = base_url + "api/order/placement/verify";
+            preload_table();
+            ID_PEMESANAN = id_pemesanan;
+            $.get(API_PRODUK_TO_VERIFY_WEIGHT_PESANAN, { id_pemesanan: id_pemesanan }).then(onSuccessDetilPesananToVerify);
+        }
+
+        function onSuccessDetilPesananToVerify(response) {
+            if (response.status == "sukses") {
+                var detail_pemesanan = response.detail_pemesanan;
+                var html_table = '';
+                $.each(detail_pemesanan, function (k, v) {
+                    var nama_produk = v.nama_produk + ' ' + v.nama_variasi;
+                    var berat_produk = v.jml_produk + ' Ons';
+                    var berat_akhir = (v.berat_akhir == null) ? 0 : v.berat_akhir;
+                    html_table += '<tr>';
+                    html_table += '<td style="font-size: medium;">' + nama_produk + '</td>';
+                    html_table += '<td style="font-size: medium;">' + berat_produk + '</td>';
+                    html_table += '<td><input form="berat-pesanan" placeholder="Berat Dalam Ons" name="berat[]" id="berat-' + v.id_produk + '" type="number" min="10" max="1000" value="' + berat_akhir + '" class="center" style="font-size: medium"><label for="berat-' + v.id_produk + '"></label></td>';
+                    html_table += '</tr>';
+                });
+                if (html_table !== '') {
+                    document.getElementById("data-verifikasi-berat-detail-pesanan").innerHTML = html_table;
+                } else {
+                    html_table += '<tr>';
+                    html_table += '<td style="font-size: medium;" colspan="3" class="center">DATA GAGAL TERAMBIL</td>';
+                    html_table += '</tr>';
+                    document.getElementById("data-verifikasi-berat-detail-pesanan").innerHTML = html_table;
+                }
+            }
+        }
+
+        function send_simpan_berat_akhir(ID_PEMESANAN) {
+            // const form = new FormData($("form")[0]);
+            // form.append("id_pemesanan", ID_PEMESANAN);
+            const URL_SEND_SIMPAN_BERAT_AKHIR = base_url + "api/order/verify/produk-weight";
+            // const form = $("form[name=berat-pesanan]").serializeArray();
+            const form = $("form[name=berat-pesanan]");
+            const formData = {};
+            $("input").each(function (index, node) {
+                formData[node.name] = node.value;
+            });
+            formData['id_pemesanan'] = ID_PEMESANAN;
+            console.log(formData);
+            $.post(API_VERIFY_PRODUK_PESANAN_PESANAN, formData).then(onSuccessSimpan).always(onCompletlySimpan);
+        }
+
+        function onSuccessSimpan(response) {
+            console.log(response);
+            if (response.status == "sukses") {
+                get_pesanan_siap_kirim();
+                M.toast({ html: response.message });
+                // $("#modalBerat").modal("close");
+            } else {
+                M.toast({ html: response.message });
+            }
+        }
+
+        function onCompletlySimpan() {
+            $("#modalBerat").modal("close")
+        }
+
+        function preload_pesanan() {
+            let HTML_PESANAN_PRELOAD = '';
+            HTML_PESANAN_PRELOAD = '<div class="preloader-wrapper small active"><div class="spinner-layer spinner-green-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
+            document.getElementById("list-pesanan-siap-kirim").innerHTML = HTML_PESANAN_PRELOAD;
+        }
+
+        function preload_table(params) {
+            let HTML_TABLE_PRELOAD = '';
+            HTML_TABLE_PRELOAD += '<tr>';
+            HTML_TABLE_PRELOAD += '<td style="font-size: medium;" colspan="3" class="center">LOADING</td>';
+            HTML_TABLE_PRELOAD += '</tr>';
+            document.getElementById("data-verifikasi-berat-detail-pesanan").innerHTML = HTML_TABLE_PRELOAD;
+        }
+
+        function go_to_kirim() {
+            window.location.href = "proses-pesanan-hari-ini.html";
+        }
+    </script>
+    <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Lacak Pengiriman</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+  src="cordova.js"></script>
+
+  <script async defer
+  src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM">
+</script>
+<style type="text/css">
+  #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+  }
+  .collection .collection-item.avatar {
+    line-height: 2rem;
+    min-height: 52px;
+    padding-left: 72px;
+    position: relative;
+  }
+</style>
+
+<script type="text/javascript">
+  var firstLt, firstLg;
+  first();
+  function first() {
+    var onSuccess = function(position) {
+      var element = document.getElementById('map');
+      var marker;
+      var posisilat;
+      var posisilng;
+      firstLt = position.coords.latitude;
+      firstLg = position.coords.longitude;
+      initMap(firstLt, firstLg);
+    /*if(function_exists('initMap')){
+      initMap(position.coords.latitude, position.coords.longitude);  
+    }*/
+
+  };
+  navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+    }
+  </script>
+
+  <script type="text/javascript">
+
+    function taruhMarker(peta, posisiTitik) {
+      if (marker) {
+            // pindahkan marker
+            marker.setPosition(posisiTitik);
+          } else {
+            // buat marker baru
+            marker = new google.maps.Marker({
+              position: posisiTitik,
+              map: peta
+            });
+          }
+          posisilat = posisiTitik.lat();
+          posisilng = posisiTitik.lng();
+          console.log("Posisi marker: " + posisilat + "," + posisilng);
+          $("body").find("input[name='latitude_pb']").val(posisilat);
+        //$("#latitude_pb").val(posisilat);
+        //$("#longitude_pb").val(posisilng);
+        $("body").find("input[name='longitude_pb']").val(posisilng);
+      }
+
+
+      function initMap(lat, lng) {
+        $("body").find("input[name='latitude']").val(lat);
+        $("body").find("input[name='longitude']").val(lng);
+        var propertiPeta = {
+            center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+            zoom: 17, //semakin banyak semakin dekat min 1 maksimal
+            mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+          };
+          var point = new google.maps.LatLng(lat, lng);
+        var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+        marker = new google.maps.Marker({
+          position: point,
+          map: peta
+            //icon
+          });
+        google.maps.event.addListener(peta, 'click', function (event) {
+          taruhMarker(this, event.latLng);
+        });
+      }
+      $("#simpan").click(function (e) {
+        e.preventDefault();
+        var data_form = $("form").serialize();
+        console.log(data_form);
+        $.ajax({
+          dataType: 'json',
+          type: 'POST',
+          url: url + "proses_mobile/pembeli/server_form_maps.php",
+          data: data_form,
+          success: function (resp) {
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body class="">
+
+    <header>
+      <!-- header -->
+      <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+        <div class="container-fluid">
+          <div class="nav-wrapper">
+            <div class="row" style="padding: 0px; margin: 0px">
+              <div class="col s12 m10 offset-m1">
+                <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent" style="margin: auto 10px; line-height: 54px"><span class="fa fa-chevron-left"></span></a>
+                <b class="header" style="font-size: large; margin-left: 4px; line-height: 54px">Lacak Pengiriman</b>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="col s12 grey lighten-3" style="margin-top: -4px; margin-bottom: 64px">
+      <div class="container-fluid">
+        <div class="card z-depth-0">
+          <!-- <div class="card-content"> -->
+            <!-- <form method="POST" enctype="multipart/form-data" name="fupload" class="formValidate" id="formValidate" data-parsley-validate> -->
+              <div class="" id="map"></div>
+            </div>
+            <div class="card-panel z-depth-0" style="margin-top: -8px; padding: 16px 12px 4px 12px">
+              <div class="row valign-wrapper">
+                <div class="col s3" style="margin-left: 12px">
+                  <img src="../img/blank-picture.png" alt="" class="circle responsive-img" style="width: 56px; height: 56px">
+                </div>
+                <div class="col s5" style="margin-left: -12px">
+                  <span id="namaKurir" style="font-weight: bold">(Nama Pembeli)</span><br>
+                  <span id="jenisKendaraan">(Alamat Pembeli)</span><br>
+                </div>
+              </div>
+            </div>
+            <div class="collection" style="margin-top: -8px">
+              <a href="#detailProduk" class="collection-item black-text waves-effect waves-light modal-trigger"><span class="badge"><i class="material-icons black-text">chevron_right</i></span>Detail Produk</a>
+            </div>
+            <div id="detailProduk" class="modal bottom-sheet">
+              <div class="modal-content grey lighten-3" style="padding: 8px; margin-bottom: -12px">
+                <div class="card z-depth-0 produk" style="margin-bottom: -12px; margin-top: -8px">
+                  <div class="collection">
+                    <ul class="collection-item avatar">
+                      <img src="images/yuna.jpg" alt="" class="circle fotoProduk">
+                      <span class="title namaProduk">(Nama Produk)</span>
+                      <p class="orange-text hargaProduk">(Harga Produk)<br>
+                        <span class="secondary-content teal-text totalProduk">(Total Produk)</span>
+                      </p>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card z-depth-0 produk" style="margin-bottom: -12px; margin-top: -8px">
+                  <div class="collection">
+                    <ul class="collection-item avatar">
+                      <img src="images/yuna.jpg" alt="" class="circle fotoProduk">
+                      <span class="title namaProduk">(Nama Produk)</span>
+                      <p class="orange-text hargaProduk">(Harga Produk)<br>
+                        <span class="secondary-content teal-text totalProduk">(Total Produk)</span>
+                      </p>
+                    </ul>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tutup</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-panel z-depth-0" style="margin-top: -8px; padding: 14px 20px 12px 20px">
+              <div class="col s12">
+                <div class="collection-item teal-text" id="status-pembayaran" style="font-weight: bold; font-size: medium"><span class="badge orange white-text">DP</span>Status Pembayaran :</div>
+              </div>
+            </div>
+            <div class="col s12">
+              <p class="flow-text black-text" style="font-size: smaller; text-align: justify; padding: 0px 24px 8px 24px">* Ingatkan Pembeli/Penerima untuk melakukan pembayaran sebesar <b>Sisa Tagihan</b></p>
+            </div>
+            <div class="card z-depth-0" style="margin-top: -8px">
+              <div class="card-content" style="padding: 12px 20px 0px 20px">
+                <div class="row">
+                  <div class="col s6">
+                    <p class="flow-text teal-text" style="font-size: small; font-weight: bold">Total Pembayaran</p>
+                  </div>
+                  <div class="col s6">
+                    <p class="flow-text dp-price-color right" style="font-size: small; font-weight: bold">Sisa Tagihan</p>
+                  </div>
+                  <div class="col s6">
+                    <h5 id="total-pembayaran" class="lunas-price-color">Rp100.000</h5>
+                  </div>
+                  <div class="col s6">
+                    <h5 id="sisa-tagihan" class="dp-price-color right">Rp20.000</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bottom-navbar">
+              <div class="card-action white" style="margin-left: 8px; margin-right: 8px; padding-bottom: 8px">
+                <a class="waves-effect waves-light btn blue modal-trigger" href="#penerima" type="button" style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Pengiriman Selesai</a>
+              </div>
+              <div id="penerima" class="modal">
+                <div class="modal-content" style="padding-bottom: 0px">
+                  <div class="card z-depth-0">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="Nama Penerima" id="namaPenerima" type="text" class="">
+                        <label for="namaPenerima">Masukkan Nama Penerima :</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="card-action white">
+                      <a href="#!" class="modal-close waves-effect waves-light btn blue">Ok</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+      <script type="text/javascript" src="../cordova.js"></script>
+      <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+      <script type="text/javascript" src="../js/mobile_script.js"></script>
+    </body>
+
+    <script>
+      function onBackKeyDown() {
+        window.history.back();
+      }
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
+    </script>
+
+  </body>
+  </html>

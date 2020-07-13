@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Ubah Variasi</title>
+
+  <!-- vendor css -->
+  <link href="../../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/custom.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+    src="../../cordova.js"></script>
+
+  <script async defer src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM">
+  </script>
+  <style type="text/css">
+    .input-field div.error {
+      position: relative;
+      top: 0rem;
+      left: 0rem;
+      font-size: 0.8rem;
+      color: #FF4081;
+      -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+      -o-transform: translateY(0%);
+      transform: translateY(0%);
+    }
+
+    .input-field label.active {
+      width: 100%;
+    }
+
+    .input-field {
+      position: relative;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+
+</head>
+
+<body onload="onLoad()">
+  <header>
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+                style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Ubah Variasi</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- END HEADER -->
+
+  <!-- START MAIN -->
+  <div class="col s12 grey lighten-3">
+    <div class="container-fluid">
+      <form name="tambah_variasi" method="POST">
+        <input type="hidden" name="id_produk">
+        <div class="card" style="margin-top: 0px">
+          <div class="card-content" style="padding: 20px;">
+            <div class="row">
+              <div class="col s12">
+                <b class="flow-text">Pilih Variasi :</b>
+              </div>
+              <div class="col s12" style="margin-top: 8px;" id="variations">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content" style="padding: 20px;">
+            <div class="row">
+              <div class="col s12 title center" id="topMenuDetailVariasi">
+                <div class="col s5">
+                  <b class="flow-text">Jenis Variasi</b>
+                </div>
+                <div class="col s4">
+                  <b class="flow-text">Harga</b>
+                </div>
+                <div class="col s3">
+                  <b class="flow-text">Stok</b>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <p class="" style="color: red; font-size: small;">*Stok dalam ONS </p>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="bottom-navbar">
+        <div class="card-action white" style="margin: 0px; padding-bottom: 8px">
+          <button class="waves-effect waves-light btn blue" type="button" id="simpan"
+            style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+  <script type="text/javascript" src="../../js/mobile_script.js"></script>
+
+  <script>
+
+    var harga = [], stok = [];
+    function onBackKeyDown() {
+      window.location.assign("ubah_produk.html");
+    }
+
+    $(document).ready(onDeviceReady);
+
+    function onLoad() {
+      getVariasi();
+
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    function onDeviceReady() {
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+
+      // Add similar listeners for other events
+    }
+
+    function simpan() {
+      console.log("SIMPAN");
+      var formData = $("form[name=tambah_variasi]").serialize();
+      console.log(formData);
+      $.ajax({
+        url: base_url + "Produk/updateVariasiProdukV3",
+        type: 'POST',
+        dataType: 'json',
+        data: formData,
+        success: function (e) {
+          console.log(e);
+          M.toast({html: "Berhasil Ubah Variasi Produk"});
+          window.setTimeout(function(){window.location.replace("ubah_produk.html")},1200);
+        }
+      })
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+
+    function loadVariationProduct() {
+      // var allVariation = function(){
+      //   $.ajax({
+      //     url: base_url + 'Produk/'
+      //   });
+      // };
+
+      $.ajax({
+        url: base_url + 'Produk/ambil_variasi_produk2',
+        async: false,
+        type: 'POST',
+        data: { id_produk: storage.id_produk },
+        success: function (e) {
+          console.log(e);
+          var data = e;
+          var m = 1;
+          $.each(data, function (i, isi) {
+            harga.push(isi.harga);
+            stok.push(isi.stok);
+            $("[name=id_produk]").val(storage.id_produk);
+            if (isi.status_vp == "aktif") {
+              console.log(isi.id_variasi + " : Aktif")
+              $("#variasi" + isi.id_variasi).prop("checked", true);
+
+            }
+            $("#harga"+isi.id_variasi).val(isi.harga);
+            $("#stok"+isi.id_variasi).val(isi.stok);
+            m++;
+          });
+        },
+        complete: function () {
+          var m = 0
+          $("input:checkbox").each(function () {
+            var checkboxValue = $(this).val();
+            console.log("checkboxValue: " + checkboxValue);
+            var idVariasi = $("#detailVariasi" + checkboxValue);
+            var p = idVariasi.find("p");
+            $(".harga" + checkboxValue).val(harga[m]);
+            $(".stok" + checkboxValue).val(stok[m]);
+            if ($(this).prop("checked")) {
+              p.removeClass("grey-text").addClass("black-text");
+              idVariasi.find("input").removeAttr("disabled");
+            } else {
+              p.removeClass("black-text").addClass("grey-text");
+              idVariasi.find("input").attr("disabled", "disabled");
+              console.log(idVariasi.find(".harga").val());
+            }
+            m++;
+          });
+          $("input:checkbox").change(function () {
+            // console.log($(this));
+            console.log($(this).prop("checked"));
+            console.log($(this).val());
+            var valueCheckedbox = $(this).val();
+            var idVariasi = $("#detailVariasi" + valueCheckedbox);
+            var p = idVariasi.find("p");
+            if ($(this).prop("checked")) {
+              // console.log(idVariasi);
+
+              p.removeClass("grey-text").addClass("black-text");
+              idVariasi.find("input").removeAttr("disabled");
+            } else {
+              p.removeClass("black-text").addClass("grey-text");
+              idVariasi.find("input").attr("disabled", "disabled");
+              console.log(idVariasi.find(".harga").val());
+            }
+          });
+          $("#simpan").click(simpan);
+        }
+      });
+    }
+
+    function getVariasi() {
+      $.ajax({
+        url: base_url + "Produk/getAllVariasi",
+        dataType: "JSON",
+        success: function (e) {
+          if (e.responseMessage == "success") {
+            var data = e.data;
+            var variations = '';
+            var DetailVariation = '';
+            $.each(data, function (k, v) {
+              variations += '<p>';
+              variations += '<label>';
+              variations += '<input class="indeterminate-checkbox" type="checkbox" value="' + v.id_variasi + '" name="variasi[]"  id="variasi' + v.id_variasi + '" />';
+              variations += '<span class="nama_variasi">' + v.nama_variasi + '</span>';
+              variations += '</label>';
+              variations += '</p>';
+
+              DetailVariation += '<div class="col s12 mentah-utuh" id="detailVariasi' + v.id_variasi + '">';
+              DetailVariation += '<div class="col s5">';
+              DetailVariation += '<p class="nama_variasi grey-text" style="font-size: small; margin-top: 10px">' + v.nama_variasi + '</p>';
+              DetailVariation += '</div>';
+              DetailVariation += '<div class="input-field col s4">';
+              DetailVariation += '<input name="harga[]" placeholder="Rp" id="harga'+v.id_variasi+'" type="number" style="font-size: small; height: 20px">';
+              DetailVariation += '<label for="harga"></label>';
+              DetailVariation += '</div>';
+              DetailVariation += '<div class="input-field col s3">';
+              DetailVariation += '<input name="stok[]" placeholder="ons" id="stok'+v.id_variasi+'" type="number" min="10" max="1000" class="center stok" style="font-size: small; height: 20px">';
+              DetailVariation += '<label for="stok"></label>';
+              DetailVariation += '</div>';
+              DetailVariation += '</div>';
+            });
+            $("#variations").html(variations);
+            $("#topMenuDetailVariasi").after(DetailVariation);
+          }
+        },
+        complete: loadVariationProduct
+      });
+    }
+  </script>
+
+</body>
+
+</html>

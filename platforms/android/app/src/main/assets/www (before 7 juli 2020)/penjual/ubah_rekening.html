@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <!-- Twitter -->
+  <meta name="twitter:site" content="@themepixels">
+  <meta name="twitter:creator" content="@themepixels">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bracket">
+  <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="twitter:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+
+  <!-- Facebook -->
+  <meta property="og:url" content="http://themepixels.me/bracket">
+  <meta property="og:title" content="Bracket">
+  <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+  <meta property="og:image" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:secure_url" content="http://themepixels.me/bracket/img/bracket-social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+
+  <!-- Meta -->
+  <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+  <meta name="author" content="ThemePixels">
+
+  <title>Ubah Rekening</title>
+
+  <!-- vendor css -->
+  <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+  <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../assets/custom.css" rel="stylesheet"> 
+</head>
+
+
+<body class="">
+  <header>
+    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+      <div class="container-fluid">
+        <div class="nav-wrapper">
+          <div class="row">
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent" style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Ubah Rekening</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="col s12 grey lighten-3">
+    <div class="container-fluid">
+      <form name="tambah-rekening" method="POST">
+        <div class="card">
+          <div class="card-content" style="margin: 10px">
+            <div class="input-field">
+              <select>
+                <option value="" disabled selected >Pilih Bank</option>
+                <option id="namaBank" value="1">Di tabel master_bank</option>
+              </select>
+              <label>Pilih Bank</label>
+            </div>
+            <div class="input-field">
+              <input placeholder="No. Rekening" id="noRek" name="noRek" type="text" class="validate">
+              <label for="noRek">No. Rekening: </label>
+            </div>
+            <div class="input-field">
+              <input placeholder="Nama Pemilik Rekening" id="nanaRekening" name="nanaRekening" type="text" class="validate">
+              <label for="namaRekening">Nama Pemilik Rekening :</label>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="bottom-navbar">
+        <div class="card-action white" style="margin: 0px; padding-bottom: 8px">
+          <a class="waves-effect waves-light btn blue" href="tambah_rekening.html" type="button" style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Simpan</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-- ########## END: MAIN PANEL ########## -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+  <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
+  <script type="text/javascript" src="../cordova.js"></script>
+  <script type="text/javascript" src="../js/mobile_script.js"></script>
+
+  <script type="text/javascript">
+    $('select').formSelect();
+  </script>
+  <script>
+    function onBackKeyDown() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

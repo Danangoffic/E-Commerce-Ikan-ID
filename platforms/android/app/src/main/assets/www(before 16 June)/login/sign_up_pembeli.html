@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- viewport meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MartPlace - Complete Online Multipurpose Marketplace HTML Template">
+    <meta name="keywords" content="app, app landing, product landing, digital, material, html5">
+
+
+    <title>HaiFish - Daftar Penjual</title>
+
+    <!-- inject:css -->
+    <!-- <link rel="stylesheet" href="./../assets2/css/animate.css">
+    <link rel="stylesheet" href="./../assets2/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./../assets2/css/fontello.css">
+    <link rel="stylesheet" href="./../assets2/css/jquery-ui.css">
+    <link rel="stylesheet" href="./../assets2/css/lnr-icon.css">
+    <link rel="stylesheet" href="./../assets2/css/owl.carousel.css">
+    <link rel="stylesheet" href="./../assets2/css/slick.css">
+    <link rel="stylesheet" href="./../assets2/css/trumbowyg.min.css">
+    <link rel="stylesheet" href="./../assets2/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./../assets2/style.css"> -->
+    <!-- endinject -->
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
+
+    <!-- inject:css -->
+    <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="../assets/lib/select2/css/select2.min.css" rel="stylesheet">
+    <link href="../assets/lib/jquery-toggles/toggles-full.css" rel="stylesheet">
+    <link href="../assets/lib/jt.timepicker/jquery.timepicker.css" rel="stylesheet">
+
+
+    <!-- Bracket CSS -->
+    <link rel="stylesheet" href="../assets/css/bracket.css">
+    <!-- endinject -->
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png"> -->
+    
+    <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
+  src="cordova.js"></script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXMNHIbmIKC4y_QUQpQdyhcTiDIKuCx4U">
+</script>
+<style>
+  #map {
+    height: 400px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+  }
+
+
+</style>
+
+<script type="text/javascript">
+    var firstLt, firstLg;
+    first();
+    function first() {
+      var onSuccess = function(position) {
+        var element = document.getElementById('map');
+        var marker;
+        var posisilat;
+        var posisilng;
+        firstLt = position.coords.latitude;
+        firstLg = position.coords.longitude;
+        initMap(firstLt, firstLg);
+    /*if(function_exists('initMap')){
+      initMap(position.coords.latitude, position.coords.longitude);  
+  }*/
+
+};
+navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+  }
+</script>
+
+<script type="text/javascript">
+    
+    function taruhMarker(peta, posisiTitik) {
+        if (marker) {
+            // pindahkan marker
+            marker.setPosition(posisiTitik);
+        } else {
+            // buat marker baru
+            marker = new google.maps.Marker({
+              position: posisiTitik,
+              map: peta
+            });
+        }
+        posisilat = posisiTitik.lat();
+        posisilng = posisiTitik.lng();
+        console.log("Posisi marker: " + posisilat + "," + posisilng);
+        $("body").find("input[name='latitude_pb']").val(posisilat);
+        //$("#latitude_pb").val(posisilat);
+        //$("#longitude_pb").val(posisilng);
+        $("body").find("input[name='longitude_pb']").val(posisilng);
+    }
+              
+
+      function initMap(lat, lng) {
+        $("body").find("input[name='latitude']").val(lat);
+        $("body").find("input[name='longitude']").val(lng);
+        var propertiPeta = {
+            center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+            zoom: 14, //semakin banyak semakin dekat min 1 maksimal
+            mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+          };
+          var point = new google.maps.LatLng(lat, lng);
+        var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+        marker = new google.maps.Marker({
+          position: point,
+          map: peta
+            //icon
+          });
+        google.maps.event.addListener(peta, 'click', function (event) {
+          taruhMarker(this, event.latLng);
+        });
+      }
+      $("#simpan").click(function (e) {
+        e.preventDefault();
+        var data_form = $("form").serialize();
+        console.log(data_form);
+        $.ajax({
+          dataType: 'json',
+          type: 'POST',
+          url: url + "proses_mobile/pembeli/server_form_maps.php",
+          data: data_form,
+          success: function (resp) {
+          }
+        });
+      });
+</script>
+<script>
+  
+
+
+    </script>
+</head>
+
+<body class="preload signup-page">
+<!--================================
+START SIGNUP AREA
+=================================-->
+<section class="signup_area">
+    <div class="d-flex justify-content-center bg-white">
+        <div class="wd-100p wd-xs-100p pd-5 pd-xs-20 bg-white rounded">
+            <form method="POST" enctype="multipart/form-data" name="fupload" class="col-12" id="fupload" data-parsley-validate>
+                <div class="" style="margin-bottom: 40px !important;">
+                    <div class="card-body signup_form">
+                        <div class="card-title">
+                            <!-- <h3>Create Your Account</h3> -->
+                            <h5>INFORMASI PRIBADI PEMBELI</h5>
+                        </div>
+                        <!-- end .login_header -->
+
+                        <div class="login--form">
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Username : </label>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Contoh: ichel.lalusu" minlength="3" autofocus="" required>
+                                <small style="color:red !important;text-align:right" id="ctrlUsername">
+                                </small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Password : </label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Contoh: password" minlength="4" required>
+                                <small style="color:red !important;text-align:right" id="ctrlPassword">
+                                </small>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Nama Lengkap : </label>
+                                <input type="text" id="nama_pb" name="nama_pb" required="" class="form-control" placeholder="Contoh: Riselda Rahma Annisa Lalusu" minlength="3" required> 
+                                <small style="color:red !important;text-align:right" id="ctrlnama_pb">
+                                </small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Foto Profil : </label>
+                                <input type="file" id="foto_pb" name="foto_pb"
+                                class="form-control"
+                                placeholder="Foto Profil">
+                                <small style="color:red !important;text-align:right">*Ukuran Foto
+                                    Maksimal 2MB
+                                </small>
+                                <!-- <button type="submit" id="btn-submit">Simpan</button> -->
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Jenis Kelamin : </label>
+                                <div class="col-sm-12">
+                                    <label class="form-check form-check-inline">
+                                        <input name="jk_pb" value="Laki-laki" type="radio"  required="">
+                                        <span>Laki-laki</span>
+                                    </label>
+                                    <label class="form-check form-check-inline" required="">
+                                        <input name="jk_pb" value="Perempuan" type="radio"  required="">
+                                        <span>Perempuan</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Tanggal Lahir : </label>
+                                <div class="input-group form_datetime1">
+                                    <span class="input-group-addon"><i class="icon ion-calendar tx-16 lh-0 op-6"></i></span>
+                                    <input type="date" class="form-control" placeholder="MM/DD/YYYY" name="tgllahir_pb" id="tgllahir_pb" required>
+                                </div>
+                                <small style="color:red !important;text-align:right" id="ctrltgllahir_pb">
+                                </small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">No. Hp : </label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><i class="fa fa-phone tx-16 lh-0 op-6"></i></span>
+                                    </div>
+                                    <input type="number" id="telp_pb" name="telp_pb"
+                                    class="form-control" required=""
+                                    placeholder="Contoh: 085261641500" minlength="10"
+                                    maxlength="13">
+                                    <!-- <input class="form-control" id="phoneMask" name="telp_pj" required="" type="tel" pattern="^\d[0-9]{10-13}" placeholder=""> -->
+                                </div>
+                                <small style="color:red !important;text-align:right" id="ctrlTelepon"></small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Alamat Lengkap : </label>
+                                <input type="text" id="alamat_pb" name="alamat_pb" required="" class="form-control" placeholder="Contoh: Jl. Sagan GK V/1028">
+                                <small style="color:red !important;text-align:right" id="ctrlALamat"></small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Kota/Kabupaten : </label>
+                                <input type="text" id="kab_pb" name="kab_pb" required="" class="form-control" placeholder="Contoh: Yogyakarta">
+                                <small style="color:red !important;text-align:right" id="ctrlKota"></small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Kecamatan : </label>
+                                <input type="text" id="kec_pb" name="kec_pb" required="" class="form-control" placeholder="Contoh: Gondokusuman">
+                                <small style="color:red !important;text-align:right" id="ctrlKecamatan"></small>
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control tx-info">Kelurahan : </label>
+                                <input type="text" id="kel_pb" name="kel_pb" required="" class="form-control" placeholder="Contoh: Terban">
+                                <small style="color:red !important;text-align:right" id="ctrlKelurahan"></small>
+                            </div>
+                            <div class="form-group row">
+                                <div class="" id="map"></div>
+                                <button class="btn btn-primary btn-block btn-sm pd-0" type="button" onclick="initMap(firstLt, firstLg)">Lokasi Saya</button>       
+                                
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="label-control col-12 row">Lokasi</label><br>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="label-control tx-info">Latitude:</label>
+                                        <input type="text" class="form-control" id="latitude_pb" name="latitude_pb" value="-7.765993040246785" readonly>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="label-control tx-info">Longitude:</label>
+                                        <input type="text" class="form-control" id="longitude_pb" name="longitude_pb" value="110.35743000274658" readonly>
+                                    </div>    
+                                </div>   
+                                
+                            </div>
+                            
+                            <!-- <br><br>
+                            <label>form lain</label><br>
+                            <input type="text" class="form-control" id="formlain" name="formlain">
+                            <br> -->
+                            <!-- <button type="submit" class="kirim">
+                                Laporkan Kasus
+                            </button> -->
+                            <!-- <div class="form-group row">
+                                <label class="label-control">Longitude : </label>
+                                <input type="text" id="longitude_pb" name="longitude_pb" required="" class="form-control form-control-sm" placeholder="">
+                            </div>
+                            <div class="form-group row">
+                                <label class="label-control">Latitude : </label>
+                                <input type="text" id="latitude_pb" name="latitude_pb" required="" class="form-control form-control-sm" placeholder="">
+                            </div> -->
+                            <div class="form-group text-center row mg-t-30">
+                                <button class="btn btn-primary btn-block register_btn"  type="submit" id="simpan">Daftar</button>
+                                <div class="col-12 mg-t-20">
+                                    <p>Sudah Punya Akun? 
+                                        <a href="index.html">Masuk</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end .loginform -->
+                    </div>
+                </div>
+                <!-- end .cardify -->
+            </form>
+        </div>
+        <!-- end .col-md-6 -->
+    </div>
+    <!-- end .row -->
+</div>
+<!-- end .container -->
+</section>
+    <!--================================
+    END SIGNUP AREA
+    =================================-->
+
+    <!--//////////////////// JS GOES HERE ////////////////-->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0C5etf1GVmL_ldVAichWwFFVcDfa1y_c"></script> -->
+    <!-- inject:js -->
+    <script src="./../assets2/js/vendor/jquery/jquery-1.12.3.js"></script>
+    <script src="./../assets2/js/vendor/jquery/popper.min.js"></script>
+    <script src="./../assets2/js/vendor/jquery/uikit.min.js"></script>
+    <script src="./../assets2/js/vendor/bootstrap.min.js"></script>
+    <script src="./../assets2/js/vendor/chart.bundle.min.js"></script>
+    <script src="./../assets2/js/vendor/grid.min.js"></script>
+    <script src="./../assets2/js/vendor/jquery-ui.min.js"></script>
+    <script src="./../assets2/js/vendor/jquery.barrating.min.js"></script>
+    <script src="./../assets2/js/vendor/jquery.countdown.min.js"></script>
+    <script src="./../assets2/js/vendor/jquery.counterup.min.js"></script>
+    <script src="./../assets2/js/vendor/jquery.easing1.3.js"></script>
+    <script src="./../assets2/js/vendor/owl.carousel.min.js"></script>
+    <script src="./../assets2/js/vendor/slick.min.js"></script>
+    <script src="./../assets2/js/vendor/tether.min.js"></script>
+    <script src="./../assets2/js/vendor/trumbowyg.min.js"></script>
+    <script src="./../assets2/js/vendor/waypoints.min.js"></script>
+    <script src="./../assets2/js/dashboard.js"></script>
+    <script src="./../assets2/js/main.js"></script>
+    <script src="./../assets2/js/map.js"></script>
+    <!-- <script src="./../assets2/js/jquery.min.js" type="text/javascript"></script> -->
+    <script src="./../assets/lib/parsleyjs/parsley.js"></script>
+    <!-- <script src="../../assets/js/bracket.js"></script> -->
+    <script src="../js/mobile_script.js"></script>
+
+
+    <script>
+        $(function(){
+            'use strict';
+
+            $('#fupload').parsley();
+        });
+
+        $(document).ready(function(){
+            $('#fupload').parsley();
+            $('#simpan').click(function (e) {
+                e.preventDefault();
+                var username = $("#username").val();
+                var password = $("#password").val();
+                var nama_pb = $("#nama_pb").val();
+                var jk_pb = $('input:radio[name=jk_pb]:checked').val();
+                var tgllahir_pb = $("#tgllahir_pb").val();
+                var telp_pb = $("#telp_pb").val();
+                var alamat_pb = $("#alamat_pb").val();
+                var kab_pb = $("#kab_pb").val();
+                var kec_pb = $("#kec_pb").val();
+                var kel_pb = $("#kel_pb").val();
+                var longitude_pb = $("#longitude_pb").val();
+                var latitude_pb = $("#latitude_pb").val();
+                var foto_pb = $("#foto_pb").val();
+                var formData = new FormData($("form")[0]);
+                formData.append("username", username);
+                formData.append("password", password);
+                formData.append("nama_pb", nama_pb);
+                formData.append("jk_pb", jk_pb);
+                formData.append("tgllahir_pb", tgllahir_pb);
+                formData.append("telp_pb", telp_pb);
+                formData.append("alamat_pb", alamat_pb);
+                formData.append("kab_pb", kab_pb);
+                formData.append("kec_pb", kec_pb);
+                formData.append("kel_pb", kel_pb);
+                formData.append("longitude_pb", longitude_pb);
+                formData.append("latitude_pb", latitude_pb);
+                var data_form = $("form").serialize();
+                console.log(data_form);
+                console.log(jk_pb);
+                console.log(foto_pb);
+                console.log(formData); 
+                // <!--var formData = new FormData($('form')[0]);-->
+                // <!--console.log($('#signup-fotosim').val());-->
+                // <!--console.log(formData);-->
+                
+                // if(telp_pb.length<10||telp_pb.length>13){
+                //     $("#telp_pb").css("border","2px solid #ffdddd")
+                //     alert("Nomor Telp Tidak Memenuhi Minimal Input");
+                //     $("#ctrlTelepon").html("Nomor Hp minimal 10 digit, maksimal 13 digit");
+                //     var valTelp = false;
+                // }else{
+                //     $("#telp_pb").css("border","2px solid #88FF88");
+                //     $("#ctrlTelepon").html("");
+                //     var valTelp = true;
+                // }
+                // if(foto_pb==""){
+                //     $("#foto_pb").css("border","2px solid #ffdddd")
+                //     alert("Foto Kosong, Harap memilih foto");
+                //     validasi = false;
+                // }else{
+                //     $("#foto_pb").css("border","2px solid #88FF88");
+                //     validasi = true;
+                // }
+                // if(username.length < 3){
+                //     $("#username").css("border","2px solid #ffdddd");
+                //     alert("Username harus lebih dari 3 huruf");
+                //     $("#ctrlUsername").html("Username harus lebih dari 3 huruf");
+                //     var valUsername = false;
+                // }else{
+                //     $("#username").css("border","2px solid #BBFFBB");
+                //     $("#ctrlUsername").html("");
+                //     var valUsername = true;
+                // }
+                // if(password.length==0){
+                //     $("#password").css("border", "2px solid #ffdddd");
+                //     $("#ctrlPassword").html("Password harap diisi");
+                //     var valPassword = false;
+                // }else{
+                //     $("#password").css("border", "2px solid #BBFFBB");
+                //     $("#ctrlPassword").html("");
+                //     var valPassword = true;
+                // }
+                // if(nama_pb.length < 3){
+                //     $("#nama_pb").css("border", "2px solid #ffdddd");
+                //     $("#ctrlnama_pb").html("Nama Harap diisi lebih dari 3 karakter");
+                //     validasi = false;
+                // }else{
+                //     $("#nama_pb").css("border", "2px solid #BBFFBB");
+                //     $("#ctrlnama_pb").html("");
+                //     validasi = true;
+                // }
+                // if($("#jk_pb").val==""){
+                //     alert("Jenis Kelamin Harap Diisi");
+                //     validasi = false;
+                // }
+                // if($("#tgllahir_pb").val()==""){
+                //     $("#tgllahir_pb").css("border","2px solid #ffdddd");
+                //     $("#ctrltgllahir_pb").html("Tanggal lahir Harap Diisi");
+                //     validasi = false;
+                // }else{
+                //     $("#tgllahir_pb").css("border","2px solid #BBFFBB");
+                //     $("#ctrltgllahir_pb").html("");
+                //     validasi = true;
+                // }
+                // if($("#alamat_pb").val()==""){
+                //     $("#alamat_pb").css("border","2px solid #ffdddd");
+                //     $("ctrlALamat").html("Alamat Lengkap Harap Diisi");
+                //     validasi = false;
+                // }else{
+                //     $("#alamat_pb").css("border","2px solid #bbddbb");
+                //     $("ctrlALamat").html("");
+                //     validasi = true;
+                // }
+                // if($("#kab_pb").val()==""){
+                //     $("#kab_pb").css("border", "2px solid #ffdddd");
+                //     $("#ctrlKota").html("Kota Asal Harap Diisi");
+                //     validasi = false;
+                // }else{
+                //     $("#kab_pb").css("border", "2px solid #BBFFBB");
+                //     $("#ctrlKota").html("");
+                //     validasi = true;
+                // }
+                // if(kel_pb==""){
+                //     $("#kel_pb").css("border", "2px solid #ffdddd");
+                //     $("#ctrlKelurahan").html("Kelurahan Harap Diisi");
+                //     validasi = false;
+                // }else{
+                //     $("#kel_pb").css("border", "2px solid #BBFFBB");
+                //     $("#ctrlKelurahan").html("");
+                //     validasi = true;
+                // }
+                // if(valTelp == true && valUsername==true && valPassword==true){
+                //     alert("tidak ada data yang kosong");
+                    $.ajax({
+                        // base_url+'proses_mobile/pembeli/prosessignuppembeli.php'
+                        url: base_url+'user/prosessignuppembeli',
+                        data: formData,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (resp){
+                            if(resp.status == 'berhasil'){
+                                alert('Selamat, Anda Berhasil Mendaftar');
+                                window.location.href = "../login/index.html";
+                            } else {
+                                alert('Data gagal disimpan');
+                            }
+                        }
+                    });
+                // } else {
+                //     alert("Masih ada data yang kosong");
+                // }
+            });
+})
+</script>
+<!-- endinject -->
+</body>
+
+</html>
