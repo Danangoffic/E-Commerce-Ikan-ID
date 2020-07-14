@@ -516,8 +516,8 @@
               loadPesanan();
             } else {
               document.getElementById("rowpembayaran3").style.display = "block";
-              document.getElementById("rowpembayaran1").style.display = "none";
-              document.getElementById("rowpembayaran2").style.display = "none";
+              document.getElementById("rowpembayaran1").style.display = "block";
+              document.getElementById("rowpembayaran2").style.display = "block";
               feeKirim_temp = 0;
               $(".total-harga-pengiriman").html("Rp&nbsp;" + formatNumber(feeKirim_temp));
               $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(allProductSum));
@@ -726,20 +726,23 @@
       var keranjang = storage.getItem('keranjang');
       var keranjangku = JSON.parse(keranjang);
       $.each(keranjangku, function (key, val) {
+        console.log(val);
+        var harga_total_per_produk = val.total_harga;
         var total_satuan = (val.harga_produk * val.qty);
         total_semua += total_satuan;
         var perProductTotal = val.harga_produk * val.qty;
         allProductSum += perProductTotal;
-        produk_saya = '<li class="collection-item avatar item-produk item-produk-' + key + '">' +
+        produk_saya = '<li class="collection-item avatar" id="item-produk-'+key+'">' +
           '<img class="circle image-produk" src="' + val.fotoProduk + '">' +
           '<span class="title nama-produk">' + val.nama_produk + ' <small>(' + val.namaVariasi + ')</small></span>' +
           '<p><span class="harga-produk orange-text">Rp ' + val.harga_produk + '</span>' + '<span class="black-text">&nbsp &times &nbsp' + val.qty + '&nbsp Kg' + '</span></p>' +
           '<div class="secondary-content right-align">' +
           '<a href="#!" onclick="remove_item(' + key + ')"><i class="tiny material-icons red-text">remove_shopping_cart</i></a>' +
-          '<p class="total-produk orange-text">Rp ' + formatNumber(val.total_harga) + '</p>' +
+          '<p class="orange-text">Rp ' + formatNumber(harga_total_per_produk) + '</p>' +
           '</div>' +
           '</li>';
         $(".produk-saya").append(produk_saya);
+        console.log("Total Per Produk : " + harga_total_per_produk);
       });
       storage.setItem('allProductSum', allProductSum);
       $(".produk-saya").prepend('<li class="collection-header"><h5>Daftar Produk</h5></li>');
@@ -805,21 +808,22 @@
     }
 
     function remove_item(key) {
-      var keranjangku = JSON.parse(keranjang);
-      console.log("Remove Item : " + keranjangku[key]);
-      const index = keranjangku.indexOf(key);
+      var keranjangku = JSON.parse(localStorage.keranjang);
+      console.log("Remove Item : ");
+      console.log(JSON.stringify(keranjangku[key]));
       var itemPriceToRemove = keranjangku[key]["total_harga"];
       var allProductSum = storage.getItem('allProductSum');
       allProductSum -= itemPriceToRemove;
-      keranjangku.splice(index, 1);
+      keranjangku.splice(key, 1);
       $(".item-produk-" + key).hide(100);
       $(".item-produk-" + key).remove();
       console.log(JSON.stringify(keranjangku));
-      storage.keranjang = JSON.stringify(keranjangku);
+      localStorage.setItem("keranjang", JSON.stringify(keranjangku));
       M.toast({ html: 'Berhasil hapus 1 produk pada pesanan', inDuration: 100 });
       $(".produk-saya").html("");
       loadPesanan();
       if (keranjangku.length < 1) {
+        localStorage.removeItem("id_produk");
         M.toast({
           html: 'Item keranjang kosong, akan menuju halaman toko...',
           inDuration: 200,
