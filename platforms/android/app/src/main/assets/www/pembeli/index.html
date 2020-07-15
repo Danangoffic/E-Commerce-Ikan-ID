@@ -188,7 +188,7 @@
             // Handle the menubutton event
         }
 
-        var LoadDataPembeli = ()=>{
+        function LoadDataPembeli (){
             $.getJSON(base_url + 'Pembeli/detail_pembeli', { id_akun: storage.id_akun }).then(onSuccessLoadPembeli).fail(onFailLoadPembeli).done(navigator.geolocation.getCurrentPosition(onSuccess, onError));
         }
         var onSuccessLoadPembeli = (result, status)=>{
