@@ -128,12 +128,12 @@
       <div class="container-fluid">
         <div class="nav-wrapper">
           <!-- <div class="row"> -->
-            <div class="col s12 m10 offset-m1">
-              <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
-                style="margin: auto 10px; line-height: 54px"><span class="fa fa-chevron-left"></span></a>
-              <b class="header nama-usaha" style="font-size: large; margin-left: 4px; line-height: 54px">(Nama
-                Usaha)</b>
-            </div>
+          <div class="col s12 m10 offset-m1">
+            <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+              style="margin: auto 10px; line-height: 54px"><span class="fa fa-chevron-left"></span></a>
+            <b class="header nama-usaha" style="font-size: large; margin-left: 4px; line-height: 54px">(Nama
+              Usaha)</b>
+          </div>
           <!-- </div> -->
         </div>
       </div>
@@ -425,6 +425,7 @@
             var data_produk = "<ul class='collection'>";
             // var src_produk = 'http://via.placeholder.com/280x280';
             $.each(event, function (key, val) {
+              var harga_display = (val.minprice!=val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' ~ Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
               var src_produk;
               if (val.foto_produk != "") {
                 src_produk = base_url + 'foto_usaha/produk/' + val.foto_produk;
@@ -433,7 +434,7 @@
                 "<li class='collection-item avatar' onclick='view_produk(" + val.id_produk + ", " + localStorage.id_usaha + ")'>" +
                 "<img src='" + src_produk + "' alt='' height='100' width='100%' class='circle'>" +
                 "<span class='title'>" + val.nama_produk + "</span>" +
-                '<p class="tx-13 orange-text"> Rp' + val.minprice + ' - Rp' + val.maxprice + '</p>' +
+                '<p class="tx-13 orange-text">' + harga_display + '</p>' +
                 "<a href='#' onclick='viewProduk('+val.id_produk+')' class='secondary-content orange-text'></a>" +
                 "</li>";
             });
@@ -486,6 +487,10 @@
 
           reader.readAsDataURL(input.files[0]);
         }
+      }
+
+      function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
       }
     </script>
     <script type="text/javascript">
