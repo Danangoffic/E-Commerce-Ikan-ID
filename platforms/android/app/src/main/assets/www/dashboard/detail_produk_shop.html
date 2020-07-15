@@ -112,15 +112,14 @@
   <!-- ########## START: MAIN PANEL ########## -->
   <main>
     <div class="row">
-      <div class="grey lighten-3" style="margin-top: -12px; margin-bottom: 14px">
+      <div class="grey lighten-3" style="margin-top: -12px">
         <div class="container-fluid">
           <div class="row white" style="margin-bottom: 8px">
             <div class="user-profile mt-1 ml-0 mr-0" style="height: 150px">
               <img class="responsive-img" alt="" style="width: 50% !important">
             </div>
             <div class="section" id="user-profile" style="padding: 24px">
-              <div class="col s12 m4 l3 user-section-negative-margin"
-                style="height: auto !important; max-height: auto">
+              <div class="col s12 m4 l3 user-section-negative-margin" style="height: auto !important; max-height: auto">
                 <div class="col s12 center-align">
                   <div class="responsive-img z-depth-0 circle image-produk" alt="" style="max-width: 100%">
                   </div>
@@ -223,14 +222,16 @@
         <div id="modal1" class="modal bottom-sheet half-heigth-bottom-sheet">
           <div class="modal-content">
             <h5 id="title-modal-sheet">Konfirmasi Pemilihan</h5>
-            <p>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p>
             <div class="row">
-              <div class="input-field col s6">
-                <textarea id="jml_ikan" class="materialize-textarea" data-length="100"></textarea>
-                <label for="jml_ikan">Jumlah Ikan per Kg</label>
+              <div class="col-12">
+                <p>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p>
               </div>
               <div class="input-field col s6">
-                <textarea id="jml_potong" class="materialize-textarea" data-length="100"></textarea>
+                <textarea id="jml_ikan" name="jml_ikan" class="materialize-textarea" data-length="100"></textarea>
+                <label for="jml_ikan">Jumlah Ikan per Kg</label>
+              </div>
+              <div class="input-field col s6" id="mentah-potong-option">
+                <textarea id="jml_potong" name="jml_potong" class="materialize-textarea" data-length="100"></textarea>
                 <label for="jml_potong">Jumlah Potong per Ekor</label>
               </div>
             </div>
@@ -245,7 +246,7 @@
           <div class="modal-content">
             <div class="row">
               <form action="#" class="col s12">
-                <h6 class="">Silahkan Login</h6>
+                <h5 class="" style="text-align: center;">Silahkan Login</h5>
                 <!-- end .login_header -->
                 <div class="row">
                   <div class="input-field col s12">
@@ -261,23 +262,23 @@
                     <label class="" for="password">Password</label>
                   </div>
                 </div>
+                <button type="button" id="login" class="modal-close waves-effect waves-light btn-small btn blue"
+                  style="width: 100%; margin-top: -12px; margin-bottom: 20px;">Login</button>
                 <div class="row">
-                  <div class="col s12 center-align" style="margin-bottom: 8px;">
+                  <div class="col s12 center-align" style="margin-bottom: 4px;">
                     <strong class="black-text">Belum punya akun?</strong>
                   </div>
                   <div class="col s12 center-align mg-b-15"><a href="../login/sign_up_pembeli2.html"
-                      class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Pembeli</a></div>
+                      class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Pembeli</a>
+                  </div>
                 </div>
-                <button type="button" id="login" class="modal-close waves-effect waves-light btn-small btn blue"
-                  style="width: 100%; margin-top: -14px;">LOGIN</button>
                 <!-- end .login--form -->
                 <!-- end .cardify -->
               </form>
             </div>
           </div>
-          <div class="modal-footer" id="bottom-sheet-footer">
-
-          </div>
+          <!-- <div class="modal-footer" id="bottom-sheet-footer">
+          </div> -->
         </div>
       </div>
     </div>
