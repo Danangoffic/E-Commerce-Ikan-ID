@@ -1,6 +1,6 @@
-// var base_url = "http://192.168.43.71/backendikan/";
+ var base_url = "http://192.168.43.196/backendikan/";
 // console.log("App IN : " + navigator.appCodeName);
-var base_url = "http://localhost/backendikan/";
+//var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.0.69/backendikan/";
 
 var storage = window.localStorage;

@@ -1,14 +1,13 @@
+
+// $(document).ready(onDeviceReady);
 function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-// $(document).ready(onDeviceReady);
-
 // device APIs are available
 //
 function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    // first();
+    LoadDataPembeli();
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -26,13 +25,38 @@ function onResume() {
 function onMenuKeyDown() {
     // Handle the menubutton event
 }
-if (sukses_login == 1 && usergroup == "pembeli") {
-    window.location.href = "../pembeli/index.html";
-} else if (sukses_login == 1 && usergroup == "penjual") {
-    window.location.href = "../penjual/index.html";
+
+function LoadDataPembeli() {
+    $.getJSON(base_url + 'Pembeli/detail_pembeli', { id_akun: storage.id_akun }).then(onSuccessLoadPembeli).fail(onFailLoadPembeli).done(navigator.geolocation.getCurrentPosition(onSuccess, onError));
+}
+var onSuccessLoadPembeli = (result, status) => {
+    if (status == "success") {
+        var r = result[0];
+        $(".nama_pb").html(r.nama_pb);
+        storage.setItem('dataProfile', JSON.stringify(result));
+    } else {
+        M.toast({ html: "Data Gagal Ter-load" });
+        return false;
+    }
+};
+
+var onFailLoadPembeli = (error) => {
+    M.toast({ html: "Data Gagal Ter-load" });
+    return false;
+}
+
+if (storage.getItem('sukses_login') == 0) {
+    // window.location.href='index_publik.html';
 }
 var semuaidusaha = [], semuadistance;
-
+// var semuaidusaha = [];
+// if(storage.tawarImg==null){
+//     storage.setItem('tawarImg', base_url + 'foto_toko/produk/ikan2.png');
+// }
+// if(storage.lautImg==null){
+//     storage.setItem('lautImg', base_url + 'foto_toko/produk/ikan1.png');   
+// }
+// var tawarImg = storage.tawarImg, lautImg = storage.lautImg;
 var firstLt, firstLg;
 
 var onSuccess = function (position) {
@@ -55,7 +79,6 @@ function onError(error) {
     alert('code: ' + error.code + '\n' +
         'message: ' + error.message + '\n');
 }
-
 $.ajax({
     async: false,
     url: base_url + "produk/get_image_slider",
@@ -81,28 +104,22 @@ $.ajax({
                 n++;
             }
             $('.carousel').html(slide);
+
             // $(".carousel-indicators").html(indicate);
         });
         $('.carousel').carousel({
             fullWidth: true,
             indicators: true
         });
+
     }
 });
-function viewCategory(id_kategori) {
-    window.localStorage.setItem('viewID_kategori', id_kategori);
-    window.location.href = 'view_kategori_umum.html';
-}
+// function viewCategory(id_kategori) {
+//     window.localStorage.setItem('viewID_kategori', id_kategori);
+//     window.location.href = '../produk/view_kategori_umum.html';
+// }
 
 function ambil_data() {
-    // $.ajax({
-    //     url: base_url + 'penjual/ambil_data_lokasi_penjual',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     success: function (res) {
-    //         initDistance(res);
-    //     }
-    // });
     $.get(API_PENJUAL_LOKASI).then(onSuccessLoadDataPenjual);
 }
 
@@ -172,9 +189,8 @@ function initDistance(res) {
                 console.log(theElement);
                 for (var i = 0; i < results.length; i++) {
                     console.log("id usaha:" + res[i].id_usaha);
-                    semuaidusaha.push(res[i].id_usaha);
                     var ajaxx = 0;
-
+                    semuaidusaha[i] = res[i].id_usaha;
 
                     if (i == 0) {
                         idx_terdekat = 0;
@@ -195,7 +211,7 @@ function initDistance(res) {
                 //  console.log(value_of);
             }
 
-            console.log(semuaidusaha);
+            console.log(semuadistance);
             var produks = '';
             $.each(semuaidusaha, function (k, v) {
                 const distance_text = semuadistance[v].text;
@@ -206,8 +222,6 @@ function initDistance(res) {
                     dataType: 'JSON',
                     async: false,
                     success: function (ea) {
-                        console.log("id_usaha : " + v);
-                        console.log(ea);
                         //console.log(JSON.stringify(ea,null, 2   ));
                         if (ea.length > 0) {
 
@@ -216,11 +230,12 @@ function initDistance(res) {
                                 var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
                                 produks += '<li class="collection-item avatar" onclick="viewProduk(' + val.id_produk + ', ' + v + ')">' +
                                     '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
+
                                     '<span class="title black-text">' + val.nama_produk + '</span>' +
                                     '<p class="orange-text">' + harga_display + '</p>' +
                                     '<hr>' +
-                                    '<div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">' +
-                                    '<div class="col s8" style="padding-left: 0px; padding-right: 0px">' + val.nama_usaha + '</div>' +
+                                    '<div class="row grey-text" style="margin-top:-8px; padding-top:0px; margin-bottom: 0px">' +
+                                    '<div class="col s8" style="padding: 0 !important;"><p class="left">' + val.nama_usaha + '</p></div>' +
                                     '<div class="col s4"><p class="right">' + distance_text + '</p></div></div>' +
                                     '</li>';
                             });
@@ -240,8 +255,6 @@ function initDistance(res) {
             });
             $(".progress").remove();
             $("#dataProduct").html(produks);
-
-
 
             // outputDiv.innerHTML += 'jarak terdekat yaitu ke titik ke ' + idx_terdekat + '<br>yaitu ' + res[idx_terdekat].nama_usaha;
             var start = titik_saat_ini;
@@ -280,11 +293,11 @@ function formatNumber(num) {
 function viewProduk(id_produk, id_usaha) {
     storage.setItem('id_produk', id_produk);
     storage.setItem('id_usaha', id_usaha);
-    window.location.href = "detail_produk_shop.html";
+    window.location.href = "../dashboard/detail_produk_shop.html";
 }
-// $('.materialboxed').materialbox();
-// $(document).on('load', function(){
-//     $("nav").after('<div class="progress">'+
-//         '<div class="indeterminate"></div>'+
-//         '</div>');
-// });
+        // $('.materialboxed').materialbox();
+        // $(document).on('load', function(){
+        //     $("nav").after('<div class="progress">'+
+        //         '<div class="indeterminate"></div>'+
+        //         '</div>');
+        // });
