@@ -332,7 +332,7 @@
     }
 
     function loadDetailTransaksi() {
-      var idPemesanan = localStorage.idPemesanan, id_usaha = DetailPesanan.DataUsaha.id_usaha, type = localStorage.JenisPengiriman;
+      var idPemesanan = localStorage.id_pesanan, id_usaha = DetailPesanan.DataUsaha.id_usaha, type = localStorage.JenisPengiriman;
       $.getJSON(API_DETAIL_PESANAN_PENJUAL, { type: type, idPemesanan: idPemesanan, id_usaha: id_usaha }).then(onSuccess).always(onComplete);
     }
 
