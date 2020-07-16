@@ -1,9 +1,9 @@
 // var base_url = "http://10.0.1.182/backendikan/";
- var base_url = "http://192.168.43.98/backendikan/";
+// var base_url = "http://192.168.43.196/backendikan/";
 // var base_url = "http://103.195.90.35:3300/backendikan/";
 // console.log("App IN : " + navigator.appCodeName);
 // var base_url = "http://localhost/backendikan/";
-// var base_url = "http://192.168.43.98/backendikan/";
+var base_url = "http://192.168.43.71/backendikan/";
 
 var storage = window.localStorage;
 

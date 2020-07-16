@@ -260,13 +260,44 @@
     </div>
   </div>
   </div>
-  <div id="alertLogin" class="modal bottom-sheet small">
-    <div class="modal-content">
-      <h5>Login Diperlukan</h5>
-      <p>Silahkan <b><a href="../../login/index.html">Login</a></b> terlebih dahulu sebelum melakukan transaksi.</p>
-    </div>
-    <div class="modal-footer">
-      <a href="../../login/index.html" class="modal-close waves-effect waves-green btn blue">Login</a>
+
+
+  <div id="alertLogin" class="modal">
+    <div class="" style="background: url('../../assets/img/bg1.jpg')">
+      <div class="login-wrapper wd-100p wd-xs-100p mg-15 pd-5 pd-xs-39 rounded shadow-base"
+        style="background-color: rgba(255,255,255, 0.8)">
+        <div class="row" style="display: inline-block; padding: 0px 20px 0px 20px;">
+          <form action="#" class="col s12">
+            <h5 class="center-align" style="margin-bottom: 32px; margin-top: 24px;">Silahkan Login</h5>
+            <!-- end .login_header -->
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input type="text" id="username" class="validate">
+                <label class="" for="username">Username</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12" style="margin-top: -24px;">
+                <i class="material-icons prefix">lock</i>
+                <input id="password" type="password" class="validate">
+                <label class="" for="password">Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 center-align" style="margin-bottom: 8px;">
+                <strong class="black-text">Belum punya akun?</strong>
+              </div>
+              <div class="col s12 center-align mg-b-15"><a href="../../login/sign_up_pembeli2.html"
+                  class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Pembeli</a></div>
+            </div>
+            <button type="button" id="login" class="modal-close waves-effect waves-light btn-small btn blue"
+              style="width: 100%; margin-top: -8px; margin-bottom: 24px;" onclick="kirim_data()">Login</button>
+            <!-- end .login--form -->
+            <!-- end .cardify -->
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -276,6 +307,7 @@
   <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
   <script type="text/javascript" src="../../cordova.js"></script>
   <script type="text/javascript" src="../../js/mobile_script.js"></script>
+  <script type="text/javascript" src="../../js/login.js"></script>
   <script type="text/javascript">
     var rest;
     var latUsaha, lngUsaha;
@@ -516,8 +548,8 @@
               loadPesanan();
             } else {
               document.getElementById("rowpembayaran3").style.display = "block";
-              document.getElementById("rowpembayaran1").style.display = "none";
-              document.getElementById("rowpembayaran2").style.display = "none";
+              document.getElementById("rowpembayaran1").style.display = "block";
+              document.getElementById("rowpembayaran2").style.display = "block";
               feeKirim_temp = 0;
               $(".total-harga-pengiriman").html("Rp&nbsp;" + formatNumber(feeKirim_temp));
               $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(allProductSum));
@@ -569,19 +601,19 @@
         $("#alertLogin").modal('open');
         return false;
       }
-      var keranjang = storage.getItem('keranjang');
-      var keranjangku = JSON.parse(keranjang);
-      // first();
-      if (keranjangku.length < 1) {
-        if (storage.sukses_login == 1) {
-          var toastHTML = '<span>Keranjang Kosong, Silahkan melakukan Pemesanan</span><i class="material-icons red-text" onclick="return $(".toast").dismiss();">cancel<i>';
-          M.toast({
-            html: toastHTML,
-            inDuration: 200,
-            completeCallback: function () { window.location.href = '../index.html'; }
-          });
-        }
-      }
+      // var keranjang = storage.getItem('keranjang');
+      // var keranjangku = JSON.parse(keranjang);
+      // // first();
+      // if (keranjangku.length < 1) {
+      //   if (storage.sukses_login == 1) {
+      //     var toastHTML = '<span>Keranjang Kosong, Silahkan melakukan Pemesanan</span><i class="material-icons red-text" onclick="return $(".toast").dismiss();">cancel<i>';
+      //     M.toast({
+      //       html: toastHTML,
+      //       inDuration: 200
+      //       // completeCallback: function () { window.location.href = '../index.html'; }
+      //     });
+      //   }
+      // }
       $('.modal').modal();
       var d = new Date();
       d.setDate(d.getDate);
@@ -623,7 +655,12 @@
         window.localStorage.removeItem('qty');
         window.localStorage.removeItem('variasi');
         storage.removeItem('namaVariasi');
-        window.location.href = "../penjual/usaha.html";
+        var toastHTML = '<span>Keranjang Kosong, Silahkan melakukan Pemesanan</span><i class="material-icons red-text" onclick="return $(".toast").dismiss();">cancel<i>';
+        M.toast({
+          html: toastHTML,
+          inDuration: 200,
+          completeCallback: function () { window.location.href = '../index.html'; }
+        });
       }
 
       $.getJSON(API_DETAIL_USAHA, { id_usaha: storage.getItem('id_usaha') }).then(onSuccessLoadAlamatUsaha);
@@ -639,6 +676,7 @@
       document.getElementById("edit-alamat").addEventListener("click", openModalAlamat, false);
       document.getElementById("lokasi-saya").addEventListener("click", currentLocation, false);
       document.getElementById("simpan_alamat").addEventListener("click", simpan_alamat, false);
+      // document.getElementById("login").addEventListener("click", kirim_data, false);
 
       $.getJSON(API_KENDARAAN_PENJUAL, { id_usaha: localStorage.id_usaha }).then(onSuccessLoadKendaraan).fail(onFailLoadKendaraan);
       $.getJSON(API_KURIR, { id_usaha: localStorage.id_usaha }).then(onSuccessLoadKurir).fail(onFailedLoadKurir);
@@ -705,7 +743,7 @@
     }
 
     var onSuccessLoadRekening = (e, status) => {
-      if (status!=="success") {
+      if (status !== "success") {
         document.getElementById("rowpembayaran1").innerHTML = "";
         document.getElementById("rowpembayaran2").innerHTML = "";
         // $("#jpembayaran1 #jpembayaran2").hide();
@@ -726,20 +764,23 @@
       var keranjang = storage.getItem('keranjang');
       var keranjangku = JSON.parse(keranjang);
       $.each(keranjangku, function (key, val) {
+        console.log(val);
+        var harga_total_per_produk = val.total_harga;
         var total_satuan = (val.harga_produk * val.qty);
         total_semua += total_satuan;
         var perProductTotal = val.harga_produk * val.qty;
         allProductSum += perProductTotal;
-        produk_saya = '<li class="collection-item avatar item-produk item-produk-' + key + '">' +
+        produk_saya = '<li class="collection-item avatar" id="item-produk-' + key + '">' +
           '<img class="circle image-produk" src="' + val.fotoProduk + '">' +
           '<span class="title nama-produk">' + val.nama_produk + ' <small>(' + val.namaVariasi + ')</small></span>' +
           '<p><span class="harga-produk orange-text">Rp ' + val.harga_produk + '</span>' + '<span class="black-text">&nbsp &times &nbsp' + val.qty + '&nbsp Kg' + '</span></p>' +
           '<div class="secondary-content right-align">' +
           '<a href="#!" onclick="remove_item(' + key + ')"><i class="tiny material-icons red-text">remove_shopping_cart</i></a>' +
-          '<p class="total-produk orange-text">Rp ' + formatNumber(val.total_harga) + '</p>' +
+          '<p class="orange-text">Rp ' + formatNumber(harga_total_per_produk) + '</p>' +
           '</div>' +
           '</li>';
         $(".produk-saya").append(produk_saya);
+        console.log("Total Per Produk : " + harga_total_per_produk);
       });
       storage.setItem('allProductSum', allProductSum);
       $(".produk-saya").prepend('<li class="collection-header"><h5>Daftar Produk</h5></li>');
@@ -805,21 +846,22 @@
     }
 
     function remove_item(key) {
-      var keranjangku = JSON.parse(keranjang);
-      console.log("Remove Item : " + keranjangku[key]);
-      const index = keranjangku.indexOf(key);
+      var keranjangku = JSON.parse(localStorage.keranjang);
+      console.log("Remove Item : ");
+      console.log(JSON.stringify(keranjangku[key]));
       var itemPriceToRemove = keranjangku[key]["total_harga"];
       var allProductSum = storage.getItem('allProductSum');
       allProductSum -= itemPriceToRemove;
-      keranjangku.splice(index, 1);
+      keranjangku.splice(key, 1);
       $(".item-produk-" + key).hide(100);
       $(".item-produk-" + key).remove();
       console.log(JSON.stringify(keranjangku));
-      storage.keranjang = JSON.stringify(keranjangku);
+      localStorage.setItem("keranjang", JSON.stringify(keranjangku));
       M.toast({ html: 'Berhasil hapus 1 produk pada pesanan', inDuration: 100 });
       $(".produk-saya").html("");
       loadPesanan();
       if (keranjangku.length < 1) {
+        localStorage.removeItem("id_produk");
         M.toast({
           html: 'Item keranjang kosong, akan menuju halaman toko...',
           inDuration: 200,
@@ -956,14 +998,11 @@
       }
     }
 
-
-
     function hitung() {
       var harga_final = $(".qty").val() * harga_produk;
       $(".harga").html('<strong class="tx-12 tx-orange">Rp&nbsp;' + harga_final + '</strong>');
       return harga_final;
     }
-
 
   </script>
 </body>
