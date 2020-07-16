@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-$(document).ready(onDeviceReady);
+// $(document).ready(onDeviceReady);
 
 // device APIs are available
 //
