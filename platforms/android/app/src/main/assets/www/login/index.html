@@ -109,7 +109,7 @@
               </div>
               <div class="col s12 center-align mg-b-5" style="margin-bottom: 10px;"><a href="sign_up_penjual.html"
                   class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Penjual</a></div>
-              <div class="col s12 center-align mg-b-15" style="margin-bottom: 10px;"><a href="sign_up_pembeli2.html"
+              <div class="col s12 center-align mg-b-15" style="margin-bottom: 10px;"><a href="sign_up_pembeli.html"
                   class="col s12 btn btn-small waves-effect green darken-1 tx-info">Daftar sebagai Pembeli</a></div>
             </div>
             <!-- end .login--form -->
@@ -195,7 +195,7 @@
             window.localStorage.setItem('keranjang', JSON.parse(keranjang));
             console.log(window.localStorage.getItem(usergroup));
             console.log(window.localStorage.getItem(username));
-            // setTimeout(redirectPage, 1000);
+            setTimeout(redirectPage, 1000);
           } else {
             M.toast({ html: 'Anda gagal masuk' });
           }
