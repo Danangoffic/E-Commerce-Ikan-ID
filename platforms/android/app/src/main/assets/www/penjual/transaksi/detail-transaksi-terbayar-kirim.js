@@ -36,7 +36,7 @@ var app = {
     var waktuPemesanan = app.DetailPesanan.waktuPemesanan;
     var waktuPembayaran = app.DetailPesanan.DataPembayaran.waktu_pembayaran;
     var tglPengiriman = app.DetailPesanan.tglPengiriman;
-    var TotalHargaProduk = app.DetailPesanan.TotalHargaProduk / 10;
+    var TotalHargaProduk = app.DetailPesanan.TotalHargaProduk;
     var DataUsaha = app.DetailPesanan.DataUsaha;
     var DataPembeli = app.DetailPesanan.DataPembeli;
     var Alamat = DataPembeli.alamat_pb;
@@ -45,7 +45,7 @@ var app = {
     var JenisPengiriman = app.DetailPesanan.JenisPengiriman;
     var TanggalPengiriman = app.DetailPesanan.tglPengiriman;
     var TotalProdukPesanan = app.DetailPesanan.TotalProduk;
-    var TotalBeratProduk = app.DetailPesanan.TotalBeratProduk * 10;
+    var TotalBeratProduk = app.DetailPesanan.TotalBeratProduk;
     console.log("TotalBeratProduk : " + TotalBeratProduk);
     var BiayaPengiriman = app.DetailPesanan.BiayaPengiriman;
     var DataPembayaran = app.DetailPesanan.DataPembayaran;

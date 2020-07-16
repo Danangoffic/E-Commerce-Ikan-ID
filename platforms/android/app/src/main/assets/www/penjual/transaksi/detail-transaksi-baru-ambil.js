@@ -226,7 +226,7 @@ function onComplete() {
     $(".total-berat").html(TotalBeratProduk + "&nbsp;Ons");
     $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
     $(".tipe-pembayaran").html(metode_pembayaran);
-    $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk / 10));
+    $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
     $(".total-pemasukkan").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
     $(".pemasukkan1").html("Rp&nbsp;" + formatNumber(MinTransfer));
     $(".pemasukkan2").html("Rp&nbsp;" + formatNumber(SisaTagihan));
@@ -235,8 +235,8 @@ function onComplete() {
     if (metode_pembayaran == "Full Transfer") {
         $(".jenis-text-payment").html("TOTAL PEMASUKKAN");
         $(".text-payment").html("Total Pemasukkan :");
-        $(".total-pemasukkan").html("Rp" + formatNumber(TotalHargaProduk / 10));
-        $(".text-pemasukkan").html(formatNumber(TotalHargaProduk / 10));
+        $(".total-pemasukkan").html("Rp" + formatNumber(TotalHargaProduk));
+        $(".text-pemasukkan").html(formatNumber(TotalHargaProduk));
     } else if (metode_pembayaran == "Transfer Cash") {
         if (DetailPesanan.statusPengiriman == "Terbayar") {
             $(".pembayaranDP").show();
@@ -252,8 +252,8 @@ function onComplete() {
     } else if (metode_pembayaran == "Full Cash") {
         $(".jenis-text-payment").html("TOTAL PEMASUKKAN");
         $(".text-payment").html("Total Pemasukkan :");
-        $(".total-pemasukkan").html("Rp&nbsp;" + formatNumber(TotalHargaProduk / 10));
-        $(".text-pemasukkan").html("Rp&nbsp;" + formatNumber(TotalHargaProduk / 10));
+        $(".total-pemasukkan").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
+        $(".text-pemasukkan").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
     }
     $(".selesai-pesanan").click(function () {
         selesaiPesanan(DetailPesanan.idPemesanan);

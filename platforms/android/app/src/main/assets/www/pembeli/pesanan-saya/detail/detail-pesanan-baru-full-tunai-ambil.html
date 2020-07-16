@@ -149,6 +149,45 @@
 
     $(document).ready(detail_pesanan);
 
+    var app = {
+      DetailPesanan: JSON.parse(localStorage.DetailPesanan),
+      onload: onLoad,
+      detail_pesanan: detail_pesanan
+    }
+
+    function onLoad() {
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    function onDeviceReady() {
+      document.addEventListener("pause", onPause, false);
+      document.addEventListener("resume", onResume, false);
+      document.addEventListener("menubutton", onMenuKeyDown, false);
+      document.addEventListener("backbutton", onBackKeyDown, false);
+      document.getElementById("back_button").addEventListener("click", onBackKeyDown, false);
+      detail_pesanan();
+      document.getElementById("GoToDetailUsaha").addEventListener("click", GoToDetailUsaha, false);
+      // Add similar listeners for other events
+    }
+
+    function onPause() {
+      // Handle the pause event
+    }
+
+    function onResume() {
+      // Handle the resume event
+    }
+
+    function onMenuKeyDown() {
+      // Handle the menubutton event
+    }
+
+    function onBackKeyDown() {
+      // Handle the back button
+      localStorage.removeItem("DetailPesanan");
+      window.location.replace("../pesanan-saya.html");
+    }
+
     function detail_pesanan() {
       var DetailPesanan = storage.getItem("DetailPesanan");
       DetailPesanan = JSON.parse(DetailPesanan);
@@ -192,7 +231,7 @@
       });
       HtmlProduk += '<li class="collection-item teal-text darken-1"><b >Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></b></li>';
       $(".collection-product").html(HtmlProduk);
-      $(".nama-toko").html("<a href='#!' onclick='GoToDetailUsaha(" + IdUsaha + ")'>" + nama_usaha + "</a>");
+      $(".nama-toko").html("<a href='#!' id='GoToDetailUsaha'>" + nama_usaha + "</a>");
       $(".alamat").html(Alamat);
       $(".tipe-pengiriman").html(JenisPengiriman);
       $(".tanggal-pengiriman").html(TanggalPengiriman);
@@ -203,12 +242,32 @@
       $(".total-pembayaran").html("Rp&nbsp;" + TotalHargaAll);
     }
 
-    function LanjutkanPembayaran() {
-
+    var GoToDetailUsaha = () => {
+      localStorage.setItem("id_usaha", app.DetailPesanan.DataUsaha.id_usaha);
+      location.href = "../../../penjual/usaha.html";
     }
 
     function BatalkanPesanan() {
-
+      console.log("Batalkan Pesanan");
+      var idPesanan = DetailPesanan.idPemesanan;
+      var data = { "idPesanan": idPesanan };
+      console.log(data);
+      $.ajax({
+        url: base_url + "Pemesanan/HapusPemesananByIdPemesanan",
+        data: data,
+        type: "POST",
+        dataType: "JSON",
+        success: function (result) {
+          if (result.responseMessage == "success") {
+            $("#modal2").modal("open");
+            // instance2.open();
+            setTimeout(return_pesanan_saya, 3000);
+          } else {
+            $("#modal3").modal("open");
+            // instance3.open();
+          }
+        }
+      })
     }
   </script>
 
