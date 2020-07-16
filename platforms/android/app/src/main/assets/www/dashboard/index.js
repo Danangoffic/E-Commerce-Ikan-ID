@@ -43,10 +43,6 @@ var onSuccess = function (position) {
     firstLt = position.coords.latitude;
     firstLg = position.coords.longitude;
     ambil_data();
-    /*if(function_exists('initMap')){
-        initMap(position.coords.latitude, position.coords.longitude);  
-    }*/
-
 };
 
 // onError Callback receives a PositionError object
@@ -57,7 +53,6 @@ function onError(error) {
 }
 
 $.ajax({
-    async: false,
     url: base_url + "produk/get_image_slider",
     type: 'post',
     // dataType: 'json',
