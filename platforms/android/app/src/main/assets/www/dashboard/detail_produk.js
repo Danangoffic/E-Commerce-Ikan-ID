@@ -36,13 +36,8 @@ function kirim_data() {
     // alert('button sign in diklik' +username+" pass : " +password);
 
     const ULR_LOGIN = base_url + 'api/user/login';
-    $.ajax({
-        url: ULR_LOGIN,
-        // data: 'username=' + username + '&password=' + password, 
-        data: { username: username, password: password },
-        type: 'POST',
-        dataType: 'json',
-        success: function (resp) {
+    $.post(ULR_LOGIN, { username: username, password: password })
+        .then(function (resp) {
             console.log('muncul di console');
             console.log(resp.status);
             if (resp.status == 'berhasil') {
@@ -66,12 +61,18 @@ function kirim_data() {
             } else {
                 M.toast({ html: 'Anda gagal masuk' });
             }
-        }
-    });
+        });
+    // $.ajax({
+    //     url: ULR_LOGIN,
+    //     // data: 'username=' + username + '&password=' + password, 
+    //     data: { username: username, password: password },
+    //     type: 'POST',
+    //     dataType: 'json',
+    //     success: 
+    // });
 }
 
-function openLoginSheet()
-{
+function openLoginSheet() {
     $("#modalLogin").modal("open");
 }
 function openModelSheet() {
@@ -131,9 +132,9 @@ function pilihVariasi() {
     var variasi = $("#variasi").val();
     if (variasi != "") {
         var variasi_selected = $("[name=variasi]").find("option:selected").text();
-        if(variasi_selected!="Mentah potong"){
+        if (variasi_selected != "Mentah potong") {
             $("#mentah-potong-option").hide();
-        }else{
+        } else {
             $("#mentah-potong-option").show();
         }
         $(".pesan-variasi").removeAttr("disabled");
@@ -147,7 +148,7 @@ function pilihVariasi() {
             success: function (e) {
                 maxStokItem = e.stok;
                 namaVariasi = e.nama_variasi;
-                $(".stok").html(+e.stok/10 + "&nbsp;Kg");
+                $(".stok").html(+e.stok / 10 + "&nbsp;Kg");
                 if (e.stok == 0) {
                     $(".pesan-variasi").attr('disabled');
                 } else {
@@ -216,10 +217,11 @@ function beli() {
         var jml_potong_ikan = $("[name=jml_potong]").val();
         var variasi_selected_init = $("[name=variasi]").find("option:selected").text();
         var catatan = "";
-        if(variasi_selected_init=="Mentah potong"){
-            catatan = (jml_ikan_per_kg.length>0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg + (jml_potong_ikan.length > 0) ? "<br> Jumlah potong/ekor: " + jml_potong_ikan : "" : null;
-        }else{
-            catatan = (jml_ikan_per_kg.length>0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg : "";
+        if (variasi_selected_init == "Mentah potong") {
+            catatan = (jml_ikan_per_kg.length > 0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg + "<br>" : "";
+            catatan += (jml_potong_ikan.length > 0) ? "Jumlah potong/ekor: " + jml_potong_ikan : "";
+        } else {
+            catatan = (jml_ikan_per_kg.length > 0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg : "";
         }
         var new_prods = {
             id_produk: id_produk,
@@ -269,7 +271,7 @@ function beli() {
             }
             storage.setItem('keranjang', JSON.stringify(data_prod));
         }
-        
+
         //window.location.href="detail_pesanan_saya.html";
 
         return window.location.href = "../pembeli/pesanan-saya/detail_pesanan_saya.html";
@@ -311,8 +313,8 @@ var loadDetailProduk = () => {
     $.getJSON(API_DETAIL_PRODUK, { id_produk: localStorage.id_produk }).then(onSuccessLoadProduk).fail(onFailLoadProduk);
 }
 
-var onSuccessLoadProduk = (e) => {
-    var harga_display = (e.minprice!=e.maxprice) ? 'Rp' + formatNumber(e.minprice) + ' ~ Rp' + formatNumber(e.maxprice) : 'Rp' + formatNumber(e.minprice);
+var onSuccessLoadProduk = (e, status) => {
+    var harga_display = (e.minprice != e.maxprice) ? 'Rp' + formatNumber(e.minprice) + ' ~ Rp' + formatNumber(e.maxprice) : 'Rp' + formatNumber(e.minprice);
     $(".image-produk").html('<img src="' + base_url + 'foto_usaha/produk/' + e.foto_produk + '" class="responsive-img" style="width: 100% !important" alt="' + e.nama_produk + '">');
     $(".nama_produk, .title-produk, .header").html(e.nama_produk);
     $(".harga_produk").html(harga_display);
@@ -343,10 +345,10 @@ var onSuccessVariasiPublic = (e, status) => {
         '<p class="left" style="font-size: small;">Variasi Produk :</p>' +
         '</div>' +
         '<div class="col s6">';
-    var panjang_variasi = e.length;   
-    console.log("Panjang Variasi : " + panjang_variasi); 
+    var panjang_variasi = e.length;
+    console.log("Panjang Variasi : " + panjang_variasi);
     $.each(e, function (key, val) {
-        var nama_variasi = (key < (panjang_variasi-1)) ? val.nama_variasi + ', ' : val.nama_variasi;
+        var nama_variasi = (key < (panjang_variasi - 1)) ? val.nama_variasi + ', ' : val.nama_variasi;
         html += '<p class="right-align" style="margin-bottom:8px">' + nama_variasi + '</p>';
     });
     html += '</div></div>';
