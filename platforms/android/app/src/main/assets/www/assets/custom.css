@@ -22,15 +22,15 @@
 	margin-top: 4px;
 }
 
-.card, .card-panel{
-	border-radius: 16px;
+.card, .card-panel, .card .card-content{
+	border-radius: 12px;
 	margin-bottom: 16px;
 }
 
 .modal{
-	border-radius: 16px;
+	border-radius: 12px;
 }
 
 .collection{
-	border-radius: 16px;
+	border-radius: 12px;
 }

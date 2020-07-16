@@ -111,14 +111,14 @@
     // CHROME WEB EVENT
     var app = {
       init: () => {
-        document.addEventListener("deviceready", app.onDeviceReady.false);
+        document.addEventListener("deviceready", app.onDeviceReady, false);
       },
       onDeviceReady: () => {
-        document.getElementById("urutkan.pengiriman").addEventListener("click", app.urutkanPengiriman, false);
-        document.addEventListener("pause", this.onPause, false);
-        document.addEventListener("resume", this.onResume, false);
-        document.addEventListener("menubutton", this.onMenuKeyDown, false);
-        document.addEventListener("backbutton", this.onBackKeyDown, false);
+        document.getElementById("urutkan-pengiriman").addEventListener("click", app.urutkanPengiriman, false);
+        document.addEventListener("pause", app.onPause, false);
+        document.addEventListener("resume", app.onResume, false);
+        document.addEventListener("menubutton", app.onMenuKeyDown, false);
+        document.addEventListener("backbutton", app.onBackKeyDown, false);
       },
       urutkanPengiriman: () => {
         var pesanan = $("[name=pesanan]:checkbox:checked");
@@ -141,7 +141,7 @@
 
       },
       onBackKeyDown: () => {
-        $("body").load("./konfirmasi-berat-produk.html");
+        window.location.href = "transaksi.html";
       },
       get_pesanan_siap_kirim: () => {
         app.preload_pesanan();
