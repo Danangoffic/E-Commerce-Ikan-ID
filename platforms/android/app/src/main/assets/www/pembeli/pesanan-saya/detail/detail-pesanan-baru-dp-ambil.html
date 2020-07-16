@@ -206,7 +206,7 @@
       var JenisPengiriman = DetailPesanan.JenisPengiriman;
       var TanggalPengiriman = DetailPesanan.tglPengiriman;
       var TotalProdukPesanan = DetailPesanan.TotalProduk;
-      var TotalBeratProduk = DetailPesanan.TotalBeratProduk * 10 * TotalProdukPesanan;
+      var TotalBeratProduk = DetailPesanan.TotalBeratProduk;
       console.log("TotalBeratProduk : " + TotalBeratProduk);
       var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
       var DataPembayaran = DetailPesanan.DataPembayaran;
@@ -220,11 +220,11 @@
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
-        var HargaProduk = isi.harga * 10;
-        var TotalProduk = isi.jml_produk / 10;
+        var HargaProduk = isi.harga;
+        var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p>Rp ' + formatNumber(HargaProduk) + '<br></p>' +
+          '<p class="orange-text">Rp ' + formatNumber(HargaProduk) + '<br></p>' +
           '<span class="secondary-content">' + TotalProduk + ' Kg</span></li>';
       });
       HtmlProduk += '<b><a class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></a></b>';
@@ -245,7 +245,7 @@
         $(".tipe-pembayaran").html("Bayar Penuh Tunai");
       }
 
-      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk / 10));
+      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".minimal-transfer").html("Rp&nbsp;" + formatNumber(MinTransfer));
       $(".sisa-tagihan").html("Rp&nbsp;" + formatNumber(SisaTagihan));
@@ -261,12 +261,31 @@
     }
 
     function LanjutkanPembayaran() {
-      localStorage.removeItem("DetailPesanan");
+      // localStorage.removeItem("DetailPesanan");
       location.assign("../pembayaran-dp-ambil.html");
     }
 
     function BatalkanPesanan() {
       console.log("Batalkan Pesanan");
+      var idPesanan = DetailPesanan.idPemesanan;
+      var data = { "idPesanan": idPesanan };
+      console.log(data);
+      $.ajax({
+        url: base_url + "Pemesanan/HapusPemesananByIdPemesanan",
+        data: data,
+        type: "POST",
+        dataType: "JSON",
+        success: function (result) {
+          if (result.responseMessage == "success") {
+            $("#modal2").modal("open");
+            // instance2.open();
+            setTimeout(return_pesanan_saya, 3000);
+          } else {
+            $("#modal3").modal("open");
+            // instance3.open();
+          }
+        }
+      })
     }
 
     function formatNumber(num) {

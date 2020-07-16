@@ -93,12 +93,13 @@ function onDoneDetail() {
     var JenisPengiriman = DetailPesanan.JenisPengiriman;
     var TanggalPengiriman = DetailPesanan.tglPengiriman;
     var TotalProdukPesanan = DetailPesanan.TotalProduk;
-    var TotalBeratProduk = DetailPesanan.TotalBeratProduk * 10;
+    var TotalBeratProduk = DetailPesanan.TotalBeratProduk;
     // var TotalProduk = DetailPesanan.TotalProduk;
     console.log("TotalBeratProduk : " + TotalBeratProduk);
     var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
     var DataPembayaran = DetailPesanan.DataPembayaran;
     var metode_pembayaran = DataPembayaran.metode_pembayaran;
+    var jarak = (DetailPesanan.jarak!==null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
     // $(".status-pemesanan").html("<b class='white-text'>"+StatusPemesanan+"</b>");
     $(".NoPesanan").html(IDPESANAN);
     $(".WaktuPemesanan").html(waktuPemesanan);
@@ -120,11 +121,10 @@ function onDoneDetail() {
     $(".alamat").html(Alamat);
     $(".tipe-pengiriman").html(JenisPengiriman);
     $(".tanggal-pengiriman").html(TanggalPengiriman);
-    var  jarak = (DetailPesanan.jarak!==null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
     $(".total-jarak").html(jarak);
     $(".biaya-pengiriman").html("Rp" + formatNumber(BiayaPengiriman));
     $(".tipe-pembayaran").html(metode_pembayaran);
-    $(".total-harga-produk").html("Rp" + formatNumber(TotalHargaProduk / 10));
+    $(".total-harga-produk").html("Rp" + formatNumber(TotalHargaProduk));
     $(".total-pemasukkan").html("Rp" + formatNumber(TotalHargaAll));
     $(".pemasukkan1").html("Rp" + formatNumber(MinTransfer));
     $(".pemasukkan2").html("Rp" + formatNumber(SisaTagihan));

@@ -89,7 +89,7 @@
             <li class="collection-item">Tanggal Pengiriman :<span class="secondary-content tanggal-pengiriman"></span>
             </li>
             <li class="collection-item teal-text darken-1"><b>Total Biaya Pengiriman :<span
-                  class="secondary-content biaya-pengiriman"></span></b><br><span class="total-berat"></span></li>
+                  class="secondary-content biaya-pengiriman"></span></b><br><span class="total-jarak"></span></li>
           </ul>
         </div>
 
@@ -201,7 +201,7 @@
         var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p class="orange-text">Rp ' + HargaProduk + '<br></p>' +
+          '<p class="orange-text">Rp ' + formatNumber(HargaProduk) + '<br></p>' +
           '<span class="secondary-content">' + TotalProduk + '&nbsp Kg</span></li>';
       });
       HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk: <span class="secondary-content total-harga-produk"></span></b></li>';
@@ -212,6 +212,8 @@
       $(".tanggal-pengiriman").html(TanggalPengiriman);
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Kg");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
+      var jarak = (DetailPesanan.jarak !== null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
+      $(".total-jarak").html(jarak);
       $(".tipe-pembayaran").html(metode_pembayaran);
       $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
@@ -219,9 +221,20 @@
       $(".sisa-tagihan").html("Rp&nbsp;" + formatNumber(SisaTagihan));
     }
 
+    var app = {
+      DetailPesanan: JSON.parse(localStorage.DetailPesanan),
+      onload: onLoad,
+      detail_pesanan: detail_pesanan
+    }
+
+    var GoToDetailUsaha = () => {
+      localStorage.setItem("id_usaha", app.DetailPesanan.DataUsaha.id_usaha);
+      location.href = "../../../penjual/usaha.html";
+    }
+
     function LanjutkanPembayaran() {
-      console.log("Lanjutkan Pembayaran");
-      window.location.href = "pembayaran.html";
+      // localStorage.removeItem("DetailPesanan");
+      location.assign("../pembayaran-fulltransfer.html");
     }
 
     function BatalkanPesanan() {
@@ -245,7 +258,6 @@
           }
         }
       })
-
     }
 
     function formatNumber(num) {
