@@ -267,7 +267,28 @@
     }
 
     function BatalkanPesanan() {
+      function BatalkanPesanan() {
       console.log("Batalkan Pesanan");
+      var idPesanan = DetailPesanan.idPemesanan;
+      var data = { "idPesanan": idPesanan };
+      console.log(data);
+      $.ajax({
+        url: base_url + "Pemesanan/HapusPemesananByIdPemesanan",
+        data: data,
+        type: "POST",
+        dataType: "JSON",
+        success: function (result) {
+          if (result.responseMessage == "success") {
+            $("#modal2").modal("open");
+            // instance2.open();
+            setTimeout(return_pesanan_saya, 3000);
+          } else {
+            $("#modal3").modal("open");
+            // instance3.open();
+          }
+        }
+      })
+    }
     }
 
     function formatNumber(num) {
