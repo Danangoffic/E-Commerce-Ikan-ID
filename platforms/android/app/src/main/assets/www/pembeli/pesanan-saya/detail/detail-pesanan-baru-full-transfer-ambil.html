@@ -96,7 +96,7 @@
             <li class="collection-item">
               <h5>DETAIL PEMBAYARAN</h5>
             </li>
-            <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Bayar Penuh Transper</span>
+            <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Bayar Penuh Transfer</span>
             </li>
             <li class="collection-item teal-text darken-1"><b>Total Harga Produk :<span
                   class="secondary-content total-harga-produk">Rp</span></b></li>
@@ -108,7 +108,6 @@
           onclick="LanjutkanPembayaran()">Lanjutkan Ke Pembayaran</button>
         <button class="waves-effect waves-light btn red accent-2 modal-trigger" data-target="modal1" type="button"
           style="width: 100%; margin-top: 8px;">Batalkan Pesanan</button>
-
       </div>
     </div>
   </div>
@@ -152,7 +151,7 @@
       var JenisPengiriman = DetailPesanan.JenisPengiriman;
       var TanggalPengiriman = DetailPesanan.tglPengiriman;
       var TotalProdukPesanan = DetailPesanan.TotalProduk;
-      var TotalBeratProduk = DetailPesanan.TotalBeratProduk * 10 * TotalProdukPesanan;
+      var TotalBeratProduk = DetailPesanan.TotalBeratProduk;
       console.log("TotalBeratProduk : " + TotalBeratProduk);
       var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
       var DataPembayaran = DetailPesanan.DataPembayaran;
@@ -168,10 +167,10 @@
         var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p>Rp ' + HargaProduk + '<br></p>' +
-          '<span class="badge">' + TotalProduk + '&times;</span></li>';
+          '<p class="orange-text">Rp ' + formatNumber(HargaProduk) + '<br></p>' +
+          '<span class="secondary-content">' + TotalProduk + '&nbsp Kg</span></li>';
       });
-      HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk :<span class="badge">Rp</span></b></a>';
+      HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></b></a>';
       $(".collection-product").html(HtmlProduk);
       $(".nama-toko").html("<a href='#!' onclick='GoToDetailUsaha(" + IdUsaha + ")'>" + nama_usaha + "</a>");
       $(".alamat").html(Alamat);
@@ -187,11 +186,31 @@
     }
 
     function LanjutkanPembayaran() {
-      console.log("Lanjutkan Pembayaran");
+      // localStorage.removeItem("DetailPesanan");
+      location.assign("../pembayaran-dp-ambil.html");
     }
 
     function BatalkanPesanan() {
       console.log("Batalkan Pesanan");
+      var idPesanan = DetailPesanan.idPemesanan;
+      var data = { "idPesanan": idPesanan };
+      console.log(data);
+      $.ajax({
+        url: base_url + "Pemesanan/HapusPemesananByIdPemesanan",
+        data: data,
+        type: "POST",
+        dataType: "JSON",
+        success: function (result) {
+          if (result.responseMessage == "success") {
+            $("#modal2").modal("open");
+            // instance2.open();
+            setTimeout(return_pesanan_saya, 3000);
+          } else {
+            $("#modal3").modal("open");
+            // instance3.open();
+          }
+        }
+      })
     }
 
     function formatNumber(num) {

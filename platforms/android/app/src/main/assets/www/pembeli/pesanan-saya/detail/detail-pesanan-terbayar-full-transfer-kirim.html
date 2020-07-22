@@ -198,15 +198,6 @@
       $(".sisa-tagihan").html("Rp&nbsp;" + formatNumber(SisaTagihan));
     }
 
-    function LanjutkanPembayaran() {
-      console.log("Lanjutkan Pembayaran");
-      window.location.href = "pembayaran.html";
-    }
-
-    function BatalkanPesanan() {
-      console.log("Batalkan Pesanan");
-    }
-
     function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
     }

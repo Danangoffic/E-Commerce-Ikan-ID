@@ -90,7 +90,7 @@
             <li class="collection-item">Tanggal Pengiriman :<span
                 class="secondary-content tanggal-pengiriman">02/01/2020</span></li>
             <li class="collection-item teal-text darken-1"><b>Total Biaya Pengiriman :<span
-                  class="secondary-content biaya-pengiriman">Rp</span></b><br><span class="total-berat"></span></li>
+                  class="secondary-content biaya-pengiriman">Rp</span></b><br><span class="total-jarak"></span></li>
             <!-- <li class="collection-item" style="">(xxx ons)</p></b> -->
             <!-- </a> -->
           </ul>
@@ -209,11 +209,12 @@
       var JenisPengiriman = DetailPesanan.JenisPengiriman;
       var TanggalPengiriman = DetailPesanan.tglPengiriman;
       var TotalProdukPesanan = DetailPesanan.TotalProduk;
-      var TotalBeratProduk = DetailPesanan.TotalBeratProduk / 10;
+      var TotalBeratProduk = DetailPesanan.TotalBeratProduk;
       console.log("TotalBeratProduk : " + TotalBeratProduk);
       var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
       var DataPembayaran = DetailPesanan.DataPembayaran;
       var metode_pembayaran = DataPembayaran.metode_pembayaran;
+      var jarak = (DetailPesanan.jarak !== null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
       $(".status-pemesanan").html("<b class='white-text'>" + StatusPemesanan + "</b>");
       $(".NoPesanan").html(IDPESANAN);
       $(".WaktuPemesanan").html(waktuPemesanan);
@@ -222,11 +223,11 @@
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
         var HargaProduk = isi.harga;
-        var TotalProduk = isi.jml_produk / 10;
+        var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p>Rp ' + HargaProduk + '<br></p>' +
-          '<span class="badge teal-text darken-1">' + TotalProduk + '&nbsp Kg</span></li>';
+          '<p class="orange-text">Rp ' + formatNumber(HargaProduk) + '<br></p>' +
+          '<span class="secondary-content teal-text darken-1">' + formatNumber(TotalProduk) + '&nbsp Kg</span></li>';
       });
       HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk :<span class="badge total-harga-produk teal-text darken-1"><b>Rp</b></span></b></a>';
       $(".collection-product").html(HtmlProduk);
@@ -236,6 +237,7 @@
       $(".tanggal-pengiriman").html(TanggalPengiriman);
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Kg");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
+      $(".total-jarak").html(jarak);
       // $(".tipe-pembayaran").html(metode_pembayaran);
       if (storage.getItem("metodePembayaran") == "Full Transfer") {
         $(".tipe-pembayaran").html("Bayar Penuh Transfer");
@@ -244,7 +246,7 @@
       } else if (storage.getItem("metodePembayaran") == "Full Cash") {
         $(".tipe-pembayaran").html("Bayar Penuh Tunai");
       }
-      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk / 10));
+      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".minimal-transfer").html("Rp&nbsp;" + formatNumber(MinTransfer));
       $(".sisa-tagihan").html("Rp&nbsp;" + formatNumber(SisaTagihan));
@@ -260,12 +262,33 @@
     }
 
     function LanjutkanPembayaran() {
-      localStorage.removeItem("DetailPesanan");
+      // localStorage.removeItem("DetailPesanan");
       location.assign("../pembayaran-dp-kirim.html");
     }
 
     function BatalkanPesanan() {
+      function BatalkanPesanan() {
       console.log("Batalkan Pesanan");
+      var idPesanan = DetailPesanan.idPemesanan;
+      var data = { "idPesanan": idPesanan };
+      console.log(data);
+      $.ajax({
+        url: base_url + "Pemesanan/HapusPemesananByIdPemesanan",
+        data: data,
+        type: "POST",
+        dataType: "JSON",
+        success: function (result) {
+          if (result.responseMessage == "success") {
+            $("#modal2").modal("open");
+            // instance2.open();
+            setTimeout(return_pesanan_saya, 3000);
+          } else {
+            $("#modal3").modal("open");
+            // instance3.open();
+          }
+        }
+      })
+    }
     }
 
     function formatNumber(num) {
