@@ -154,7 +154,7 @@ var app = {
                         '<img src="' + base_url + '/foto_usaha/produk/' + fotoProduk + '" alt="Foto ' + namaProduk + '" class="circle">' +
                         '<span class="title">' + namaProduk + '</span>' +
                         '<p class="orange-text">Rp ' + app.formatNumber(hargaProduk) + '<br></p>' +
-                        '<span class="secondary-content">' + totalProduk + ' Ons</span>' +
+                        '<span class="secondary-content">' + totalProduk*10 + ' Ons</span>' +
                         '</li>' +
                         '<li class="collection-item teal-text darken-1"><b>Total Pemasukkan :<span class="secondary-content orange-text">Rp ' + app.formatNumber(totalHargaAll) + '</span></b></li>';
 
@@ -302,7 +302,7 @@ var app = {
                         '<img src="' + base_url + '/foto_usaha/produk/' + fotoProduk + '" alt="Foto ' + namaProduk + '" class="circle">' +
                         '<span class="title">' + namaProduk + '</span>' +
                         '<p class="orange-text">Rp' + app.formatNumber(hargaProduk) + '<br></p>' +
-                        '<span class="secondary-content">' + totalProduk + ' Ons</span>' +
+                        '<span class="secondary-content">' + app.formatNumber(totalProduk) * 10 + ' Ons</span>' +
                         '</li>' +
                         '<li class="collection-item teal-text darken-1"><b>Total Pemasukkan :<span class="secondary-content orange-text">Rp' + app.formatNumber(totalHargaAll) + '</span></b></li>';
 

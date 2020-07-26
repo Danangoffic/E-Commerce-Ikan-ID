@@ -1,5 +1,5 @@
 
-// $(document).ready(onDeviceReady);
+$(document).ready(onDeviceReady);
 function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }

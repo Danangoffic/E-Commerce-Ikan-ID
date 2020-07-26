@@ -65,7 +65,7 @@ var app = {
             HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
                 '<span class="title">' + NamaProduk + '</span>' +
                 '<p class="orange-text">Rp' + app.formatNumber(HargaProduk) + '<br></p>' +
-                '<span class="secondary-content teal-text darken-1">' + TotalProduk + '&nbsp Ons</span></li>';
+                '<span class="secondary-content teal-text darken-1">' + TotalProduk * 10 + '&nbsp Ons</span></li>';
         });
         HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk: <span class="secondary-content total-harga-produk"></span></b></li>';
         $(".collection-product").html(HtmlProduk);
