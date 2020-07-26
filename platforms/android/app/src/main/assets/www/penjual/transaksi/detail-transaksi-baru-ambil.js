@@ -1,5 +1,6 @@
 $('.modal').modal();
 var DetailPesanan = JSON.parse(localStorage.DetailPesanan);
+var id_pembayaran;
 // $(document).ready(onDeviceReady);
 
 function onLoad() {
@@ -12,6 +13,7 @@ function onDeviceReady() {
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
+    document.getElementById("verifikasi_pesanan").addEventListener("click", verifikasiPesanan, false);
     // Add similar listeners for other events
 
     document.addEventListener('backbutton', onBackKeyDown, false);
@@ -64,8 +66,8 @@ function additionalInfo(DetailPesanan) {
         if (DetailPesanan.statusPengiriman == "Baru") {
             var card_struk="", card_verifikasi="", card_info="";
             if(DetailPesanan.DataPembayaran.status_pembayaran!==""){
-                card_struk = '<div class="card"><ul class="collection"><li onclick= "lihatmodal(\'' + DetailPesanan.idPemesanan + '\')" class="collection-item center">Lihat Struk</li></ul></div>';
-                card_verifikasi = '<div class="card"><ul class="collection"><li onclick= "return $(\'#modalVerifikasi\').modal(\'open\')" class="collection-item center"><b>Verifikasi Pesanan</b></li></ul></div>';
+                card_struk = '<div class="card"><ul class="collection"><li onclick= "lihatmodal(\'' + DetailPesanan.idPemesanan + '\')" class="collection-item center black-text">Lihat Struk</li></ul></div>';
+                card_verifikasi = '<div class="card"><ul class="collection"><li onclick= "return $(\'#modalVerifikasi\').modal(\'open\')" class="collection-item center black-text"><b>Verifikasi Pesanan</b></li></ul></div>';
             }
             card_info = '<p class="flow-text center" style="font-size: small;">Siapkan produk setelah <b>PEMBELI MELAKUKAN PEMBAYARAN</b> sebesar <b><a class="waves-effect waves-light modal-trigger white-text" href="#modal2">TOTAL PEMASUKKAN</a></b></p>';
             // BARU
@@ -215,7 +217,7 @@ function onComplete() {
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
             '<span class="title">' + NamaProduk + '</span>' +
             '<p class="orange-text">Rp ' + HargaProduk + '<br></p>' +
-            '<span class="secondary-content">' + TotalProduk + '&nbsp Ons</span></li>';
+            '<span class="secondary-content">' + TotalProduk * 10 + '&nbsp Ons</span></li>';
     });
     HtmlProduk += '<li class="collection-item teal-text darken-1"><b >Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></b></li>';
     $(".collection-product").html(HtmlProduk);

@@ -113,7 +113,7 @@ function onDoneDetail() {
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
             '<span class="title">' + NamaProduk + '</span>' +
             '<p class="orange-text">Rp' + formatNumber(HargaProduk) + '<br></p>' +
-            '<span class="secondary-content teal-text darken-1">' + TotalProduk + '&nbsp Ons</span></li>';
+            '<span class="secondary-content teal-text darken-1">' + TotalProduk * 10 + '&nbsp Ons</span></li>';
     });
     HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk :<span class="secondary-content teal-text darken-1 total-harga-produk">Rp</span></b></a>';
     $(".collection-product").html(HtmlProduk);

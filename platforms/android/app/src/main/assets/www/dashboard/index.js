@@ -2,7 +2,7 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-// $(document).ready(onDeviceReady);
+$(document).ready(onDeviceReady);
 
 // device APIs are available
 //
@@ -192,6 +192,7 @@ function initDistance(res) {
 
             console.log(semuaidusaha);
             var produks = '';
+            
             $.each(semuaidusaha, function (k, v) {
                 const distance_text = semuadistance[v].text;
                 $.ajax({
