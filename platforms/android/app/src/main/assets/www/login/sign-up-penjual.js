@@ -62,9 +62,8 @@ function simpan() {
         return false;
     }
     var formData = new FormData($("form")[0]);
-    const URL_SIGN_UP_PENJUAL = base_url + "api/user/signup/penjual";
     $.ajax({
-        url: URL_SIGN_UP_PENJUAL,
+        url: API_SIGN_UP_PENJUAL,
         data: formData,
         contentType: false,
         cache: false,

@@ -223,7 +223,9 @@ function beli() {
         } else {
             catatan = (jml_ikan_per_kg.length > 0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg : "";
         }
-        var new_prods = {
+        var id_usaha = localStorage.id_usaha;
+        var new_prods = Array();
+        new_prods[id_usaha] = {
             id_produk: id_produk,
             nama_produk: nama_produk,
             variasi: variasi,

@@ -1,6 +1,41 @@
 
-// $(document).ready(onDeviceReady);
+$(document).ready(onDeviceReady);
 function onLoad() {
+    $.ajax({
+        async: false,
+        url: base_url + "produk/get_image_slider",
+        type: 'post',
+        dataType: 'json',
+        success: function (img) {
+
+            var n = 1;
+            var stat = '';
+            var slide = ''; var indicate = '';
+            $.each(img.data, function (key, val) {
+                if (val.foto_produk != "") {
+                    if (n == 1) {
+                        stat = 'active';
+                    } else {
+                        stat = '';
+                    }
+                    var slideto = n - 1;
+
+                    slide += '<center><div class="carousel-item white" href="#"><img src="' + base_url + 'foto_usaha/produk/' + val.foto_produk + '" style="width: 80%" alt="' + val.nama_produk + '"></center></div>';
+                    // indicate += '<li data-target="#demo" data-slide-to="'+slideto+'" class="'+stat+'"></li>';
+                    // $("#carousel-indicators").append();
+                    n++;
+                }
+                $('.carousel').html(slide);
+
+                // $(".carousel-indicators").html(indicate);
+            });
+            $('.carousel').carousel({
+                fullWidth: true,
+                indicators: true
+            });
+
+        }
+    });
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
@@ -49,14 +84,6 @@ if (storage.getItem('sukses_login') == 0) {
     // window.location.href='index_publik.html';
 }
 var semuaidusaha = [], semuadistance;
-// var semuaidusaha = [];
-// if(storage.tawarImg==null){
-//     storage.setItem('tawarImg', base_url + 'foto_toko/produk/ikan2.png');
-// }
-// if(storage.lautImg==null){
-//     storage.setItem('lautImg', base_url + 'foto_toko/produk/ikan1.png');   
-// }
-// var tawarImg = storage.tawarImg, lautImg = storage.lautImg;
 var firstLt, firstLg;
 
 var onSuccess = function (position) {
@@ -67,10 +94,6 @@ var onSuccess = function (position) {
     firstLt = position.coords.latitude;
     firstLg = position.coords.longitude;
     ambil_data();
-    /*if(function_exists('initMap')){
-        initMap(position.coords.latitude, position.coords.longitude);  
-    }*/
-
 };
 
 // onError Callback receives a PositionError object
@@ -79,41 +102,7 @@ function onError(error) {
     alert('code: ' + error.code + '\n' +
         'message: ' + error.message + '\n');
 }
-$.ajax({
-    async: false,
-    url: base_url + "produk/get_image_slider",
-    type: 'post',
-    // dataType: 'json',
-    success: function (img) {
 
-        var n = 1;
-        var stat = '';
-        var slide = ''; var indicate = '';
-        $.each(img.data, function (key, val) {
-            if (val.foto_produk != "") {
-                if (n == 1) {
-                    stat = 'active';
-                } else {
-                    stat = '';
-                }
-                var slideto = n - 1;
-
-                slide += '<center><div class="carousel-item white" href="#"><img src="' + base_url + 'foto_usaha/produk/' + val.foto_produk + '" style="width: 80%" alt="' + val.nama_produk + '"></center></div>';
-                // indicate += '<li data-target="#demo" data-slide-to="'+slideto+'" class="'+stat+'"></li>';
-                // $("#carousel-indicators").append();
-                n++;
-            }
-            $('.carousel').html(slide);
-
-            // $(".carousel-indicators").html(indicate);
-        });
-        $('.carousel').carousel({
-            fullWidth: true,
-            indicators: true
-        });
-
-    }
-});
 // function viewCategory(id_kategori) {
 //     window.localStorage.setItem('viewID_kategori', id_kategori);
 //     window.location.href = '../produk/view_kategori_umum.html';
@@ -239,8 +228,6 @@ function initDistance(res) {
                                     '<div class="col s4"><p class="right">' + distance_text + '</p></div></div>' +
                                     '</li>';
                             });
-
-
                             var tawarImg = '../img/ikan2.png', lautImg = '../img/ikan1.png';
                             $(".tawar").attr('src', tawarImg);
                             $(".laut").attr('src', lautImg);
@@ -263,7 +250,6 @@ function initDistance(res) {
             var directionsService = new google.maps.DirectionsService();
             var directionsDisplay = new google.maps.DirectionsRenderer();
             directionsDisplay.setOptions({ suppressMarkers: true });
-
 
             var bounds = new google.maps.LatLngBounds();
             bounds.extend(start);
@@ -295,9 +281,3 @@ function viewProduk(id_produk, id_usaha) {
     storage.setItem('id_usaha', id_usaha);
     window.location.href = "../dashboard/detail_produk_shop.html";
 }
-        // $('.materialboxed').materialbox();
-        // $(document).on('load', function(){
-        //     $("nav").after('<div class="progress">'+
-        //         '<div class="indeterminate"></div>'+
-        //         '</div>');
-        // });
