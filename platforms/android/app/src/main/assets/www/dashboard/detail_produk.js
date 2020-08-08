@@ -192,6 +192,10 @@ function formatNumber(num) {
 
 function beli() {
     var variasiNow = $("#variasi").val();
+    var variasi_text = $("#variasi").find("option:selected").text();
+    var product_text = $(".nama_produk").text();
+    var full_product_name = product_text + variasi_text;
+    var nama_usaha_text = $("#nama-usaha").text();
     var qty = $("#qty").val();
     if (variasiNow == "" || variasiNow == null || variasiNow == "null") {
         M.toast({ html: 'Anda belum memilih variasi Produk' });
@@ -225,7 +229,7 @@ function beli() {
         }
         var id_usaha = localStorage.id_usaha;
         var new_prods = Array();
-        new_prods[id_usaha] = {
+        new_prods = {
             id_produk: id_produk,
             nama_produk: nama_produk,
             variasi: variasi,
@@ -235,49 +239,69 @@ function beli() {
             namaVariasi: namaVariasi,
             fotoProduk: imgProduk,
             catatan: catatan,
-            id_usaha: localStorage.id_usaha
+            id_usaha: localStorage.id_usaha,
+            id_akun: localStorage.id_akun,
+            id_produk: localStorage.id_produk,
+            nama_produk: full_product_name,
+            nama_usaha: nama_usaha_text
         };
         console.log(new_prods);
+        // SIMPAN KE KERANJANG
+        simpan_keranjang(new_prods);
         // check keranjang kosong
-        if (storage.getItem('keranjang') == "" || storage.getItem('keranjang') == null) {
-            storage.setItem('keranjang', "[]");
-        }
-        var Keranjang = JSON.parse(storage.keranjang);
-        console.log("length keranjang : ");
-        // store data to keranjang localstorage
-        // keranjang ==0
-        if (Keranjang.length == 0) {
-            Keranjang[0] = new_prods;
-            console.log(Keranjang);
-            localStorage.setItem("keranjang", JSON.stringify(Keranjang));
-        } else {
-            // keranjang sudah ada
-            var data_prod = Array();
-            data_prod = JSON.parse(storage.keranjang);
-            var updated = 0;
-            // update quantity and total harga if product variasi is same
-            $.each(data_prod, function (key, val) {
-                console.log("val data : " + data_prod[key]['qty']);
-                if ((val.id_produk == new_prods.id_produk) && (val.variasi == new_prods.variasi)) {
-                    var qtyKeranjang = parseInt(val.qty);
-                    var newQty = parseInt(new_prods.qty);
-                    var totalQty = qtyKeranjang + newQty;
-                    data_prod[key]['qty'] = parseInt(val.qty) + parseInt(new_prods.qty);
-                    data_prod[key]['total_harga'] = parseInt(val.total_harga) + parseInt(new_prods.total_harga);
-                    updated = 1;
-                }
-            });
-            // keranjang updated condition if product variasi isn't same
-            if (updated == 0) {
-                data_prod.push(new_prods);
-            }
-            storage.setItem('keranjang', JSON.stringify(data_prod));
-        }
+        // if (storage.getItem('keranjang') == "" || storage.getItem('keranjang') == null) {
+        //     storage.setItem('keranjang', "[]");
+        // }
+        // var Keranjang = JSON.parse(storage.keranjang);
+        // console.log("length keranjang : ");
+        // // store data to keranjang localstorage
+        // // keranjang ==0
+        // if (Keranjang.length == 0) {
+        //     Keranjang[0] = new_prods;
+        //     console.log(Keranjang);
+        //     localStorage.setItem("keranjang", JSON.stringify(Keranjang));
+        // } else {
+        //     // keranjang sudah ada
+        //     var data_prod = Array();
+        //     data_prod = JSON.parse(storage.keranjang);
+        //     var updated = 0;
+        //     // update quantity and total harga if product variasi is same
+        //     $.each(data_prod, function (key, val) {
+        //         console.log("val data : " + data_prod[key]['qty']);
+        //         if ((val.id_produk == new_prods.id_produk) && (val.variasi == new_prods.variasi)) {
+        //             var qtyKeranjang = parseInt(val.qty);
+        //             var newQty = parseInt(new_prods.qty);
+        //             var totalQty = qtyKeranjang + newQty;
+        //             data_prod[key]['qty'] = parseInt(val.qty) + parseInt(new_prods.qty);
+        //             data_prod[key]['total_harga'] = parseInt(val.total_harga) + parseInt(new_prods.total_harga);
+        //             updated = 1;
+        //         }
+        //     });
+        //     // keranjang updated condition if product variasi isn't same
+        //     if (updated == 0) {
+        //         data_prod.push(new_prods);
+        //     }
+        //     storage.setItem('keranjang', JSON.stringify(data_prod));
+        // }
 
         //window.location.href="detail_pesanan_saya.html";
 
-        return window.location.href = "../pembeli/pesanan-saya/detail_pesanan_saya.html";
+        
     }
+}
+
+function simpan_keranjang(data_prod) {
+    $.post(API_KERANJANG, data_prod).then(on_success_simpan_keranjang).fail(on_fail_simpan_keranjang)
+}
+
+function on_success_simpan_keranjang(data, status) {
+    if(status=="success"){
+        // return window.location.href = "../pembeli/pesanan-saya/keranjang.html";
+    }
+}
+
+function on_fail_simpan_keranjang(error) {
+    
 }
 // Handle the back button
 //
