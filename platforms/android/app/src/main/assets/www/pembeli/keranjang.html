@@ -43,118 +43,26 @@
     <link href="../assets/custom.css" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- <style type="text/css">
-        .inputGroup {
-            background-color: #fff;
-            display: block;
-            margin: 10px 0;
-            position: relative;
+    <style>
+        .collection {
+            padding-left: 1rem !important
         }
 
-        .inputGroup label {
-            padding: 12px 72px;
-            width: 100%;
-            display: block;
-            text-align: left;
-            color: black;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-            transition: color 200ms ease-in;
-            overflow: hidden;
+        .collection,
+        .collection-item {
+            border: 0 !important;
+            border-bottom: 0 !important;
+            padding-bottom: 1.5rem !important;
         }
 
-        .inputGroup label:before {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            content: '';
-            background-color: #5562eb;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) scale3d(1, 1, 1);
-            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            z-index: -1;
+        .buy-now-btn {
+            border-radius: 8px;
         }
 
-        .inputGroup label:after {
-            width: 32px;
-            height: 32px;
-            content: '';
-            border: 2px solid #d1d7dc;
-            background-color: #fff;
-            background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-            background-repeat: no-repeat;
-            background-position: 2px 3px;
-            border-radius: 50%;
-            z-index: 2;
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            transition: all 200ms ease-in;
+        .card .card-content {
+            padding-bottom: 0 !important;
         }
-
-        .inputGroup input:checked~label {
-            color: #fff;
-        }
-
-        .inputGroup input:checked~label:before {
-            transform: translate(-50%, -50%) scale3d(56, 56, 1);
-            opacity: 1;
-        }
-
-        .inputGroup input:checked~label:after {
-            background-color: #54e0c7;
-            border-color: #54e0c7;
-        }
-
-        .inputGroup input {
-            width: 32px;
-            height: 32px;
-            order: 1;
-            z-index: 2;
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            visibility: hidden;
-        }
-
-        .form {
-            padding: 0 16px;
-            max-width: 550px;
-            margin: 50px auto;
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 36px;
-        }
-
-        body {
-            background-color: #d1d7dc;
-            font-family: 'Fira Sans', sans-serif;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit;
-        }
-
-        html {
-            box-sizing: border-box;
-        }
-
-        code {
-            background-color: #9aa3ac;
-            padding: 0 8px;
-        }
-    </style> -->
+    </style>
 </head>
 
 <body class="" onload="onLoad()">
@@ -182,66 +90,66 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col s12">
-                    <!-- <div class="card"> -->
-                    <!-- <div class="card-content"> -->
-                    <!-- <form action="#">
-                        <label>
-                            <input name="group1" type="radio" />
-                            <div class="card">
-                                <div class="card-content">
-                                    <span>Red</span>
-                                </div>
-                            </div>
-                        </label>
-                    </form> -->
-                    <!-- </div> -->
-                    <!-- </div> -->
                     <form action="">
                         <!-- <div class="inputGroup"> -->
-                        <div class="card">
-                            <div class="card-content" style="padding: 8px 12px 4px 12px">
+                        <div class="card z-depth-2">
+                            <div class="card-content">
                                 <p>
                                     <label>
                                         <input id="keranjang1" name="group1" type="radio">
                                         <span class="title black-text" id="nama_toko">(Nama Toko)
                                         </span>
-                                        <ul class="collection">
-                                            <li class="collection-item avatar" style="min-height: 0px;">
-                                                <img src="../img/ikan1.png" alt="" class="circle">
-                                                <span class="title"> (Nama Produk)
-                                                    <p class="orange-text">Rp<br></p>
-                                                    <span class="secondary-content">Kg</span>
-                                            </li>
-                                            <li class="collection-item teal-text darken-1"><b>Total
-                                                    :<span class="secondary-content orange-text">Rp</span></b>
-                                            </li>
-                                            <button class="waves-effect waves-light btn btn-small blue" type="button" style="width: 100%">Detail</button>
-                                        </ul>
                                     </label>
                                 </p>
+                                <ul class="collection">
+                                    <li class="collection-item avatar" style="min-height: 0px;">
+                                        <img src="../img/ikan1.png" alt="" class="circle">
+                                        <span class="title"> (Nama Produk)
+                                            <p class="orange-text">Rp<br></p>
+                                            <span class="secondary-content">Kg</span>
+                                    </li>
+                                    <li class="collection-item avatar" style="min-height: 0px;">
+                                        <img src="../img/ikan1.png" alt="" class="circle">
+                                        <span class="title"> (Nama Produk 2)
+                                            <p class="orange-text">Rp<br></p>
+                                            <span class="secondary-content">Kg</span>
+                                    </li>
+                                    <li class="collection-item teal-text"><b>Biaya Pengiriman: <span
+                                                class="secondary-content orange-text">Rp</span></b></li>
+                                    <li class="collection-item teal-text darken-1"><b>Total
+                                            :<span class="secondary-content orange-text">Rp</span></b>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-content" style="padding: 8px 12px 4px 12px">
+                        <div class="card z-depth-2">
+                            <div class="card-content">
                                 <p>
                                     <label>
-                                        <input id="keranjang2" name="group1" type="radio">
+                                        <input id="keranjang1" name="group1" type="radio">
                                         <span class="title black-text" id="nama_toko">(Nama Toko)
                                         </span>
-                                        <ul class="collection">
-                                            <li class="collection-item avatar" style="min-height: 0px;">
-                                                <img src="../img/ikan1.png" alt="" class="circle">
-                                                <span class="title"> (Nama Produk)
-                                                    <p class="orange-text">Rp<br></p>
-                                                    <span class="secondary-content">Kg</span>
-                                            </li>
-                                            <li class="collection-item teal-text darken-1"><b>Total
-                                                    :<span class="secondary-content orange-text">Rp</span></b>
-                                            </li>
-                                            <button class="waves-effect waves-light btn btn-small blue" type="button" style="width: 100%">Detail</button>
-                                        </ul>
                                     </label>
                                 </p>
+                                <ul class="collection">
+                                    <li class="collection-item avatar" style="min-height: 0px;">
+                                        <img src="../img/ikan1.png" alt="" class="circle">
+                                        <span class="title"> (Nama Produk)
+                                            <p class="orange-text">Rp<br></p>
+                                            <span class="secondary-content">Kg</span>
+                                    </li>
+                                    <li class="collection-item avatar" style="min-height: 0px;">
+                                        <img src="../img/ikan1.png" alt="" class="circle">
+                                        <span class="title"> (Nama Produk 2)
+                                            <p class="orange-text">Rp<br></p>
+                                            <span class="secondary-content">Kg</span>
+                                    </li>
+                                    <li class="collection-item teal-text"><b>Biaya Pengiriman: <span
+                                                class="secondary-content orange-text">Rp</span></b></li>
+                                    <li class="collection-item teal-text darken-1"><b>Total
+                                            :<span class="secondary-content orange-text">Rp</span></b>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <!-- <div class="inputGroup">
@@ -252,7 +160,7 @@
                 </div>
                 <div class="bottom-navbar">
                     <div class="card-action white" style="margin: 8px">
-                        <button class="waves-effect waves-light btn blue" type="button"
+                        <button class="waves-effect waves-light btn blue buy-now-btn" type="button"
                             style="width: 100%; height: 40px; line-height: 44px; font-size: medium"
                             id="urutkan-pengiriman">BElI</button>
                     </div>
@@ -265,33 +173,8 @@
     <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
     <script type="text/javascript" src="../cordova.js"></script>
     <script type="text/javascript" src="../js/mobile_script.js"></script>
-    <!-- <script type="text/javascript" src="../js/imgSlider.js"></script> -->
-    <script>
-        function onLoad() {
-            document.addEventListener("deviceready", onDeviceReady, false);
-        }
+    <script type="text/javascript" src="keranjang.js"></script>
 
-        // device APIs are available
-        //
-        function onDeviceReady() {
-            document.addEventListener("pause", onPause, false);
-            document.addEventListener("resume", onResume, false);
-            document.addEventListener("menubutton", onMenuKeyDown, false);
-            // Add similar listeners for other events
-        }
-
-        function onPause() {
-            // Handle the pause event
-        }
-
-        function onResume() {
-            // Handle the resume event
-        }
-
-        function onMenuKeyDown() {
-            // Handle the menubutton event
-        }
-    </script>
 </body>
 
 </html>
