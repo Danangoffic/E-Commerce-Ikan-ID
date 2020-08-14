@@ -37,17 +37,17 @@ function kirim_data() {
 
     const ULR_LOGIN = base_url + 'api/user/login';
     $.post(ULR_LOGIN, { username: username, password: password })
-        .then(function (resp) {
+        .then(function (resp, status) {
             console.log('muncul di console');
             console.log(resp.status);
-            if (resp.status == 'berhasil') {
+            if (status == 'success') {
                 M.toast({ html: 'Anda berhasil masuk!' });
                 // alert('Anda berhasil masuk');
                 window.localStorage.setItem('sukses_login', '1');
                 window.localStorage.setItem('username', username);
-                window.localStorage.setItem('usergroup', resp.usergroup);
-                window.localStorage.setItem('id_akun', resp.id_akun);
-                window.localStorage.setItem('jenis_petani', resp.jenis_petani);
+                window.localStorage.setItem('usergroup', resp.data.usergroup);
+                window.localStorage.setItem('id_akun', resp.data.id_akun);
+                window.localStorage.setItem('jenis_petani', resp.data.jenis_petani);
                 if (localStorage.usergroup == "penjual") {
                     localStorage.setItem("id_usaha", resp.data_usaha.id_usaha);
                     localStorage.setItem("data_usaha", JSON.stringify(resp.data_usaha));

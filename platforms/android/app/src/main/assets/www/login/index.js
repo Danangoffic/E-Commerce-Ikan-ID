@@ -38,17 +38,17 @@ function kirim_data() {
         data: { username: username, password: password },
         type: 'POST',
         dataType: 'json',
-        success: function (resp) {
+        success: function (resp, status) {
             console.log('muncul di console');
-            console.log(resp.status);
-            if (resp.status == 'berhasil') {
+            console.log(status);
+            if (status == 'success') {
                 M.toast({ html: 'Anda berhasil masuk!' });
                 // alert('Anda berhasil masuk');
                 window.localStorage.setItem('sukses_login', '1');
                 window.localStorage.setItem('username', username);
-                window.localStorage.setItem('usergroup', resp.usergroup);
-                window.localStorage.setItem('id_akun', resp.id_akun);
-                window.localStorage.setItem('jenis_petani', resp.jenis_petani);
+                window.localStorage.setItem('usergroup', resp.data.usergroup);
+                window.localStorage.setItem('id_akun', resp.data.id_akun);
+                window.localStorage.setItem('jenis_petani', resp.data.jenis_petani);
                 if (localStorage.usergroup == "penjual") {
                     localStorage.setItem("id_usaha", resp.data_usaha.id_usaha);
                     localStorage.setItem("data_usaha", JSON.stringify(resp.data_usaha));

@@ -18,7 +18,8 @@ function onDeviceReady() {
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
-    document.getElementById("simpan").addEventListener("click", simpan, false);
+    $("#simpan").click(simpan);
+    // document.getElementById("simpan").addEventListener("click", simpan, false);
     // $("#").click(simpan);
     // Add similar listeners for other events
 }
