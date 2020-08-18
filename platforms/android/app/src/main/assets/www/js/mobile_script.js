@@ -204,3 +204,7 @@ var API_DETAIL_PESANAN_PEMBELI = API_PESANAN + "/detail-pesanan-by-id";
 var API_DETAIL_PESANAN_IN_HTML = API_PESANAN + "/detail-in-html";
 var API_DETAIL_PESANAN_WITH_PAYMENT_IN_HTML = API_PESANAN + "/detail-with-payment/";
 var API_PESANAN_SELESAI = API_PESANAN + '/complete';
+
+var API_KERANJANG = base_url + "api/keranjang";
+var API_UBAH_KERANJANG = API_KERANJANG + "/update";
+var API_HAPUS_KERANJANG = API_KERANJANG + "/delete";

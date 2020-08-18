@@ -37,10 +37,9 @@
 
   <link href="../../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet">
   <link href="../../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/custom.css">
 
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"
-    src="../../cordova.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
 
   <style type="text/css">
     .carousel {
@@ -54,9 +53,9 @@
     /* #cariIkan::placeholder,
     #cariIkan {
       /* Firefox, Chrome, Opera */
-      /* background-color: #eeeeee; */
-      /* color: #757575; */
-     /* } */
+    /* background-color: #eeeeee; */
+    /* color: #757575; */
+    /* } */
 
     .loader {
       margin: 40%;
@@ -85,71 +84,75 @@
 <body class="" onload="onLoad()">
   <header>
     <!-- header -->
-    <nav class="top-nav"
-      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
-      <div class="container-fluid">
-        <div class="nav-wrapper">
-          <!-- <div class="row"> -->
-          <div class="col s12 m10 offset-m1">
-            <a id="#" href="#" onclick="onBackKeyDown()" class="transparent"
-              style="margin-left: 14px; line-height: 52px"><span class="fa fa-chevron-left"></span></a>
-            <b class="header" style="font-size: large; margin-left: 14px; line-height: 52px">Produk Saya</b>
+    <div class="navbar-fixed">
+      <nav class="top-nav"
+        style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+        <div class="container-fluid">
+          <div class="nav-wrapper">
+            <!-- <div class="row"> -->
+            <div class="col s12 m10 offset-m1">
+              <a id="#" href="#" onclick="onBackKeyDown()" class="transparent"
+                style="margin-left: 14px; line-height: 52px"><span class="fa fa-chevron-left"></span></a>
+              <b class="header" style="font-size: large; margin-left: 14px; line-height: 52px">Produk Saya</b>
+            </div>
+            <!-- </div> -->
           </div>
-          <!-- </div> -->
         </div>
-      </div>
-    </nav>
-    <nav class="navbar white">
-      <div class="row nav-wrapper z-depth-0">
-        <!-- <form class="col s6" name="searchIkan" onsubmit="Searching($('#cariIkan').val())" action="#">
+      </nav>
+      <nav class="navbar white" style="margin-top: 4rem;">
+        <div class="row nav-wrapper z-depth-0">
+          <!-- <form class="col s6" name="searchIkan" onsubmit="Searching($('#cariIkan').val())" action="#">
           <div class="search-field">
             <input onsubmit="Searching(this.value)" id="cariIkan" type="search" required name="cariIkan"
               placeholder="Cari produk" style="margin-left: 10px">
           </div>
         </form> -->
-        <div class="col s6" style="margin-top: 4px;">
-          <div class="input-field input-inline" style="margin-right: 10px">
-            <select id="filter-produk" onchange="filtering(this.value);" style="font-size: small">
-              <option value="terbaru">Terbaru</option>
-              <option value="harga_murah">Harga Termurah</option>
-              <option value="harga_mahal">Harga Termahal</option>
-              <option value="stok_sedikit">Stok Paling Sedikit</option>
-              <option value="terlaris">Terlaris</option>
-            </select>
+          <div class="col s6" style="margin-top: 4px;">
+            <div class="input-field input-inline" style="margin-left: 2rem">
+              <select id="filter-produk" onchange="filtering(this.value);" style="font-size: small">
+                <option value="terbaru">Terbaru</option>
+                <option value="harga_murah">Harga Termurah</option>
+                <option value="harga_mahal">Harga Termahal</option>
+                <option value="stok_sedikit">Stok Paling Sedikit</option>
+                <option value="terlaris">Terlaris</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   </header>
   <!-- ########## END: HEAD PANEL ########## -->
 
   <!-- ########## START: MAIN PANEL ########## -->
-  <div class="row">
-    <div class="col s12">
-      <div class="container-fluid">
-        <!-- <div class="card"> -->
-        <ul class="collection" id="dataProducts">
-          <div class="loader center-align"></div>
-        </ul>
-        <!-- </div> -->
-      </div>
-      <div class="fixed-action-btn" style="bottom: 45px; right: 24px">
-        <a class="btn-floating btn-large waves-effect waves-light blue right" href="tambah_produk.html"><i
-            class="material-icons">add</i></a>
-      </div>
-    </div>
-
-    <div class="col s12">
-      <div class="container-fluid">
-        <h4 class="header">Produk Tidak Aktif</h4>
-        <div class="card">
-          <ul id="produk-tidak-aktif" class="collection grey lighten-3">
-
+  <section style="margin-top: 4.2rem;">
+    <div class="row">
+      <div class="col s12">
+        <div class="container-fluid">
+          <!-- <div class="card"> -->
+          <ul class="collection z-depth-3" id="dataProducts">
+            <div class="loader center-align"></div>
           </ul>
+          <!-- </div> -->
+        </div>
+        <div class="fixed-action-btn" style="bottom:32px; right: 24px; margin-bottom: 12px;">
+          <a class="btn-floating btn-large waves-effect waves-light blue right" href="tambah_produk.html"><i
+              class="material-icons">add</i></a>
+        </div>
+      </div>
+
+      <div class="col s12" style="margin-bottom: 6rem;">
+        <div class="container-fluid">
+          <h4 class="header">Produk Tidak Aktif</h4>
+          <div class="card z-depth-3">
+            <ul id="produk-tidak-aktif" class="collection grey lighten-3">
+
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <div id="modalDelete" class="modal">
     <div class="modal-content">
@@ -157,8 +160,8 @@
       <p id="text-modal-delete"></p>
     </div>
     <div class="modal-footer">
-      <button type="button" href="#!" class="btn modal-close waves-effect waves-red btn-flat"
-        id="doHapus">Non Aktifkan</button>
+      <button type="button" href="#!" class="btn modal-close waves-effect waves-red btn-flat" id="doHapus">Non
+        Aktifkan</button>
       <button type="button" href="#!" class="btn modal-close waves-effect waves-red green">Batal</button>
     </div>
   </div>
@@ -242,7 +245,7 @@
             }
 
           });
-          if(product_non_aktif==''){
+          if (product_non_aktif == '') {
             product_non_aktif = '<li class="collection-item grey lighten-3 center"><strong class="title">Kosong</strong></li>';
           }
           $("#dataProducts").html(product);
@@ -291,7 +294,7 @@
         .catch(error => {
           console.log(error);
         });
-      
+
     }
 
     function doAktifkan(id_produk) {
