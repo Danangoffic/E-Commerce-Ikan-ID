@@ -1,8 +1,8 @@
 // var base_url = "http://10.0.1.182/backendikan/";
 // var base_url = "http://192.168.100.103/backendikan/";
-var base_url = "http://103.195.90.35:3300/backendikan/";
+// var base_url = "http://103.195.90.35:3300/backendikan/";
 // console.log("App IN : " + navigator.appCodeName);
-//  var base_url = "http://localhost/backendikan/";
+ var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.43.71/backendikan/";
 
 var storage = window.localStorage;
@@ -137,7 +137,7 @@ var API_GET_ALL_VARIASI = API_GET_PRODUK_DASHBOARD + "/all-variasi";
 
 var API_USER_INSTANCE = base_url + "api/user";
 var API_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/penjual";
-var API_SIGN_UP_USAHA = API_SIGN_UP_PENJUAL + "/usaha/completing";
+var API_SIGN_UP_USAHA = API_USER_INSTANCE + "/signup/usaha";
 var API_SIGN_UP_PEMBELI = API_USER_INSTANCE + "/signup/pembeli";
 var API_ROLLBACK_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/rollback";
 var API_LOGIN = API_USER_INSTANCE + "/login";
