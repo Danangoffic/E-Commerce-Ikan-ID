@@ -110,7 +110,8 @@
           </div>
           <div class="modal-footer">
             <div class="card-action white" style="margin: 0px">
-              <button type="button" id="lanjutkan-pengiriman" class="waves-effect waves-light btn blue" style="width: 100%; font-size: small">Lanjutkan Pengiriman</button>
+              <button type="button" id="lanjutkan-pengiriman" class="waves-effect waves-light btn blue"
+                style="width: 100%; font-size: small">Lanjutkan Pengiriman</button>
             </div>
           </div>
         </div>
@@ -165,7 +166,7 @@
 
     function lanjut_pengiriman() {
       var form = $("form").serializeArray();
-      form[3] = {name:"priority_pesanan", value: localStorage.priority};
+      form[3] = { name: "priority_pesanan", value: localStorage.priority };
       console.log(form);
       $.post(base_url + "Pemesanan/procced_order_to_delivery", form).then(onSuccessPengiriman);
     }
@@ -177,14 +178,15 @@
 
     function loadPesananPriority() {
       var priority = JSON.parse(localStorage.priority);
-      $.getJSON(API_PESANAN_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananPriority).done(loadPesananNonPriority);
+      $.post(API_PESANAN_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananPriority);
     }
 
     function onSuccessLoadPesananPriority(response, status) {
-      if (response.statusMessage == "success" && status == "success") {
-        var data_pesanan = response.data_pesanan;
+      if (status == "success") {
+        // PROSES PESANAN PRIORITY
+        var data_pesanan_priority = response.data_pesanan_priority;
         var html_priority = '<p class="center black-text">PRIORITAS</p>';
-        $.each(data_pesanan, (k, v) => {
+        $.each(data_pesanan_priority, (k, v) => {
           var detail_pembeli = v.detail_pembeli;
           html_priority += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
         });
@@ -192,6 +194,20 @@
           empty_priority();
         } else {
           document.getElementById("pesanan-prioritas").innerHTML = html_priority;
+        }
+
+        // PROSES PESANAN NON PRIORITY
+        var data_pesanan_non_priority = response.data_pesanan_non_priority;
+        console.log(data_pesanan);
+        var html_normal = '';
+        $.each(data_pesanan_non_priority, (k, v) => {
+          var detail_pembeli = v.detail_pembeli;
+          html_normal += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
+        });
+        if (html_normal == '') {
+          empty_pesanan();
+        } else {
+          document.getElementById("pesanan-normal").innerHTML = html_normal;
         }
       }
     }
@@ -204,25 +220,14 @@
 
     function loadPesananNonPriority() {
       var priority = JSON.parse(localStorage.priority);
-      $.getJSON(API_PRODUK_NON_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananNonPriority);
-      
+      $.post(API_PRODUK_NON_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananNonPriority);
+
     }
 
     function onSuccessLoadPesananNonPriority(response, status) {
       console.log(response);
       if (response.statusMessage == "success" && status == "success") {
-        var data_pesanan = response.data_pesanan;
-        console.log(data_pesanan);
-        var html_normal = '';
-        $.each(data_pesanan, (k, v) => {
-          var detail_pembeli = v.detail_pembeli;
-          html_normal += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
-        });
-        if (html_normal == '') {
-          empty_pesanan();
-        } else {
-          document.getElementById("pesanan-normal").innerHTML = html_normal;
-        }
+
       }
     }
 
@@ -270,41 +275,41 @@
         var data_kendaraan = response.data_kendaraan;
         $.each(data_kendaraan, (k, v) => {
           html_kendaraan += '<p style="text-align: left;">' +
-            '<label class="btn white black-text" for="kendaraan-'+v.id_kendaraan+'" style="width: 100%; text-align: left;">' +
-            '<input type="radio" id="kendaraan-'+v.id_kendaraan+'" name="kendaraan" value="'+v.id_kendaraan+'" />' +
-            '<span>'+v.jenis_kendaraan+' ('+v.plat_kendaraan+')</span>' +
+            '<label class="btn white black-text" for="kendaraan-' + v.id_kendaraan + '" style="width: 100%; text-align: left;">' +
+            '<input type="radio" id="kendaraan-' + v.id_kendaraan + '" name="kendaraan" value="' + v.id_kendaraan + '" />' +
+            '<span>' + v.jenis_kendaraan + ' (' + v.plat_kendaraan + ')</span>' +
             '</label>' +
             '</p>';
         });
-        if(html_kendaraan==''){
+        if (html_kendaraan == '') {
 
-        }else{
+        } else {
           $("#pilih-kendaraan").append(html_kendaraan);
         }
       }
     }
 
     function loadJamPengiriman(params) {
-      $.getJSON(API_JAM_PENGIRIMAN, {id_usaha: id_usaha}).then(onSuccessLoadJamPengirman);
+      $.getJSON(API_JAM_PENGIRIMAN, { id_usaha: id_usaha }).then(onSuccessLoadJamPengirman);
     }
 
     function onSuccessLoadJamPengirman(response, status) {
-      if(status=="success"){
+      if (status == "success") {
         var html_jam = '';
         var jam_pengiriman = response;
         console.log(jam_pengiriman);
-        $.each(jam_pengiriman, (k, v)=>{
-          html_jam += '<p style="text-align: left;">'+
-                    '<label class="btn white black-text" for="jam-pengiriman-'+v.id_jampengiriman+'" style="width: 100%; text-align: left;">'+
-                      '<input type="radio" id="jam-pengiriman-'+v.id_jampengiriman+'" name="jam_pengiriman" value="'+v.id_jampengiriman+'" />'+
-                      '<span>'+v.jam_pengiriman+'</span>'+
-                    '</label>'+
-                  '</p>';
+        $.each(jam_pengiriman, (k, v) => {
+          html_jam += '<p style="text-align: left;">' +
+            '<label class="btn white black-text" for="jam-pengiriman-' + v.id_jampengiriman + '" style="width: 100%; text-align: left;">' +
+            '<input type="radio" id="jam-pengiriman-' + v.id_jampengiriman + '" name="jam_pengiriman" value="' + v.id_jampengiriman + '" />' +
+            '<span>' + v.jam_pengiriman + '</span>' +
+            '</label>' +
+            '</p>';
         });
         console.log(html_jam);
-        if(html_jam==''){
+        if (html_jam == '') {
 
-        }else{
+        } else {
           $("#pilih-jam-pengiriman").append(html_jam);
         }
       }

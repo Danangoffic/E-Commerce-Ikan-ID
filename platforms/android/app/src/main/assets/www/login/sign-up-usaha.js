@@ -46,8 +46,7 @@ var firstLt, firstLg;
         }
 
         function rollback() {
-            const URL_ROLLBACK_PENJUAL = base_url + "api/user/signup/rollback";
-            $.post(URL_ROLLBACK_PENJUAL, { id_akun: id_akun }, (response) => {
+            $.post(API_ROLLBACK_SIGN_UP_PENJUAL, { id_akun: id_akun }, (response) => {
                 if (response.status == "berhasil") {
                     document.location.replace("index.html");
                 } else {
