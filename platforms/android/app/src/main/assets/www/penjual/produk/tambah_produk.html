@@ -97,21 +97,15 @@
                 <label for="nama_produk">Nama Produk</label>
               </div>
             </div>
-            <div class="row" style="margin-top: -20px">
+            <!-- <div class="row" style="margin-top: -20px">
               <p class="flow-text">Kategori:</p>
               <p>
                 <label>
-                  <input name="kategori" value="Tawar" type="radio" />
+                  <input name="kategori" value="Tawar" type="radio" checked readonly />
                   <span>Ikan Air Tawar</span>
                 </label>
               </p>
-              <p>
-                <label>
-                  <input name="kategori" value="Laut" type="radio" />
-                  <span>Ikan Air Laut</span>
-                </label>
-              </p>
-            </div>
+            </div> -->
             <div class="row" style="margin-top: 30px">
               <div class="file-field input-field">
                 <div class="btn btn-small green">
@@ -125,14 +119,22 @@
             </div>
             <div class="row">
               <div class="input-field">
-                <input placeholder="Berat (ons)" id="berat_produk" name="berat_produk" type="number" class="">
+                <input placeholder="Berat (ons)" id="berat_produk" name="berat_produk" type="number" class="" value="1" min="1">
                 <label for="berat_produk">Berat (ons)</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field">
-                <input placeholder="Minimal Pemesanan" id="min_pemesanan" name="min_pemesanan" type="number" class="">
+                <input placeholder="Minimal Pemesanan" id="min_pemesanan" name="min_pemesanan" type="number" class="" value="1">
                 <label for="min_pemesanan">Minimal Pemesanan (ons)</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input placeholder="Total Ekor Per Kg" id="total_ekor_per_kg" name="total_ekor_per_kg" type="number" class="" autocomplete="off" value="1" min="1" step="
+                1">
+                <label for="total_ekor_per_kg">Total Maksimal Ekor Per Kg</label>
+                <span class="helper-text" id="helper-text-maks-ekor-per-kg">Berat Perlu Diisi</span>
               </div>
             </div>
             <!-- <div class="row">
@@ -144,7 +146,7 @@
       </form>
       <div class="bottom-navbar">
         <div class="card-action white" style="margin: 8px">
-          <button class="waves-effect waves-light btn green" id="simpan" type="button"
+          <button class="waves-effect waves-light btn green" onclick="simpan()" type="button"
             style="width: 100%; height: 40px; line-height: 44px; font-size: medium"><i class="fa fa-chevron-right left-align"></i> Tambahkan Variasi</button>
         </div>
       </div>
@@ -166,14 +168,25 @@
     function onLoad() {
       ambil_data_usaha();
       document.addEventListener("deviceready", onDeviceReady, false);
+      $(document).ready(onDeviceReady);
     }
 
     // device APIs are available
     //
     function onDeviceReady() {
+      $(".helper-text").hide();
+      var berat_produk = $("#berat_produk");
       document.addEventListener("pause", onPause, false);
       document.addEventListener("resume", onResume, false);
       document.addEventListener("menubutton", onMenuKeyDown, false);
+      berat_produk.change(set_max_ekor_per_kg);
+      $("#total_ekor_per_kg, #berat_produk").on("change focus keyup", function(){
+        if(berat_produk.val().length==0 || $("#berat_produk").val()==0){
+          $("#helper-text-maks-ekor-per-kg").show().css("color", "red");
+        }else{
+          $("#helper-text-maks-ekor-per-kg").hide();
+        }
+      })
       $("#simpan").click(simpan);
       // document.getElementById("simpan").addEventListener("click", simpan, false);
       // Add similar listeners for other events
@@ -191,13 +204,16 @@
       // Handle the menubutton event
     }
 
+    function set_max_ekor_per_kg() {
+      $("#total_ekor_per_kg").attr("max", (10/$("#berat_produk").val())+1);
+    }
+
     function ambil_data_usaha() {
       var id_akun = localStorage.id_akun;
-      $.getJSON(API_DETAIL_PENJUAL, {id_akun:id_akun}, (e)=>{
-        console.log(e);
-        kategori = e.jenis_petani;
-        $("input:radio[name=kategori][value="+kategori+"]").prop("checked", true);
-        $("[name=kategori]").attr("disabled", true);
+      $.getJSON(API_DETAIL_PENJUAL, {id_akun:id_akun}, (e, status)=>{
+        if(status!=="success"){
+          history.back();
+        }
       });
     }
 
@@ -205,7 +221,15 @@
       var nama_produk = document.getElementById("nama_produk");
       var berat_produk = document.getElementById("berat_produk");
       var min_pemesanan = document.getElementById("min_pemesanan");
-      var kategori = $("[name=kategori]:checked").val().toString();
+      var kategori = "Tawar";
+      if(berat_produk.value==0||$("#berat_produk").val().length==0||$("#berat_produk").val() < 0){
+        M.toast({ html: "Berat produk wajib diisi dan nilai lebih dari 0" });
+        return false;
+      }
+      if(min_pemesanan.value==0||$("#min_pemesanan").val().length==0||$("#min_pemesanan").val() < 0){
+        M.toast({ html: "Minimal pemesanan wajib diisi dan nilai lebih dari 0" });
+        return false;
+      }
       var formData = new FormData($("form")[0]);
       formData.append("nama_produk", nama_produk.value);
       formData.append("berat_produk", berat_produk.value);
@@ -213,7 +237,8 @@
       formData.append("min_pemesanan", min_pemesanan.value);
       formData.append("kategori", kategori.toLowerCase());
       formData.append("status_p", "tidak aktif");
-      // formData.append("id_akun", localStorage.id_akun)
+      formData.append("total_ekor_per_kg", $("#total_ekor_per_kg").val());
+      formData.append("id_akun", localStorage.id_akun)
       // formData.append('')
       $.ajax({
         url: API_CREATE_PRODUK,

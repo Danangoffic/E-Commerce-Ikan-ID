@@ -18,7 +18,8 @@ function onDeviceReady() {
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
-    document.getElementById("simpan").addEventListener("click", simpan, false);
+    $("#simpan").click(simpan);
+    // document.getElementById("simpan").addEventListener("click", simpan, false);
     // $("#").click(simpan);
     // Add similar listeners for other events
 }
@@ -62,9 +63,8 @@ function simpan() {
         return false;
     }
     var formData = new FormData($("form")[0]);
-    const URL_SIGN_UP_PENJUAL = base_url + "api/user/signup/penjual";
     $.ajax({
-        url: URL_SIGN_UP_PENJUAL,
+        url: API_SIGN_UP_PENJUAL,
         data: formData,
         contentType: false,
         cache: false,

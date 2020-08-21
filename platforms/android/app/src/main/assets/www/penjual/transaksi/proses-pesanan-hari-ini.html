@@ -114,6 +114,7 @@
         document.addEventListener("deviceready", app.onDeviceReady, false);
       },
       onDeviceReady: () => {
+        app.get_pesanan_siap_kirim();
         document.getElementById("urutkan-pengiriman").addEventListener("click", app.urutkanPengiriman, false);
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
@@ -129,7 +130,8 @@
         var PriorityStorage = JSON.stringify(priority);
         window.localStorage.setItem("priority", PriorityStorage);
         // storage.setItem("priority", PriorityStorage);
-        $("body").load("./urutan-pengiriman.html");
+        window.location.assign("./urutan-pengiriman.html")
+        // $("body").replaceWith();
       },
       onPause: () => {
 
@@ -143,7 +145,7 @@
       onBackKeyDown: () => {
         window.location.href = "transaksi.html";
       },
-      get_pesanan_siap_kirim: () => {
+      get_pesanan_siap_kirim: function() {
         app.preload_pesanan();
         var data_usaha = JSON.parse(localStorage.data_usaha);
         const id_usaha = data_usaha.id_usaha;
