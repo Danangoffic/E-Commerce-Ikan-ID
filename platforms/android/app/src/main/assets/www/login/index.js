@@ -78,11 +78,11 @@ console.log('sukses_login' + window.localStorage.getItem('sukses_login'));
 
 function loadkeranjang() {
     $.getJSON(base_url+"keranjang",{id_akun: localStorage.id_akun}).then(successKeranjang);
-    var successKeranjang = function(response,status){
-        if(status == "success"){
-            let keranjang = JSON.stringify(response.keranjang);
-            localStorage.setItem("keranjang", keranjang);
-            $("#status_keranjang").html(JSON.parse(keranjang).length);
-        }
+}
+function successKeranjang(response,status){
+    if(status == "success"){
+        var keranjang = JSON.stringify(response.keranjang);
+        localStorage.setItem("keranjang", keranjang);
+        $("#status_keranjang").html(JSON.parse(keranjang).length);
     }
 }
