@@ -6,15 +6,8 @@ function onLoad() {
 // $(document).ready(onDeviceReady);
 
 function onDeviceReady() {
-    $("[name=variasi]").val("");
-    if (localStorage.usergroup == "") {
-        $(".button-beli, #manage-produk, #manage-stok-produk").hide();
-        loadVariasiProduk("publik");
-    } else {
-        $(".button-login").hide();
-        $('#note').characterCounter();
-        loadVariasiProduk("pembeli");
-    }
+    $("#variasi").prop('selectedIndex',null);
+
     check_page();
     loadDetailProduk();
     loadDetailUsaha();
@@ -97,8 +90,9 @@ function openModelSheet() {
     }
 
     if (qty >= 1 && qty <= parseInt(maxStokItem)) {
-        $("#title-modal-sheet").html("Konfirmasi Pemilihan " + $(".nama_produk").text() + " " + $("select").find("option:selected").text());
+        $("#title-modal-sheet").html("Konfirmasi Pemilihan " + $(".nama_produk").text() + " " + $("#variasi").find("option:selected").text());
         $("#modal1").modal("open");
+        $('select').formSelect();
     }
 }
 
@@ -122,7 +116,6 @@ function onBackKeyDown() {
     history.back();
 }
 $('.modal').modal();
-$('.variasi').formSelect();
 variasi = null;
 //read onLoad function first//
 var variasiStatus = 0, countQTY = 0;
@@ -165,6 +158,8 @@ function pilihVariasi() {
                 $(".stok").html("Stok: 0");
             }
         });
+        $("#jml_ikan").prop('selectedIndex',null);
+        $("#jml_potong").prop('selectedIndex',null);
     } else {
         $(".pesan-variasi").attr("disabled");
     }
@@ -218,17 +213,12 @@ function beli() {
 
         variasi = $("#variasi").val();
         var jml_ikan_per_kg = $("[name=jml_ikan]").val();
-        var jml_potong_ikan = $("[name=jml_potong]").val();
+        var jml_potong_ikan = (variasi_text=="Mentah Potong") ? $("[name=jml_potong]").val() : null;
         var variasi_selected_init = $("[name=variasi]").find("option:selected").text();
-        var catatan = "";
-        if (variasi_selected_init == "Mentah potong") {
-            catatan = (jml_ikan_per_kg.length > 0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg + "<br>" : "";
-            catatan += (jml_potong_ikan.length > 0) ? "Jumlah potong/ekor: " + jml_potong_ikan : "";
-        } else {
-            catatan = (jml_ikan_per_kg.length > 0) ? "Jumlah ikan/kg: " + jml_ikan_per_kg : "";
-        }
         var id_usaha = localStorage.id_usaha;
         var new_prods = Array();
+        let fee_kirim = (localStorage.distance > 5) ? parseInt(10000 * (localStorage.distance-5)) : 5000;
+        
         new_prods = {
             id_produk: id_produk,
             nama_produk: nama_produk,
@@ -238,12 +228,15 @@ function beli() {
             qty: qty,
             namaVariasi: namaVariasi,
             fotoProduk: imgProduk,
-            catatan: catatan,
             id_usaha: localStorage.id_usaha,
             id_akun: localStorage.id_akun,
             id_produk: localStorage.id_produk,
             nama_produk: full_product_name,
-            nama_usaha: nama_usaha_text
+            ikan_per_kg: jml_ikan_per_kg,
+            potong_per_ekor: jml_potong_ikan,
+            nama_usaha: nama_usaha_text,
+            distance: localStorage.distance,
+            estimasi_ongkir: fee_kirim
         };
         console.log(new_prods);
         // SIMPAN KE KERANJANG
@@ -286,7 +279,7 @@ function beli() {
 
         //window.location.href="detail_pesanan_saya.html";
 
-        
+
     }
 }
 
@@ -295,13 +288,23 @@ function simpan_keranjang(data_prod) {
 }
 
 function on_success_simpan_keranjang(data, status) {
-    if(status=="success"){
+    if (status == "success") {
+        var data_keranjang_usaha = data.keranjang;
+        let data_produk = 0;
+        $.each(data_keranjang_usaha, function(i, v){
+            data_produk += v.data_produk.length;
+        });
+        console.log("Total Keranjang : ", data_produk);
+        total_item_keranjang = data_produk;
+        localStorage.setItem("total_item_keranjang", total_item_keranjang);
+        $("#totalBasket").text(localStorage.total_item_keranjang);
+        localStorage.setItem("keranjang", JSON.stringify(data_keranjang_usaha));
         // return window.location.href = "../pembeli/pesanan-saya/keranjang.html";
     }
 }
 
 function on_fail_simpan_keranjang(error) {
-    
+
 }
 // Handle the back button
 //
@@ -351,6 +354,29 @@ var onSuccessLoadProduk = (e, status) => {
     harga_produk = e.minprice;
     berat = e.berat_produk;
     imgProduk = base_url + 'foto_usaha/produk/' + e.foto_produk;
+    if (localStorage.usergroup == "") {
+        $(".button-beli, #manage-produk, #manage-stok-produk").hide();
+        loadVariasiProduk("publik");
+    } else {
+        $(".button-login").hide();
+        $('#note').characterCounter();
+        loadVariasiProduk("pembeli");
+    }
+    let allowed_ikan_per_kg = e.ekor_per_kg, potong_per_ekor_ikan = "", option_allowed_ikan = "";
+    for (let index = 1; index <= allowed_ikan_per_kg; index++) {
+        let selected_area = (index == 1) ? 'selected' : '';
+        option_allowed_ikan += `<option value='${index}' ${selected_area} label='${index}'>${index}</option>`;
+    }
+    $("#jml_ikan").html(option_allowed_ikan);
+    if (allowed_ikan_per_kg < 7) {
+        for (let index = 1; index < 4; index++) {
+            let selected_area = (index == 1) ? 'selected' : '';
+            potong_per_ekor_ikan += `<option value='${index}' ${selected_area} label='${index}'>${index}</option>`;
+        }
+    } else {
+        potong_per_ekor_ikan += `<option value='1' label='1' selected>1</option>`;
+    }
+    $("#jml_potong").html(potong_per_ekor_ikan);
 }
 
 var onFailLoadProduk = (error) => {

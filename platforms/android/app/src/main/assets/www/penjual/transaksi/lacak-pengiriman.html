@@ -97,88 +97,7 @@
     </style>
 
     <script type="text/javascript">
-        var firstLt, firstLg;
-        first();
-        function first() {
-            var onSuccess = function (position) {
-                var element = document.getElementById('map');
-                var marker;
-                var posisilat;
-                var posisilng;
-                firstLt = position.coords.latitude;
-                firstLg = position.coords.longitude;
-                initMap(firstLt, firstLg);
-                /*if(function_exists('initMap')){
-                  initMap(position.coords.latitude, position.coords.longitude);  
-                }*/
-
-            };
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        }
-
-        // onError Callback receives a PositionError object
-        //
-        function onError(error) {
-            alert('code: ' + error.code + '\n' +
-                'message: ' + error.message + '\n');
-        }
-    </script>
-
-    <script type="text/javascript">
-
-        function taruhMarker(peta, posisiTitik) {
-            if (marker) {
-                // pindahkan marker
-                marker.setPosition(posisiTitik);
-            } else {
-                // buat marker baru
-                marker = new google.maps.Marker({
-                    position: posisiTitik,
-                    map: peta
-                });
-            }
-            posisilat = posisiTitik.lat();
-            posisilng = posisiTitik.lng();
-            console.log("Posisi marker: " + posisilat + "," + posisilng);
-            $("body").find("input[name='latitude_pb']").val(posisilat);
-            //$("#latitude_pb").val(posisilat);
-            //$("#longitude_pb").val(posisilng);
-            $("body").find("input[name='longitude_pb']").val(posisilng);
-        }
-
-
-        function initMap(lat, lng) {
-            $("body").find("input[name='latitude']").val(lat);
-            $("body").find("input[name='longitude']").val(lng);
-            var propertiPeta = {
-                center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
-                zoom: 17, //semakin banyak semakin dekat min 1 maksimal
-                mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
-            };
-            var point = new google.maps.LatLng(lat, lng);
-            var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
-            marker = new google.maps.Marker({
-                position: point,
-                map: peta
-                //icon
-            });
-            google.maps.event.addListener(peta, 'click', function (event) {
-                taruhMarker(this, event.latLng);
-            });
-        }
-        $("#simpan").click(function (e) {
-            e.preventDefault();
-            var data_form = $("form").serialize();
-            console.log(data_form);
-            $.ajax({
-                dataType: 'json',
-                type: 'POST',
-                url: url + "proses_mobile/pembeli/server_form_maps.php",
-                data: data_form,
-                success: function (resp) {
-                }
-            });
-        });
+        
     </script>
 </head>
 
@@ -296,6 +215,7 @@
     <script type="text/javascript" src="../../cordova.js"></script>
     <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
     <script type="text/javascript" src="../../js/mobile_script.js"></script>
+    <script type="text/javascript" src="lacak-pengiriman.js"></script>
 </body>
 
 <script>

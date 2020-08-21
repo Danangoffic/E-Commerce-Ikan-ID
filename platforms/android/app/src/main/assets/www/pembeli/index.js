@@ -283,8 +283,10 @@ function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
 
-function viewProduk(id_produk, id_usaha) {
+function viewProduk(id_produk, id_usaha, distance) {
     storage.setItem('id_produk', id_produk);
     storage.setItem('id_usaha', id_usaha);
+    localStorage.setItem("distance", distance);
+    console.log("distance : ", distance);
     window.location.href = "../dashboard/detail_produk_shop.html";
 }

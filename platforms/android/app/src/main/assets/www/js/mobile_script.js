@@ -63,8 +63,16 @@ console.log('usergroup' + usergroup);
 console.log('username' + username);
 console.log('id_akun: ' + id_akun);
 
+if(!localStorage.total_item_keranjang){
+  var total_item_keranjang = 0;
+  localStorage.setItem("total_item_keranjang", total_item_keranjang);
+}
+if(!localStorage.keranjang){
+  var keranjang = "[]";
+  localStorage.setItem("keranjang", keranjang);
+}
 if (usergroup == "pembeli") {
-  $("#totalBasket").html(JSON.parse(storage.keranjang).length);
+  $("#totalBasket").text(localStorage.total_item_keranjang);
 }
 // if(sukses_login == 1) {
 //  window.location.href = "../dashboard/index.html";
@@ -83,7 +91,7 @@ function signout() {
 }
 
 function openBasket() {
-  window.location.href = "../produk/detail_pesanan_saya.html";
+  return window.location.href = "../pembeli/keranjang.html";
 }
 
 $(function () {

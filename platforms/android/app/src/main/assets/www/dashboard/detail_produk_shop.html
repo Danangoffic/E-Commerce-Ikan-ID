@@ -72,7 +72,7 @@
 
     .bottom-sheet {
       max-height: 100% !important;
-      height: 42% !important;
+      height: 68% !important;
     }
   </style>
   <link href="../assets/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -99,7 +99,7 @@
                 class="fa fa-chevron-left"></span></a>
             <b class="header" style="font-size: large; margin-left: 14px;"></b>
             <b class="right"><i class="tiny material-icons shopping_basket"
-                onclick="window.location.href='../pembeli/pesanan-saya/detail_pesanan_saya.html'">shopping_basket</i><span
+                onclick="openBasket()">shopping_basket</i><span
                 class="badge red white-text" id="totalBasket"
                 style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
           </div>
@@ -114,134 +114,140 @@
   <main>
     <div class="row">
       <div class="grey lighten-3" style="margin-top: -12px">
-        <div class="container-fluid">
-          <div class="row white" style="margin-bottom: 8px">
-            <div class="user-profile mt-1 ml-0 mr-0" style="height: 150px">
-              <img class="responsive-img" alt="" style="width: 50% !important">
-            </div>
-            <div class="section" id="user-profile" style="padding: 24px">
-              <div class="col s12 m4 l3 user-section-negative-margin" style="height: auto !important; max-height: auto">
-                <div class="col s12 center-align">
-                  <div class="responsive-img z-depth-0 circle image-produk" alt="" style="max-width: 100%">
+        <form action="" name="form-produk-to-keranjang">
+          <div class="container-fluid">
+            <div class="row white" style="margin-bottom: 8px">
+              <div class="user-profile mt-1 ml-0 mr-0" style="height: 150px">
+                <img class="responsive-img" alt="" style="width: 50% !important">
+              </div>
+              <div class="section" id="user-profile" style="padding: 24px">
+                <div class="col s12 m4 l3 user-section-negative-margin"
+                  style="height: auto !important; max-height: auto">
+                  <div class="col s12 center-align">
+                    <div class="responsive-img z-depth-0 circle image-produk" alt="" style="max-width: 100%">
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card z-depth-0" style="padding: 24px 24px 4px 24px; margin: 0px 0px">
-            <div class="card-title nama_produk"
-              style="margin: -12px 0px 8px 8px; font-size: x-large; font-weight: bold"></div>
-            <h6 class="orange-text harga_produk mg-t-5" style="font-weight: bold; margin-left: 8px"></h6>
-            <div class="row" style="padding: 4px; margin-bottom: 0px" id="manage-produk">
-              <div class="input field col s8 left-align" style="margin-left: -8px">
-                <label for="variasi" class="right-align">Variasi</label>
-                <select class="variasi col s12" name="variasi" id="variasi" onchange="pilihVariasi()"
-                  autocomplete="off">
-                  <option value="" label="Pilih Variasi" disabled selected>Pilih Variasi</option>
-                </select>
-              </div>
-              <div class="input-field col s4 right-align">
-                <label for="qty" style="right: 0; top: 0">Jumlah (Kg)</label>
-                <i class="material-icons prefix removeQTY" style="margin-left: -16px">remove_circle_outline</i>
-                <input class="center" type="number" name="qty" id="qty" value="0"
-                  style="border: 0;width: 32px !important; margin-right: 16px; text-align: center;" disabled>
-                <i class="material-icons prefix addQTY" style="margin-left: -16px;">add_circle_outline</i>
-              </div>
-            </div>
-            <div class="row" style="margin-top: -8px; margin-bottom: 8px" id="manage-stok-produk">
-              <div class="col s6">
-                <p class="left" style="font-size: small;">Stok :</p>
-              </div>
-              <div class="col s6">
-                <p class="right stok" style="font-size: small;"></p>
-              </div>
-            </div>
-          </div>
-          <div class="card z-depth-0" style="margin-bottom: 0px">
-            <div class="card-content" id="content-produk">
-              <div class="row">
-                <div class="col s12">
-                  <p class="left" style="font-size: large; font-weight: bold">Informasi Produk</p>
+            <div class="card z-depth-0" style="padding: 24px 24px 4px 24px; margin: 0px 0px">
+              <div class="card-title nama_produk"
+                style="margin: -12px 0px 8px 8px; font-size: x-large; font-weight: bold"></div>
+              <h6 class="orange-text harga_produk mg-t-5" style="font-weight: bold; margin-left: 8px"></h6>
+              <div class="row" style="padding: 4px; margin-bottom: 0px" id="manage-produk">
+                <div class="input field col s8 left-align" style="margin-left: -8px">
+                  <label for="variasi" class="right-align">Variasi</label>
+                  <select class="variasi" name="variasi" id="variasi" onchange="pilihVariasi()"
+                    autocomplete="off">
+                    <option value="" disabled selected>Pilih Variasi</option>
+                  </select>
+                </div>
+                <div class="input-field col s4 right-align">
+                  <label for="qty" style="right: 0; top: 0">Jumlah (Kg)</label>
+                  <i class="material-icons prefix removeQTY" style="margin-left: -16px">remove_circle_outline</i>
+                  <input class="center" type="number" name="qty" id="qty" value="0" min="1" value="1"
+                    style="border: 0;width: 32px !important; margin-right: 16px; text-align: center;" disabled>
+                  <i class="material-icons prefix addQTY" style="margin-left: -16px;">add_circle_outline</i>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" style="margin-top: -8px; margin-bottom: 8px" id="manage-stok-produk">
                 <div class="col s6">
-                  <p class="left" style="font-size: small;">Berat :</p>
+                  <p class="left" style="font-size: small;">Stok :</p>
                 </div>
                 <div class="col s6">
-                  <p class="right berat" style="font-size: small;"></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s6">
-                  <p class="left" style="font-size: small;">Kategori :</p>
-                </div>
-                <div class="col s6">
-                  <p class="right Kategori_produk" style="font-size: small"></p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s6">
-                  <p class="left" style="font-size: small;">Minimal Pemesanan :</p>
-                </div>
-                <div class="col s6">
-                  <p class="right min_order" style="font-size: small;"></p>
+                  <p class="right stok" style="font-size: small;"></p>
                 </div>
               </div>
             </div>
+            <div class="card z-depth-0" style="margin-bottom: 0px">
+              <div class="card-content" id="content-produk">
+                <div class="row">
+                  <div class="col s12">
+                    <p class="left" style="font-size: large; font-weight: bold">Informasi Produk</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s6">
+                    <p class="left" style="font-size: small;">Berat :</p>
+                  </div>
+                  <div class="col s6">
+                    <p class="right berat" style="font-size: small;"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s6">
+                    <p class="left" style="font-size: small;">Kategori :</p>
+                  </div>
+                  <div class="col s6">
+                    <p class="right Kategori_produk" style="font-size: small"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s6">
+                    <p class="left" style="font-size: small;">Minimal Pemesanan :</p>
+                  </div>
+                  <div class="col s6">
+                    <p class="right min_order" style="font-size: small;"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-panel white z-depth-0" style="padding: 12px 12px" id="card-usaha">
+              <div class="row valign-wrapper">
+                <div class="col s3" style="margin-left: -4px">
+                  <img src="../img/blank-picture.png" alt="" class="circle responsive-img"
+                    style="width: 56px; height: 56px" id="img-usaha">
+                </div>
+                <div class="col s6" style="margin-left: -12px">
+                  <a href="../penjual/usaha.html" class="nama-usaha green-text" style="font-weight: bold"
+                    id="nama-usaha">(Nama Usaha)</a><br>
+                  <span id="kab-usaha">(Kabupaten Usaha)<span>
+                </div>
+                <div class="col s3">
+                  <a class="secondary-content btn btn-small green right white-text"
+                    style="margin-top: 8px; margin-right: -4px" href="../penjual/usaha.html">Kunjungi</a>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="card-panel white z-depth-0" style="padding: 12px 12px" id="card-usaha">
-            <div class="row valign-wrapper">
-              <div class="col s3" style="margin-left: -4px">
-                <img src="../img/blank-picture.png" alt="" class="circle responsive-img"
-                  style="width: 56px; height: 56px" id="img-usaha">
-              </div>
-              <div class="col s6" style="margin-left: -12px">
-                <a href="../penjual/usaha.html" class="nama-usaha green-text" style="font-weight: bold"
-                  id="nama-usaha">(Nama Usaha)</a><br>
-                <span id="kab-usaha">(Kabupaten Usaha)<span>
-              </div>
-              <div class="col s3">
-                <a class="secondary-content btn btn-small green right white-text"
-                  style="margin-top: 8px; margin-right: -4px" href="../penjual/usaha.html">Kunjungi</a>
-              </div>
+
+          <div class="row fixed-action-btn">
+            <div class="card-action white" style="padding: 8px">
+              <a class="btn waves-effect text-center blue button-beli" id="openSheet"
+                style="width: 100%; font-size: medium;" type="button">Tambahkan Ke Keranjang</a>
+              <a class="btn waves-effect text-center blue button-login" id="openLogin"
+                style="width: 100%; font-size: medium;" type="button">Beli</a>
             </div>
           </div>
 
-        </div>
-
-        <div class="row fixed-action-btn">
-          <div class="card-action white" style="padding: 8px">
-            <a class="btn waves-effect text-center blue button-beli" id="openSheet"
-              style="width: 100%; font-size: medium;" type="button">Tambahkan Ke Keranjang</a>
-            <a class="btn waves-effect text-center blue button-login" id="openLogin"
-              style="width: 100%; font-size: medium;" type="button">Beli</a>
-          </div>
-        </div>
-
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal bottom-sheet half-heigth-bottom-sheet">
-          <div class="modal-content">
-            <h5 id="title-modal-sheet">Konfirmasi Pemilihan</h5>
-            <div class="row">
-              <div class="col-12">
-                <p>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p>
-              </div>
-              <div class="input-field col s6">
-                <textarea id="jml_ikan" name="jml_ikan" class="materialize-textarea" data-length="100"></textarea>
-                <label for="jml_ikan">Jumlah Ikan per Kg</label>
-              </div>
-              <div class="input-field col s6" id="mentah-potong-option">
-                <textarea id="jml_potong" name="jml_potong" class="materialize-textarea" data-length="100"></textarea>
-                <label for="jml_potong">Jumlah Potong per Ekor</label>
+          <!-- Modal Structure -->
+          <div id="modal1" class="modal bottom-sheet half-heigth-bottom-sheet">
+            <div class="modal-content">
+              <h5 id="title-modal-sheet">Konfirmasi Pemilihan</h5>
+              <div class="row">
+                <div class="col-12">
+                  <p>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p>
+                </div>
+                <div class="input-field col s6">
+                  <select name="jml_ikan" id="jml_ikan"></select>
+                  <!-- <textarea id="jml_ikan" name="jml_ikan" class="materialize-textarea" data-length="100"></textarea> -->
+                  <label>Jumlah Ikan per Kg</label>
+                </div>
+                <div class="input-field col s6" id="mentah-potong-option">
+                  <select name="jml_potong" id="jml_potong"></select>
+                  <!-- <textarea id="jml_potong" name="jml_potong" class="materialize-textarea" data-length="100"></textarea> -->
+                  <label>Jumlah Potong per Ekor</label>
+                </div>
               </div>
             </div>
+            <div class="modal-footer" id="bottom-sheet-footer">
+              <button type="button" id="setuju" class="modal-close waves-effect waves-light btn green">YA</button>
+              <button type="button" id="tidak" class="modal-close waves-effect waves-light btn red">TIDAK</button>
+            </div>
           </div>
-          <div class="modal-footer" id="bottom-sheet-footer">
-            <button type="button" id="setuju" class="modal-close waves-effect waves-light btn green">YA</button>
-            <button type="button" id="tidak" class="modal-close waves-effect waves-light btn red">TIDAK</button>
-          </div>
-        </div>
+
+        </form>
 
         <div id="modalLogin" class="modal bottom-sheet full-heigth-bottom-sheet">
           <div class="modal-content">
