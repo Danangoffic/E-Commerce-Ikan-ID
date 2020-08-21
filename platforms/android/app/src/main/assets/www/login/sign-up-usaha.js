@@ -1,6 +1,6 @@
 var firstLt, firstLg;
         // var lat, lng;
-        // $(document).ready(onDeviceReady);
+        $(document).ready(onDeviceReady);
         function onBackKeyDown() {
             $("#modal1").modal("open");
         }

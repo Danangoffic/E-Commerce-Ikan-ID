@@ -145,7 +145,7 @@ var API_GET_ALL_VARIASI = API_GET_PRODUK_DASHBOARD + "/all-variasi";
 
 var API_USER_INSTANCE = base_url + "api/user";
 var API_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/penjual";
-var API_SIGN_UP_USAHA = API_SIGN_UP_PENJUAL + "/usaha/completing";
+var API_SIGN_UP_USAHA = API_USER_INSTANCE + "/signup/usaha";
 var API_SIGN_UP_PEMBELI = API_USER_INSTANCE + "/signup/pembeli";
 var API_ROLLBACK_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/rollback";
 var API_LOGIN = API_USER_INSTANCE + "/login";

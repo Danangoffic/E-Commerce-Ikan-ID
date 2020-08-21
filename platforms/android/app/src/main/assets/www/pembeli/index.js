@@ -1,5 +1,5 @@
 
-$(document).ready(onDeviceReady);
+// LoadDataPembeli();
 function onLoad() {
     $.ajax({
         async: false,
@@ -39,10 +39,12 @@ function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }
 
+$(document).ready(onDeviceReady);
+
 // device APIs are available
 //
 function onDeviceReady() {
-    LoadDataPembeli();
+    navigator.geolocation.getCurrentPosition(onSuccess, onError)
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
@@ -62,7 +64,7 @@ function onMenuKeyDown() {
 }
 
 function LoadDataPembeli() {
-    $.getJSON(base_url + 'Pembeli/detail_pembeli', { id_akun: storage.id_akun }).then(onSuccessLoadPembeli).fail(onFailLoadPembeli).done(navigator.geolocation.getCurrentPosition(onSuccess, onError));
+    // $.getJSON(base_url + 'Pembeli/detail_pembeli', { id_akun: storage.id_akun }).then(onSuccessLoadPembeli).fail(onFailLoadPembeli).done(()=>);
 }
 var onSuccessLoadPembeli = (result, status) => {
     if (status == "success") {
@@ -202,44 +204,49 @@ function initDistance(res) {
 
             console.log(semuadistance);
             var produks = '';
-            $.each(semuaidusaha, function (k, v) {
-                const distance_text = semuadistance[v].text;
-                $.ajax({
-                    url: API_GET_PRODUK_DASHBOARD,
-                    type: 'GET',
-                    data: { id_usaha: v },
-                    dataType: 'JSON',
-                    async: false,
-                    success: function (ea) {
-                        //console.log(JSON.stringify(ea,null, 2   ));
-                        if (ea.length > 0) {
+            // $.each(semuaidusaha, function (k, v) {
+            //     const distance_text = semuadistance[v].text;
 
-                            // height="150" width="110"
-                            $.each(ea, function (key, val) {
-                                let distance = distance_text.split(" ");
-                                var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
-                                produks += `<li class="collection-item avatar" onclick="viewProduk(${val.id_produk}, ${v}, \'${distance[0]}\')">`;
-                                produks += '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
-                                    '<span class="title black-text">' + val.nama_produk + '</span>' +
-                                    '<p class="orange-text">' + harga_display + '</p>' +
-                                    '<hr>' +
-                                    '<div class="row grey-text" style="margin-top:-8px; padding-top:0px; margin-bottom: 0px">' +
-                                    '<div class="col s8" style="padding: 0 !important;"><p class="left">' + val.nama_usaha + '</p></div>' +
-                                    '<div class="col s4"><p class="right">' + distance_text + '</p></div></div>' +
-                                    '</li>';
-                            });
-                            var tawarImg = '../img/ikan2.png', lautImg = '../img/ikan1.png';
-                            $(".tawar").attr('src', tawarImg);
-                            $(".laut").attr('src', lautImg);
-                            console.log("Tawar Image : " + tawarImg);
-                            console.log("Laut Image : " + lautImg);
-                        }
-                    },
-                    always: function () {
-                        ajaxx = 1;
-                    }
-                });
+            // });
+            $.ajax({
+                url: API_GET_PRODUK_DASHBOARD,
+                type: 'GET',
+                data: { id_usaha: semuaidusaha, distance_text: semuadistance },
+                dataType: 'JSON',
+                async: false,
+                success: function (result_data) {
+                    //console.log(JSON.stringify(ea,null, 2   ));
+                    // console.log("Panjang result EA : " + result_data.length);
+                    // console.log("Data Produk Usaha " + semuaidusaha[0] + " : " + JSON.stringify(result_data[semuaidusaha[0]]));
+                    console.log(result_data);
+                    $.each(semuaidusaha, function (key, value_id) {
+                        var data_produk = result_data[value_id];
+                        console.log(data_produk);
+                        $.each(data_produk, function (key_produk, val) {
+                            var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
+                            produks += '<li class="collection-item avatar" onclick="viewProduk(' + val.id_produk + ', ' + value_id + ')">' +
+                                '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
+
+                                '<span class="title black-text">' + val.nama_produk + '</span>' +
+                                '<p class="orange-text">' + harga_display + '</p>' +
+                                '<hr>' +
+                                '<div class="row grey-text" style="margin-top:-8px; padding-top:0px; margin-bottom: 0px">' +
+                                '<div class="col s8" style="padding: 0 !important;"><p class="left">' + val.nama_usaha + '</p></div>' +
+                                '<div class="col s4"><p class="right">' + val.distance + '</p></div></div>' +
+                                '</li>';
+                        });
+                    });
+                    console.log("Data Produk HTML: " + produks);
+                },
+                always: function () {
+                    ajaxx = 1;
+                }
             });
+            var tawarImg = '../img/ikan2.png', lautImg = '../img/ikan1.png';
+            $(".tawar").attr('src', tawarImg);
+            $(".laut").attr('src', lautImg);
+            console.log("Tawar Image : " + tawarImg);
+            console.log("Laut Image : " + lautImg);
             $(".progress").remove();
             $("#dataProduct").html(produks);
 

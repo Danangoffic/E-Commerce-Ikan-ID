@@ -85,7 +85,7 @@ function Daftar() {
         success: function (response) {
             if (response.status == 'berhasil') {
                 M.toast({ html: response.message });
-                setTimeout(location.assign('index.html'), 2000);
+                // setTimeout(location.assign('index.html'), 2000);
             } else {
                 M.toast({ html: response.message });
             }
