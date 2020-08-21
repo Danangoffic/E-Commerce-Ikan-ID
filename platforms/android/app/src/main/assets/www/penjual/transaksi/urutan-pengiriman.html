@@ -87,6 +87,7 @@
         <!-- Modal Structure -->
         <div id="kurir" class="modal">
           <div class="modal-content" style="padding: 8px; text-align: center;">
+            <h5>Form Detail Pengiriman</h5>
             <!-- <h6>Pilih Kurir dan Kendaraan :</h6> -->
             <form action="#">
               <div class="row">
@@ -101,11 +102,11 @@
                   <!-- HTML OPTION KENDARAAN -->
                 </div>
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="col s12 m6 l3">
                   <p class="flow-text" id="pilih-jam-pengiriman" style="text-align: left;">Pilih Jam Pengiriman :</p>
                 </div>
-              </div>
+              </div> -->
             </form>
           </div>
           <div class="modal-footer">
@@ -127,6 +128,7 @@
     $('.modal').modal();
     var data_usaha = JSON.parse(localStorage.data_usaha);
     var id_usaha = data_usaha.id_usaha;
+    var total_bobot_pesanan = parseInt(0);
 
     $(document).ready(onDeviceReady);
     function onLoad() {
@@ -139,12 +141,12 @@
       loadPesananPriority();
       loadKurir();
       loadKendaraan();
-      loadJamPengiriman();
+      // loadJamPengiriman();
       document.addEventListener("pause", onPause, false);
       document.addEventListener("resume", onResume, false);
       document.addEventListener("menubutton", onMenuKeyDown, false);
       document.addEventListener("backbutton", onBackKeyDown, false);
-      document.getElementById("lanjutkan-pengiriman").addEventListener("click", lanjut_pengiriman, false);
+      document.querySelector("#lanjutkan-pengiriman").addEventListener("click", lanjut_pengiriman, false);
       // Add similar listeners for other events
     }
 
@@ -166,14 +168,27 @@
 
     function lanjut_pengiriman() {
       var form = $("form").serializeArray();
-      form[3] = { name: "priority_pesanan", value: localStorage.priority };
+      form.push({ name: "priority_pesanan", value: localStorage.priority });
+      form.push({name: "id_pj", value: localStorage.id_akun});
       console.log(form);
+      
+      // $.ajax({
+      //   url: base_url + "Pemesanan/procced_order_to_delivery",
+      //   type: "POST",
+      //   data: form,
+      //   success: onSuccessPengiriman
+      // });
       $.post(base_url + "Pemesanan/procced_order_to_delivery", form).then(onSuccessPengiriman);
     }
 
     function onSuccessPengiriman(response, status) {
       console.log(response);
       console.log(status);
+      let id_pengiriman = response.id_pengiriman;
+      let data_pengiriman = JSON.stringify(response.data_pengiriman);
+      localStorage.setItem("id_pengiriman", id_pengiriman);
+      localStorage.setItem("data_pengiriman", data_pengiriman);
+      window.location.assign("lacak-pengiriman.html");
     }
 
     function loadPesananPriority() {
@@ -185,12 +200,16 @@
       if (status == "success") {
         // PROSES PESANAN PRIORITY
         var data_pesanan_priority = response.data_pesanan_priority;
+        console.log("data_pesanan_priority : ", data_pesanan_priority.length);
         var html_priority = '<p class="center black-text">PRIORITAS</p>';
         $.each(data_pesanan_priority, (k, v) => {
           var detail_pembeli = v.detail_pembeli;
           html_priority += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
+          let detail_pesanan = v.detail_pesanan;
+          total_bobot_pesanan += parseInt(detail_pesanan.berat_akhir);
         });
-        if (html_priority == '') {
+        console.log(html_priority);
+        if (data_pesanan_priority.length == 0) {
           empty_priority();
         } else {
           document.getElementById("pesanan-prioritas").innerHTML = html_priority;
@@ -198,11 +217,13 @@
 
         // PROSES PESANAN NON PRIORITY
         var data_pesanan_non_priority = response.data_pesanan_non_priority;
-        console.log(data_pesanan);
+        // console.log(data_pesanan);
         var html_normal = '';
         $.each(data_pesanan_non_priority, (k, v) => {
           var detail_pembeli = v.detail_pembeli;
           html_normal += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
+          let detail_pesanan = v.detail_pesanan;
+          total_bobot_pesanan += parseInt(detail_pesanan.berat_akhir);
         });
         if (html_normal == '') {
           empty_pesanan();
@@ -233,8 +254,8 @@
 
     function empty_pesanan() {
       var html_normal = '';
-      html_normal += '<div class="card"><ul class="collection"><li class="collection-item"><span class="title" id="prioritas-kosong">Prioritas Kosong<span></li></ul></div>';
-      document.getElementById("pesanan-prioritas").innerHTML = html_normal;
+      html_normal += '';
+      document.getElementById("pesanan-normal").innerHTML = html_normal;
     }
 
     function loadKurir() {
@@ -274,12 +295,15 @@
         var html_kendaraan = '';
         var data_kendaraan = response.data_kendaraan;
         $.each(data_kendaraan, (k, v) => {
-          html_kendaraan += '<p style="text-align: left;">' +
-            '<label class="btn white black-text" for="kendaraan-' + v.id_kendaraan + '" style="width: 100%; text-align: left;">' +
-            '<input type="radio" id="kendaraan-' + v.id_kendaraan + '" name="kendaraan" value="' + v.id_kendaraan + '" />' +
-            '<span>' + v.jenis_kendaraan + ' (' + v.plat_kendaraan + ')</span>' +
-            '</label>' +
-            '</p>';
+          if (parseInt(v.kapasitas_kendaraan) >= total_bobot_pesanan) {
+            html_kendaraan += '<p style="text-align: left;">' +
+              '<label class="btn white black-text" for="kendaraan-' + v.id_kendaraan + '" style="width: 100%; text-align: left;">' +
+              '<input type="radio" id="kendaraan-' + v.id_kendaraan + '" name="kendaraan" value="' + v.id_kendaraan + '" />' +
+              '<span>' + v.jenis_kendaraan + ' (' + v.plat_kendaraan + ')</span>' +
+              '</label>' +
+              '</p>';
+          }
+
         });
         if (html_kendaraan == '') {
 

@@ -216,10 +216,10 @@ function initDistance(res) {
 
                             // height="150" width="110"
                             $.each(ea, function (key, val) {
+                                let distance = distance_text.split(" ");
                                 var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
-                                produks += '<li class="collection-item avatar" onclick="viewProduk(' + val.id_produk + ', ' + v + ')">' +
-                                    '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
-
+                                produks += `<li class="collection-item avatar" onclick="viewProduk(${val.id_produk}, ${v}, \'${distance[0]}\')">`;
+                                produks += '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
                                     '<span class="title black-text">' + val.nama_produk + '</span>' +
                                     '<p class="orange-text">' + harga_display + '</p>' +
                                     '<hr>' +
@@ -276,8 +276,10 @@ function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
 
-function viewProduk(id_produk, id_usaha) {
+function viewProduk(id_produk, id_usaha, distance) {
     storage.setItem('id_produk', id_produk);
     storage.setItem('id_usaha', id_usaha);
+    localStorage.setItem("distance", distance);
+    console.log("distance : ", distance);
     window.location.href = "../dashboard/detail_produk_shop.html";
 }
