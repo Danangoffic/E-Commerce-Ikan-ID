@@ -93,16 +93,16 @@
         <div class="row">
           <form action="#!" id="formAdd" name="form-add">
             <div class="input-field col-12">
-              <select name="bank" id="bank"></select>
-              <label for="bank">Pilih Bank</label>
+              <select name="kode_bank" id="kode_bank"></select>
+              <label for="kode_bank">Pilih Bank</label>
             </div>
             <div class="input-field col-12">
-              <input placeholder="No. Rekening" id="no_rekening" name="norek" type="text" class="validate">
-              <label for="noRek">No. Rekening: </label>
+              <input placeholder="No. Rekening" id="no_rekening" name="no_rekening" type="text" class="validate">
+              <label for="no_rekening">No. Rekening: </label>
             </div>
             <div class="input-field col-12">
-              <input placeholder="Nama Pemilik Rekening" id="nama_rekening" name="namarek" type="text" class="validate">
-              <label for="namaRekening">Nama Pemilik Rekening :</label>
+              <input placeholder="Nama Pemilik Rekening" id="nama_rekening" name="nama_rekening" type="text" class="validate">
+              <label for="nama_rekening">Nama Pemilik Rekening :</label>
               <input type="hidden" name="id_akun">
             </div>
           </form>
@@ -210,6 +210,8 @@
           // document.getElementById("").value = "";
           // document.getElementById("nama_rek").value = "";
           M.toast({ html: "Success Tambahkan Rekening" });
+          loadData();
+          $("#modalAdd").modal("close");
         }
       }
 
@@ -318,7 +320,7 @@
               $.each(data, function (i, isi) {
                 option += "<option value='" + isi.kode_bank + "' label='" + isi.nama_bank + "' id='bank_" + isi.kode_bank + "'>" + isi.nama_bank + "</option>";
               });
-              $("[name=bank_edit], [name=bank]").html(option);
+              $("[name=bank_edit], [name=kode_bank]").html(option);
               $("select").formSelect();
             }
           }

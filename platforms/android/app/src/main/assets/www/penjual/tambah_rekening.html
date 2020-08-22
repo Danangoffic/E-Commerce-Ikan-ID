@@ -86,19 +86,19 @@
         <div class="card z-depth-0" style="margin-top: -5px">
           <div class="card-content" style="margin: 10px">
             <div class="input-field" style="padding-bottom: 12px">
-              <select name="bank">
+              <select id="kode_bank" name="kode_bank">
                 <option value="" disabled selected>Pilih Bank</option>
                 <option id="nama_bank" value="1">Di tabel master_bank</option>
               </select>
-              <label>Pilih Bank</label>
+              <label for="kode_bank">Pilih Bank</label>
             </div>
             <div class="input-field" style="padding-bottom: 12px">
-              <input placeholder="No. Rekening" id="norek" name="norek" type="text" class="validate">
-              <label for="noRek">No. Rekening: </label>
+              <input placeholder="No. Rekening" id="no_rekening" name="no_rekening" type="text" class="validate">
+              <label for="no_rekening">No. Rekening: </label>
             </div>
             <div class="input-field">
-              <input placeholder="Nama Pemilik Rekening" id="namarek" name="namarek" type="text" class="validate">
-              <label for="namaRekening">Nama Pemilik Rekening :</label>
+              <input placeholder="Nama Pemilik Rekening" id="nama_rekening" name="nama_rekening" type="text" class="validate">
+              <label for="nama_rekening">Nama Pemilik Rekening :</label>
             </div>
             <input type="hidden" name="id_akun">
           </div>
@@ -165,7 +165,7 @@
           $.each(data, function (i, isi) {
             option += "<option value='" + isi.kode_bank + "' label='" + isi.nama_bank + "'>" + isi.nama_bank + "</option>";
           });
-          $("[name=bank]").html(option);
+          $("[name=kode_bank]").html(option);
           $('select').formSelect();
           $("[name=id_akun]").val(storage.id_akun);
         }
