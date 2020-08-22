@@ -7,7 +7,12 @@ var app = {
         document.addEventListener("pause", this.onPause, false);
         document.addEventListener("resume", this.onResume, false);
         document.addEventListener("menubutton", this.onMenuKeyDown, false);
+        document.addEventListener("backbutton", this.onBackKeyDown, false);
+        document.querySelector("#backmenu").addEventListener("click", this.onBackKeyDown, false);
         // $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(on_success_load_keranjang).fail()
+    },
+    onBackKeyDown: function(){
+        window.history.back();
     },
     onPause: function () {
 
@@ -88,7 +93,7 @@ var app = {
                 harga_total_produk += harga_produk * i2.jml_produk;
                 html_keranjang_per_usaha += `<li class="collection-item avatar" style="min-height: 0px;">
                                         <img src="${base_url + "foto_usaha/produk/" + i2.foto_produk}" alt="${i2.nama_produk}" class="circle">
-                                        <span class="title">${i2.nama_produk}
+                                        <span class="title">${i2.nama_produk} <small style="color: grey">(${i2.nama_variasi})</small>
                                             <p class="orange-text">Rp ${formatNumber(harga_produk)}</p>
                                             <span class="secondary-content">${i2.jml_produk} Kg</span></span>
                                     </li>`;
@@ -119,7 +124,8 @@ function beli_ini() {
     let keranjang_checked = app.data_json_keranjang.find(element => element.id_usaha, value_checked);
     localStorage.setItem("checked_item_checkout", JSON.stringify(keranjang_checked));
     localStorage.setItem("distance_checkout", parseInt(distance_selected));
+    localStorage.setItem("item_checkout_usaha", parseInt(value_checked));
     if (localStorage.checked_item_checkout) {
-        // location.href("../dashboard/detail_pesanan_saya.html");
+        location.assign("../dashboard/detail_pesanan_saya.html");
     }
 }
