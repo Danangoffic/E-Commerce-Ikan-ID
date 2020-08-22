@@ -63,11 +63,11 @@ console.log('usergroup' + usergroup);
 console.log('username' + username);
 console.log('id_akun: ' + id_akun);
 
-if(!localStorage.total_item_keranjang){
+if(localStorage.total_item_keranjang=="undefined"){
   var total_item_keranjang = 0;
   localStorage.setItem("total_item_keranjang", total_item_keranjang);
 }
-if(!localStorage.keranjang){
+if(localStorage.keranjang=="undefined"){
   var keranjang = "[]";
   localStorage.setItem("keranjang", keranjang);
 }
