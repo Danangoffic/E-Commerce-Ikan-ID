@@ -93,6 +93,17 @@
         <!-- <div class="card" >
         </div> -->
       </div>
+
+      <div id="modalDelete" class="modal">
+        <div class="modal-content">
+          <h6 id="title-hapus"></h6>
+        </div>
+        <div class="modal-footer">
+          <button class="waves-effect waves-green btn-flat" id="hapusKendaraan" data-id="">Hapus</button>
+          <button class="waves-effect waves-red btn blue modal-close" id="batalHapusJam">Batal</button>
+        </div>
+      </div>
+
       <div class="container-fluid">
         <div class="bottom-navbar">
           <div class="card-action white" style="margin: 8px">
@@ -104,7 +115,7 @@
     </div>
 
     <!-- ########## END: MAIN PANEL ########## -->
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
+    <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script type="text/javascript" src="../cordova.js"></script>
     <script type="text/javascript" src="../materialize-css/dist/js/materialize.js"></script>
@@ -159,40 +170,63 @@
               var html_kendaraan = '';
               var modal_delete = '';
               $.each(data_kendaraan, function (k, row) {
-                html_kendaraan += '<div class="card z-depth-1" id="kendaraan' + row.id_kendaraan + '">';
-                html_kendaraan += '<div class="card-content" style="padding: 15px; margin-bottom: 5px">';
-                html_kendaraan += '<div class="row" style="margin-bottom: 0px">';
-                html_kendaraan += '<div class="col s5"><p class="left" style="font-size: small;">Jenis Kendaraan :</p></div>';
-                html_kendaraan += '<div class="col s7"><p class="right jenis_kendaraan" style="font-size: small;">' + row.jenis_kendaraan + '</p></div>';
-                html_kendaraan += '</div>';
-                html_kendaraan += '<div class="row" style="margin-bottom: 0px">';
-                html_kendaraan += '<div class="col s5"><p class="left" style="font-size: small;">Plat Kendaraan :</p></div>';
-                html_kendaraan += '<div class="col s7"><p class="right plat_kendaraan" style="font-size: small;">' + row.plat_kendaraan + '</p></div>';
-                html_kendaraan += '</div>';
-                html_kendaraan += '<div class="row" style="margin-bottom: 0px">';
-                html_kendaraan += '<div class="col s5"><p class="left" style="font-size: small;">Kapasitas Kendaraan:</p></div>';
-                html_kendaraan += '<div class="col s7"><p class="right kapasitas_kendaraan" style="font-size: small;">' + row.kapasitas_kendaraan + '</p></div>';
-                html_kendaraan += '</div>';
-                html_kendaraan += '<div class="row" style="margin-bottom: 10px">';
-                html_kendaraan += '<div class="col 12 right"><div class="card-action" style="padding: 8px 0px 0px 0px">';
-                html_kendaraan += '<a class="btn-floating waves-effect waves-light btn green" onclick="UbahKendaraan(\'' + row.id_kendaraan + '\')"><i class="material-icons" style="height: 40px; width: 40px">edit</i></a>';
-                html_kendaraan += '<a class="btn-floating waves-effect waves-light btn red modal-trigger" href="#modal' + row.id_kendaraan + '"><i class="material-icons" style="height: 40px; width: 40px">delete</i></a>';
-                html_kendaraan += '</div>';
-                html_kendaraan += '</div>';
-                html_kendaraan += '</div>';
-                html_kendaraan += '</div>';
+                html_kendaraan += `<div class="card z-depth-1" id="kendaraan${row.id_kendaraan}" style="margin-bottom: 5px"">`+
+                                    `<div class="card-content" style="padding: 15px; margin-bottom: 5px">`+
+                                      `<div class="row" style="margin-bottom: 0px">`+
+                                        `<div class="col s5"><p class="left" style="font-size: small;">Jenis Kendaraan :</p></div>`+
+                                        `<div class="col s7"><p class="right jenis_kendaraan" style="font-size: small;">${row.jenis_kendaraan}</p></div>`+
+                                      `</div>`+
+                                      `<div class="row" style="margin-bottom: 0px">`+
+                                        `<div class="col s5"><p class="left" style="font-size: small;">Plat Kendaraan :</p></div>`+
+                                        `<div class="col s7"><p class="right plat_kendaraan" style="font-size: small;">${row.plat_kendaraan}</p></div>`+
+                                      `</div>`+
+                                      `<div class="row" style="margin-bottom: 0px">`+
+                                        `<div class="col s5"><p class="left" style="font-size: small;">Kapasitas Kendaraan:</p></div>`+
+                                        `<div class="col s7"><p class="right kapasitas_kendaraan" style="font-size: small;">${row.kapasitas_kendaraan}</p></div>`+
+                                      `</div>`+
+                                      `<div class="row" style="margin-bottom: 10px">`+
+                                        `<div class="col 12 right"><div class="card-action" style="padding: 8px 0px 0px 0px">`+
+                                          `<a class="btn-floating waves-effect waves-light btn green" onclick="UbahKendaraan('${row.id_kendaraan}')"><i class="material-icons" style="height: 40px; width: 40px">edit</i></a>`+
+                                          `<a class="btn-floating waves-effect waves-light btn red" onclick="ModalDelete('${row.id_kendaraan}')"><i class="material-icons" style="height: 40px; width: 40px">delete</i></a>`+
+                                        `</div>`+
+                                      `</div>`+
+                                    `</div>`+
+                                    `</div>`+
+                                    `</div>`;
+                // html_kendaraan += '<div class="card z-depth-1" id="kendaraan' + row.id_kendaraan + '" style="margin-bottom: 5px"">';
+                // html_kendaraan += '<div class="card-content" style="padding: 15px; margin-bottom: 5px">';
+                // html_kendaraan += '<div class="row" style="margin-bottom: 0px">';
+                // html_kendaraan += '<div class="col s5"><p class="left" style="font-size: small;">Jenis Kendaraan :</p></div>';
+                // html_kendaraan += '<div class="col s7"><p class="right jenis_kendaraan" style="font-size: small;">' + row.jenis_kendaraan + '</p></div>';
+                // html_kendaraan += '</div>';
+                // html_kendaraan += '<div class="row" style="margin-bottom: 0px">';
+                // html_kendaraan += '<div class="col s5"><p class="left" style="font-size: small;">Plat Kendaraan :</p></div>';
+                // html_kendaraan += '<div class="col s7"><p class="right plat_kendaraan" style="font-size: small;">' + row.plat_kendaraan + '</p></div>';
+                // html_kendaraan += '</div>';
+                // html_kendaraan += '<div class="row" style="margin-bottom: 0px">';
+                // html_kendaraan += '<div class="col s5"><p class="left" style="font-size: small;">Kapasitas Kendaraan:</p></div>';
+                // html_kendaraan += '<div class="col s7"><p class="right kapasitas_kendaraan" style="font-size: small;">' + row.kapasitas_kendaraan + '</p></div>';
+                // html_kendaraan += '</div>';
+                // html_kendaraan += '<div class="row" style="margin-bottom: 10px">';
+                // html_kendaraan += '<div class="col 12 right"><div class="card-action" style="padding: 8px 0px 0px 0px">';
+                // html_kendaraan += '<a class="btn-floating waves-effect waves-light btn green" onclick="UbahKendaraan(\'' + row.id_kendaraan + '\')"><i class="material-icons" style="height: 40px; width: 40px">edit</i></a>';
+                // html_kendaraan += '<a class="btn-floating waves-effect waves-light btn red" onclick="ModalDelete(\''+row.id_kendaraan+'\')"><i class="material-icons" style="height: 40px; width: 40px">delete</i></a>';
+                // html_kendaraan += '</div>';
+                // html_kendaraan += '</div>';
+                // html_kendaraan += '</div>';
+                // html_kendaraan += '</div>';
 
-                modal_delete += '<div id="modal' + row.id_kendaraan + '" class="modal">';
-                modal_delete += '<div class="modal-content">';
-                modal_delete += '<h4>Hapus Kendaraan</h4>';
-                modal_delete += '<p>Apakah anda yakin ingin menghapus kendaraan <?=$kendaraan->jenis_kendaraan?> dengan Plat ' + row.plat_kendaraan + ' ?</p>';
-                modal_delete += '</div>';
-                modal_delete += '<div class="modal-footer">';
-                modal_delete += '<button class="btn grey waves-effect waves-red" onclick="hapusKendaraan(\'' + row.id_kendaraan + '\')">Ya</button> <a href="#!" class="modal-close waves-effect waves-green btn green">Tidak</a>';
-                modal_delete += '</div>';
-                modal_delete += '</div>';
-                modal_delete += '</div>';
-                html_kendaraan += modal_delete;
+                // modal_delete += '<div id="modal' + row.id_kendaraan + '" class="modal">';
+                // modal_delete += '<div class="modal-content">';
+                // modal_delete += '<h4>Hapus Kendaraan</h4>';
+                // modal_delete += '<p>Apakah anda yakin ingin menghapus kendaraan <?=$kendaraan->jenis_kendaraan?> dengan Plat ' + row.plat_kendaraan + ' ?</p>';
+                // modal_delete += '</div>';
+                // modal_delete += '<div class="modal-footer">';
+                // modal_delete += '<button class="btn grey waves-effect waves-red" onclick="hapusKendaraan(\'' + row.id_kendaraan + '\')">Ya</button> <a href="#!" class="modal-close waves-effect waves-green btn green">Tidak</a>';
+                // modal_delete += '</div>';
+                // modal_delete += '</div>';
+                // modal_delete += '</div>';
+                // html_kendaraan += modal_delete;
               });
               console.log(html_kendaraan);
               if (html_kendaraan !== '') {
@@ -222,21 +256,35 @@
         });
       }
 
+      function ModalDelete(id) {
+        $("#hapusKendaraan").data("id", id);
+        let plat_kendaraan = $("#kendaraan"+id).find(".plat_kendaraan").text();
+        $("#title-hapus").html(`Anda yakin ingin menghapus Kendaraan ${plat_kendaraan} ?`);
+        $("#modalDelete").modal("open");
+        $("#hapusKendaraan").click(hapusKendaraan);
+        // document.querySelector("#hapusKendaraan").addEventListener("click", hapusKendaraan, false);
+
+      }
+
       function UbahKendaraan(id_kendaraan) {
         storage.setItem('id_kendaraan', id_kendaraan);
         window.location.href = 'ubah_kendaraan.html';
       }
 
-      function hapusKendaraan(id) {
+      function hapusKendaraan() {
         event.preventDefault;
+        const id = $("#hapusKendaraan").data("id");
+        console.log("id: ", id);
         $.ajax({
           url: base_url + "Penjual/hapusKendaraan",
           type: "POST",
           data: { id_kendaraan: id },
           success: function (e) {
             if (e.status == "berhasil") {
-              $("#kendaraan" + id).remove();
               $(".modal").modal("close");
+              $("#kendaraan" + id).remove();
+              // $("#content-jam-pengiriman-" + id).hide();
+              $("#hapusJam").data("id", '');
               M.toast({ html: e.message });
             } else {
               M.toast({ html: e.message });
