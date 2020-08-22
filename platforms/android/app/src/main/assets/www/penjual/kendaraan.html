@@ -276,7 +276,7 @@
         const id = $("#hapusKendaraan").data("id");
         console.log("id: ", id);
         $.ajax({
-          url: base_url + "Penjual/hapusKendaraan",
+          url: API_DELETE_KENDARAAN,
           type: "POST",
           data: { id_kendaraan: id },
           success: function (e) {
