@@ -77,7 +77,7 @@ var app = {
             const data_produk_keranjang = i.data_produk;
             let data_usaha = i.detail_usaha, harga_total_produk = 0;
             let distance_usaha = results[v].distance.value;
-            let fee_ongkir = (distance_usaha > 5500) ? (10000 * (distance_usaha / 1000)) : 5000;
+            let fee_ongkir = (distance_usaha > 5000) ? (10000 * (distance_usaha / 1000)) : 5000;
             html_keranjang_per_usaha += `<div class="card z-depth-2" id="keranjang_usaha_${i.id_usaha}" data-distance="${distance_usaha}">
             <div class="card-content">
                 <p>
