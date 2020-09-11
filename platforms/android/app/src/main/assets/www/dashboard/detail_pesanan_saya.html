@@ -547,6 +547,8 @@
       document.addEventListener("deviceready", onDeviceReady, false);
     }
 
+    $(document).ready(onDeviceReady);
+
     function onDeviceReady() {
 
       var keranjangg = storage.getItem('keranjang');

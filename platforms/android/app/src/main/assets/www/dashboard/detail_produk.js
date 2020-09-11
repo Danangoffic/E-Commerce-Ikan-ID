@@ -217,7 +217,7 @@ function beli() {
         var variasi_selected_init = $("[name=variasi]").find("option:selected").text();
         var id_usaha = localStorage.id_usaha;
         var new_prods = Array();
-        let fee_kirim = (localStorage.distance > 5) ? parseInt(10000 * (localStorage.distance-5)) : 5000;
+        let fee_kirim = (localStorage.distance > 5) ? parseInt(1000 * (localStorage.distance-5))+5000 : 5000;
         
         new_prods = {
             id_produk: id_produk,
