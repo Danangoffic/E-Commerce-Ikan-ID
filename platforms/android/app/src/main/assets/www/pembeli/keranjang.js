@@ -77,7 +77,8 @@ var app = {
             const data_produk_keranjang = i.data_produk;
             let data_usaha = i.detail_usaha, harga_total_produk = 0;
             let distance_usaha = results[v].distance.value;
-            let fee_ongkir = (distance_usaha > 5000) ? (10000 * (distance_usaha / 1000)) : 5000;
+            // let fee_ongkir = (distance_usaha > 5000) ? (10000 * (distance_usaha / 1000)) : 5000;
+            var fee_ongkir = parseInt(0);
             html_keranjang_per_usaha += `<div class="card z-depth-2" id="keranjang_usaha_${i.id_usaha}" data-distance="${distance_usaha}">
             <div class="card-content">
                 <p>
@@ -89,14 +90,16 @@ var app = {
                 <ul class="collection">`;
 
             Array.prototype.forEach.call(data_produk_keranjang, function (i2, v2) {
-                let harga_produk = i2.harga_produk;
-                harga_total_produk += harga_produk * i2.jml_produk;
+                let harga_produk = parseInt(i2.harga_produk);
+                let jml_produk = parseInt(i2.jml_produk);
+                harga_total_produk += parseInt(harga_produk * jml_produk);
                 html_keranjang_per_usaha += `<li class="collection-item avatar" style="min-height: 0px;">
                                         <img src="${base_url + "foto_usaha/produk/" + i2.foto_produk}" alt="${i2.nama_produk}" class="circle">
                                         <span class="title">${i2.nama_produk} <small style="color: grey">(${i2.nama_variasi})</small>
                                             <p class="orange-text">Rp ${formatNumber(harga_produk)}</p>
                                             <span class="secondary-content">${i2.jml_produk} Kg</span></span>
                                     </li>`;
+                                    fee_ongkir = parseInt(i2.estimasi_ongkir);
             });
 
             let total_biaya_per_usaha = harga_total_produk + fee_ongkir;
@@ -126,6 +129,6 @@ function beli_ini() {
     localStorage.setItem("distance_checkout", parseInt(distance_selected));
     localStorage.setItem("item_checkout_usaha", parseInt(value_checked));
     if (localStorage.checked_item_checkout) {
-        location.assign("../dashboard/detail_pesanan_saya.html");
+        location.assign("../pembeli/pesanan-saya/detail_pesanan_saya.html");
     }
 }

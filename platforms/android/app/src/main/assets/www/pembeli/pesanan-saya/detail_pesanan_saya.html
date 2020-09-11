@@ -253,7 +253,7 @@
     </form>
     <div class="modal-footer">
       <div class="col s12">
-        <button type="button" class="btn blue waves-effect waves-light modal-close" id="simpan_alamat">Simpan
+        <button type="button" class="btn blue waves-effect waves-light" onclick="simpan_alamat()">Simpan
           Alamat</button>
         <button type="button" class="btn red waves-effect waves-light modal-close">Close</button>
       </div>
@@ -406,7 +406,7 @@
         var latitude = row.latitude;
         var deskripsi = row.deskripsi;
         var id_galeri = row.id_galeri;
-        var path_storage = row.path_storage;
+        // var path_storage = row.path_storage;
 
         var point = new google.maps.LatLng( //di marker nya
           parseFloat(latitude),
@@ -425,7 +425,7 @@
         infowincontent.appendChild(document.createElement('br'));
 
         var image = document.createElement('img');
-        image.setAttribute("src", path_storage);
+        // image.setAttribute("src", path_storage);
         image.setAttribute("width", "200px");
         //                    image.textContent = 'FAI';
         infowincontent.appendChild(image);
@@ -481,9 +481,11 @@
             for (var j = 0; j < results.length; j++) {
               // KONDISI BIAYA PENGIRIMAN
               feeKirim = 5000;
-              jarakPengiriman = (results[j].distance.value / 1000).toFixed(1);
+              // jarakPengiriman = (results[j].distance.value / 1000).toFixed(1);
+              let distance_val = parseFloat(results[j].distance.value/1000);
+              jarakPengiriman = distance_val.toFixed(1);
               if (results[j].distance.value > 5000) {
-                feeKirim += 1000 * (results[j].distance.value / 1000).toFixed(1); //1000/km
+                feeKirim += parseInt(1000 * (distance_val-5)); //1000/km
               }
               var slicedString = feeKirim.toString().slice(-3);
               if (parseInt(slicedString) > 500) {
@@ -675,7 +677,7 @@
       document.addEventListener("backbutton", onBackKeyDown, false);
       document.getElementById("edit-alamat").addEventListener("click", openModalAlamat, false);
       document.getElementById("lokasi-saya").addEventListener("click", currentLocation, false);
-      document.getElementById("simpan_alamat").addEventListener("click", simpan_alamat, false);
+      // document.getElementById("simpan_alamat").addEventListener("click", simpan_alamat, false);
       // document.getElementById("login").addEventListener("click", kirim_data, false);
 
       $.getJSON(API_KENDARAAN_PENJUAL, { id_usaha: localStorage.id_usaha }).then(onSuccessLoadKendaraan).fail(onFailLoadKendaraan);
@@ -761,19 +763,24 @@
       var total_semua;
       total_semua = 0;
       allProductSum = 0;
-      var keranjang = storage.getItem('keranjang');
+      var keranjang = storage.getItem('checked_item_checkout');
       var keranjangku = JSON.parse(keranjang);
-      $.each(keranjangku, function (key, val) {
+      $.each(keranjangku.data_produk, function (key, val) {
         console.log(val);
-        var harga_total_per_produk = val.total_harga;
-        var total_satuan = (val.harga_produk * val.qty);
+        let harga_total_per_produk = parseInt(val.sub_total);
+        let jml_produk = parseInt(val.jml_produk);
+        let harga_produk = parseInt(val.harga_produk);
+        let total_satuan = (harga_produk * jml_produk);
+        let namaVariasi = val.namaVariasi;
+        let nama_produk = val.nama_produk;
+        let foto_produk = `${base_url}foto_usaha/produk/${val.foto_produk}`;
         total_semua += total_satuan;
-        var perProductTotal = val.harga_produk * val.qty;
+        let perProductTotal = harga_produk * jml_produk;
         allProductSum += perProductTotal;
-        produk_saya = '<li class="collection-item avatar" id="item-produk-' + key + '">' +
-          '<img class="circle image-produk" src="' + val.fotoProduk + '">' +
-          '<span class="title nama-produk">' + val.nama_produk + ' <small>(' + val.namaVariasi + ')</small></span>' +
-          '<p><span class="harga-produk orange-text">Rp ' + val.harga_produk + '</span>' + '<span class="black-text">&nbsp &times &nbsp' + val.qty + '&nbsp Kg' + '</span></p>' +
+        let produk_saya = '<li class="collection-item avatar" id="item-produk-' + key + '">' +
+          '<img class="circle image-produk" src="' + foto_produk + '">' +
+          '<span class="title nama-produk">' + nama_produk + ' <small>(' + namaVariasi + ')</small></span>' +
+          '<p><span class="harga-produk orange-text">Rp ' + harga_produk + '</span>' + '<span class="black-text">&nbsp &times &nbsp' + jml_produk + '&nbsp Kg' + '</span></p>' +
           '<div class="secondary-content right-align">' +
           '<a href="#!" onclick="remove_item(' + key + ')"><i class="tiny material-icons red-text">remove_shopping_cart</i></a>' +
           '<p class="orange-text">Rp ' + formatNumber(harga_total_per_produk) + '</p>' +
