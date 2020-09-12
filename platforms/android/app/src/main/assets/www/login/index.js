@@ -76,9 +76,8 @@ function redirectPage() {
 }
 console.log('sukses_login' + window.localStorage.getItem('sukses_login'));
 
-function loadkeranjang() {
-    $.getJSON(API_KERANJANG, { id_akun: localStorage.id_akun }).then(successKeranjang).fail(onfailkeranjang);
-}
+const loadkeranjang = () => $.getJSON(API_KERANJANG, { id_akun: localStorage.id_akun }).then(successKeranjang).fail(onfailkeranjang);
+
 function successKeranjang(response, status) {
     if (status == "success") {
         console.log("status: ", status);
