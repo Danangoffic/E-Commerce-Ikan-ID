@@ -382,7 +382,7 @@
     function initMap1(res) {
       // console.log("res: " + res);
       var t;
-      var tujuan = []; //UNTUK NYIMPEN LAT LONG AJA
+      let tujuan = []; //UNTUK NYIMPEN LAT LONG AJA
       //origin -7.563823, 110.834977
       //tes origin 2 -7.571133, 110.806309
       var titik_saat_ini = new google.maps.LatLng(latUsaha, lngUsaha);
@@ -460,7 +460,10 @@
       var service = new google.maps.DistanceMatrixService;
       var idx_terdekat;
       var distance_to_this_bf;
+      get_distance_matrix(origin1, tujuan, titik_saat_ini, distance_to_this_bf, idx_terdekat, service, res, map);
+    }
 
+    function get_distance_matrix(origin1 = {}, tujuan = {}, titik_saat_ini, distance_to_this_bf = 0, idx_terdekat = 0, service, res, map) {
       service.getDistanceMatrix({
         origins: [origin1],
         destinations: tujuan,
@@ -482,10 +485,10 @@
               // KONDISI BIAYA PENGIRIMAN
               feeKirim = 5000;
               // jarakPengiriman = (results[j].distance.value / 1000).toFixed(1);
-              let distance_val = parseFloat(results[j].distance.value/1000);
+              let distance_val = parseFloat(results[j].distance.value / 1000);
               jarakPengiriman = distance_val.toFixed(1);
               if (results[j].distance.value > 5000) {
-                feeKirim += parseInt(1000 * (distance_val-5)); //1000/km
+                feeKirim += parseInt(1000 * (distance_val - 5)); //1000/km
               }
               var slicedString = feeKirim.toString().slice(-3);
               if (parseInt(slicedString) > 500) {
@@ -538,25 +541,6 @@
               alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
             }
           });
-          var change_display_pembayaran = function () {
-            var jpengiriman_val = $("[name=jpengiriman]:checked").val();
-            console.log("Jenis Pengiriman : " + jpengiriman_val);
-            if (jpengiriman_val == "Biasa" || jpengiriman_val == "Cepat") {
-              document.getElementById("rowpembayaran3").style.display = "none";
-              document.getElementById("rowpembayaran1").style.display = "block";
-              document.getElementById("rowpembayaran2").style.display = "block";
-              feeKirim_temp = feeKirim;
-              $(".total-harga-pengiriman").html("Rp&nbsp;" + formatNumber(feeKirim));
-              loadPesanan();
-            } else {
-              document.getElementById("rowpembayaran3").style.display = "block";
-              document.getElementById("rowpembayaran1").style.display = "block";
-              document.getElementById("rowpembayaran2").style.display = "block";
-              feeKirim_temp = 0;
-              $(".total-harga-pengiriman").html("Rp&nbsp;" + formatNumber(feeKirim_temp));
-              $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(allProductSum));
-            }
-          }
           // var jpembayaran = $("input[type=radio][name=jpembayaran]")[2];
           $("[name=jpengiriman]").change(change_display_pembayaran);
           // $('input[name=jpengiriman]:radio').click(function () {
@@ -583,6 +567,26 @@
           loadPesanan();
         }
       });
+    }
+
+    function change_display_pembayaran () {
+      var jpengiriman_val = $("[name=jpengiriman]:checked").val();
+      console.log("Jenis Pengiriman : " + jpengiriman_val);
+      if (jpengiriman_val == "Biasa" || jpengiriman_val == "Cepat") {
+        document.getElementById("rowpembayaran3").style.display = "none";
+        document.getElementById("rowpembayaran1").style.display = "block";
+        document.getElementById("rowpembayaran2").style.display = "block";
+        feeKirim_temp = feeKirim;
+        $(".total-harga-pengiriman").html("Rp&nbsp;" + formatNumber(feeKirim));
+        loadPesanan();
+      } else {
+        document.getElementById("rowpembayaran3").style.display = "block";
+        document.getElementById("rowpembayaran1").style.display = "block";
+        document.getElementById("rowpembayaran2").style.display = "block";
+        feeKirim_temp = 0;
+        $(".total-harga-pengiriman").html("Rp&nbsp;" + formatNumber(feeKirim_temp));
+        $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(allProductSum));
+      }
     }
 
 
@@ -771,7 +775,7 @@
         let jml_produk = parseInt(val.jml_produk);
         let harga_produk = parseInt(val.harga_produk);
         let total_satuan = (harga_produk * jml_produk);
-        let namaVariasi = val.namaVariasi;
+        let namaVariasi = val.nama_variasi;
         let nama_produk = val.nama_produk;
         let foto_produk = `${base_url}foto_usaha/produk/${val.foto_produk}`;
         total_semua += total_satuan;
@@ -918,16 +922,17 @@
       }
       storage.setItem('Jpengiriman', Jpengiriman);
       storage.setItem('Jpembayaran', Jpembayaran);
+      let data_keranjang = JSON.parse(storage.getItem('checked_item_checkout'));
       var DataPemesanan = {
+        jarak: jarakPengiriman,
         id_akun: storage.getItem('id_akun'),
         id_usaha: storage.getItem('id_usaha'),
-        keranjang: JSON.parse(storage.getItem('keranjang')),
-        jarak: jarakPengiriman,
-        totalBiayaPengiriman: feeKirim_temp,
+        keranjang: data_keranjang.data_produk,
+        totalBiayaPengiriman: feeKirim,
         totalBiayaProduk: allProductSum,
-        jpengiriman: Jpengiriman,
-        jpembayaran: Jpembayaran,
-        tglPengiriman: TglPengiriman
+        jpengiriman: $("input[type=radio][name=jpengiriman]:checked").val(),
+        jpembayaran: $("input[type=radio][name=jpembayaran]:checked").val(),
+        tglPengiriman: $("input[type=text][name=tglPengiriman]").val()
       };
       simpanPemesanan(DataPemesanan);
     }

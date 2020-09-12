@@ -3,6 +3,7 @@ var app = {
         document.addEventListener("deviceready", this.onDeviceReady.bind(this), false);
     },
     onDeviceReady: function () {
+
         app.load_data_pembeli();
         document.addEventListener("pause", this.onPause, false);
         document.addEventListener("resume", this.onResume, false);
@@ -11,7 +12,7 @@ var app = {
         document.querySelector("#backmenu").addEventListener("click", this.onBackKeyDown, false);
         // $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(on_success_load_keranjang).fail()
     },
-    onBackKeyDown: function(){
+    onBackKeyDown: function () {
         window.history.back();
     },
     onPause: function () {
@@ -34,27 +35,27 @@ var app = {
     success_load_data_pembeli: function (result, status) {
         if (status == "success") {
             let data_pembeli = result[0];
-            app.origin = { lat: parseFloat(data_pembeli.latitude), lng: parseFloat(data_pembeli.longitude) };
+            app.destination = { lat: parseFloat(data_pembeli.latitude), lng: parseFloat(data_pembeli.longitude) };
             app.load_distance_matrix();
         }
     },
     load_distance_matrix: function () {
         var t;
-        var tujuan = [];
-
+        var orig = [];
         Array.prototype.forEach.call(app.data_json_keranjang, function (row, idx) {
             console.log("row", row);
             t = { lat: parseFloat(row.detail_usaha.latitude), lng: parseFloat(row.detail_usaha.longitude) };
-            tujuan.push(t);
+            orig.push(t);
         });
-        console.log('tujuan');
-        console.log(tujuan);
+        console.log('orig');
+        console.log(orig);
+        app.origin = orig;
         // des -7.567492, 110.832670 des  -7.566248, 110.833485 des  -7.569072, 110.831500
         var service = new google.maps.DistanceMatrixService;
 
         service.getDistanceMatrix({
-            origins: [app.origin],
-            destinations: tujuan,
+            origins: orig,
+            destinations: [app.destination],
             travelMode: 'DRIVING',
             unitSystem: google.maps.UnitSystem.METRIC,
             avoidHighways: false,
@@ -99,12 +100,13 @@ var app = {
                                             <p class="orange-text">Rp ${formatNumber(harga_produk)}</p>
                                             <span class="secondary-content">${i2.jml_produk} Kg</span></span>
                                     </li>`;
-                                    fee_ongkir = parseInt(i2.estimasi_ongkir);
+                fee_ongkir = parseInt(i2.estimasi_ongkir);
             });
 
             let total_biaya_per_usaha = harga_total_produk + fee_ongkir;
-            html_keranjang_per_usaha += `<li class="collection-item teal-text"><b>Biaya Pengiriman: <span class="secondary-content orange-text">Rp ${formatNumber(fee_ongkir)}</span></b></li>`;
-            html_keranjang_per_usaha += `<li class="collection-item teal-text darken-1"><b>Total :<span class="secondary-content orange-text">Rp ${formatNumber(total_biaya_per_usaha)}</span></b></li>`;
+            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding-bottom: 0 !important"><b>Subtotal Produk: <span class="secondary-content orange-text">Rp ${formatNumber(harga_total_produk)}</span></b></li>`;
+            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding-bottom: 0 !important"><b>Biaya Pengiriman: <span class="secondary-content orange-text">Rp ${formatNumber(fee_ongkir)}</span></b></li>`;
+            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding-bottom: 0 !important"><b>Total :<span class="secondary-content orange-text">Rp ${formatNumber(total_biaya_per_usaha)}</span></b></li>`;
             html_keranjang_per_usaha += `</ul>
                 </div>
             </div>`;
@@ -113,6 +115,7 @@ var app = {
     },
 }
 function onLoad() {
+    loadkeranjang();
     app.init();
     // document.addEventListener("deviceready", onDeviceReady, false);
 }
@@ -125,10 +128,39 @@ function beli_ini() {
     let value_checked = $("[name=keranjang]:checked").val();
     let distance_selected = $("#keranjang_usaha_" + value_checked).data("distance");
     let keranjang_checked = app.data_json_keranjang.find(element => element.id_usaha, value_checked);
+    localStorage.setItem('id_usaha', value_checked);
     localStorage.setItem("checked_item_checkout", JSON.stringify(keranjang_checked));
     localStorage.setItem("distance_checkout", parseInt(distance_selected));
     localStorage.setItem("item_checkout_usaha", parseInt(value_checked));
     if (localStorage.checked_item_checkout) {
         location.assign("../pembeli/pesanan-saya/detail_pesanan_saya.html");
     }
+}
+
+function loadkeranjang() {
+    $.getJSON(API_KERANJANG, { id_akun: localStorage.id_akun }).then(successKeranjang).fail(onfailkeranjang)
+}
+
+function successKeranjang(response, status) {
+    if (status == "success") {
+        console.log("status: ", status);
+        let keranjang = response;
+        let str_keranjang = JSON.stringify(keranjang);
+        let panjang_keranjang = keranjang.length;
+        $("#status_keranjang").html(panjang_keranjang);
+        localStorage.setItem("keranjang", str_keranjang);
+        localStorage.setItem("total_item_keranjang", panjang_keranjang);
+        console.log("keranjang: ", keranjang, "total_item_keranjang: ", panjang_keranjang);
+        app.data_json_keranjang = keranjang;
+    }
+}
+
+function onfailkeranjang(error) {
+    console.log("status: ", error);
+    let str_keranjang = "[]";
+    let panjang_keranjang = 0;
+    $("#status_keranjang").html("0");
+    localStorage.setItem("keranjang", str_keranjang);
+    localStorage.setItem("total_item_keranjang", panjang_keranjang);
+    console.log("keranjang: ", keranjang, "total_item_keranjang: ", panjang_keranjang);
 }
