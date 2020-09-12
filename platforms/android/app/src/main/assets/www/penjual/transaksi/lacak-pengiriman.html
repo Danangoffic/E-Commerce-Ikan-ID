@@ -97,7 +97,7 @@
     </style>
 
     <script type="text/javascript">
-        
+
     </script>
 </head>
 
@@ -111,7 +111,7 @@
                 <div class="nav-wrapper">
                     <div class="row" style="padding: 0px; margin: 0px">
                         <div class="col s12 m10 offset-m1">
-                            <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
+                            <a id="#" href="#" onclick="onBackKeyDown()" class="transparent"
                                 style="margin: auto 10px; line-height: 54px"><span
                                     class="fa fa-chevron-left"></span></a>
                             <b class="header" style="font-size: large; margin-left: 4px; line-height: 54px">Lacak
@@ -132,7 +132,7 @@
             </div>
             <div class="card z-depth-0" style="margin-top: -8px; margin-bottom: -8px">
                 <div class="card-content">
-                    <div class="col s12">
+                    <div class="col s12" id="ongoing-pengiriman">
                         <p id="status-pengiriman" class="flow text center blue-text"
                             style="font-size: medium; font-weight: bold">PESANAN SEDANG DIKIRIM</p>
                         <p class="flow text center" style="font-size: small;">Kurir sedang mengirimkan pesanan ke alamat
@@ -179,12 +179,12 @@
                         </li>
                         <li>
                             <time datetime="" class=" teal-text estimasi-waktu-tiba">(11.00)</time>
-                            <span>
-                                <!-- <div style="margin-left: 20px"> -->
-                                <b id="nama-pb">(Nama Pembeli-1)</b><br>
-                                <p id="alamat-pb" class="teal-text">(Alamat Pembeli)</p>
-                                <p id="status-pengiriman" class="black-text">Pesanan Diterima</p>
-                            </span>
+                                    <span>
+                                        <!-- <div style="margin-left: 20px"> -->
+                                        <b id="nama-pb">(Nama Pembeli-1)</b><br>
+                                        <p id="alamat-pb" class="teal-text">(Alamat Pembeli)</p>
+                                        <p id="status-pengiriman" class="black-text">Pesanan Diterima</p>
+                                    </span>
                         </li>
                         <li>
                             <time datetime="" class=" teal-text estimasi-waktu-tiba">(11.00)</time>
@@ -198,17 +198,30 @@
                         <li>
                             <time datetime="" class=" teal-text estimasi-waktu-tiba">(11.00)</time>
                             <!-- <span> -->
-                                <div style="margin-left: 30px">
+                            <div style="margin-left: 30px">
                                 <b id="nama-pb">(Nama Pembeli-3)</b><br>
                                 <p id="alamat-pb" class="teal-text">(Alamat Pembeli)</p>
                                 <p id="alamat-usaha" class="black-text">Pesanan Dikirim</p>
-                            <!-- </span> -->
+                                <!-- </span> -->
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4>Masukkan Nama Penerima</h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Masukkan Nama Penerima" id="nama_penerima" type="text" class="validate" name="nama_penerima">
+                    <label for="nama_penerima">Nama Penerima: </label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
     </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
@@ -216,14 +229,6 @@
     <script type="text/javascript" src="../../materialize-css/dist/js/materialize.js"></script>
     <script type="text/javascript" src="../../js/mobile_script.js"></script>
     <script type="text/javascript" src="lacak-pengiriman.js"></script>
-</body>
-
-<script>
-    function onBackKeyDown() {
-        window.history.back();
-    }
-</script>
-
 </body>
 
 </html>
