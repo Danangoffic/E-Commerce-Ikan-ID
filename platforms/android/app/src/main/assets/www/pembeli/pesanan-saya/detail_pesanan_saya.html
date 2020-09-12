@@ -312,7 +312,7 @@
     var rest;
     var latUsaha, lngUsaha;
     var jarakPengiriman;
-    var feeKirim, feeKirim_temp;
+    var feeKirim, feeKirim_temp=0;
     var allProductSum;
 
 
@@ -496,7 +496,7 @@
               } else if (parseInt(slicedString) < 500) {
                 feeKirim = feeKirim - parseInt(slicedString);
               }
-              feeKirim_temp = feeKirim;
+              // feeKirim_temp = feeKirim;
               console.log("FEEKIRIM: " + feeKirim);
               if (j == 0) {
                 idx_terdekat = 0;
@@ -799,7 +799,7 @@
       TotalPembayaran(feeKirim_temp, allProductSum);
     }
 
-    function TotalPembayaran(feeKirim_temp, biayaProduk) {
+    function TotalPembayaran(feeKirim_temp=0, biayaProduk) {
       console.log("feeKirim_temp : " + feeKirim_temp);
       console.log("biayaProduk :" + biayaProduk);
       var total = feeKirim_temp + biayaProduk;
@@ -970,40 +970,40 @@
         var JenisPengiriman = dataPesanan.JenisPengiriman;
         var DataPembayaran = dataPesanan.DataPembayaran;
         var metodePembayaran = DataPembayaran.metode_pembayaran;
-        storage.setItem("statusPemesanan", "Baru");
-        storage.setItem("JenisPengiriman", JenisPengiriman);
-        storage.setItem("metodePembayaran", metodePembayaran);
-        storage.setItem('idPemesanan', dataPesanan.idPemesanan);
-        storage.setItem("DetailPesanan", JSON.stringify(dataPesanan));
-        storage.setItem("AllPurchaseProduk", AllPurchaseProduk);
-        storage.setItem("status", "Baru");
-        storage.setItem("NOPESANAN", ID);
+        // storage.setItem("statusPemesanan", "Baru");
+        // storage.setItem("JenisPengiriman", JenisPengiriman);
+        // storage.setItem("metodePembayaran", metodePembayaran);
+        // storage.setItem('idPemesanan', dataPesanan.idPemesanan);
+        // storage.setItem("DetailPesanan", JSON.stringify(dataPesanan));
+        // storage.setItem("AllPurchaseProduk", AllPurchaseProduk);
+        // storage.setItem("status", "Baru");
+        // storage.setItem("NOPESANAN", ID);
 
-        storage.removeItem('berat_produk');
-        storage.removeItem('nama_produk');
-        storage.removeItem('id_produk');
-        storage.removeItem('namaVariasi');
-        storage.removeItem('variasi');
-        storage.removeItem('qty');
-        storage.removeItem('harga_produk');
-        storage.removeItem('fotoProduk');
-        storage.removeItem("keranjang");
-        storage.removeItem("allProductSum");
-        storage.removeItem("alamat");
-        storage.removeItem("id_usaha");
-        storage.setItem("id_pesanan", dataPesanan.idPemesanan);
+        // storage.removeItem('berat_produk');
+        // storage.removeItem('nama_produk');
+        // storage.removeItem('id_produk');
+        // storage.removeItem('namaVariasi');
+        // storage.removeItem('variasi');
+        // storage.removeItem('qty');
+        // storage.removeItem('harga_produk');
+        // storage.removeItem('fotoProduk');
+        // storage.removeItem("keranjang");
+        // storage.removeItem("allProductSum");
+        // storage.removeItem("alamat");
+        // storage.removeItem("id_usaha");
+        // storage.setItem("id_pesanan", dataPesanan.idPemesanan);
         M.toast({ html: 'Berhasil simpan Transaksi, silahkan tunggu beberapa saat. <i class="material-icons green-text" onclick="return $(".toast").dismiss();">check_circle<i>', inDuration: 2900 });
-        if (metodePembayaran == "Full Transfer") {
-          setTimeout(function () { window.location.href = "pembayaran-fulltransfer.html"; }, 1000);
-        } else if (metodePembayaran == "Transfer Cash") {
-          if (JenisPengiriman == "Biasa" || JenisPengiriman == "Cepat") {
-            setTimeout(function () { window.location.href = "pembayaran-dp-kirim.html" }, 1000);
-          } else if (JenisPengiriman == "Ambil di Toko") {
-            setTimeout(function () { window.location.href = "pembayaran-dp-ambil.html"; }, 1000);
-          }
-        } else if (metodePembayaran == "Full Cash") {
-          setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
-        }
+        // if (metodePembayaran == "Full Transfer") {
+        //   setTimeout(function () { window.location.href = "pembayaran-fulltransfer.html"; }, 1000);
+        // } else if (metodePembayaran == "Transfer Cash") {
+        //   if (JenisPengiriman == "Biasa" || JenisPengiriman == "Cepat") {
+        //     setTimeout(function () { window.location.href = "pembayaran-dp-kirim.html" }, 1000);
+        //   } else if (JenisPengiriman == "Ambil di Toko") {
+        //     setTimeout(function () { window.location.href = "pembayaran-dp-ambil.html"; }, 1000);
+        //   }
+        // } else if (metodePembayaran == "Full Cash") {
+        //   setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
+        // }
       } else {
         alert(e.responseMessage);
         return false;
