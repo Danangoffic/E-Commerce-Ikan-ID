@@ -2,7 +2,7 @@
 const SERVER = "http://103.195.90.35:3300";
 const LOCAL = "http://localhost";
 // var base_url = "http://192.168.100.103/backendikan/";
-var base_url = `${SERVER}/backendikan/`;
+var base_url = `${LOCAL}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);
 //  var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.43.71/backendikan/";
