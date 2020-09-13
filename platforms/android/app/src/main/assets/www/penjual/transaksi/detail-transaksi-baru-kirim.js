@@ -64,7 +64,7 @@ function onSuccessDetail(e, status) {
                 // $("#verifikasi_pesanan").click(function () {
                 //   verifikasiPesanan(id_pembayaran);
                 // });
-                
+
             }
             localStorage.setItem("status", DetailPesanan.statusPengiriman);
         }
@@ -99,7 +99,7 @@ function onDoneDetail() {
     var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
     var DataPembayaran = DetailPesanan.DataPembayaran;
     var metode_pembayaran = DataPembayaran.metode_pembayaran;
-    var jarak = (DetailPesanan.jarak!==null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
+    var jarak = (DetailPesanan.jarak !== null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
     // $(".status-pemesanan").html("<b class='white-text'>"+StatusPemesanan+"</b>");
     $(".NoPesanan").html(IDPESANAN);
     $(".WaktuPemesanan").html(waktuPemesanan);
@@ -161,17 +161,15 @@ function onDoneLoadStruk() {
 }
 
 function verifikasiPesanan() {
-    $.ajax({
-        url: API_VERIFY_PAYMENT,
-        data: { id_pembayaran: id_pembayaran, idPemesanan: localStorage.id_pesanan },
-        dataType: "json",
-        success: function (e, status) {
-            if(status=="success"){
-                M.toast({html:"Verifikasi Berhasil"});
-                setTimeout(function(){window.location.replace("detail-transaksi-terbayar-kirim.html");}, 500);
-            }
-        }
-    })
+    const data = { id_pembayaran: id_pembayaran, idPemesanan: localStorage.id_pesanan };
+    $.post(API_VERIFY_PAYMENT, data, on_success_verifikasi);
+}
+
+function on_success_verifikasi(e, status) {
+    if (status == "success") {
+        M.toast({ html: "Verifikasi Berhasil" });
+        // setTimeout(function () { window.location.replace("detail-transaksi-terbayar-kirim.html"); }, 500);
+    }
 }
 
 function LanjutkanPembayaran() {

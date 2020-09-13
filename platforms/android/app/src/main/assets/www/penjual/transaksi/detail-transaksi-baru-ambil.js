@@ -64,8 +64,8 @@ function additionalInfo(DetailPesanan) {
         $(".pembayaranDP").hide();
         console.log("DetailPesanan.statusPengiriman: " + DetailPesanan.statusPengiriman);
         if (DetailPesanan.statusPengiriman == "Baru") {
-            var card_struk="", card_verifikasi="", card_info="";
-            if(DetailPesanan.DataPembayaran.status_pembayaran!==""){
+            var card_struk = "", card_verifikasi = "", card_info = "";
+            if (DetailPesanan.DataPembayaran.status_pembayaran !== "") {
                 card_struk = '<div class="card"><ul class="collection"><li onclick= "lihatmodal(\'' + DetailPesanan.idPemesanan + '\')" class="collection-item center black-text">Lihat Struk</li></ul></div>';
                 card_verifikasi = '<div class="card"><ul class="collection"><li onclick= "return $(\'#modalVerifikasi\').modal(\'open\')" class="collection-item center black-text"><b>Verifikasi Pesanan</b></li></ul></div>';
             }
@@ -73,7 +73,7 @@ function additionalInfo(DetailPesanan) {
             // BARU
             $(".status-pemesanan").addClass("red accent-2");
             $(".status-pemesanan").html("BELUM BAYAR");
-            $(".additional-information").html(card_struk+card_verifikasi+card_info);
+            $(".additional-information").html(card_struk + card_verifikasi + card_info);
         } else if (DetailPesanan.statusPengiriman == "Terbayar") {
             // TERBAYAR
             // $(".status-pemesanan").removeClass("red accent-2");
@@ -98,18 +98,18 @@ function additionalInfo(DetailPesanan) {
             //TERBAYAR
             $(".status-pemesanan").addClass("orange");
             $(".status-pemesanan").html("TAGIHAN 2 BELUM DIBAYAR");
-            var card_struk="", card_verifikasi="", card_info="";
-            var btn_struk = "", btn_verifikasi="";
-            if(DetailPesanan.DataPembayaran.status_pembayaran!==""){
+            var card_struk = "", card_verifikasi = "", card_info = "";
+            var btn_struk = "", btn_verifikasi = "";
+            if (DetailPesanan.DataPembayaran.status_pembayaran !== "") {
                 btn_struk = '<button type="button" class="btn waves-effect waves-light" onclick= "lihatmodal(\'' + DetailPesanan.idPemesanan + '\')" style="width:100%; border-radius:8px; margin-bottom:12px;">Lihat Struk</button>';
                 btn_verifikasi = '<button type="button" class="btn waves-effect waves-light" onclick= "return $(\'#modalVerifikasi\').modal(\'open\')" style="width:100%; border-radius:8px; margin-bottom:12px;">Verifikasi Pesanan</button>';
             }
             var cardAdditional = '<p class="center" style="font-size: small">Siapkan produk di hari <b>' + '<a class="waves-effect waves-light modal-trigger white-text" href="#modal1">TANGGAL PENGAMBILAN</a></b>dan ingatkan Pembeli untuk melakukan pembayaran sebesar<b>' +
                 '<a class="waves-effect waves-light modal-trigger white-text" href="#modal2">&nbsp PEMASUKKAN KE-2</a></b></p>';
-            
+
             // cardAdditional += buttonAdditional;
             $(".additional-information").html(cardAdditional);
-            $(".additional-information").parent().before(btn_struk+btn_verifikasi);
+            $(".additional-information").parent().before(btn_struk + btn_verifikasi);
         } else {
             //BARU
             $(".status-pemesanan").addClass("red accent-2");
@@ -128,8 +128,8 @@ function additionalInfo(DetailPesanan) {
             $(".status-pemesanan").html("BELUM BAYAR");
             document.getElementsByClassName("status-pemesanan").innerHtml = "Belum Bayar";
             var cardAdditional = '<p class="flow-text center" style="font-size: small;">Siapkan produk di hari <b><a class="waves-effect waves-light modal-trigger white-text" href="#modal1">TANGGAL PENGAMBILAN</a></b> dan ingatkan Pembeli umtuk melakukan pembayaran sebesar <b><a class="waves-effect waves-light modal-trigger white-text" href="#modal2">TOTAL PEMASUKKAN</a></b></p>';
-           
-            
+
+
             $(".additional-information").html(cardAdditional);
         }
     }
@@ -149,17 +149,15 @@ function onDoneLoadStruk() {
 }
 
 function verifikasiPesanan() {
-    $.ajax({
-        url: API_VERIFY_PAYMENT,
-        data: { id_pembayaran: id_pembayaran, idPemesanan: localStorage.id_pesanan },
-        dataType: "json",
-        success: function (e, status) {
-            if(status=="success"){
-                M.toast({html:"Verifikasi Berhasil"});
-                setTimeout(function(){window.location.replace("detail-transaksi-terbayar-kirim.html");}, 500);
-            }
-        }
-    })
+    const data = { id_pembayaran: id_pembayaran, idPemesanan: localStorage.id_pesanan };
+    $.post(API_VERIFY_PAYMENT, data, on_success_verifikasi);
+}
+
+function on_success_verifikasi(e, status) {
+    if (status == "success") {
+        M.toast({ html: "Verifikasi Berhasil" });
+        setTimeout(function () { window.location.replace("detail-transaksi-terbayar-kirim.html"); }, 500);
+    }
 }
 
 function formatNumber(num) {
@@ -260,5 +258,5 @@ function onComplete() {
     $(".selesai-pesanan").click(function () {
         selesaiPesanan(DetailPesanan.idPemesanan);
     });
-    
+
 }
