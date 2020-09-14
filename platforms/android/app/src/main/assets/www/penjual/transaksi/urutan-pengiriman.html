@@ -81,7 +81,7 @@
         <div class="bottom-navbar">
           <div class="card-action white" style="margin: 8px">
             <a class="waves-effect waves-light btn blue modal-trigger" href="#kurir" type="button"
-              style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Lanjut</a>
+              style="width: 100%; height: 40px; line-height: 44px; font-size: medium">Lanjutkan Pengiriman</a>
           </div>
         </div>
         <!-- Modal Structure -->
@@ -178,7 +178,7 @@
       //   data: form,
       //   success: onSuccessPengiriman
       // });
-      $.post(base_url + "Pemesanan/procced_order_to_delivery", form).then(onSuccessPengiriman);
+      $.post(API_PENGIRIMAN, form).then(onSuccessPengiriman);
     }
 
     function onSuccessPengiriman(response, status) {
@@ -193,7 +193,7 @@
 
     function loadPesananPriority() {
       var priority = JSON.parse(localStorage.priority);
-      $.post(API_PESANAN_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananPriority);
+      $.getJSON(API_PESANAN_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananPriority);
     }
 
     function onSuccessLoadPesananPriority(response, status) {
@@ -241,7 +241,7 @@
 
     function loadPesananNonPriority() {
       var priority = JSON.parse(localStorage.priority);
-      $.post(API_PRODUK_NON_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananNonPriority);
+      $.getJSON(API_PRODUK_NON_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananNonPriority);
 
     }
 
@@ -268,7 +268,7 @@
         var data_kurir = response.data;
         $.each(data_kurir, (k, v) => {
           html_kurir += '<p style="text-align: left;">' +
-            '<label class="btn white black-text" for="kurir-' + v.id_kurir + '" style="width: 100%; text-align: left;">' +
+            '<label class="black-text" for="kurir-' + v.id_kurir + '" style="width: 100%; text-align: left;">' +
             '<input type="radio" id="kurir-' + v.id_kurir + '" name="kurir" value="' + v.id_kurir + '" />' +
             '<span>' + v.nama_kurir + '</span>' +
             '</label>' +
@@ -297,7 +297,7 @@
         $.each(data_kendaraan, (k, v) => {
           if (parseInt(v.kapasitas_kendaraan) >= total_bobot_pesanan) {
             html_kendaraan += '<p style="text-align: left;">' +
-              '<label class="btn white black-text" for="kendaraan-' + v.id_kendaraan + '" style="width: 100%; text-align: left;">' +
+              '<label class="black-text" for="kendaraan-' + v.id_kendaraan + '" style="width: 100%; text-align: left;">' +
               '<input type="radio" id="kendaraan-' + v.id_kendaraan + '" name="kendaraan" value="' + v.id_kendaraan + '" />' +
               '<span>' + v.jenis_kendaraan + ' (' + v.plat_kendaraan + ')</span>' +
               '</label>' +
