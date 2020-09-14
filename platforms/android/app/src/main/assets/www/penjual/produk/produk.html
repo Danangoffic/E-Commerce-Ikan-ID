@@ -215,7 +215,7 @@
       }
       $.ajax({
         async: false,
-        url: URL_GET_PRODUK_FILTERED,
+        url: API_SEARCH_PRODUK,
         type: 'GET',
         data: { filter: filterBy, id_usaha: storage.id_usaha },
         dataType: 'JSON',
@@ -276,7 +276,7 @@
     function doHapus(id_produk) {
       const formData = new FormData();
       formData.append("produk", id_produk);
-      fetch(URL_NONAKTIF_PRODUK, {
+      fetch(API_DISABLE_PRODUK, {
         method: "POST",
         body: formData
       })
@@ -300,7 +300,7 @@
     function doAktifkan(id_produk) {
       const formData = new FormData();
       formData.append('id_produk', id_produk);
-      $.post(URL_AKTIFKAN_PRODUK, { id_produk: id_produk }, (e) => {
+      $.post(API_ACTIVATE_PRODUK, { id_produk: id_produk }, (e) => {
         if (e.status == "berhasil") {
           document.getElementById("title-modal-aktifkan").innerText = "";
           document.getElementById("text-modal-aktifkan").innerText = "";
@@ -320,7 +320,7 @@
         console.log("Searching");
         $.ajax({
           async: false,
-          url: URL_SEARCH_PRODUK,
+          url: API_SEARCH_PRODUK,
           type: 'GET',
           data: { produk: toSearch },
           dataType: 'JSON',

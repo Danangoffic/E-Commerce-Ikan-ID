@@ -22,21 +22,38 @@ var lacak = {
         document.location.replace("transaksi.html");
     },
     onLoadPengiriman: function () {
-        $.getJSON(base_url + "Pengiriman/get_pengiriman/" + localStorage.id_pengiriman + `/${localStorage.id_akun}`).then()
+        $.getJSON(API_LACAK_PENGIRIMAN +`/${localStorage.id_pengiriman}/${localStorage.id_akun}`).then(this.onSuccessLoadPengiriman);
     },
     onSuccessLoadPengiriman: function(response, status){
         if(status=="success"){
             console.log("response : ", response);
         }
+    },
+    simpan_pengiriman: function(id_pengiriman){
+        let nama_penerima = $("#nama_penerima").val().toString();
+        let data_update = {
+            id_pengiriman: id_pengiriman,
+            nama_penerima: nama_penerima
+        }
+        $.post(API_LACAK_PENGIRIMAN, data_update).then(success_update_pengiriman).fail().done()
+    },
+    success_update_pengiriman: (response, status)=>{
+        if(status=="success"){
+
+        }
+    },
+    fail_update_pengiriman: error=>{
+        
+    },
+    done_update_pengiriman: function(){
+        lacak.onLoadPengiriman();
     }
 }
 lacak.init();
-// function onLoad() {
-//     lacak.init();
-// }
-
 $(document).ready(lacak.onDeviceReady);
-
+function onBackKeyDown() {
+    return lacak.onBackKeyDown;
+}
 var firstLt, firstLg;
 // first();
 function first() {
@@ -57,6 +74,13 @@ var onSuccess = function (position) {
     }*/
 
 };
+
+function pengiriman() {
+    return localStorage.pengiriman;
+}
+function simpan_pengiriman(id_pengiriman) {
+    lacak.simpan_pengiriman(id_pengiriman);
+}
 // onError Callback receives a PositionError object
 //
 function onError(error) {

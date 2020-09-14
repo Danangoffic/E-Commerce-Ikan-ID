@@ -221,3 +221,11 @@ var API_PENGIRIMAN = base_url + "api/pengiriman";
 var API_KERANJANG = base_url + "api/keranjang";
 var API_UBAH_KERANJANG = API_KERANJANG + "/update";
 var API_HAPUS_KERANJANG = API_KERANJANG + "/delete";
+
+function only_go_to(url_file="") {
+  return location.replace(url_file);
+}
+
+function go_to(url_file="") {
+  return location.href=url_file;
+}
