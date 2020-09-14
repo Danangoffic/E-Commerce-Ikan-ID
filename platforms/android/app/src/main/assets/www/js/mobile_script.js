@@ -2,7 +2,7 @@
 const SERVER = "http://103.195.90.35:3300";
 const LOCAL = "http://localhost";
 // var base_url = "http://192.168.100.103/backendikan/";
-var base_url = `${LOCAL}/backendikan/`;
+var base_url = `${SERVER}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);
 //  var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.43.71/backendikan/";
@@ -215,6 +215,8 @@ var API_DETAIL_PESANAN_PEMBELI = API_PESANAN + "/detail-pesanan-by-id";
 var API_DETAIL_PESANAN_IN_HTML = API_PESANAN + "/detail-in-html";
 var API_DETAIL_PESANAN_WITH_PAYMENT_IN_HTML = API_PESANAN + "/detail-with-payment/";
 var API_PESANAN_SELESAI = API_PESANAN + '/complete';
+
+var API_PENGIRIMAN = base_url + "api/pengiriman";
 
 var API_KERANJANG = base_url + "api/keranjang";
 var API_UBAH_KERANJANG = API_KERANJANG + "/update";
