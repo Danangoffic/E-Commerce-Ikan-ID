@@ -193,12 +193,12 @@
     function onLoad() {
       $(".modal").modal();
       localStorage.removeItem("id_produk");
-      filtering(isFiltered);
     }
     function onBackKeyDown() {
       window.location.href = "../akun.html";
     }
     $(document).ready(function () {
+      filtering(isFiltered);
       $('select').formSelect();
       $("#doHapus").click(() => { doHapus(id_produk) });
       $("#doAktifkan").click(() => { doAktifkan(id_produk) });
@@ -213,48 +213,56 @@
         const element = selected[index];
         console.log(element);
       }
-      $.ajax({
-        async: false,
-        url: API_SEARCH_PRODUK,
-        type: 'GET',
-        data: { filter: filterBy, id_usaha: storage.id_usaha },
-        dataType: 'JSON',
-        beforeSend: function () {
-          $("#dataProducts").html('<div class="loader center-align"></div>');
-        },
-        success: function (e) {
-          console.log(e);
-          var product = '';
-          var product_non_aktif = '';
-          $.each(e, function (i, isi) {
-            var display_harga = (isi.minprice == 0) ? isi.maxprice : isi.minprice;
-            if (isi.status_p == "aktif") {
-              product += '<li class="collection-item avatar" id="PRODUK-' + isi.id_produk + '">' +
-                '<img src="' + base_url + 'foto_usaha/produk/' + isi.foto_produk + '" alt="" class="circle fotoProduk" onclick="viewProduct(' + isi.id_produk + ')">' +
-                '<span class="title namaProduk" id="product-name-' + isi.id_produk + '" onclick="viewProduct(' + isi.id_produk + ')">' + isi.nama_produk + '</span>' +
-                '<p class="hargaProduk orange-text" onclick="viewProduct(' + isi.id_produk + ')">Rp&nbsp;' + formatNumber(display_harga) + '<br></p>' +
-                '<a class="secondary-content" href="#" onclick="openModalDelete(' + isi.id_produk + ')"><i class="material-icons red-text small">cancel</i></a>' +
-                '</li>';
-            } else {
-              product_non_aktif += '<li class="collection-item avatar grey lighten-3" id="PRODUK-' + isi.id_produk + '">' +
-                '<img src="' + base_url + 'foto_usaha/produk/' + isi.foto_produk + '" alt="" class="circle fotoProduk" onclick="viewProduct(' + isi.id_produk + ')">' +
-                '<span class="title namaProduk" id="product-name-' + isi.id_produk + '" onclick="viewProduct(' + isi.id_produk + ')">' + isi.nama_produk + '</span>' +
-                '<p class="hargaProduk orange-text" onclick="viewProduct(' + isi.id_produk + ')">Rp&nbsp;' + formatNumber(display_harga) + '<br></p>' +
-                '<a class="secondary-content" href="#" onclick="openModalAktifkanProduk(' + isi.id_produk + ')"><i class="material-icons green-text small">check_circle</i></a>' +
-                '</li>';
-            }
-
-          });
-          if (product_non_aktif == '') {
-            product_non_aktif = '<li class="collection-item grey lighten-3 center"><strong class="title">Kosong</strong></li>';
+      const data = { filter: filterBy, id_usaha: storage.id_usaha };
+      $.getJSON(API_FILTERED_PRODUK, data)
+      .then(e => {
+        const produk_result = e;
+        console.log(e);
+        var product = '';
+        var product_non_aktif = '';
+        Array.prototype.forEach.call(produk_result, isi=>{
+          var display_harga = (isi.minprice == 0) ? isi.maxprice : isi.minprice;
+          if (isi.status_p == "aktif") {
+            product += `<li class="collection-item avatar" id="PRODUK-${isi.id_produk}">
+              <img src="${base_url}foto_usaha/produk/${isi.foto_produk}" alt="" class="circle fotoProduk" onclick="viewProduct(${isi.id_produk})">
+              <span class="title namaProduk" id="product-name-${isi.id_produk}" onclick="viewProduct(${isi.id_produk})">${isi.nama_produk}</span>
+              <p class="hargaProduk orange-text" onclick="viewProduct(${isi.id_produk})">Rp&nbsp;${formatNumber(display_harga)}<br></p>
+              <a class="secondary-content" href="#" onclick="openModalDelete(${isi.id_produk})"><i class="material-icons red-text small">cancel</i></a>
+              </li>`;
+          } else {
+            product_non_aktif += `<li class="collection-item avatar grey lighten-3" id="PRODUK-${isi.id_produk}">
+              <img src="${base_url}foto_usaha/produk/${isi.foto_produk}" alt="" class="circle fotoProduk" onclick="viewProduct(${isi.id_produk})">
+              <span class="title namaProduk" id="product-name-${isi.id_produk}" onclick="viewProduct(${isi.id_produk})">${isi.nama_produk}</span>
+              <p class="hargaProduk orange-text" onclick="viewProduct('${isi.id_produk}')">Rp&nbsp;${formatNumber(display_harga)}<br></p>
+              <a class="secondary-content" href="#" onclick="openModalAktifkanProduk(${isi.id_produk})"><i class="material-icons green-text small">check_circle</i></a>
+              </li>`;
           }
-          $("#dataProducts").html(product);
-          document.getElementById("produk-tidak-aktif").innerHTML = product_non_aktif;
-        },
-        error: function (e) {
-          $("#dataProducts").html("<p class='valign-wrapper center-align'>LOAD DATA FAILED</p>");
+        });
+        if (product_non_aktif == '') {
+          product_non_aktif = '<li class="collection-item grey lighten-3 center"><strong class="title">Kosong</strong></li>';
         }
+        $("#dataProducts").html(product);
+        document.getElementById("produk-tidak-aktif").innerHTML = product_non_aktif;
+      })
+      .catch(e => {
+        $("#dataProducts").html("<p class='valign-wrapper center-align'>LOAD DATA FAILED</p>");
       });
+      // $.ajax({
+      //   async: false,
+      //   url: API_SEARCH_PRODUK,
+      //   type: 'GET',
+      //   data: { filter: filterBy, id_usaha: storage.id_usaha },
+      //   dataType: 'JSON',
+      //   beforeSend: function () {
+      //     $("#dataProducts").html('<div class="loader center-align"></div>');
+      //   },
+      //   success: function (e) {
+
+      //   },
+      //   error: function (e) {
+
+      //   }
+      // });
     }
 
     function openModalAktifkanProduk(id) {
