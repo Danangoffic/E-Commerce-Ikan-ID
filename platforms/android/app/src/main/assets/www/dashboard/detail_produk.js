@@ -6,9 +6,10 @@ function onLoad() {
 // $(document).ready(onDeviceReady);
 
 function onDeviceReady() {
-    $("#variasi").prop('selectedIndex',null);
+    $("#variasi").prop('selectedIndex', null);
 
     check_page();
+
     loadDetailProduk();
     loadDetailUsaha();
     document.addEventListener("pause", onPause, false);
@@ -158,8 +159,8 @@ function pilihVariasi() {
                 $(".stok").html("Stok: 0");
             }
         });
-        $("#jml_ikan").prop('selectedIndex',null);
-        $("#jml_potong").prop('selectedIndex',null);
+        $("#jml_ikan").prop('selectedIndex', null);
+        $("#jml_potong").prop('selectedIndex', null);
     } else {
         $(".pesan-variasi").attr("disabled");
     }
@@ -213,12 +214,13 @@ function beli() {
 
         variasi = $("#variasi").val();
         var jml_ikan_per_kg = $("[name=jml_ikan]").val();
-        var jml_potong_ikan = (variasi_text=="Mentah Potong") ? $("[name=jml_potong]").val() : null;
+        var jml_potong_ikan = (variasi_text == "Mentah Potong") ? $("[name=jml_potong]").val() : null;
         var variasi_selected_init = $("[name=variasi]").find("option:selected").text();
         var id_usaha = localStorage.id_usaha;
-        var new_prods = Array();
-        let fee_kirim = (localStorage.distance > 5) ? parseInt(10000 * (localStorage.distance-5)) : 5000;
-        
+        var new_prods = {};
+        let fee_kirim = rel.fee_kirim;
+        let distance = rel.jarakPengiriman;
+
         new_prods = {
             id_produk: id_produk,
             nama_produk: nama_produk,
@@ -235,51 +237,12 @@ function beli() {
             ikan_per_kg: jml_ikan_per_kg,
             potong_per_ekor: jml_potong_ikan,
             nama_usaha: nama_usaha_text,
-            distance: localStorage.distance,
+            distance: distance,
             estimasi_ongkir: fee_kirim
         };
         console.log(new_prods);
         // SIMPAN KE KERANJANG
         simpan_keranjang(new_prods);
-        // check keranjang kosong
-        // if (storage.getItem('keranjang') == "" || storage.getItem('keranjang') == null) {
-        //     storage.setItem('keranjang', "[]");
-        // }
-        // var Keranjang = JSON.parse(storage.keranjang);
-        // console.log("length keranjang : ");
-        // // store data to keranjang localstorage
-        // // keranjang ==0
-        // if (Keranjang.length == 0) {
-        //     Keranjang[0] = new_prods;
-        //     console.log(Keranjang);
-        //     localStorage.setItem("keranjang", JSON.stringify(Keranjang));
-        // } else {
-        //     // keranjang sudah ada
-        //     var data_prod = Array();
-        //     data_prod = JSON.parse(storage.keranjang);
-        //     var updated = 0;
-        //     // update quantity and total harga if product variasi is same
-        //     $.each(data_prod, function (key, val) {
-        //         console.log("val data : " + data_prod[key]['qty']);
-        //         if ((val.id_produk == new_prods.id_produk) && (val.variasi == new_prods.variasi)) {
-        //             var qtyKeranjang = parseInt(val.qty);
-        //             var newQty = parseInt(new_prods.qty);
-        //             var totalQty = qtyKeranjang + newQty;
-        //             data_prod[key]['qty'] = parseInt(val.qty) + parseInt(new_prods.qty);
-        //             data_prod[key]['total_harga'] = parseInt(val.total_harga) + parseInt(new_prods.total_harga);
-        //             updated = 1;
-        //         }
-        //     });
-        //     // keranjang updated condition if product variasi isn't same
-        //     if (updated == 0) {
-        //         data_prod.push(new_prods);
-        //     }
-        //     storage.setItem('keranjang', JSON.stringify(data_prod));
-        // }
-
-        //window.location.href="detail_pesanan_saya.html";
-
-
     }
 }
 
@@ -289,9 +252,9 @@ function simpan_keranjang(data_prod) {
 
 function on_success_simpan_keranjang(data, status) {
     if (status == "success") {
-        var data_keranjang_usaha = data.keranjang;
+        var data_keranjang_usaha = data;
         let data_produk = 0;
-        $.each(data_keranjang_usaha, function(i, v){
+        $.each(data_keranjang_usaha, function (i, v) {
             data_produk += v.data_produk.length;
         });
         console.log("Total Keranjang : ", data_produk);
@@ -435,4 +398,96 @@ var onSuccessDetailUsaha = (e, status) => {
     $("#img-usaha").attr("src", base_url + "foto_usaha/" + foto_usaha);
     $("#nama-usaha").html(nama_usaha);
     $("#kab-usaha").html(kab);
+    rel.data_usaha = data_usaha;
+    rel.load_data_pembeli();
+}
+
+var rel = {
+    fee_kirim: 0,
+    temp_fee_kirim: 0,
+    origin: {},
+    jarakPengiriman: 0,
+    data_usaha: {},
+    load_data_pembeli: function () {
+        $.getJSON(API_PEMBELI, { id_akun: storage.id_akun }).then(rel.success_load_data_pembeli);
+    },
+    success_load_data_pembeli: function (result, status) {
+        if (status == "success") {
+            let data_pembeli = result[0];
+            rel.origin = { lat: parseFloat(data_pembeli.latitude), lng: parseFloat(data_pembeli.longitude) };
+            rel.load_distance_matrix();
+        }
+    },
+    load_distance_matrix: function () {
+        var t;
+        var tujuan = [];
+
+        t = { lat: parseFloat(rel.data_usaha.latitude), lng: parseFloat(rel.data_usaha.longitude) };
+        tujuan.push(t);
+        console.log('tujuan');
+        console.log(tujuan);
+        // des -7.567492, 110.832670 des  -7.566248, 110.833485 des  -7.569072, 110.831500
+        var service = new google.maps.DistanceMatrixService;
+
+        service.getDistanceMatrix({
+            origins: tujuan,
+            destinations: [rel.origin],
+            travelMode: 'DRIVING',
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: true
+        }, function (response, status) {
+            if (status !== 'OK') {
+                alert('Error was: ' + status);
+            } else {
+                console.log("Matrix Success");
+                // let results = response.rows[0].elements;
+                var originList = response.originAddresses;
+                // var outputDiv = document.getElementById('output');
+                // outputDiv.innerHTML = '';
+                console.log(response);
+                rel.set_origin_list(originList, response);
+                // return app.load_keranjang(response);
+                // this.result_distance = semuadistance;
+                // this.load_keranjang(semuadistance);
+            }
+        });
+    },
+    set_origin_list: (originList, response) => {
+        for (var i = 0; i < originList.length; i++) {
+            var results = response.rows[i].elements;
+            for (var j = 0; j < results.length; j++) {
+                // KONDISI BIAYA PENGIRIMAN
+                rel.fee_kirim = 5000;
+                // jarakPengiriman = (results[j].distance.value / 1000).toFixed(1);
+                let distance_val = parseFloat(results[j].distance.value / 1000);
+                rel.jarakPengiriman = distance_val.toFixed(1);
+                console.log("jarakPengiriman: ",rel.jarakPengiriman);
+                if (results[j].distance.value > 5000) {
+                    rel.fee_kirim += parseInt(1000 * (distance_val - 5)); //1000/km
+                }
+                var slicedString = rel.fee_kirim.toString().slice(-3);
+                if (parseInt(slicedString) > 500) {
+                    rel.fee_kirim = rel.fee_kirim + 1000 - parseInt(slicedString);
+                } else if (parseInt(slicedString) < 500) {
+                    rel.fee_kirim = rel.fee_kirim - parseInt(slicedString);
+                }
+                rel.temp_fee_kirim = rel.fee_kirim;
+                console.log("FEEKIRIM: " + rel.fee_kirim);
+                if (j == 0) {
+                    idx_terdekat = 0;
+                    distance_to_this_bf = results[j].distance.value; //nilai untuk dibandingkan
+                    // outputDiv.innerHTML += res[j].nama_tempat + ' titik pertama. idx_terdekat ' + idx_terdekat + '<br>';
+                } else {
+                    // outputDiv.innerHTML += '<br>' + res[j].nama_tempat + '<br>' + distance_to_this_bf + '>' + results[j].distance.value + ' maka <br>';
+                    if (distance_to_this_bf > results[j].distance.value) {
+                        distance_to_this_bf = results[j].distance.value;
+                        idx_terdekat = j;
+                    }
+                    // outputDiv.innerHTML += 'idx_terdekat = ' + idx_terdekat + '<br>';
+                }
+                // outputDiv.innerHTML += 'Jarak: ' + results[j].distance.text + '<br>'; //km
+            }
+        }
+    }
 }

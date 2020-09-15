@@ -226,6 +226,30 @@
     }
 
     function onLoad() {
+      // $.ajax({
+      //   url: base_url+'Penjual/detail_usaha',
+      //   type: 'POST',
+      //   data: {id_usaha: storage.id_usaha},
+      //   dataType: 'JSON',
+      //   async: false,
+      //   success: function(e){
+      //     // console.log("Data Usaha:" + JSON.stringify(e));
+      //     var nama_usaha = e.nama_usaha, kab = e.kab, foto_usaha = e.foto_usaha;
+      //     $("#img-usaha").attr("src", base_url+"foto_usaha/"+foto_usaha);
+      //     $("#nama-usaha").html(nama_usaha);
+      //     $("#kab-usaha").html(kab);
+      //   }
+      // });
+      document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    function onDeviceReady() {
+      get_detail();
+      document.addEventListener("backbutton", onBackKeyDown, true);
+      // Add similar listeners for other events
+    }
+
+    function get_detail() {
       $.getJSON(API_DETAIL_PRODUK, { id_produk: id_produk })
         .done(function (e) {
           console.log(e);
@@ -255,28 +279,6 @@
         $("#list-variasi").addClass("right-align teal-text");
         $("#list-variasi").css("font-size", "small");
       });
-
-      // $.ajax({
-      //   url: base_url+'Penjual/detail_usaha',
-      //   type: 'POST',
-      //   data: {id_usaha: storage.id_usaha},
-      //   dataType: 'JSON',
-      //   async: false,
-      //   success: function(e){
-      //     // console.log("Data Usaha:" + JSON.stringify(e));
-      //     var nama_usaha = e.nama_usaha, kab = e.kab, foto_usaha = e.foto_usaha;
-      //     $("#img-usaha").attr("src", base_url+"foto_usaha/"+foto_usaha);
-      //     $("#nama-usaha").html(nama_usaha);
-      //     $("#kab-usaha").html(kab);
-      //   }
-      // });
-      document.addEventListener("deviceready", onDeviceReady, false);
-    }
-
-    function onDeviceReady() {
-
-      document.addEventListener("backbutton", onBackKeyDown, true);
-      // Add similar listeners for other events
     }
   </script>
 </body>

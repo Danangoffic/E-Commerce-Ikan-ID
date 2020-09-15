@@ -53,8 +53,9 @@ function kirim_data() {
                     localStorage.setItem("id_usaha", resp.data_usaha.id_usaha);
                     localStorage.setItem("data_usaha", JSON.stringify(resp.data_usaha));
                 }
-                var keranjang = JSON.stringify(Array());
-                window.localStorage.setItem('keranjang', JSON.parse(keranjang));
+                if (localStorage.usergroup == "pembeli") {
+                    loadkeranjang();
+                }
                 console.log(window.localStorage.getItem(usergroup));
                 console.log(window.localStorage.getItem(username));
                 setTimeout(redirectPage, 1000);
@@ -74,3 +75,28 @@ function redirectPage() {
     }
 }
 console.log('sukses_login' + window.localStorage.getItem('sukses_login'));
+
+const loadkeranjang = () => $.getJSON(API_KERANJANG, { id_akun: localStorage.id_akun }).then(successKeranjang).fail(onfailkeranjang);
+
+function successKeranjang(response, status) {
+    if (status == "success") {
+        console.log("status: ", status);
+        let keranjang = response.keranjang;
+        let str_keranjang = JSON.stringify(keranjang);
+        let panjang_keranjang = keranjang.length;
+        $("#status_keranjang").html(panjang_keranjang);
+        localStorage.setItem("keranjang", str_keranjang);
+        localStorage.setItem("total_item_keranjang", panjang_keranjang);
+        console.log("keranjang: ", keranjang, "total_item_keranjang: ", panjang_keranjang);
+    }
+}
+
+function onfailkeranjang(error) {
+    console.log("status: ", error);
+    let str_keranjang = "[]";
+    let panjang_keranjang = 0;
+    $("#status_keranjang").html("0");
+    localStorage.setItem("keranjang", str_keranjang);
+    localStorage.setItem("total_item_keranjang", panjang_keranjang);
+    console.log("keranjang: ", keranjang, "total_item_keranjang: ", panjang_keranjang);
+}

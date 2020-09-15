@@ -1,8 +1,10 @@
 // var base_url = "http://10.0.1.182/backendikan/";
+const SERVER = "http://103.195.90.35:3300";
+const LOCAL = "http://localhost";
 // var base_url = "http://192.168.100.103/backendikan/";
-// var base_url = "http://103.195.90.35:3300/backendikan/";
+var base_url = `${SERVER}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);
- var base_url = "http://localhost/backendikan/";
+//  var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.43.71/backendikan/";
 
 var storage = window.localStorage;
@@ -63,11 +65,11 @@ console.log('usergroup' + usergroup);
 console.log('username' + username);
 console.log('id_akun: ' + id_akun);
 
-if(!localStorage.total_item_keranjang){
+if(localStorage.total_item_keranjang=="undefined"){
   var total_item_keranjang = 0;
   localStorage.setItem("total_item_keranjang", total_item_keranjang);
 }
-if(!localStorage.keranjang){
+if(localStorage.keranjang=="undefined"){
   var keranjang = "[]";
   localStorage.setItem("keranjang", keranjang);
 }
@@ -178,6 +180,7 @@ var API_KENDARAAN_PENJUAL = API_PENJUAL + "/kendaraan";
 var API_CREATE_KENDARAAN = API_KENDARAAN_PENJUAL + "/create";
 var API_DETAIL_KENDARAAN = API_KENDARAAN_PENJUAL + "/detail";
 var API_UPDATE_KENDARAAN = API_KENDARAAN_PENJUAL + "/update";
+var API_DELETE_KENDARAAN = API_KENDARAAN_PENJUAL + "/delete";
 
 var API_PEMBELI = API_USER_INSTANCE + "/pembeli";
 var API_PEMBELI_UPDATE_ALAMAT = API_PEMBELI + "/update-alamat";
@@ -213,6 +216,16 @@ var API_DETAIL_PESANAN_IN_HTML = API_PESANAN + "/detail-in-html";
 var API_DETAIL_PESANAN_WITH_PAYMENT_IN_HTML = API_PESANAN + "/detail-with-payment/";
 var API_PESANAN_SELESAI = API_PESANAN + '/complete';
 
+var API_PENGIRIMAN = base_url + "api/pengiriman";
+
 var API_KERANJANG = base_url + "api/keranjang";
 var API_UBAH_KERANJANG = API_KERANJANG + "/update";
 var API_HAPUS_KERANJANG = API_KERANJANG + "/delete";
+
+function only_go_to(url_file="") {
+  return location.replace(url_file);
+}
+
+function go_to(url_file="") {
+  return location.href=url_file;
+}

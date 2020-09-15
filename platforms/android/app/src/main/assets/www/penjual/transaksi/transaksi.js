@@ -185,7 +185,7 @@ var app = {
             var html_table = '';
             $.each(detail_pemesanan, function (k, v) {
                 var nama_produk = v.nama_produk + ' ' + v.nama_variasi;
-                var berat_produk = v.jml_produk + ' Ons';
+                var berat_produk = v.jml_produk * 10 + ' Ons';
                 var berat_akhir = (v.berat_akhir == null) ? 0 : v.berat_akhir;
                 html_table += '<tr>';
                 html_table += '<td style="font-size: medium;">' + nama_produk + '</td>';

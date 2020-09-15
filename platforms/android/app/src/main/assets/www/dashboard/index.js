@@ -192,53 +192,45 @@ function initDistance(res) {
 
             console.log(semuaidusaha);
             var produks = '';
-            
-            $.each(semuaidusaha, function (k, v) {
-                const distance_text = semuadistance[v].text;
-                $.ajax({
-                    url: API_GET_PRODUK_DASHBOARD,
-                    type: 'GET',
-                    data: { id_usaha: v },
-                    dataType: 'JSON',
-                    async: false,
-                    success: function (ea) {
-                        console.log("id_usaha : " + v);
-                        console.log(ea);
-                        //console.log(JSON.stringify(ea,null, 2   ));
-                        if (ea.length > 0) {
+            let data_ajax = { id_usaha: semuaidusaha, distance_text: semuadistance };
 
-                            // height="150" width="110"
-                            $.each(ea, function (key, val) {
-                                var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
-                                produks += '<li class="collection-item avatar" onclick="viewProduk(' + val.id_produk + ', ' + v + ')">' +
-                                    '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
-                                    '<span class="title black-text">' + val.nama_produk + '</span>' +
-                                    '<p class="orange-text">' + harga_display + '</p>' +
-                                    '<hr>' +
-                                    '<div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">' +
-                                    '<div class="col s8" style="padding-left: 0px; padding-right: 0px">' + val.nama_usaha + '</div>' +
-                                    '<div class="col s4"><p class="right">' + distance_text + '</p></div></div>' +
-                                    '</li>';
-                            });
-
-
-                            var tawarImg = '../img/ikan2.png', lautImg = '../img/ikan1.png';
-                            $(".tawar").attr('src', tawarImg);
-                            $(".laut").attr('src', lautImg);
-                            console.log("Tawar Image : " + tawarImg);
-                            console.log("Laut Image : " + lautImg);
-                        }
-                    },
-                    always: function () {
-                        ajaxx = 1;
-                    }
-                });
+            console.log("data ajax: ", data_ajax);
+            $.ajax({
+                url: API_GET_PRODUK_DASHBOARD,
+                type: 'GET',
+                data: data_ajax,
+                dataType: 'JSON',
+                success: function (response, status) {
+                    // console.log("id_usaha : " + v);
+                    console.log(response);
+                    //console.log(JSON.stringify(ea,null, 2   ));
+                    let usaha_id = response;
+                    console.log(usaha_id);
+                    $.each(usaha_id, function (k, v) {
+                        $.each(v, function (key, val) {
+                            const distance_text = val.distance;
+                            console.log("distance", distance_text);
+                            var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
+                            produks += '<li class="collection-item avatar" onclick="viewProduk(' + val.id_produk + ', ' + key + ')">' +
+                                '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
+                                '<span class="title black-text">' + val.nama_produk + '</span>' +
+                                '<p class="orange-text">' + harga_display + '</p>' +
+                                '<hr>' +
+                                '<div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">' +
+                                '<div class="col s8" style="padding-left: 0px; padding-right: 0px">' + val.nama_usaha + '</div>' +
+                                '<div class="col s4"><p class="right">' + distance_text + '</p></div></div>' +
+                                '</li>';
+                        });
+                    });
+                    console.log(produks);
+                    $(".progress").remove();
+                    $("#dataProduct").html(produks);
+                    
+                },
+                always: function () {
+                    ajaxx = 1;
+                }
             });
-            $(".progress").remove();
-            $("#dataProduct").html(produks);
-
-
-
             // outputDiv.innerHTML += 'jarak terdekat yaitu ke titik ke ' + idx_terdekat + '<br>yaitu ' + res[idx_terdekat].nama_usaha;
             var start = titik_saat_ini;
             var end = new google.maps.LatLng(res[idx_terdekat].latitude, res[idx_terdekat].longitude);
