@@ -129,7 +129,7 @@
     var data_usaha = JSON.parse(localStorage.data_usaha);
     var id_usaha = data_usaha.id_usaha;
     var total_bobot_pesanan = parseInt(0);
-
+    var array_id_pesanan = [11];
     $(document).ready(onDeviceReady);
     function onLoad() {
       document.addEventListener("deviceready", onDeviceReady, false);
@@ -168,7 +168,7 @@
 
     function lanjut_pengiriman() {
       var form = $("form").serializeArray();
-      form.push({ name: "priority_pesanan", value: localStorage.priority });
+      form.push({ name: "id_pemesanan", value: array_id_pesanan });
       form.push({name: "id_pj", value: localStorage.id_akun});
       console.log(form);
       
@@ -203,6 +203,8 @@
         console.log("data_pesanan_priority : ", data_pesanan_priority.length);
         var html_priority = '<p class="center black-text">PRIORITAS</p>';
         $.each(data_pesanan_priority, (k, v) => {
+          let id_pemesanan = parseInt(v.id_pemesanan);
+          array_id_pesanan.push(id_pemesanan);
           var detail_pembeli = v.detail_pembeli;
           html_priority += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
           let detail_pesanan = v.detail_pesanan;
@@ -220,6 +222,8 @@
         // console.log(data_pesanan);
         var html_normal = '';
         $.each(data_pesanan_non_priority, (k, v) => {
+          let id_pemesanan = parseInt(v.id_pemesanan);
+          array_id_pesanan.push(id_pemesanan);
           var detail_pembeli = v.detail_pembeli;
           html_normal += '<div class="card" id="list-pesanan-' + v.id_pemesanan + '"><ul class="collection"><li class="collection-item"><span class="title" id="nama_pb">' + detail_pembeli.nama_pb + '<br><span>' + detail_pembeli.alamat_pb + '</span></span><p class="teal-text" id="jenis-pengiriman-' + v.no_pesanan + '" style="position: relative; text-align: right;">(Pengiriman ' + v.tipe_pengiriman + ')</p></li></ul></div>';
           let detail_pesanan = v.detail_pesanan;
@@ -241,7 +245,7 @@
 
     function loadPesananNonPriority() {
       var priority = JSON.parse(localStorage.priority);
-      $.getJSON(API_PRODUK_NON_PRIORITY, { pesanan: priority }).then(onSuccessLoadPesananNonPriority);
+      $.getJSON(API_PRODUK_NON_PRIORITY, { pesanan: array_id_pesanan }).then(onSuccessLoadPesananNonPriority);
 
     }
 
@@ -269,7 +273,7 @@
         $.each(data_kurir, (k, v) => {
           html_kurir += '<p style="text-align: left;">' +
             '<label class="black-text" for="kurir-' + v.id_kurir + '" style="width: 100%; text-align: left;">' +
-            '<input type="radio" id="kurir-' + v.id_kurir + '" name="kurir" value="' + v.id_kurir + '" />' +
+            '<input type="radio" id="kurir-' + v.id_kurir + '" name="id_kurir" value="' + v.id_kurir + '" />' +
             '<span>' + v.nama_kurir + '</span>' +
             '</label>' +
             '</p>';
@@ -298,7 +302,7 @@
           if (parseInt(v.kapasitas_kendaraan) >= total_bobot_pesanan) {
             html_kendaraan += '<p style="text-align: left;">' +
               '<label class="black-text" for="kendaraan-' + v.id_kendaraan + '" style="width: 100%; text-align: left;">' +
-              '<input type="radio" id="kendaraan-' + v.id_kendaraan + '" name="kendaraan" value="' + v.id_kendaraan + '" />' +
+              '<input type="radio" id="kendaraan-' + v.id_kendaraan + '" name="id_kendaraan" value="' + v.id_kendaraan + '" />' +
               '<span>' + v.jenis_kendaraan + ' (' + v.plat_kendaraan + ')</span>' +
               '</label>' +
               '</p>';
