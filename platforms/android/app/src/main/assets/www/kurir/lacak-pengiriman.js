@@ -278,7 +278,7 @@ var app = {
         let alamat_pembeli = document.getElementById("alamat_pembeli");
         img_pembeli.attributes("src", foto);
         name.innerText = nama_pembeli;
-        alamat.innerText = alamat;
+        alamat.innerText = alamat_pembeli;
     },
 
     // Update DOM on a Received Event
