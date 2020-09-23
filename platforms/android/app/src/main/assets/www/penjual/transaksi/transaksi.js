@@ -43,7 +43,7 @@ var app = {
             app.idUsaha = e.id_usaha;
             console.log(app.idUsaha);
             app.get_pesanan_default();
-            app.get_transaksi_pengiriman();
+            // app.get_transaksi_pengiriman();
             app.get_transaksi_today();
             // loadPesanan(idUsaha, "Pengiriman");
         }
