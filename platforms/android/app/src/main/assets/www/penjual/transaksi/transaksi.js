@@ -43,7 +43,7 @@ var app = {
             app.idUsaha = e.id_usaha;
             console.log(app.idUsaha);
             app.get_pesanan_default();
-            app.get_transaksi_pengiriman();
+            // app.get_transaksi_pengiriman();
             app.get_transaksi_today();
             // loadPesanan(idUsaha, "Pengiriman");
         }
@@ -243,6 +243,7 @@ var app = {
         app.loadPesanan(app.idUsaha, "Terbayar");
         app.loadPesanan(app.idUsaha, "Siap Dikirim");
         app.loadPesanan(app.idUsaha, "Siap Diambil");
+        app.loadPesanan(app.idUsaha, "Pengiriman");
         app.loadPesanan(idUsaha, "Terkirim");
     },
     loadPesanan: (idUsaha, status) => {
@@ -272,6 +273,7 @@ var app = {
                     var DataPembayaran = isi.DataPembayaran;
                     var status_pembayaran, color_status_pembayaran;
                     var collection_item_status_pembayaran;
+                    let btn_lacak_sedang_berjalan="";
                     //   if (status == "Baru") {
                     //     StatusPemesanan = "Baru";
                     //   } else if (status == "Terbayar") {
@@ -292,8 +294,21 @@ var app = {
                         status_pembayaran = "Perlu Diproses", color_status_pembayaran = " green accent-1";
                         collection_item_status_pembayaran = '<li class="collection-item center' + color_status_pembayaran + '" id="status-pembayaran-' + isi.idPemesanan + '">' + status_pembayaran + '</li>';
                     } else if (Status_pengiriman == "Pengiriman") {
+                        let detail_pengiriman = isi.detail_pengiriman;
+                        let status_pengiriman = detail_pengiriman.status;
+                        let id_pengiriman = parseInt(detail_pengiriman.id_pengiriman);
+                        if(status_pengiriman=="pengantaran"){
+                            localStorage.setItem('id_pengiriman', id_pengiriman);
+                        }
+                        let jenis_payment_pengiriman="";
+                        jenis_payment_pengiriman=DataPembayaran.status_pembayaran;
+                        btn_lacak_sedang_berjalan = `<a href="../../kurir/lacak-pengiriman.html" class="waves-effect waves-light btn blue white-text center-align" style="width:100%">Lihat Pengiriman Sedang Berjalan</a>`;
                         status_pembayaran = "Dalam Pengiriman", color_status_pembayaran = " green accent-2";
                         collection_item_status_pembayaran = '<li class="collection-item center' + color_status_pembayaran + '" id="status-pembayaran-' + isi.idPemesanan + '">' + status_pembayaran + '</li>';
+                        if(i==0){
+                            console.log("Urutan pengiriman " + i);
+                            Html += btn_lacak_sedang_berjalan;
+                        }
                     }
                     Html += '<div class="card z-depth-3">' +
                         '<ul class="collection" onclick="GoToDetail(\'' + isi.idPemesanan + '\', \'' + Status_pengiriman + '\')">' +

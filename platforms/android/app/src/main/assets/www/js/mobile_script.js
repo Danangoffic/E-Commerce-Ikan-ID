@@ -246,8 +246,8 @@ async function CALL_API(METHOD="GET", URL="", DATA=NULL) {
   });
 }
 
-function GET_API(URL, DATA=null) {
-  return CALL_API("GET", URL, DATA);
+async function GET_API(URL="", URL_PARAM) {
+  return await fetch(URL + URL_PARAM).then(response=>response.json());
 }
 
 function POST_API(URL, DATA={}){
