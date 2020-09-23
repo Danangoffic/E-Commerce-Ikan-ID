@@ -60,8 +60,8 @@ function onSuccessPengiriman(response, status) {
     let id_pengiriman = response.id_pengiriman;
     let data_pengiriman = JSON.stringify(response.data_pengiriman);
     localStorage.setItem("id_pengiriman", id_pengiriman);
-    localStorage.setItem("data_pengiriman", data_pengiriman);
-    // window.location.assign("lacak-pengiriman.html");
+    // localStorage.setItem("data_pengiriman", data_pengiriman);
+    window.location.assign("../../kurir/lacak-pengiriman.html");
 }
 
 function loadPesananPriority() {
