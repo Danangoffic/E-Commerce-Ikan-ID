@@ -60,7 +60,7 @@ var lacak = {
         initMap(lat1, long1);
     },
     parse_progression: function (usaha, pengiriman) {
-        let html_progress_usaha = `<li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time>
+        let html_progress_usaha = `<li><time datetime="" class="teal-text waktu-pengiriman">(08.30)</time>
                 <span>
                     <b id="nama-usaha">${usaha.nama_usaha}</b><br>
                     <p id="alamat-usaha" class="teal-text">${usaha.alamat_usaha}</p>
@@ -75,12 +75,12 @@ var lacak = {
             }else if(status=="selesai"){
                 alt_status = "Pesanan Diterima";
             }
-            html_progress_pengiriman += `<li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time>
-            <span>
+            html_progress_pengiriman += `<li><time datetime="" class="teal-text" style="margin-left: 42px"></time>
+            <div style="margin-left: 24px">
                 <b id="nama_pembeli${el.urutan}">${el.detail_pembeli.nama}</b><br>
                 <p id="alamat_pembeli${el.urutan}" class="teal-text">${el.detail_pembeli.alamat_pembeli}</p>
                 <p id="status_pengiriman${el.urutan}" class="black-text">${alt_status}</p>
-            </span>
+            </div>
         </li>`;
         });
         html_progress_usaha += html_progress_pengiriman;
