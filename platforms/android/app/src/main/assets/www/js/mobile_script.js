@@ -133,94 +133,97 @@ function checkConnection() {
 }
 
 // URL API's READY TO CALL
-var API_GET_PRODUK_DASHBOARD = base_url + "api/produk";
-var API_DETAIL_PRODUK = API_GET_PRODUK_DASHBOARD + "/detail";
-var API_GET_VARIASI_PRODUK = API_GET_PRODUK_DASHBOARD + "/variasi";
-var API_CREATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/add";
-var API_UPDATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/update";
-var API_UPDATE_VARIASI_PRODUK = API_GET_PRODUK_DASHBOARD + "/variasi/update";
-var API_ACTIVATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/aktifkan";
-var API_DISABLE_PRODUK = API_GET_PRODUK_DASHBOARD + "/non-aktifkan";
-var API_SEARCH_PRODUK = API_GET_PRODUK_DASHBOARD + "/search";
-var API_FILTERED_PRODUK = API_GET_PRODUK_DASHBOARD + "/filtered";
-var API_GET_ALL_VARIASI = API_GET_PRODUK_DASHBOARD + "/all-variasi";
+const API_GET_PRODUK_DASHBOARD = base_url + "api/produk";
+const API_DETAIL_PRODUK = API_GET_PRODUK_DASHBOARD + "/detail";
+const API_GET_VARIASI_PRODUK = API_GET_PRODUK_DASHBOARD + "/variasi";
+const API_CREATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/add";
+const API_UPDATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/update";
+const API_UPDATE_VARIASI_PRODUK = API_GET_PRODUK_DASHBOARD + "/variasi/update";
+const API_ACTIVATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/aktifkan";
+const API_DISABLE_PRODUK = API_GET_PRODUK_DASHBOARD + "/non-aktifkan";
+const API_SEARCH_PRODUK = API_GET_PRODUK_DASHBOARD + "/search";
+const API_FILTERED_PRODUK = API_GET_PRODUK_DASHBOARD + "/filtered";
+const API_GET_ALL_VARIASI = API_GET_PRODUK_DASHBOARD + "/all-variasi";
 
-var API_USER_INSTANCE = base_url + "api/user";
-var API_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/penjual";
-var API_SIGN_UP_USAHA = API_USER_INSTANCE + "/signup/usaha";
-var API_SIGN_UP_PEMBELI = API_USER_INSTANCE + "/signup/pembeli";
-var API_ROLLBACK_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/rollback";
-var API_LOGIN = API_USER_INSTANCE + "/login";
-var API_LOGIN_KURIR = API_LOGIN + "-kurir";
+const API_USER_INSTANCE = base_url + "api/user";
+const API_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/penjual";
+const API_SIGN_UP_USAHA = API_USER_INSTANCE + "/signup/usaha";
+const API_SIGN_UP_PEMBELI = API_USER_INSTANCE + "/signup/pembeli";
+const API_ROLLBACK_SIGN_UP_PENJUAL = API_USER_INSTANCE + "/signup/rollback";
+const API_LOGIN = API_USER_INSTANCE + "/login";
+const API_LOGIN_KURIR = API_LOGIN + "-kurir";
 
-var API_PENJUAL = API_USER_INSTANCE + "/penjual";
-var API_PENJUAL_LOKASI = API_PENJUAL + "/lokasi";
-var API_DETAIL_PENJUAL = API_PENJUAL + "/detail";
-var API_UPDATE_PENJUAL = API_PENJUAL + "/update";
-var API_GET_USAHA_BY_AKUN = API_PENJUAL + "/usaha/detail-by-akun";
-var API_UPDATE_USAHA = API_PENJUAL + "/usaha/update";
-var API_DETAIL_USAHA = API_PENJUAL + "/usaha/detail";
+const API_PENJUAL = API_USER_INSTANCE + "/penjual";
+const API_PENJUAL_LOKASI = API_PENJUAL + "/lokasi";
+const API_DETAIL_PENJUAL = API_PENJUAL + "/detail";
+const API_UPDATE_PENJUAL = API_PENJUAL + "/update";
+const API_GET_USAHA_BY_AKUN = API_PENJUAL + "/usaha/detail-by-akun";
+const API_UPDATE_USAHA = API_PENJUAL + "/usaha/update";
+const API_DETAIL_USAHA = API_PENJUAL + "/usaha/detail";
 
-var API_KELOMPOK_TANI = API_PENJUAL + "/kelompok-tani";
-var API_UPDATE_KELOMPOK_TANI = API_KELOMPOK_TANI + "/update";
+const API_KELOMPOK_TANI = API_PENJUAL + "/kelompok-tani";
+const API_UPDATE_KELOMPOK_TANI = API_KELOMPOK_TANI + "/update";
 
-var API_JAM_PENGIRIMAN = API_PENJUAL + "/jam-pengiriman";
-var API_CREATE_JAM_PENGIRMAN = API_JAM_PENGIRIMAN + "/create";
-var API_DETAIL_JAM_PENGIRIMAN = API_JAM_PENGIRIMAN + "/detail";
-var API_UPDATE_JAM_PENGIRIMAN = API_JAM_PENGIRIMAN + "/update";
-var API_DELETE_JAM_PENGIRIMAN = API_JAM_PENGIRIMAN + "/delete";
+const API_JAM_PENGIRIMAN = API_PENJUAL + "/jam-pengiriman";
+const API_CREATE_JAM_PENGIRMAN = API_JAM_PENGIRIMAN + "/create";
+const API_DETAIL_JAM_PENGIRIMAN = API_JAM_PENGIRIMAN + "/detail";
+const API_UPDATE_JAM_PENGIRIMAN = API_JAM_PENGIRIMAN + "/update";
+const API_DELETE_JAM_PENGIRIMAN = API_JAM_PENGIRIMAN + "/delete";
 
-var API_KURIR = API_USER_INSTANCE + "/kurir";
-var API_DETAIL_KURIR = API_KURIR + "/detail";
-var API_CREATE_KURIR = API_KURIR + "/create";
-var API_UPDATE_KURIR = API_KURIR + "/update";
-var API_DELETE_KURIR = API_KURIR + "/delete";
+const API_KURIR = API_USER_INSTANCE + "/kurir";
+const API_DETAIL_KURIR = API_KURIR + "/detail";
+const API_CREATE_KURIR = API_KURIR + "/create";
+const API_UPDATE_KURIR = API_KURIR + "/update";
+const API_DELETE_KURIR = API_KURIR + "/delete";
 
-var API_KENDARAAN_PENJUAL = API_PENJUAL + "/kendaraan";
-var API_CREATE_KENDARAAN = API_KENDARAAN_PENJUAL + "/create";
-var API_DETAIL_KENDARAAN = API_KENDARAAN_PENJUAL + "/detail";
-var API_UPDATE_KENDARAAN = API_KENDARAAN_PENJUAL + "/update";
-var API_DELETE_KENDARAAN = API_KENDARAAN_PENJUAL + "/delete";
+const API_KENDARAAN_PENJUAL = API_PENJUAL + "/kendaraan";
+const API_CREATE_KENDARAAN = API_KENDARAAN_PENJUAL + "/create";
+const API_DETAIL_KENDARAAN = API_KENDARAAN_PENJUAL + "/detail";
+const API_UPDATE_KENDARAAN = API_KENDARAAN_PENJUAL + "/update";
+const API_DELETE_KENDARAAN = API_KENDARAAN_PENJUAL + "/delete";
 
-var API_PEMBELI = API_USER_INSTANCE + "/pembeli";
-var API_PEMBELI_UPDATE_ALAMAT = API_PEMBELI + "/update-alamat";
-var API_PEMBELI_UPDATE = API_PEMBELI + "/update";
+const API_PEMBELI = API_USER_INSTANCE + "/pembeli";
+const API_PEMBELI_UPDATE_ALAMAT = API_PEMBELI + "/update-alamat";
+const API_PEMBELI_UPDATE = API_PEMBELI + "/update";
 // var API_DETAIL_PEMBELI = API_PEMBELI + "/detail";
 
 
-var API_REKENING = base_url + "api/rekening";
-var API_REKENINIG_USAHA = API_REKENING + "-usaha"
-var API_DETAIL_REKENING = API_REKENING + "/detail";
-var API_CREATE_REKENING = API_REKENING + "/add";
-var API_UPDATE_REKENING = API_REKENING + "/update";
-var API_DELETE_REKENING = API_REKENING + "/delete";
-var API_BANK_REKENING = API_REKENING + "/bank";
+const API_REKENING = base_url + "api/rekening";
+const API_REKENINIG_USAHA = API_REKENING + "-usaha"
+const API_DETAIL_REKENING = API_REKENING + "/detail";
+const API_CREATE_REKENING = API_REKENING + "/add";
+const API_UPDATE_REKENING = API_REKENING + "/update";
+const API_DELETE_REKENING = API_REKENING + "/delete";
+const API_BANK_REKENING = API_REKENING + "/bank";
 
-var API_PAYMENT_INSTANCE = base_url + "api/payment";
-var API_UPLOAD_PAYMENT = API_PAYMENT_INSTANCE + "/upload";
-var API_DETAIL_REKENING_PAYMENT_IN_HTML = API_PAYMENT_INSTANCE + "/rekening/detail/html";
-var API_DETAIL_STRUK_PAYMENT = API_PAYMENT_INSTANCE + "/struk";
-var API_VERIFY_PAYMENT = API_PAYMENT_INSTANCE + "/verify";
+const API_PAYMENT_INSTANCE = base_url + "api/payment";
+const API_UPLOAD_PAYMENT = API_PAYMENT_INSTANCE + "/upload";
+const API_DETAIL_REKENING_PAYMENT_IN_HTML = API_PAYMENT_INSTANCE + "/rekening/detail/html";
+const API_DETAIL_STRUK_PAYMENT = API_PAYMENT_INSTANCE + "/struk";
+const API_VERIFY_PAYMENT = API_PAYMENT_INSTANCE + "/verify";
 
-var API_PESANAN = base_url + "api/pesanan";
-var API_PESANAN_PENJUAL = API_PESANAN + "/penjual";
-var API_CREATE_PESANAN = API_PESANAN + "/create";
-var API_PRODUK_TO_DELIVERY_PESANAN = API_PESANAN + "/produk-to-delivery";
-var API_PESANAN_PRIORITY = API_PESANAN + "/pesanan-priority";
-var API_PRODUK_NON_PRIORITY = API_PESANAN + "/pesanan-non-priority";
-var API_PRODUK_TO_VERIFY_WEIGHT_PESANAN = API_PESANAN + "/produk-to-verify";
-var API_VERIFY_PRODUK_PESANAN_PESANAN = API_PESANAN + "/verify-produk-weight";
-var API_DETAIL_PESANAN_PENJUAL = API_PESANAN + "/detail-transaksi-by-id";
-var API_DETAIL_PESANAN_PEMBELI = API_PESANAN + "/detail-pesanan-by-id";
-var API_DETAIL_PESANAN_IN_HTML = API_PESANAN + "/detail-in-html";
-var API_DETAIL_PESANAN_WITH_PAYMENT_IN_HTML = API_PESANAN + "/detail-with-payment/";
-var API_PESANAN_SELESAI = API_PESANAN + '/complete';
+const API_PESANAN = base_url + "api/pesanan";
+const API_PESANAN_PENJUAL = API_PESANAN + "/penjual";
+const API_CREATE_PESANAN = API_PESANAN + "/create";
+const API_PRODUK_TO_DELIVERY_PESANAN = API_PESANAN + "/produk-to-delivery";
+const API_PESANAN_PRIORITY = API_PESANAN + "/pesanan-priority";
+const API_PRODUK_NON_PRIORITY = API_PESANAN + "/pesanan-non-priority";
+const API_PRODUK_TO_VERIFY_WEIGHT_PESANAN = API_PESANAN + "/produk-to-verify";
+const API_VERIFY_PRODUK_PESANAN_PESANAN = API_PESANAN + "/verify-produk-weight";
+const API_DETAIL_PESANAN_PENJUAL = API_PESANAN + "/detail-transaksi-by-id";
+const API_DETAIL_PESANAN_PEMBELI = API_PESANAN + "/detail-pesanan-by-id";
+const API_DETAIL_PESANAN_IN_HTML = API_PESANAN + "/detail-in-html";
+const API_DETAIL_PESANAN_WITH_PAYMENT_IN_HTML = API_PESANAN + "/detail-with-payment/";
+const API_PESANAN_SELESAI = API_PESANAN + '/complete';
 
-var API_PENGIRIMAN = base_url + "api/pengiriman";
+const API_PENGIRIMAN = base_url + "api/pengiriman";
 
-var API_KERANJANG = base_url + "api/keranjang";
-var API_UBAH_KERANJANG = API_KERANJANG + "/update";
-var API_HAPUS_KERANJANG = API_KERANJANG + "/delete";
+const API_TRACK = base_url + "api/track";
+const API_END_TRACK = base_url + "api/detail-track";
+
+const API_KERANJANG = base_url + "api/keranjang";
+const API_UBAH_KERANJANG = API_KERANJANG + "/update";
+const API_HAPUS_KERANJANG = API_KERANJANG + "/delete";
 
 function only_go_to(url_file="") {
   return location.replace(url_file);
@@ -228,4 +231,33 @@ function only_go_to(url_file="") {
 
 function go_to(url_file="") {
   return location.href=url_file;
+}
+
+async function CALL_API(METHOD="GET", URL="", DATA=NULL) {
+  return fetch(URL, {
+    method: METHOD,
+    body: DATA
+  }).then(response=>{
+    if(response.ok){
+      response.json();
+    }else{
+      throw new Error("Failed");
+    }
+  });
+}
+
+async function GET_API(URL="", URL_PARAM) {
+  return await fetch(URL + URL_PARAM).then(response=>response.json());
+}
+
+function POST_API(URL, DATA={}){
+  return CALL_API("POST", URL, DATA);
+}
+
+function PUT_API(URL, DATA={}) {
+  return CALL_API("PUT", URL, DATA);
+}
+
+function DELETE_API(URL, DATA={}) {
+  return CALL_API("DELETE", URL, DATA);
 }
