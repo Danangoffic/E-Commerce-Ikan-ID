@@ -269,6 +269,12 @@ var app = {
     },
     success_submitting: data=>{
         M.toast({html: "Berhasil submit penerima"});
+        let code_res = data.code;
+        if(code_res==1){
+            app.load_data();
+        }else if(code_res==2){
+            window.location.replace("../penjual/transaksi/transaksi.html#selesai");
+        }
     },
     fail_submitting: error=>{
         M.toast({html: "Failed submit penerima"});
