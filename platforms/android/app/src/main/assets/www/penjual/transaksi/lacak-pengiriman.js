@@ -38,8 +38,56 @@ var lacak = {
         timeout: 5000, 
         enableHighAccuracy: true
     },
-    watch_pos: ()=>navigator.geolocation.watchPosition(lacak.success_watch_pos, lacak.fail_watch_pos, config_watch),
-    success_watch_pos: function(position){
+    parse_detail: function (data) {
+        let kurir = data.detail_kurir;
+        let kendaraan = data.detail_kendaraan;
+        let detail_pengiriman = data.detail_pengiriman;
+        let detail_usaha = data.detail_usaha;
+        let element_foto = document.getElementById("foto_kurir");
+        let element_nk = document.getElementById("nama_kurir");
+        let element_jk = document.getElementById("jenis_kendaraan");
+        let element_plat = document.getElementById("plat_kendaraan");
+        element_foto.setAttribute("src", kurir.foto_kurir);
+        element_nk.innerHTML = kurir.nama_kurir;
+        element_jk.innerHTML = kendaraan.jenis_kendaraan;
+        element_plat.innerHTML = kendaraan.plat;
+        let origin = data.asal;
+        let lat1 = origin.latitude, long1 = origin.longitude;
+        console.log("data usaha: ", detail_usaha);
+        lacak.parse_progression(detail_usaha, detail_pengiriman);
+        initMap(lat1, long1);
+    },
+    parse_progression: function (usaha, pengiriman) {
+        let html_progress_usaha = `<li><time datetime="" class="teal-text waktu-pengiriman">(08.30)</time>
+                <span>
+                    <b id="nama-usaha">${usaha.nama_usaha}</b><br>
+                    <p id="alamat-usaha" class="teal-text">${usaha.alamat_usaha}</p>
+                </span>
+            </li>`;
+        let html_progress_pengiriman = ``;
+        Array.prototype.forEach.call(pengiriman, el => {
+            let status = el.status;
+            let alt_status = "";
+            if(status=="pengantaran"){
+                alt_status = "Pesanan Dikirim";
+            }else if(status=="selesai"){
+                alt_status = "Pesanan Diterima";
+            }
+            html_progress_pengiriman += `<li><time datetime="" class="teal-text" style="margin-left: 42px"></time>
+            <div style="margin-left: 24px">
+                <b id="nama_pembeli${el.urutan}">${el.detail_pembeli.nama}</b><br>
+                <p id="alamat_pembeli${el.urutan}" class="teal-text">${el.detail_pembeli.alamat_pembeli}</p>
+                <p id="status_pengiriman${el.urutan}" class="black-text">${alt_status}</p>
+            </div>
+        </li>`;
+        });
+        html_progress_usaha += html_progress_pengiriman;
+        let element_progress = document.getElementById("progression");
+        element_progress.innerHTML = html_progress_usaha;
+    },
+    destination: [{}],
+    watch_pos: () => navigator.geolocation.watchPosition(lacak.success_watch_pos, lacak.fail_watch_pos, lacak.config_nav_geo_catch),
+    success_watch_pos: function (position) {
         let latitude = parseFloat(position.coords.latitude);
         let longitude = parseFloat(position.coords.longitude);
         const data_post = {id_kurir: lacak.id_kurir, latitude, longitude};
