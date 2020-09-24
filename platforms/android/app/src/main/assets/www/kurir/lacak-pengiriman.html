@@ -169,20 +169,20 @@
             </div>
             <div class="card-panel z-depth-0" style="margin-top: -8px; padding: 16px 12px 4px 12px">
               <div class="row valign-wrapper">
-                <div class="col s3" style="margin-left: 12px">
-                  <img src="../img/blank-picture.png" alt="" id="img_pembeli" class="circle responsive-img" style="width: 56px; height: 56px">
+                <div class="col s3" id="detail_foto_pb" style="margin-left: 12px">
                 </div>
-                <div class="col s5" style="margin-left: -12px">
-                  <span id="nama_pembeli" style="font-weight: bold"></span><br>
-                  <span id="alamat_pembeli"></span><br>
+                <div class="col s9" id="detail_pembeli" style="margin-left: -12px">
                 </div>
               </div>
             </div>
-            <div class="collection" style="margin-top: -8px">
-              <a href="#detailProduk" class="collection-item black-text waves-effect waves-light modal-trigger"><span class="badge"><i class="material-icons black-text">chevron_right</i></span>Detail Produk</a>
+            <div class="col s12">
+              <button class="btn white teal-text waves-effect waves-light modal-trigger" 
+              style="width: 100%; border-radius: 10px; z-index: 0; font-weight: bold; text-align: center;"
+              data-target="modal_produk_sheet" type="button"><i class="material-icons right black-text">chevron_right</i>Detail Produk</button>
+              <!-- <a href="#modal_produk_sheet" style="width: 100%; border-radius: 10px; z-index: 0;" class="btn "></a> -->
             </div>
-            <div class="modal bottom-sheet">
-              <div class="modal-content grey lighten-3" id="content-detail-produk" style="padding: 8px; margin-bottom: -12px">
+            <div id="modal_produk_sheet" class="modal bottom-sheet">
+              <div class="modal-content grey lighten-3" id="content_detail_produk">
                 <!-- <div class="card z-depth-0 produk" style="margin-bottom: -12px; margin-top: -8px">
                   <div class="collection">
                     <ul class="collection-item avatar">
@@ -205,12 +205,13 @@
                     </ul>
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tutup</a>
-                </div> -->
+                 -->
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tutup</a>
               </div>
             </div>
-            <div class="card-panel z-depth-0" style="margin-top: -8px; padding: 14px 20px 12px 20px">
+            <div class="card-panel z-depth-0" style="padding: 14px 20px 12px 20px">
               <div class="col s12" id="content-panel-jenis"></div>
             </div>
             <div class="col s12" id="content-important-alert"></div>
@@ -227,14 +228,15 @@
                   <div class="card z-depth-0">
                     <div class="row">
                       <div class="input-field col s12">
-                        <input placeholder="Nama Penerima" id="namaPenerima" type="text" class="">
+                        <input placeholder="Nama Penerima" id="nama_penerima" type="text" class="">
                         <label for="namaPenerima">Masukkan Nama Penerima :</label>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
                     <div class="card-action white">
-                      <a href="#!" class="modal-close waves-effect waves-light btn blue">Ok</a>
+                      <button type="button" class="btn blue modal-close waves-effect waves-light" onclick="submit_penerima()">Ok</button>
+                      <!-- <a href="#!" class="modal-close waves-effect waves-light btn blue">Ok</a> -->
                     </div>
                   </div>
                 </div>
