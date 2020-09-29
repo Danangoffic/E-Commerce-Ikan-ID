@@ -1,6 +1,6 @@
 // var base_url = "http://10.0.1.182/backendikan/";
 const SERVER = "http://103.195.90.35:3300";
-const LOCAL = "http://localhost";
+const LOCAL = "http://192.168.100.107";
 // var base_url = "http://192.168.100.103/backendikan/";
 var base_url = `${SERVER}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);

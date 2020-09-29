@@ -681,17 +681,17 @@ function onSuccessGetDetail(e, status) {
         // storage.removeItem("id_usaha");
         // storage.setItem("id_pesanan", dataPesanan.idPemesanan);
         M.toast({ html: 'Berhasil simpan Transaksi, silahkan tunggu beberapa saat. <i class="material-icons green-text" onclick="return $(".toast").dismiss();">check_circle<i>', inDuration: 2900 });
-        // if (metodePembayaran == "Full Transfer") {
-        //   setTimeout(function () { window.location.href = "pembayaran-fulltransfer.html"; }, 1000);
-        // } else if (metodePembayaran == "Transfer Cash") {
-        //   if (JenisPengiriman == "Biasa" || JenisPengiriman == "Cepat") {
-        //     setTimeout(function () { window.location.href = "pembayaran-dp-kirim.html" }, 1000);
-        //   } else if (JenisPengiriman == "Ambil di Toko") {
-        //     setTimeout(function () { window.location.href = "pembayaran-dp-ambil.html"; }, 1000);
-        //   }
-        // } else if (metodePembayaran == "Full Cash") {
-        //   setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
-        // }
+        if (metodePembayaran == "Full Transfer") {
+          setTimeout(function () { window.location.href = "pembayaran-fulltransfer.html"; }, 1000);
+        } else if (metodePembayaran == "Transfer Cash") {
+          if (JenisPengiriman == "Biasa" || JenisPengiriman == "Cepat") {
+            setTimeout(function () { window.location.href = "pembayaran-dp-kirim.html" }, 1000);
+          } else if (JenisPengiriman == "Ambil di Toko") {
+            setTimeout(function () { window.location.href = "pembayaran-dp-ambil.html"; }, 1000);
+          }
+        } else if (metodePembayaran == "Full Cash") {
+          setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
+        }
     } else {
         alert(e.responseMessage);
         return false;
