@@ -120,7 +120,7 @@
         <div class="row">
           <form action="#!" id="formEdit">
             <div class="input-field col-12">
-              <select name="bank_edit" id="bank_edit"></select>
+              <select name="kode_bank" id="kode_bank"></select>
               <label for="bank">Pilih Bank</label>
             </div>
             <div class="input-field col-12">
@@ -320,7 +320,7 @@
               $.each(data, function (i, isi) {
                 option += "<option value='" + isi.kode_bank + "' label='" + isi.nama_bank + "' id='bank_" + isi.kode_bank + "'>" + isi.nama_bank + "</option>";
               });
-              $("[name=bank_edit], [name=kode_bank]").html(option);
+              $("[name=kode_bank]").html(option);
               $("select").formSelect();
             }
           }
@@ -329,6 +329,7 @@
 
       function openEdit(id) {
         loadAllBank();
+        id_rek=id;
         $.getJSON(API_DETAIL_REKENING, { id_rekening: id })
           .done(
             (e) => {
@@ -359,18 +360,19 @@
 
       function updateRekening() {
         // var formData = new FormData($("form")[0]);
-        var bank = $("[name=bank_edit] option:selected").val();
+        var bank = $("[name=kode_bank] option:selected").val();
         if (bank == "" || bank == null) {
           M.toast({ html: "Jenis Bank Belum Dipilih" });
           return false;
         }
-        var formData = $("#formEdit").serialize();
+        var formData = $("#formEdit").serializeArray();
+        formData.push({name: "id_rekening", value: id_rek});
         $.post(API_UPDATE_REKENING, formData)
           .done(
             (e) => {
               if (e.status == "berhasil") {
                 loadData();
-                $("#bank_edit").val("");
+                $("#kode_bank").val("");
                 $("#no_rekening").val("");
                 $("#nama_rekening").val("");
                 $("#modalEdit").modal("close");
