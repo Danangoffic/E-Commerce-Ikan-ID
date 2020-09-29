@@ -244,7 +244,7 @@ var app = {
         app.loadPesanan(app.idUsaha, "Siap Dikirim");
         app.loadPesanan(app.idUsaha, "Siap Diambil");
         app.loadPesanan(app.idUsaha, "Pengiriman");
-        app.loadPesanan(idUsaha, "Terkirim");
+        app.loadPesanan(app.idUsaha, "Terkirim");
     },
     loadPesanan: (idUsaha, status) => {
         var data = { 'id_usaha': idUsaha, 'status': status };

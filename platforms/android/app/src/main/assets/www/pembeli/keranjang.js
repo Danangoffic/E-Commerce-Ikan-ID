@@ -10,7 +10,7 @@ var app = {
         document.addEventListener("menubutton", this.onMenuKeyDown, false);
         document.addEventListener("backbutton", this.onBackKeyDown, false);
         document.querySelector("#backmenu").addEventListener("click", this.onBackKeyDown, false);
-        // $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(on_success_load_keranjang).fail()
+        $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(on_success_load_keranjang).fail()
     },
     onBackKeyDown: function () {
         window.history.back();
