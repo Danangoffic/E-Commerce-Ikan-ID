@@ -10,7 +10,7 @@ var app = {
         document.addEventListener("menubutton", this.onMenuKeyDown, false);
         document.addEventListener("backbutton", this.onBackKeyDown, false);
         document.querySelector("#backmenu").addEventListener("click", this.onBackKeyDown, false);
-        $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(on_success_load_keranjang).fail()
+        $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(app.on_success_load_keranjang).fail()
     },
     onBackKeyDown: function () {
         window.history.back();
@@ -49,6 +49,7 @@ var app = {
         });
         console.log('orig');
         console.log(orig);
+        console.log('destination', app.destination);
         app.origin = orig;
         // des -7.567492, 110.832670 des  -7.566248, 110.833485 des  -7.569072, 110.831500
         var service = new google.maps.DistanceMatrixService;
@@ -119,6 +120,7 @@ function onLoad() {
     app.init();
     // document.addEventListener("deviceready", onDeviceReady, false);
 }
+$(document).ready(app.onDeviceReady);
 
 function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
