@@ -5,12 +5,12 @@ var app = {
     onDeviceReady: function () {
 
         app.load_data_pembeli();
-        document.addEventListener("pause", this.onPause, false);
-        document.addEventListener("resume", this.onResume, false);
-        document.addEventListener("menubutton", this.onMenuKeyDown, false);
-        document.addEventListener("backbutton", this.onBackKeyDown, false);
-        document.querySelector("#backmenu").addEventListener("click", this.onBackKeyDown, false);
-        $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(app.on_success_load_keranjang).fail()
+        document.addEventListener("pause", app.onPause, false);
+        document.addEventListener("resume", app.onResume, false);
+        document.addEventListener("menubutton", app.onMenuKeyDown, false);
+        document.addEventListener("backbutton", app.onBackKeyDown, false);
+        document.querySelector("#backmenu").addEventListener("click", app.onBackKeyDown, false);
+        // $.getJSON(API_KERANJANG, {id_akun: localStorage.id_akun}).then(app.on_success_load_keranjang).fail()
     },
     onBackKeyDown: function () {
         window.history.back();
@@ -36,8 +36,9 @@ var app = {
         if (status == "success") {
             let data_pembeli = result[0];
             app.destination = { lat: parseFloat(data_pembeli.latitude), lng: parseFloat(data_pembeli.longitude) };
-            app.load_distance_matrix();
+            app.load_keranjang();
         }
+        console.log("location pembeli: ", app.destination);
     },
     load_distance_matrix: function () {
         var t;
@@ -55,8 +56,8 @@ var app = {
         var service = new google.maps.DistanceMatrixService;
 
         service.getDistanceMatrix({
-            origins: orig,
-            destinations: [app.destination],
+            origins: [app.destination],
+            destinations: orig,
             travelMode: 'DRIVING',
             unitSystem: google.maps.UnitSystem.METRIC,
             avoidHighways: false,
@@ -71,17 +72,18 @@ var app = {
             }
         });
     },
-    load_keranjang: function (response) {
+    load_keranjang: function () {
         let html_keranjang_per_usaha = ``;
-        let results = response.rows[0].elements;
+        // let results = response.rows[0].elements;
+        // console.log("RESULT DISTANCE: ", results);
         Array.prototype.forEach.call(app.data_json_keranjang, function (i, v) {
             console.log("iiiiiii: ", i);
             const data_produk_keranjang = i.data_produk;
             let data_usaha = i.detail_usaha, harga_total_produk = 0;
-            let distance_usaha = results[v].distance.value;
+            // let distance_usaha = results[v].distance.value;
             // let fee_ongkir = (distance_usaha > 5000) ? (10000 * (distance_usaha / 1000)) : 5000;
             var fee_ongkir = parseInt(0);
-            html_keranjang_per_usaha += `<div class="card z-depth-2" id="keranjang_usaha_${i.id_usaha}" data-distance="${distance_usaha}">
+            html_keranjang_per_usaha += `<div class="card z-depth-2" id="keranjang_usaha_${i.id_usaha}">
             <div class="card-content">
                 <p>
                     <label>
@@ -117,7 +119,7 @@ var app = {
 }
 function onLoad() {
     loadkeranjang();
-    app.init();
+    // app.init();
     // document.addEventListener("deviceready", onDeviceReady, false);
 }
 $(document).ready(app.onDeviceReady);
