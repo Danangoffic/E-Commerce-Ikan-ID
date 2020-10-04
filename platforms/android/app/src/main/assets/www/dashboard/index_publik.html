@@ -80,29 +80,29 @@
 </head>
 
 <body class="" onload="onLoad()">
-    <nav class="top-nav"
-        style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
-        <div class="container-fluid">
-            <div class="nav-wrapper">
-                <div class="row">
-                    <div class="col s12 m10 offset-m1">
-                        <a id="#" href="#" onclick="return onBackKeyDown()" class="transparent"
-                            style="margin: auto 10px; line-height: 64px"><span class="fa fa-chevron-left"></span></a>
-                        <b class="header" style="font-size: large; margin-left: 4px; line-height: 64px">Home</b>
-                        <b class="right"><i class="tiny material-icons shopping_basket"
-                                onclick="openBasket()">shopping_basket</i><span
-                                class="badge red white-text" id="totalBasket"
-                                style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
+    <header class="navbar-fixed">
+        <nav class="top-nav"
+            style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+            <div class="container-fluid">
+                <div class="nav-wrapper">
+                    <div class="row">
+                        <div class="col s12">
+                            <b class="header" style="font-size: large; margin-left: 4px; line-height: 56px">Home</b>
+                            <b class="right"><i class="tiny material-icons shopping_basket"
+                                    onclick="openBasket()">shopping_basket</i><span
+                                    class="badge red white-text" id="totalBasket"
+                                    style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <!-- ########## END: HEAD PANEL ########## -->
 
     <!-- ########## START: MAIN PANEL ########## -->
-    <main>
+    <main id="main">
         <div class="container-fluid">
             <div class="section">
                 <div class="row">
@@ -141,7 +141,7 @@
 
     <footer class="page-footer blue bottom-navbar">
         <div class="center row" style="margin-bottom: 0px !important;">
-            <div class="col s3 pt-5 white"><a class="center" href="#"><span
+            <div class="col s3 pt-5 white"><a class="center" href="#main"><span
                         class="material-icons">home</span><br>Home</a></div>
             <div class="col s3 pt-5"><a class="center blue white-text" href="cari_publik.html"><span
                         class="material-icons">search</span><br>Cari</a></div>

@@ -115,13 +115,13 @@
                 <p class="flow-text" style="margin: 5px">Jenis Kelamin :</p>
                 <p>
                   <label>
-                    <input name="jk_kurir" value="Laki-laki" type="radio" />
+                    <input name="jk_kurir2" value="Laki-laki" type="radio" />
                     <span>Laki-laki</span>
                   </label>
                 </p>
                 <p>
                   <label>
-                    <input name="jk_kurir" value="Perempuan" type="radio" />
+                    <input name="jk_kurir2" value="Perempuan" type="radio" />
                     <span>Perempuan</span>
                   </label>
                 </p>
@@ -154,6 +154,8 @@
   <script type="text/javascript" src="../js/plugins/jquery-validation/jquery.validate.min.js"></script>
 
   <script>
+    var id_kurir = 0, id_usaha = 0, foto_kurir = "";
+
     function onBackKeyDown() {
       window.history.back();
     }
@@ -186,23 +188,45 @@
       // Handle the menubutton event
     }
 
-    function loadData(){
-      var data = JSON.parse(storage.data_edit_kurir);
-      $("[name=nama_kurir]").val(data.nama_kurir);
-      $("[name=jk_kurir][value="+data.jk_kurir+"]:radio").prop("checked", true);
-      $("[name=telp_kurir]").val(data.telp_kurir);
-      $("[name=id]").val(data.id_kurir);
-      $("#image-kurir").attr("src", base_url+ 'foto_kurir/' + data.foto_kurir);
-      $(".file-path").val(data.foto_kurir);
+    function loadData() {
+      let id = localStorage.id_kurir, id_usaha = localStorage.id_usaha;
+      let request = `?id_kurir=${id}&id_usaha=${id_usaha}`;
+      GET_API(API_DETAIL_KURIR, request).then(success_parse_data).catch(failed_data);
+      // var data = JSON.parse(storage.data_edit_kurir);
+      // id_kurir = data.id_kurir, id_usaha = data.id_usaha, foto_kurir=data.foto_kurir;
+      // $("[name=nama_kurir]").val(data.nama_kurir);
+      // $("[name=jk_kurir2][value="+data.jk_kurir+"]:radio").prop("checked", true);
+      // $("[name=telp_kurir]").val(data.telp_kurir);
+      // $("[name=id]").val(data.id_kurir);
+      // $("#image-kurir").attr("src", base_url+ 'foto_kurir/' + data.foto_kurir);
+      // $(".file-path").val(data.foto_kurir);
+    }
+
+    function success_parse_data(data) {
+      let result = data.data;
+      console.log(result);
+      id_kurir = result.id_kurir, id_usaha = result.id_usaha, foto_kurir = result.foto_kurir;
+      $("[name=nama_kurir]").val(result.nama_kurir);
+      $("[name=jk_kurir2][value=" + result.jk_kurir + "]:radio").prop("checked", true);
+      $("[name=telp_kurir]").val(result.telp_kurir);
+      $("[name=id]").val(result.id_kurir);
+      $("#image-kurir").attr("src", base_url + 'foto_kurir/' + result.foto_kurir);
+      $(".file-path").val(result.foto_kurir);
+    }
+
+    function failed_data(error) {
+
     }
 
     function ubah() {
       var nama_kurir = $("[name=nama_kurir]").val();
-      var jk_kurir = $("[name=jk_kurir]:radio:checked").val();
+      var jk_kurir = $("[name=jk_kurir2]:radio:checked").val();
       var telp_kurir = $("[name=telp_kurir]").val();
       var formData = new FormData($("form")[0]);
       // formData.append("jk_kurir2", jk_kurir);
       formData.append("id_usaha", storage.id_usaha);
+      formData.append("id_kurir", id_kurir);
+      // formData.get("")
       $.ajax({
         url: API_UPDATE_KURIR,
         data: formData,
@@ -211,17 +235,18 @@
         processData: false,
         type: 'POST',
         dataType: 'json',
-        success: function (resp) {
-          if (resp.status == 'berhasil') {
-            // $("form")[0].reset();
-            M.toast({html: "Berhasil Ubah Kurir"});
-            setTimeout(function(){window.location.href="kurir.html";}, 1000);
-          } else {
-            alert('Data gagal disimpan');
-            M.toast({html: resp.message});
-          }
-        }
+        success: success_update
       });
+    }
+
+    function success_update(resp) {
+      if (resp.status == 'berhasil') {
+        M.toast({ html: "Berhasil Ubah Kurir" });
+        loadData();
+      } else {
+        alert('Data gagal disimpan');
+        M.toast({ html: resp.message });
+      }
     }
   </script>
 

@@ -1,12 +1,27 @@
 var rest;
 var latUsaha, lngUsaha;
 var jarakPengiriman;
-var feeKirim, feeKirim_temp = 0;
+var feeKirim=0, feeKirim_temp = 0;
 var allProductSum;
 
 var jpengiriman1 = $("#jpengiriman1");
 var jpengiriman2 = $("#jpengiriman2");
 var jpengiriman3 = $("#jpengiriman3");
+$('.modal').modal();
+var d = new Date();
+d.setDate(d.getDate);
+var dNew = new Date();
+dNew.setDate(dNew.getDate + 3);
+$('.datepicker').datepicker({
+    format: 'yyyy-m-d',
+    minDate: new Date(d.getFullYear(), d.getMonth(), d.getDate()),
+    maxDate: new Date(dNew.getFullYear(), dNew.getMonth(), dNew.getDate())
+});
+
+// $("[name=tglPengiriman]").attr({"min-date":d, "max-date":dNew});
+// M.AutoInit();
+let A = Date();
+$("#textarea1").attr({ "min": A });
 function onLoad() {
 
     var id_akun = storage.getItem('id_akun');
@@ -34,21 +49,7 @@ function onLoad() {
     //     });
     //   }
     // }
-    $('.modal').modal();
-    var d = new Date();
-    d.setDate(d.getDate);
-    var dNew = new Date();
-    dNew.setDate(dNew.getDate + 3);
-    $('.datepicker').datepicker({
-        format: 'yyyy-m-d',
-        minDate: new Date(d.getFullYear(), d.getMonth(), d.getDate()),
-        maxDate: new Date(dNew.getFullYear(), dNew.getMonth(), dNew.getDate())
-    });
-
-    // $("[name=tglPengiriman]").attr({"min-date":d, "max-date":dNew});
-    // M.AutoInit();
-    var A = Date();
-    $("#textarea1").attr({ "min": A });
+    
     $('.produk-saya').empty();
     // if(sukses_login==0){
     //   M.toast({html: 'Silahkan Login Untuk Melanjutkan Transaksi. <a href="../login/index.html">Login Disini</a>',inDuration:10000});
@@ -111,11 +112,11 @@ function currentLocation() {
 function got_position(position) {
     var element = document.getElementById("map");
     var marker;
-    var posisilat;
-    var posisilng;
+    let posisilat = parseFloat(position.coords.latitude);
+    let posisilng = parseFloat(position.coords.longitude);
     firstLt = position.coords.latitude;
     firstLg = position.coords.longitude;
-    initMap(position.coords.latitude, position.coords.longitude);
+    initMap(posisilat, posisilng);
 }
 
 function onError(error) {
@@ -380,6 +381,7 @@ function change_display_pembayaran() {
 
 function openModalAlamat() {
     $.getJSON(API_PEMBELI, { id_akun: storage.getItem('id_akun') }).then(onSuccessLoadAlamatPembeli).done(onDoneLoadAlamatPembeli);
+    // instance_modal.open();
     $("#modalAlamat").modal("open");
 }
 
@@ -616,7 +618,7 @@ function Beli() {
         id_akun: storage.getItem('id_akun'),
         id_usaha: storage.getItem('id_usaha'),
         keranjang: data_keranjang.data_produk,
-        totalBiayaPengiriman: feeKirim,
+        totalBiayaPengiriman: feeKirim_temp,
         totalBiayaProduk: allProductSum,
         jpengiriman: $("input[type=radio][name=jpengiriman]:checked").val(),
         jpembayaran: $("input[type=radio][name=jpembayaran]:checked").val(),
@@ -658,14 +660,14 @@ function onSuccessGetDetail(e, status) {
         var JenisPengiriman = dataPesanan.JenisPengiriman;
         var DataPembayaran = dataPesanan.DataPembayaran;
         var metodePembayaran = DataPembayaran.metode_pembayaran;
-        // storage.setItem("statusPemesanan", "Baru");
-        // storage.setItem("JenisPengiriman", JenisPengiriman);
-        // storage.setItem("metodePembayaran", metodePembayaran);
-        // storage.setItem('idPemesanan', dataPesanan.idPemesanan);
-        // storage.setItem("DetailPesanan", JSON.stringify(dataPesanan));
-        // storage.setItem("AllPurchaseProduk", AllPurchaseProduk);
-        // storage.setItem("status", "Baru");
-        // storage.setItem("NOPESANAN", ID);
+        localStorage.setItem("statusPemesanan", "Baru");
+        localStorage.setItem("JenisPengiriman", JenisPengiriman);
+        localStorage.setItem("metodePembayaran", metodePembayaran);
+        localStorage.setItem('idPemesanan', dataPesanan.idPemesanan);
+        localStorage.setItem("DetailPesanan", JSON.stringify(dataPesanan));
+        localStorage.setItem("AllPurchaseProduk", AllPurchaseProduk);
+        localStorage.setItem("status", "Baru");
+        localStorage.setItem("NOPESANAN", ID);
 
         // storage.removeItem('berat_produk');
         // storage.removeItem('nama_produk');
@@ -681,17 +683,17 @@ function onSuccessGetDetail(e, status) {
         // storage.removeItem("id_usaha");
         // storage.setItem("id_pesanan", dataPesanan.idPemesanan);
         M.toast({ html: 'Berhasil simpan Transaksi, silahkan tunggu beberapa saat. <i class="material-icons green-text" onclick="return $(".toast").dismiss();">check_circle<i>', inDuration: 2900 });
-        // if (metodePembayaran == "Full Transfer") {
-        //   setTimeout(function () { window.location.href = "pembayaran-fulltransfer.html"; }, 1000);
-        // } else if (metodePembayaran == "Transfer Cash") {
-        //   if (JenisPengiriman == "Biasa" || JenisPengiriman == "Cepat") {
-        //     setTimeout(function () { window.location.href = "pembayaran-dp-kirim.html" }, 1000);
-        //   } else if (JenisPengiriman == "Ambil di Toko") {
-        //     setTimeout(function () { window.location.href = "pembayaran-dp-ambil.html"; }, 1000);
-        //   }
-        // } else if (metodePembayaran == "Full Cash") {
-        //   setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
-        // }
+        if (metodePembayaran == "Full Transfer") {
+          setTimeout(function () { window.location.href = "pembayaran-fulltransfer.html"; }, 1000);
+        } else if (metodePembayaran == "Transfer Cash") {
+          if (JenisPengiriman == "Biasa" || JenisPengiriman == "Cepat") {
+            setTimeout(function () { window.location.href = "pembayaran-dp-kirim.html" }, 1000);
+          } else if (JenisPengiriman == "Ambil di Toko") {
+            setTimeout(function () { window.location.href = "pembayaran-dp-ambil.html"; }, 1000);
+          }
+        } else if (metodePembayaran == "Full Cash") {
+          setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
+        }
     } else {
         alert(e.responseMessage);
         return false;
