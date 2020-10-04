@@ -58,14 +58,16 @@ function onSuccessPesananSelesai(e) {
 
 function additionalInfo(DetailPesanan) {
     var pembayaran_pesanan = DetailPesanan.DataPembayaran;
-    if (DetailPesanan.DataPembayaran.metode_pembayaran == "Full Transfer") {
+    let metode_pembayaran_ = DetailPesanan.DataPembayaran.metode_pembayaran.toString();
+    if (metode_pembayaran_ == "Full Transfer") {
         //FULL TRANSFER
         $(".metode_pembayaran").html("Bayar Penuh Transfer");
         $(".pembayaranDP").hide();
         console.log("DetailPesanan.statusPengiriman: " + DetailPesanan.statusPengiriman);
         if (DetailPesanan.statusPengiriman == "Baru") {
             var card_struk = "", card_verifikasi = "", card_info = "";
-            if (DetailPesanan.DataPembayaran.status_pembayaran !== "") {
+            if (DetailPesanan.DataPembayaran.status_pembayaran !== null) {
+
                 card_struk = '<div class="card"><ul class="collection"><li onclick= "lihatmodal(\'' + DetailPesanan.idPemesanan + '\')" class="collection-item center black-text">Lihat Struk</li></ul></div>';
                 card_verifikasi = '<div class="card"><ul class="collection"><li onclick= "return $(\'#modalVerifikasi\').modal(\'open\')" class="collection-item center black-text"><b>Verifikasi Pesanan</b></li></ul></div>';
             }
@@ -91,7 +93,7 @@ function additionalInfo(DetailPesanan) {
             $("#additionalInformation2").html(contentFTPaid1);
             $("#additionalInformation2").after(contentFTPaid2);
         }
-    } else if (DetailPesanan.DataPembayaran.metode_pembayaran == "Transfer Cash") {
+    } else if (metode_pembayaran_ == "Transfer Cash") {
         //TRANSFER CASH (DP)
         $(".metode_pembayaran").html("Transfer dan Tunai");
         if (pembayaran_pesanan.status_pembayaran == "DP" || pembayaran_pesanan.status_pembayaran == "Lunas") {
@@ -118,7 +120,7 @@ function additionalInfo(DetailPesanan) {
             var cardAdditional = '<p class="flow-text center" style="font-size: small;">Siapkan produk setelah <b>PEMBELI MELAKUKAN PEMBAYARAN</b> sebesar<b><a class="waves-effect waves-light modal-trigger white-text" href="#modal2">&nbsp PEMASUKKAN KE-1</a></b></p>';
             $(".additional-information").html(cardAdditional);
         }
-    } else if (DetailPesanan.DataPembayaran.metode_pembayaran == "Full Cash") {
+    } else if (metode_pembayaran_ == "Full Cash") {
         // FULL CASH / TUNAI
         $(".metode_pembayaran").html("Bayar Penuh Tunai");
         $(".pembayaranDP").hide();
