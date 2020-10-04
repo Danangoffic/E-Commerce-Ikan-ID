@@ -2,7 +2,6 @@ function onLoad() {
     $(".modal").modal();
     document.addEventListener("deviceready", onDeviceReady, false);
 }
-
 // $(document).ready(onDeviceReady);
 
 function onDeviceReady() {
@@ -68,6 +67,7 @@ function openLoginSheet() {
     $("#modalLogin").modal("open");
 }
 function openModelSheet() {
+    console.log("OPen Modal Sheet");
     var variasiNow = $("#variasi").val();
     var qty = $("#qty").val();
     if (variasiNow == "" || variasiNow == null || variasiNow == "null") {
@@ -87,6 +87,36 @@ function openModelSheet() {
         M.toast({ html: 'Jumlah item yang Anda pilih melebihi stok yang tersedia' });
         return false;
     }
+    
+    arr_berat.sort(function(a, b){return a - b});
+    let option_allowed_ikan = "";
+    let allowed_ikan_per_kg = ekor_kg, potong_per_ekor_ikan = "";
+    // $.each(arr_berat, (i,el)=>{
+    //     let selected_area = (i == 1) ? 'selected' : '';
+    //     option_allowed_ikan += `<option value='${el}' ${selected_area} label='${el}'>${el}</option>`;
+    // });
+    let min_berat = arr_berat.sort((a, b)=>{return a - b})[0];
+    let max_berat = arr_berat.sort((a, b)=>{return b - a})[0];
+    for (let index = min_berat; index <= max_berat; index++) {
+        let selected_area = (index == min_berat) ? 'selected' : '';
+        option_allowed_ikan += `<option value='${index}' ${selected_area} label='${index}'>${index}</option>`;
+    }
+    console.log("option: ");
+    console.log(option_allowed_ikan);
+    // let allowed_ikan_per_kg = ekor_kg, potong_per_ekor_ikan = "", option_allowed_ikan = "";
+    // for (let index = 1; index <= allowed_ikan_per_kg; index++) {
+        
+    // }
+    $("#jml_ikan").html(option_allowed_ikan);
+    if (allowed_ikan_per_kg < 7) {
+        for (let index = 2; index < 4; index++) {
+            let selected_area = (index == 1) ? 'selected' : '';
+            potong_per_ekor_ikan += `<option value='${index}' ${selected_area} label='${index}'>${index}</option>`;
+        }
+    } else {
+        potong_per_ekor_ikan += `<option value='1' label='1' selected>1</option>`;
+    }
+    $("#jml_potong").html(potong_per_ekor_ikan);
 
     if (qty >= 1 && qty <= parseInt(maxStokItem)) {
         $("#title-modal-sheet").html("Konfirmasi Pemilihan " + $(".nama_produk").text() + " " + $("#variasi").find("option:selected").text());
@@ -119,7 +149,9 @@ variasi = null;
 //read onLoad function first//
 var variasiStatus = 0, countQTY = 0;
 var id_produk = window.localStorage.getItem('id_produk');
-var variasi = window.localStorage.getItem('variasi'), nama_produk, harga_produk, berat, namaVariasi, fotoProduk;
+var variasi = window.localStorage.getItem('variasi'), nama_produk, harga_produk, berat, w_kg, namaVariasi, fotoProduk;
+var ekor_kg = 0, limit_kg=0.5;
+var arr_berat = [];
 function pilihVariasi() {
     var variasi = $("#variasi").val();
     if (variasi != "") {
@@ -181,6 +213,7 @@ $(".addQTY").click(function () {
     if (variasiStatus == 1) {
         countQTY += 1;
         $("#qty").val(countQTY);
+        counter_ekor_kg(countQTY);
     }
 });
 $(".removeQTY").click(function () {
@@ -188,9 +221,40 @@ $(".removeQTY").click(function () {
         if (countQTY > 0) {
             countQTY -= 1;
             $("#qty").val(countQTY);
+            counter_ekor_kg(countQTY);
         }
     }
 });
+function counter_ekor_kg(qty=0) {
+    let tmp_berat = 0.0;
+    arr_berat = [];
+    if(w_kg > 0.2){
+        // BERAT - 0.1
+        tmp_berat = w_kg-0.1;
+        get_ekor_kg(tmp_berat);
+        // BERAT + 0.1
+        tmp_berat = w_kg + 0.1;
+        get_ekor_kg(tmp_berat);
+        // BERAT ONLY
+        get_ekor_kg(w_kg);
+    }else{
+        // BERAT + 0.1 KARENA BERAT PRODUK ADALAH 0.1
+        tmp_berat = w_kg+0.1;
+        get_ekor_kg(tmp_berat);
+        // BERAT ONLY
+        get_ekor_kg(w_kg);
+    }
+    var uniqueNames = [];
+    $.each(arr_berat, function(i, el){
+        if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+    });
+    arr_berat = uniqueNames;
+}
+function get_ekor_kg(w) {
+    let ekor_kg = parseInt(1.5 / w);
+    console.log("ekor / kg : " + ekor_kg);
+    arr_berat.push(ekor_kg);
+}
 function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
@@ -333,31 +397,17 @@ var onSuccessLoadProduk = (e, status) => {
     $(".min_order").html(e.min_pemesanan + "&nbsp;Ons");
     nama_produk = e.nama_produk;
     harga_produk = e.minprice;
-    berat = e.berat_produk;
+    berat = parseFloat(e.berat_produk);
+    w_kg = parseFloat(berat/10);
     fotoProduk = base_url + 'foto_usaha/produk/' + e.foto_produk;
     if (localStorage.usergroup == "") {
         $(".button-beli, #manage-produk, #manage-stok-produk").hide();
         loadVariasiProduk("publik");
     } else {
         $(".button-login").hide();
-        $('#note').characterCounter();
         loadVariasiProduk("pembeli");
     }
-    let allowed_ikan_per_kg = e.ekor_per_kg, potong_per_ekor_ikan = "", option_allowed_ikan = "";
-    for (let index = 1; index <= allowed_ikan_per_kg; index++) {
-        let selected_area = (index == 1) ? 'selected' : '';
-        option_allowed_ikan += `<option value='${index}' ${selected_area} label='${index}'>${index}</option>`;
-    }
-    $("#jml_ikan").html(option_allowed_ikan);
-    if (allowed_ikan_per_kg < 7) {
-        for (let index = 2; index < 5; index++) {
-            let selected_area = (index == 1) ? 'selected' : '';
-            potong_per_ekor_ikan += `<option value='${index}' ${selected_area} label='${index}'>${index}</option>`;
-        }
-    } else {
-        potong_per_ekor_ikan += `<option value='1' label='1' selected>1</option>`;
-    }
-    $("#jml_potong").html(potong_per_ekor_ikan);
+    
 }
 
 var onFailLoadProduk = (error) => {
@@ -403,6 +453,8 @@ var onSuccessVariasiProduk = (e, status) => {
     $(".title-modal").html("Pilih Variasi " + nama_produk + ":&nbsp;");
     $(".variasi").append($html);
     $('select').formSelect();
+    
+    
 }
 
 var loadDetailUsaha = () => {
@@ -434,17 +486,18 @@ var rel = {
             let data_pembeli = result[0];
             rel.origin = { lat: parseFloat(data_pembeli.latitude), lng: parseFloat(data_pembeli.longitude) };
             console.log("Origin: ", rel.origin);
+            console.log(JSON.stringify(rel.origin));
             rel.load_distance_matrix();
         }
     },
     load_distance_matrix: function () {
         var t;
         var tujuan = [];
-
         t = { lat: parseFloat(rel.data_usaha.latitude), lng: parseFloat(rel.data_usaha.longitude) };
         tujuan.push(t);
         console.log('tujuan');
         console.log(tujuan);
+        console.log(JSON.stringify(tujuan));
         // des -7.567492, 110.832670 des  -7.566248, 110.833485 des  -7.569072, 110.831500
         var service = new google.maps.DistanceMatrixService;
 
@@ -453,8 +506,8 @@ var rel = {
             destinations: [rel.origin],
             travelMode: 'DRIVING',
             unitSystem: google.maps.UnitSystem.METRIC,
-            avoidHighways: false,
-            avoidTolls: false
+            avoidHighways: true,
+            avoidTolls: true
         }, function (response, status) {
             if (status !== 'OK') {
                 alert('Error was: ' + status);

@@ -74,9 +74,12 @@ var app = {
     },
     load_keranjang: function () {
         let html_keranjang_per_usaha = ``;
+        let id_pb = parseInt(localStorage.id_akun);
+        var id_usaha = 0;
         // let results = response.rows[0].elements;
         // console.log("RESULT DISTANCE: ", results);
         Array.prototype.forEach.call(app.data_json_keranjang, function (i, v) {
+            id_usaha = i.id_usaha;
             console.log("iiiiiii: ", i);
             const data_produk_keranjang = i.data_produk;
             let data_usaha = i.detail_usaha, harga_total_produk = 0;
@@ -88,7 +91,7 @@ var app = {
                 <p>
                     <label>
                         <input id="keranjang${v}" name="keranjang" type="radio" value="${i.id_usaha}">
-                        <span class="title black-text" id="${i.id_usaha}">${data_usaha.nama_usaha}</span>
+                        <span class="title black-text" id="nama_usaha_${i.id_usaha}">${data_usaha.nama_usaha}</span>
                     </label>
                 </p>
                 <ul class="collection">`;
@@ -97,11 +100,15 @@ var app = {
                 let harga_produk = parseInt(i2.harga_produk);
                 let jml_produk = parseInt(i2.jml_produk);
                 harga_total_produk += parseInt(harga_produk * jml_produk);
-                html_keranjang_per_usaha += `<li class="collection-item avatar" style="min-height: 0px;">
+                let id_keranjang = parseInt(i2.id_keranjang);
+                console.log("data i2 : ", i2);
+                html_keranjang_per_usaha += `<li class="collection-item avatar" style="min-height: 0px;" data-keranjang="${id_keranjang}">
                                         <img src="${base_url + "foto_usaha/produk/" + i2.foto_produk}" alt="${i2.nama_produk}" class="circle">
                                         <span class="title">${i2.nama_produk} <small style="color: grey">(${i2.nama_variasi})</small>
                                             <p class="orange-text">Rp ${formatNumber(harga_produk)}</p>
-                                            <span class="secondary-content">${i2.jml_produk} Kg</span></span>
+                                            <span class="secondary-content">${i2.jml_produk} Kg</span>
+                                            <a href="#!" onclick="remove_item(${id_keranjang})"><i class="tiny material-icons red-text">remove_shopping_cart</i></a>
+                                        </span>
                                     </li>`;
                 fee_ongkir = parseInt(i2.estimasi_ongkir);
             });
@@ -116,11 +123,25 @@ var app = {
         });
         $("#card-keranjang").html(html_keranjang_per_usaha);
     },
+    remove_item: (id_keranjang=0) => {
+        let data_request = {id_keranjang};
+        $.post(API_HAPUS_PRODUK_KERANJANG, data_request, function(data, status, jqXHR){
+
+        });
+        // fetch(API_HAPUS_PRODUK_KERANJANG, {
+        //     method: "POST",
+        //     body: JSON.stringify(data_request)
+        // }).then(response=>response.json()).then()
+    },
 }
 function onLoad() {
     loadkeranjang();
     // app.init();
     // document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+function remove_item(id_keranjang=0) {
+    return app.remove_item(id_keranjang)
 }
 $(document).ready(app.onDeviceReady);
 
