@@ -221,7 +221,8 @@
         var product = '';
         var product_non_aktif = '';
         Array.prototype.forEach.call(produk_result, isi=>{
-          var display_harga = (isi.minprice == 0) ? isi.maxprice : isi.minprice;
+          var display_harga = isi.minprice;
+          console.log("display harga: "+display_harga);
           if (isi.status_p == "aktif") {
             product += `<li class="collection-item avatar" id="PRODUK-${isi.id_produk}">
               <img src="${base_url}foto_usaha/produk/${isi.foto_produk}" alt="" class="circle fotoProduk" onclick="viewProduct(${isi.id_produk})">
