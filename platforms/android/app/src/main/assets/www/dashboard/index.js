@@ -207,22 +207,25 @@ function initDistance(res) {
                     let usaha_id = response;
                     console.log(usaha_id);
                     $.each(usaha_id, function (k, v) {
+                        // console.log("k usaha id", k);
                         $.each(v, function (key, val) {
                             const distance_text = val.distance;
-                            console.log("distance", distance_text);
+                            // console.log("distance", distance_text);
                             var harga_display = (val.minprice != val.maxprice) ? 'Rp' + formatNumber(val.minprice) + ' - Rp' + formatNumber(val.maxprice) : 'Rp' + formatNumber(val.minprice);
-                            produks += '<li class="collection-item avatar" onclick="viewProduk(' + val.id_produk + ', ' + key + ')">' +
-                                '<img class="circle"  src="' + base_url + '/foto_usaha/produk/' + val.foto_produk + '" alt="' + val.nama_produk + '">' +
-                                '<span class="title black-text">' + val.nama_produk + '</span>' +
-                                '<p class="orange-text">' + harga_display + '</p>' +
-                                '<hr>' +
-                                '<div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">' +
-                                '<div class="col s8" style="padding-left: 0px; padding-right: 0px">' + val.nama_usaha + '</div>' +
-                                '<div class="col s4"><p class="right">' + distance_text + '</p></div></div>' +
-                                '</li>';
+                            produks += `<li class="collection-item avatar" onclick="viewProduk(${val.id_produk}, ${k})">
+                                            <img class="circle"  src="${base_url}/foto_usaha/produk/${val.foto_produk}" alt="${val.nama_produk}">
+                                            <span class="title black-text">${val.nama_produk}</span>
+                                            <p class="orange-text">${harga_display}</p>
+                                            <hr>
+                                            <div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">
+                                                <div class="col s8" style="padding-left: 0px; padding-right: 0px">${val.nama_usaha}</div>
+                                                <div class="col s4"><p class="right" data-distance="${distance_text}">${distance_text}</p></div>
+                                            </div>
+                                        </li>`;
                         });
                     });
-                    console.log(produks);
+                    // console.log(produks);
+                    console.log("success load produk with distance matrix");
                     $(".progress").remove();
                     $("#dataProduct").html(produks);
                     
