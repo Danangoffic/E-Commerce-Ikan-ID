@@ -190,6 +190,7 @@
       }
 
       function goToEdit(id) {
+        localStorage.setItem("id_kurir", id);
         $.getJSON(API_DETAIL_KURIR, { id_kurir: id, id_usaha: localStorage.id_usaha })
           .then(e => {
             if (e.status == "berhasil") {
