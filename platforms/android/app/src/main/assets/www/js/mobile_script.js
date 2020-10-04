@@ -2,7 +2,7 @@
 const SERVER = "http://103.195.90.35:3300";
 const LOCAL = "http://localhost";
 // var base_url = "http://192.168.100.103/backendikan/";
-var base_url = `${LOCAL}/backendikan/`;
+var base_url = `${SERVER}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);
 //  var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.43.71/backendikan/";
@@ -224,6 +224,7 @@ const API_END_TRACK = base_url + "api/detail-track";
 const API_KERANJANG = base_url + "api/keranjang";
 const API_UBAH_KERANJANG = API_KERANJANG + "/update";
 const API_HAPUS_KERANJANG = API_KERANJANG + "/delete";
+const API_HAPUS_PRODUK_KERANJANG = API_KERANJANG + "/delete-produk";
 
 function only_go_to(url_file="") {
   return location.replace(url_file);

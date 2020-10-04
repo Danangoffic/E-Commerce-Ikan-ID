@@ -188,9 +188,9 @@ var app = {
                 var berat_produk = v.jml_produk * 10 + ' Ons';
                 var berat_akhir = (v.berat_akhir == null) ? 0 : v.berat_akhir;
                 html_table += '<tr>';
-                html_table += '<td style="font-size: medium;">' + nama_produk + '</td>';
-                html_table += '<td style="font-size: medium;">' + berat_produk + '</td>';
-                html_table += '<td><input form="berat-pesanan" placeholder="Berat Dalam Ons" name="berat[]" id="berat-' + v.id_produk + '" type="number" min="10" max="1000" value="' + berat_akhir + '" class="center" style="font-size: medium"><label for="berat-' + v.id_produk + '"></label></td>';
+                html_table += `<td style="font-size: medium;">${nama_produk}</td>`;
+                html_table += `<td style="font-size: medium;">${berat_produk}</td>`;
+                html_table += `<td><input form="berat-pesanan" placeholder="Berat Dalam Ons" name="berat[${k}]" id="berat-${v.id_produk}" type="number" min="10" max="1000" value="${berat_akhir}" class="center" style="font-size: medium"><label for="berat-${v.id_produk}"></label></td>`;
                 html_table += '</tr>';
             });
             if (html_table !== '') {
@@ -405,10 +405,11 @@ function GoToDetail(idPemesanan, statusPemesanan) {
                 } else {
                     location.href = "detail-transaksi-terbayar-kirim.html";
                 }
-            } else if (statusPemesanan == "Siap Dikirim") {
+            } else if (statusPemesanan == "Siap Dikirim") {                
                 location.href = "detail-transaksi-siap-dikirim.html";
-            } else if (statusPemesanan == "Siap Diambli") {
-                location.href = "detail-transaksi-siap-diambil.html";
+            } else if (statusPemesanan == "Siap Diambil") {
+                console.log("ready to go siap diambil");
+                return location.href = "detail-transaksi-siap-diambil.html";
             } else if (statusPemesanan == "Pengiriman") {
 
             } else if (statusPemesanan == "Terkirim") {
