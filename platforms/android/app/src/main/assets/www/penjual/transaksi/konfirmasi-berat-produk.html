@@ -114,9 +114,11 @@
                             <th>Berat Akhir</th>
                         </tr>
                     </thead>
-                    <tbody id="data-verifikasi-berat-detail-pesanan">
+                    <form action="#" name="berat-pesanan" id="berat-pesanan">
+                        <tbody id="data-verifikasi-berat-detail-pesanan">
 
-                    </tbody>
+                        </tbody>
+                    </form>
                 </table>
             </div>
         </div>
@@ -217,18 +219,20 @@
             $.get(API_PRODUK_TO_VERIFY_WEIGHT_PESANAN, { id_pemesanan: id_pemesanan }).then(onSuccessDetilPesananToVerify);
         }
 
+        var detail_pemesanan;
+
         function onSuccessDetilPesananToVerify(response) {
             if (response.status == "sukses") {
-                var detail_pemesanan = response.detail_pemesanan;
+                detail_pemesanan = response.detail_pemesanan;
                 var html_table = '';
                 $.each(detail_pemesanan, function (k, v) {
                     var nama_produk = v.nama_produk + ' ' + v.nama_variasi;
                     var berat_produk = v.jml_produk + ' Ons';
                     var berat_akhir = (v.berat_akhir == null) ? 0 : v.berat_akhir;
                     html_table += '<tr>';
-                    html_table += '<td style="font-size: medium;">' + nama_produk + '</td>';
-                    html_table += '<td style="font-size: medium;">' + berat_produk + '</td>';
-                    html_table += '<td><input form="berat-pesanan" placeholder="Berat Dalam Ons" name="berat[]" id="berat-' + v.id_produk + '" type="number" min="10" max="1000" value="' + berat_akhir + '" class="center" style="font-size: medium"><label for="berat-' + v.id_produk + '"></label></td>';
+                    html_table += `<td style="font-size: medium;">${nama_produk}</td>`;
+                    html_table += `<td style="font-size: medium;">${berat_produk}</td>`;
+                    html_table += `<td><input form="berat-pesanan" placeholder="Berat Dalam Ons" name="berat[${k}]" id="berat-${v.id_produk}" type="number" min="10" max="1000" value="${berat_akhir}" class="center" style="font-size: medium"><label for="berat-${v.id_produk}"></label></td>`;
                     html_table += '</tr>';
                 });
                 if (html_table !== '') {
@@ -243,12 +247,21 @@
         }
 
         function send_simpan_berat_akhir(ID_PEMESANAN) {
-            const form = $("form[name=berat-pesanan]");
-            const formData = {};
-            $("input").each(function (index, node) {
-                formData[node.name] = node.value;
+            // const form = $("form[name=berat-pesanan]");
+            // const formData = {};
+            // $("input").each(function (index, node) {
+            //     formData[node.name] = node.value;
+            // });
+            let berat;
+            let formData = new FormData();
+            $.each(detail_pemesanan, (i, el)=>{
+                berat[i] = $("#berat-" + el.id_produk).val();
+                console.log(`berat[${i}]: ` + berat[i]);
+                formData.append(`berat[${i}]`, berat[i]);
             });
-            formData['id_pemesanan'] = ID_PEMESANAN;
+            formData.append("id_pemesanan", ID_PEMESANAN);
+
+            // formData['id_pemesanan'] = ID_PEMESANAN;
             console.log(formData);
             $.post(API_VERIFY_PRODUK_PESANAN_PESANAN, formData).then(onSuccessSimpan).always(onCompletlySimpan);
         }
