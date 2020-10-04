@@ -3,11 +3,14 @@ $('.materialboxed').materialbox();
 // var DetailPesanan = JSON.parse(localStorage.DetailPesanan);
 var app = {
     DetailPesanan: JSON.parse(localStorage.DetailPesanan),
+    id_pesanan: null,
     init: function () {
         document.addEventListener("deviceready", app.onDeviceReady, false);
     },
     onDeviceReady: () => {
-        if (storage.status !== "Siap Dikirim") {
+        let btn_konfirmasi = `<button type="button" class="btn" style="width: 100%;" id="btn_terambil">Konfirmasi Diambil</button>`;
+        $(".pembayaranDP").after().html(btn_konfirmasi);
+        if (storage.status !== "Siap Diambil") {
             window.location.href = "transaksi.html";
         }
         app.loadDetailTransaksi();
@@ -16,6 +19,7 @@ var app = {
         document.addEventListener("menubutton", app.onMenuKeyDown, false);
         document.addEventListener('backbutton', app.onBackKeyDown, false);
         document.getElementById("back").addEventListener("click", app.onBackKeyDown, false);
+        document.getElementById("btn_terambil").addEventListener("click", app.konfirmasi_diambil, false);
     },
     loadDetailTransaksi: () => {
         var idPemesanan = localStorage.id_pesanan, id_usaha = app.DetailPesanan.DataUsaha.id_usaha, type = localStorage.JenisPengiriman;
@@ -28,6 +32,7 @@ var app = {
     },
     onCompleteDetail: () => {
         var IDPESANAN = app.DetailPesanan.ID;
+        app.id_pesanan = parseInt(app.DetailPesanan.idPemesanan);
         var TotalHargaAll = app.DetailPesanan.TotalHargaAll;
         var MinTransfer = TotalHargaAll * (30 / 100);
         var SisaTagihan = TotalHargaAll - MinTransfer;
@@ -113,6 +118,14 @@ var app = {
         } else {
             throw new Error('Exit'); // This will suspend the app
         }
+    },
+    konfirmasi_diambil: function(){
+        let data_request = {id_pesanan: app.id_pesanan};
+        $.post(base_url + "api/pesanan/konfirmasi-ambil", data_request, function(data, status){
+            if(status=="success"){
+                location.href="detail-transaksi-selesai-all.html";
+            }
+        });
     }
 }
 // $(document).ready(app.onDeviceReady);

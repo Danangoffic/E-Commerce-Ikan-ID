@@ -143,7 +143,8 @@ function lihatmodal(idPemesanan) {
 
 function onSuccessLoadStruk(e) {
     if (e.response == "success") {
-        $("#background-struk").attr({ "src": base_url + "foto_struk/" + e.struk_pembayaran });
+        let struk = e.struk_pembayaran;
+        $("#background-struk").attr({ "src": struk });
     }
 }
 function onDoneLoadStruk() {
