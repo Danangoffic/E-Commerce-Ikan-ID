@@ -153,7 +153,7 @@ function pilihVariasi() {
                     '<label for="qty">Quantity: </label>' +
                     '<span class="helper-text textQty" data-error="wrong" data-success="right"></span>');
             }
-            harga_produk = e.harga;
+            harga_produk = stok_item.harga;
         });
         
         $("#jml_ikan").prop('selectedIndex', null);
@@ -197,11 +197,14 @@ function formatNumber(num) {
 
 function beli() {
     var variasiNow = $("#variasi").val();
-    var variasi_text = $("#variasi").find("option:selected").text();
+    var variasi_text = $("#variasi").find("option:selected").text().toString();
+    let jml_potong_val_selected = $("[name=jml_potong]").find("option:selected").val();
+    const MENTAH_POTONG = "Mentah potong";
     var product_text = $(".nama_produk").text();
-    var full_product_name = product_text + variasi_text;
+    var full_product_name = product_text + " " + variasi_text;
     let nama_usaha = $("#nama-usaha").text();
     var qty = $("#qty").val();
+    let potong_per_ekor = 2
     if (variasiNow == "" || variasiNow == null || variasiNow == "null") {
         M.toast({ html: 'Anda belum memilih variasi Produk' });
         return false;
@@ -220,29 +223,37 @@ function beli() {
         return false;
     }
     if (qty >= 1 && qty <= parseInt(maxStokItem)) {
-
+        console.log("Variasi : " + variasi_text);
+        console.log("is variasi \"Mentah Potong\" : ");
+        if(variasi_text == MENTAH_POTONG){
+            console.log(true);
+            potong_per_ekor = parseInt(jml_potong_val_selected);
+        }else{
+            console.log(false);
+            potong_per_ekor = null;
+        }
         variasi = $("#variasi").val();
         var ikan_per_kg = parseInt($("[name=jml_ikan]").val());
-        var potong_per_ekor = (variasi_text == "Mentah Potong") ? $("[name=jml_potong]").val() : null;
         var variasi_selected_init = $("[name=variasi]").find("option:selected").text();
-        var id_usaha = localStorage.id_usaha;
+        let id_usaha = parseInt(localStorage.id_usaha);
+        let id_akun = parseInt(localStorage.id_akun);
         var new_prods = {};
         let estimasi_ongkir = rel.fee_kirim;
         let distance = rel.jarakPengiriman;
         let total_harga = parseInt((harga_produk * qty));
-
+        let nama_produk = full_product_name;
+        let id_produk = parseInt(localStorage.id_produk);
         new_prods = {
             id_produk,
-            // nama_produk,
             variasi,
             harga_produk,
             total_harga,
             qty,
             namaVariasi,
             fotoProduk,
-            id_usaha: parseInt(localStorage.id_usaha),
-            id_akun: parseInt(localStorage.id_akun),
-            nama_produk: full_product_name,
+            id_usaha,
+            id_akun,
+            nama_produk,
             ikan_per_kg,
             potong_per_ekor,
             nama_usaha,
@@ -443,7 +454,7 @@ var rel = {
             travelMode: 'DRIVING',
             unitSystem: google.maps.UnitSystem.METRIC,
             avoidHighways: false,
-            avoidTolls: true
+            avoidTolls: false
         }, function (response, status) {
             if (status !== 'OK') {
                 alert('Error was: ' + status);
@@ -464,6 +475,8 @@ var rel = {
     set_origin_list: (originList, response) => {
         for (var i = 0; i < originList.length; i++) {
             var results = response.rows[i].elements;
+            results.sort(function (a, b) { return a.distance.value - b.distance.value; });
+            console.log("result element : ", results);
             for (var j = 0; j < results.length; j++) {
                 // KONDISI BIAYA PENGIRIMAN
                 rel.fee_kirim = 5000;
