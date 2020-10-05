@@ -1,6 +1,6 @@
 var firstLt, firstLg;
 // var lat, lng;
-$(document).ready(onDeviceReady);
+// $(document).ready(onDeviceReady);
 function onBackKeyDown() {
     $("#modal1").modal("open");
 }
@@ -28,7 +28,7 @@ function onDeviceReady() {
     document.addEventListener("pause", onPause, false);
     document.addEventListener("resume", onResume, false);
     document.addEventListener("menubutton", onMenuKeyDown, false);
-    document.getElementById("rollback").addEventListener("click", rollback, false);
+    // document.getElementById("rollback").addEventListener("click", rollback, false);
     document.getElementById("simpan").addEventListener("click", simpan, false);
     // Add similar listeners for other events
 }
