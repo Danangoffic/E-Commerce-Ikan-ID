@@ -1,7 +1,11 @@
 function onLoad() {
     $(".modal").modal();
+    // app.init();
     document.addEventListener("deviceready", onDeviceReady, false);
 }
+// var app = {
+//     init: ()=>{document.addEventListener("deviceready", onDeviceReady, false);}
+// }
 // $(document).ready(onDeviceReady);
 
 function onDeviceReady() {
