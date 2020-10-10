@@ -187,8 +187,9 @@ var app = {
                 var nama_produk = v.nama_produk + ' ' + v.nama_variasi;
                 var berat_produk = v.jml_produk * 10 + ' Ons';
                 var berat_akhir = (v.berat_akhir == null) ? 0 : v.berat_akhir;
+                let catatan = v.catatan;
                 html_table += '<tr>';
-                html_table += `<td style="font-size: medium;">${nama_produk}</td>`;
+                html_table += `<td style="font-size: medium;">${nama_produk}<br><small class="teal-text" id="catatan_${k}">${catatan}</small></td>`;
                 html_table += `<td style="font-size: medium;">${berat_produk}</td>`;
                 html_table += `<td><input form="berat-pesanan" placeholder="Berat Dalam Ons" name="berat[${k}]" id="berat-${v.id_produk}" type="number" min="10" max="1000" value="${berat_akhir}" class="center" style="font-size: medium"><label for="berat-${v.id_produk}"></label></td>`;
                 html_table += '</tr>';

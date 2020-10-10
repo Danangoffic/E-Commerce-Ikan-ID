@@ -6,7 +6,7 @@ function onLoad() {
 // var app = {
 //     init: ()=>{document.addEventListener("deviceready", onDeviceReady, false);}
 // }
-// $(document).ready(onDeviceReady);
+$(document).ready(onDeviceReady);
 
 function onDeviceReady() {
     $("#variasi").prop('selectedIndex', null);
@@ -267,6 +267,7 @@ function beli() {
     var variasiNow = $("#variasi").val();
     var variasi_text = $("#variasi").find("option:selected").text().toString();
     let jml_potong_val_selected = $("[name=jml_potong]").find("option:selected").val();
+    let catatan = $("#catatan").val();
     const MENTAH_POTONG = "Mentah potong";
     var product_text = $(".nama_produk").text();
     var full_product_name = product_text + " " + variasi_text;
@@ -326,7 +327,8 @@ function beli() {
             potong_per_ekor,
             nama_usaha,
             distance,
-            estimasi_ongkir
+            estimasi_ongkir,
+            catatan
         };
         console.log(new_prods);
         // SIMPAN KE KERANJANG
@@ -399,6 +401,7 @@ var onSuccessLoadProduk = (e, status) => {
     $(".berat").html(e.berat_produk + '&nbsp;Ons');
     $(".Kategori_produk").html("Air &nbsp;" + e.kategori);
     $(".min_order").html(e.min_pemesanan + "&nbsp;Ons");
+    $("#deskripsi").html(e.deskripsi);
     nama_produk = e.nama_produk;
     harga_produk = e.minprice;
     berat = parseFloat(e.berat_produk);
