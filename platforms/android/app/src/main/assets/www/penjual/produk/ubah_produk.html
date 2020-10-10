@@ -116,12 +116,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row" style="margin-top: 0px">
-              <div class="input-field col s12">
-                <input placeholder="Harga" id="harga" name="harga" type="number" class="">
-                <label for="harga">Harga</label>
-              </div>
-            </div> -->
             <div class="row">
               <div class="input-field col s10">
                 <input placeholder="Berat" id="berat_produk" name="berat_produk" type="number" class="" min="1">
@@ -143,6 +137,12 @@
                 <input placeholder="Total Ekor Per Kg" id="total_ekor_per_kg" name="total_ekor_per_kg" type="number"
                   class="" autocomplete="off" min="1" step="1">
                 <label for="total_ekor_per_kg">Total Maksimal Ekor Per Kg</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea placeholder="Deskripsi Produk" id="deskripsi" name="deskripsi" class="materialize-textarea active"></textarea>
+                <label for="deskripsi">Deskripsi Produk</label>
               </div>
             </div>
             <div class="row">
@@ -194,31 +194,19 @@
             $("#image-ikan").attr('src', base_url + 'foto_usaha/produk/' + e.foto_produk);
             $(".file-path").val(e.foto_produk);
           }
-
-          // $("#harga").
           $("#berat_produk").val(e.berat_produk);
           $("#min_pemesanan").val(e.min_pemesanan);
           $("#total_ekor_per_kg").val(e.ekor_per_kg);
           max_total_ekor_per_kg();
           $("#berat_produk").change(max_total_ekor_per_kg);
+          $("#deskripsi").val(e.deskripsi);
         });
-      // $.ajax({
-      //   url: API_DETAIL_PRODUK,
-      //   type: 'GET',
-      //   data: {id_produk: id_produk},
-      //   dataType: 'JSON',
-      //   async: false,
-      //   success: function(e){
-
-      //   }
-      // })
-
     }
 
     $("#update").click(function (e) {
       e.preventDefault;
-      var nama_produk = $("#nama_produk"), berat_produk = $("#berat_produk"), min_pemesanan = $("#min_pemesanan"), total_ekor_per_kg = $("#total_ekor_per_kg");
-      const fields = [nama_produk, berat_produk, min_pemesanan, total_ekor_per_kg];
+      var nama_produk = $("#nama_produk"), berat_produk = $("#berat_produk"), min_pemesanan = $("#min_pemesanan"), total_ekor_per_kg = $("#total_ekor_per_kg"), deskripsi = $("#deskripsi");
+      const fields = [nama_produk, berat_produk, min_pemesanan, total_ekor_per_kg, deskripsi];
       function emptyFields(fields) {
         let isEmpty;
         for (let index = 0; index < fields.length; index++) {
@@ -239,7 +227,7 @@
       formData.append("id_toko", storage.id_usaha);
       formData.append("minOrder", min_pemesanan.val());
       formData.append("total_ekor_per_kg", total_ekor_per_kg.val());
-      // formData.append('')
+      formData.append("deskripsi", deskripsi.val());
       $.ajax({
         url: base_url + 'Produk/prosesupdate_produk',
         data: formData,

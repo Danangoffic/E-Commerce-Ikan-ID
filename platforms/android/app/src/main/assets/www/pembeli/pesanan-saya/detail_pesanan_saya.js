@@ -468,17 +468,19 @@ function loadPesanan() {
         let namaVariasi = val.nama_variasi;
         let nama_produk = val.nama_produk;
         let foto_produk = `${base_url}foto_usaha/produk/${val.foto_produk}`;
+        let catatan = val.catatan;
         total_semua += total_satuan;
         let perProductTotal = harga_produk * jml_produk;
         allProductSum += perProductTotal;
-        let produk_saya = '<li class="collection-item avatar" id="item-produk-' + key + '">' +
+        let produk_saya =
+            '<li class="collection-item avatar" id="item-produk-' + key + '">' +
             '<img class="circle image-produk" src="' + foto_produk + '">' +
             '<span class="title nama-produk">' + nama_produk + ' <small>(' + namaVariasi + ')</small></span>' +
             '<p><span class="harga-produk orange-text">Rp ' + harga_produk + '</span>' + '<span class="black-text">&nbsp &times &nbsp' + jml_produk + '&nbsp Kg' + '</span></p>' +
             '<div class="secondary-content right-align">' +
-            '<a href="#!" onclick="remove_item(' + key + ')"><i class="tiny material-icons red-text">remove_shopping_cart</i></a>' +
             '<p class="orange-text">Rp ' + formatNumber(harga_total_per_produk) + '</p>' +
             '</div>' +
+            '<medium class="grey-text" id="catatan">' + catatan + '</medium>'
             '</li>';
         $(".produk-saya").append(produk_saya);
         console.log("Total Per Produk : " + harga_total_per_produk);

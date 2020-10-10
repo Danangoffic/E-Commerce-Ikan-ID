@@ -3,7 +3,7 @@ var app = {
         document.addEventListener("deviceready", this.onDeviceReady.bind(this), false);
     },
     onDeviceReady: function () {
-
+        $(".modal").modal();
         app.load_data_pembeli();
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
@@ -102,21 +102,22 @@ var app = {
                 harga_total_produk += parseInt(harga_produk * jml_produk);
                 let id_keranjang = parseInt(i2.id_keranjang);
                 console.log("data i2 : ", i2);
-                html_keranjang_per_usaha += `<li class="collection-item avatar" style="min-height: 0px;" data-keranjang="${id_keranjang}">
+                html_keranjang_per_usaha += `<li class="collection-item avatar" style="min-height: 0px;" id="keranjang_${id_keranjang}" data-keranjang="${id_keranjang}">
                                         <img src="${base_url + "foto_usaha/produk/" + i2.foto_produk}" alt="${i2.nama_produk}" class="circle">
-                                        <span class="title">${i2.nama_produk} <small style="color: grey">(${i2.nama_variasi})</small>
+                                        <span class="title" id="name_${id_keranjang}">${i2.nama_produk} <small class="grey-text" id="variasi_${id_keranjang}">(${i2.nama_variasi})</small>
                                             <p class="orange-text">Rp ${formatNumber(harga_produk)}</p>
                                             <span class="secondary-content">${i2.jml_produk} Kg</span>
                                             <a href="#!" onclick="remove_item(${id_keranjang})"><i class="tiny material-icons red-text">remove_shopping_cart</i></a>
                                         </span>
+                                        <br><medium class="grey-text" id="catatan">${i2.catatan}</medium>
                                     </li>`;
                 fee_ongkir = parseInt(i2.estimasi_ongkir);
             });
 
             let total_biaya_per_usaha = harga_total_produk + fee_ongkir;
-            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding-bottom: 0 !important"><b>Subtotal Produk: <span class="secondary-content orange-text">Rp ${formatNumber(harga_total_produk)}</span></b></li>`;
-            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding-bottom: 0 !important"><b>Biaya Pengiriman: <span class="secondary-content orange-text">Rp ${formatNumber(fee_ongkir)}</span></b></li>`;
-            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding-bottom: 0 !important"><b>Total :<span class="secondary-content orange-text">Rp ${formatNumber(total_biaya_per_usaha)}</span></b></li>`;
+            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding: 0 12px !important"><b>Subtotal Produk: <span class="secondary-content orange-text">Rp ${formatNumber(harga_total_produk)}</span></b></li>`;
+            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding: 0 12px !important"><b>Biaya Pengiriman: <span class="secondary-content orange-text">Rp ${formatNumber(fee_ongkir)}</span></b></li>`;
+            html_keranjang_per_usaha += `<li class="collection-item teal-text" style="padding: 0 12px !important"><b>Total :<span class="secondary-content orange-text">Rp ${formatNumber(total_biaya_per_usaha)}</span></b></li>`;
             html_keranjang_per_usaha += `</ul>
                 </div>
             </div>`;
@@ -124,16 +125,64 @@ var app = {
         $("#card-keranjang").html(html_keranjang_per_usaha);
     },
     remove_item: (id_keranjang=0) => {
-        let data_request = {id_keranjang};
-        $.post(API_HAPUS_PRODUK_KERANJANG, data_request, function(data, status, jqXHR){
-
+        if(isIdEmpty(id_keranjang)){
+            $("#modalFailedDelete").modal("open");
+        }
+        let data_req = {id_keranjang, id_akun: localStorage.id_akun};
+        $.post(API_DETAIL_KERANJANG, data_req, (data, status)=>{
+            if(status=="success"){
+                let result = data.data;
+                app.selected_id_keranjang = id_keranjang;
+                let nama_produk = result.nama_produk;
+                let variasi = result.nama_variasi;
+                $("#confirm_delete").data("id", id_keranjang);
+                let title_modal = 'Konfirmasi Hapus';
+                let text_confirm_delete = `Apakah Anda yakin akan menghapus produk ${nama_produk} ${variasi}?`;
+                $("#title_modal").text(title_modal);
+                $("#text_confirm_delete").text(text_confirm_delete);
+                $("#modalDelete").modal("open");
+                $("#confirm_delete").click(confirmRemoveItem);
+            }
         });
+        
         // fetch(API_HAPUS_PRODUK_KERANJANG, {
         //     method: "POST",
         //     body: JSON.stringify(data_request)
         // }).then(response=>response.json()).then()
     },
+    selected_id_keranjang: null
 }
+
+function isIdEmpty(id) {
+    if(id==0 || id=="" || id=="0" || id=="undefined" || id==null || id=="null" || typeof(id)=="undefined"){
+        return true;
+    }
+}
+
+function confirmRemoveItem() {
+    let id = app.selected_id_keranjang;
+    console.log("id: " + id);
+    let data_query = {id_keranjang: id};
+    console.log("data query:", data_query);
+    console.log("url: " + API_HAPUS_PRODUK_KERANJANG);
+    $.post(API_HAPUS_PRODUK_KERANJANG, data_query, (result, status, xhqr)=>{
+        console.log("result: ", result);
+        console.log("Status API : " + status);
+        console.log("xhqr: ", xhqr);
+        if (status=="success") {
+            app.selected_id_keranjang=null;
+            $("#modalDelete").modal("close");
+            console.log("hiding " + "#keranjang_"+id);
+            $("#keranjang_"+id).hide();
+            M.toast({html: 'Produk di Keranjang Berhasil Dihapus'});
+            loadkeranjang();
+            $("#card-keranjang").html("");
+            app.load_keranjang();
+            window.location.reload();
+        }
+    })
+}
+
 function onLoad() {
     loadkeranjang();
     // app.init();
@@ -162,8 +211,9 @@ function beli_ini() {
     }
 }
 
-function loadkeranjang() {
-    $.getJSON(API_KERANJANG, { id_akun: localStorage.id_akun }).then(successKeranjang).fail(onfailkeranjang)
+async function loadkeranjang() {
+    let geting = await $.getJSON(API_KERANJANG, { id_akun: localStorage.id_akun }).then(successKeranjang).fail(onfailkeranjang);
+    return geting;
 }
 
 function successKeranjang(response, status) {
