@@ -83,7 +83,8 @@
             <!-- <label class="label-icon" for="cariIkan">-->
           </div>
           <div class="" style="position: absolute; margin-left: 65%; margin-top: -2px; margin-bottom: 8px;">
-            <button onclick="btn_search_clicked()" class="btn white grey lighten-3 black-text" style="height: 38px"><i class="material-icons" style="line-height: 40px;">search</i></button>
+            <button onclick="btn_search_clicked()" class="btn white grey lighten-3 black-text" style="height: 38px"><i
+                class="material-icons" style="line-height: 40px;">search</i></button>
           </div>
           <b class="right"><i class="tiny material-icons shopping_basket"
               onclick="window.location.href='../pembeli/pesanan-saya/detail_pesanan_saya.html'">shopping_basket</i>
@@ -118,17 +119,19 @@
         style="bottom: 72px !important; margin-right: 95% !important; left: 80%;">
         <a class="btn-floating btn-large teal"><i class="large material-icons">filter_list</i></a>
         <ul>
-          <li><a class="btn-floating btn-large blue btn-ordering" id="name_order" onclick="orderByName()"><span style="font-size: 20px;">A-Z</span></a>
+          <li><a class="btn-floating btn-large blue btn-ordering" id="name_order" onclick="orderByName()"><span
+                style="font-size: 20px;">A-Z</span></a>
           </li>
-          <li><a class="btn-floating btn-large red btn-ordering" id="distance_order" onclick="orderByDistance()"><i class="material-icons md-48" style="">location_on</i></a>
+          <li><a class="btn-floating btn-large red btn-ordering" id="distance_order" onclick="orderByDistance()"><i
+                class="material-icons md-48" style="">location_on</i></a>
           </li>
-          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="max_to_min_price_order" onclick="orderFromMaxToMinPrice()"><span
-                style="font-size: 20px; line-height: 56px">Rp<sup><i class="material-icons md-48"
-                    style="">arrow_downward</i></sup></span></a>
+          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="max_to_min_price_order"
+              onclick="orderFromMaxToMinPrice()"><span style="font-size: 20px; line-height: 56px">Rp<sup><i
+                    class="material-icons md-48" style="">arrow_downward</i></sup></span></a>
           </li>
-          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="min_to_max_price_order" onclick="orderFromMinToMaxPrice()"><span
-                style="font-size: 20px; line-height: 56px">Rp<sup><i class="material-icons md-48"
-                    style="">arrow_upward</i></sup></span></a></li>
+          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="min_to_max_price_order"
+              onclick="orderFromMinToMaxPrice()"><span style="font-size: 20px; line-height: 56px">Rp<sup><i
+                    class="material-icons md-48" style="">arrow_upward</i></sup></span></a></li>
         </ul>
       </div>
     </div>
@@ -145,7 +148,7 @@
             class="material-icons">person</span><br>Akun</a></div>
     </div>
   </footer>
-
+  <div id="map" class="map"></div>
   <!-- ########## END: MAIN PANEL ########## -->
   <script src="http://maps.google.com/maps/api/js?key=AIzaSyAuoJ8tWSNs6owWkZsFI_Ssw4N_QOV__YM"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
@@ -156,24 +159,30 @@
 
   <script>
     var onSearchOrderType = "ASC_PRODUK";
+    var firstLt, firstLg, semuadistance, keyword, semuaidusaha;
+    var titik_saat_ini, map;
+
     function onLoad() {
 
     }
     $(document).ready(function () {
+      get_current_location();
       $('.fixed-action-btn.click-to-toggle').floatingActionButton({
         direction: 'top',
         hoverEnabled: false
       });
     });
 
-    function orderByDistance(distance_all) {
+    function orderByDistance() {
       let order_type = "DISTANCE_ORDER";
       onSearchOrderType = order_type;
       $(".btn-ordering").removeClass("active");
       $("#distance_order").addClass("active");
+      on_search();
     }
 
     function orderByName() {
+      console.log("ASCENDING BY NAME");
       $(".btn-ordering").removeClass("active");
       $("#name_order").addClass("active");
       let order_type = "ASC_PRODUK";
@@ -198,52 +207,311 @@
     }
 
     function btn_search_clicked() {
-      onSearchOrderType=="ASC_PRODUK";
+      onSearchOrderType == "ASC_PRODUK";
       orderByName();
     }
 
     function on_search() {
       let order_type = onSearchOrderType;
-      let input = $("#cariIkan").val();
-      $.get(API_SEARCH_PRODUK, { input, order_type }, function (data, status, xhqr) {
-        if (status == "success") {
-          let collection = `<ul id="dataProduct" class="collection">`;
-          let data_produk = data.data;
-          $.each(data_produk, (k, val) => {
-            let nama_produk = val.nama_produk;
-            let foto = `${base_url}/foto_usaha/produk/${val.foto_produk}`;
-            let minprice = val.minprice;
-            let maxprice = val.max_price;
-            let harga_display = (minprice==maxprice) ? minprice : `${minprice}~${maxprice}`;
-            let nama_usaha = val.nama_usaha;
-            
-            collection += `<li class="collection-item avatar" onclick="viewProduk(${val.id_produk}, ${k})">
-                        <img class="circle" src="${base_url}/foto_usaha/produk/${val.foto_produk}"
-                             alt="${val.nama_produk}">
-                        <span class="title black-text">${val.nama_produk}</span>
-                        <p class="orange-text">${harga_display}</p>
-                        <hr>
-                        <div class="row grey-text"
-                             style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">
-                            <div class="col s8" style="padding-left: 0px; padding-right: 0px">
-                                ${val.nama_usaha}
-                            </div>
-                            <div class="col s4"><p class="right" data-distance="${distance_text}">
-                                ${distance_text}</p></div>
-                        </div>
-                    </li>`
-          });
-          collection += `</ul>`;
-          $("#content-search").removeClass("center");
-          $("#content-search").html(collection);
+      keyword = $("#cariIkan").val();
+      $.get(API_SEARCH_USAHA_ON_SEARCHING_PRODUK, {
+        keyword,
+        order_type
+      }, function (data, status, xhqr) {
+        load_map_with_distance_matrix(data, status);
+      });
+    }
+
+    function get_current_location() {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+
+    function onSuccess(position) {
+      var element = document.getElementById('map');
+      var marker;
+      var posisilat;
+      var posisilng;
+      firstLt = position.coords.latitude;
+      firstLg = position.coords.longitude;
+      // ambil_data();
+    }
+
+    function onError(error) {
+      alert('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+    }
+
+    function load_map_with_distance_matrix(data, status = "") {
+      console.log("MASUK LOAD MAP WITH DISTANCE MATRIX THEN LOAD DATA PRODUK");
+      var t;
+      var tujuan = [];
+      titik_saat_ini = new google.maps.LatLng(firstLt, firstLg);
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: titik_saat_ini,
+        zoom: 13
+      });
+      var infoWindow = new google.maps.InfoWindow;
+      let res = data.data;
+      Array.prototype.forEach.call(res, function (row, idx) {
+        t = {
+          lat: parseFloat(row.lat),
+          lng: parseFloat(row.lng)
+        };
+        tujuan.push(t);
+      });
+      console.log('res');
+      console.log(res);
+      console.log('tujuan');
+      console.log(tujuan);
+
+      var origin1 = {
+        lat: firstLt,
+        lng: firstLg
+      };
+      // des -7.567492, 110.832670 des  -7.566248, 110.833485 des  -7.569072, 110.831500
+
+      var destinationA = t;
+      var service = new google.maps.DistanceMatrixService;
+      var idx_terdekat;
+      var distance_to_this_bf;
+
+      service.getDistanceMatrix({
+        origins: [origin1],
+        destinations: tujuan,
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      }, (response, status) => {
+        if (status !== 'OK') {
+          alert('Error was: ' + status);
+        } else {
+          statusMatrixNotFalse(data, response, res)
         }
       });
     }
 
-    function distance_matrix() {
-      
+    function statusMatrixNotFalse(result, response, res) {
+      var originList = response.originAddresses;
+      // var outputDiv = document.getElementById('dataProduct');
+      // outputDiv.innerHTML = '';
+      var value_of = [];
+      for (var i = 0; i < originList.length; i++) {
+        var results = response.rows[i].elements;
+        /*var distRes = results.distance.value;
+        distRes.sort(function(a, b){return a-b});*/
+        console.log(response);
+        console.log(results);
+        if (isOrderByDistance(onSearchOrderType)) {
+          console.log("ASCENDING BY DISTANCE");
+          results.sort(function (a, b) {
+            return a.distance.value - b.distance.value;
+          });
+        }
+        console.log("RESULT DISTANCE MATRIX: ", results);
+
+        var theElement = [];
+        // results.length untuk total data jarak
+        semuadistance = theElement;
+        for (var j = 0; j < results.length; j++) {
+
+          theElement.push(results[j].distance, res[j].id_usaha);
+          semuadistance[res[j].id_usaha] = results[j].distance;
+          value_of.push(results[j].distance.value);
+          console.log(theElement[j]);
+          // outputDiv.innerHTML += results[j].distance.text + '<br>';
+        }
+        console.log(theElement);
+        semuaidusaha = [];
+        for (var i = 0; i < res.length; i++) {
+          console.log("id usaha:" + res[i].id_usaha);
+          semuaidusaha.push(res[i].id_usaha);
+          // var ajaxx = 0;
+
+
+          // if (i == 0) {
+          //   idx_terdekat = 0;
+          //   distance_to_this_bf = results[i].distance.value;
+          //   // outputDiv.innerHTML += res[j].nama_usaha + ' titik pertama. idx_terdekat ' + idx_terdekat + '<br>';
+          // } else {
+          //   // outputDiv.innerHTML += '<br>' + res[j].nama_usaha + '<br>' + distance_to_this_bf + '>' + results[j].distance.value + ' maka <br>';
+          //   if (distance_to_this_bf > results[i].distance.value) {
+          //     distance_to_this_bf = results[i].distance.value;
+          //     idx_terdekat = i;
+          //   }
+          //   // outputDiv.innerHTML += 'idx_terdekat = ' + idx_terdekat + '<br>';
+          // }
+        }
+        // console.log(value_of);
+        // value_of.sort(function(a, b){return a-b});
+
+        //  console.log(value_of);
+      }
+
+      console.log("semua id usaha: ", semuaidusaha);
+
+      let data_ajax = {
+        keyword,
+        id_usaha: semuaidusaha,
+        order_type: onSearchOrderType,
+        distance_text: semuadistance
+      };
+
+      console.log("data ajax: ", data_ajax);
+      // let dataProduk = data.data_produk;
+      // $.each(dataProduk, (i, val) =>{
+
+      // });
+      var produks = '<ul class="collection ">';
+      let counter = 0;
+      $.ajax({
+        url: API_SEARCH_PRODUK,
+        type: 'POST',
+        data: data_ajax,
+        dataType: 'JSON',
+        success: function (response, status) {
+          if (status == "success") {
+            let produk = [];
+            produk = response.data_produk;
+            if (isOrderByAscPrice(onSearchOrderType)) {
+              console.log("ASCENDING PRICE");
+              produk.sort((a, b) => {
+                return a.minprice - b.minprice
+              });
+            }
+            if (isOrderByDescPrice(onSearchOrderType)) {
+              console.log("DESCENDING PRICE");
+              produk.sort((a, b) => {
+                return b.minprice - a.minprice
+              });
+            }
+            if (isOrderByName(onSearchOrderType)) {
+              console.log("ASCENDING PRODUCT NAME");
+              produk.sort((a, b) => {
+                var x = a.nama_produk.toLowerCase();
+                var y = b.nama_produk.toLowerCase();
+                if (x < y) {
+                  return -1;
+                }
+                if (x > y) {
+                  return 1;
+                }
+                return 0;
+              });
+            }
+            $.each(produk, function (key, val) {
+              const distance_text = val.distance;
+              let max_price = val.max_price,
+                minprice = val.minprice;
+              let foto_produk = val.foto;
+              let nama_produk = val.nama_produk;
+              let id_produk = val.id_produk;
+              let id_usaha = val.id_usaha;
+              let data_usaha = val.detail_usaha;
+              let nama_usaha = data_usaha.nama_usaha;
+              // console.log("distance", distance_text);
+              var harga_display = (minprice != max_price) ? 'Rp' + formatNumber(minprice) + ' - Rp' +
+                formatNumber(val.maxprice) : 'Rp' + formatNumber(minprice);
+              produks += `<li class="collection-item avatar" onclick="viewProduk(${id_produk}, ${id_usaha})">
+                                            <img class="circle"  src="${foto_produk}" alt="${nama_produk}">
+                                            <span class="title black-text">${nama_produk}</span>
+                                            <p class="orange-text">${harga_display}</p>
+                                            <hr>
+                                            <div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">
+                                                <div class="col s8" style="padding-left: 0px; padding-right: 0px">${nama_usaha}</div>
+                                                <div class="col s4"><p class="right" data-distance="${distance_text}">${distance_text}</p></div>
+                                            </div>
+                                        </li>`;
+              counter++;
+            });
+          }
+          // console.log("id_usaha : " + v);
+
+          // console.log(produks);
+          if (counter > 0) {
+            produks += '</ul>';
+            console.log("success load produk with distance matrix");
+            $(".progress").remove();
+            $("#content-search").removeClass("center");
+            $("#content-search").empty();
+            $("#content-search").html(produks);
+          }
+
+
+        },
+      });
+      // outputDiv.innerHTML += 'jarak terdekat yaitu ke titik ke ' + idx_terdekat + '<br>yaitu ' + res[idx_terdekat].nama_usaha;
+      // var start = titik_saat_ini;
+      // var end = new google.maps.LatLng(res[idx_terdekat].latitude, res[idx_terdekat].longitude);
+
+      // var directionsService = new google.maps.DirectionsService();
+      // var directionsDisplay = new google.maps.DirectionsRenderer();
+      // directionsDisplay.setOptions({
+      //   suppressMarkers: true
+      // });
+
+
+      // var bounds = new google.maps.LatLngBounds();
+      // bounds.extend(start);
+      // bounds.extend(end);
+      // map.fitBounds(bounds);
+      // var request = {
+      //   origin: start,
+      //   destination: end,
+      //   travelMode: google.maps.TravelMode.DRIVING
+      // };
+      // directionsService.route(request, function (response, status) {
+      //   if (status == google.maps.DirectionsStatus.OK) {
+      //     directionsDisplay.setDirections(response);
+      //     directionsDisplay.setMap(map);
+      //   } else {
+      //     alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) +
+      //       " failed: " + status);
+      //   }
+      // });
     }
 
+    function isOrderByDistance(onSearchOrderType) {
+      if (onSearchOrderType == "DISTANCE_ORDER") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function isOrderByAscPrice(onSearchOrderType) {
+      if (onSearchOrderType == "ASC_HARGA") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function isOrderByDescPrice(onSearchOrderType) {
+      if (onSearchOrderType == "DESC_HARGA") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function isOrderByName(onSearchOrderType) {
+      if (onSearchOrderType == "ASC_PRODUK") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function viewProduk(id_produk, id_usaha) {
+      storage.setItem('id_produk', id_produk);
+      storage.setItem('id_usaha', id_usaha);
+      window.location.href = "detail_produk_shop.html";
+    }
   </script>
 
 </body>
