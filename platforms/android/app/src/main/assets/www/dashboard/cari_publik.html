@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
@@ -24,60 +25,73 @@
   <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
   <meta name="author" content="ThemePixels">
 
-  <title>Profil</title>
+  <title>Cari Produk</title>
 
   <link href="../materialize-css/dist/css/materialize.css" rel="stylesheet" media="screen,projection">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="../assets/custom.css" rel="stylesheet">
 
-  <!-- <link href="../assets/lib/Ionicons/css/ionicons.css" rel="stylesheet"> -->
-
   <style type="text/css">
-    .carousel{
+    .carousel {
       height: 200px !important;
     }
-    .card.small{
+
+    .card.small {
       height: 170px;
     }
-    #cariIkan::placeholder, #cariIkan { /* Firefox, Chrome, Opera */ 
-      color: black; 
-    } 
-    #cariIkan:focus{
+
+    #cariIkan::placeholder,
+    #cariIkan {
+      /* Firefox, Chrome, Opera */
+      color: grey;
+    }
+
+    #cariIkan:focus {
       padding: 0px;
       height: 40px;
       line-height: 40px;
       width: 100%;
-      background-color: rgba(255,255,255,0.4);
+      background-color: rgba(255, 255, 255, 0.4);
       color: black;
     }
-    .page-footer{
+
+    .page-footer {
       padding-top: 0px !important;
     }
-    .pt-5{
+
+    .pt-5 {
       padding-top: 5px !important;
     }
-    .p0{
+
+    .p0 {
       padding: 0px auto !important;
-    } 
+    }
   </style>
 </head>
 
-<body class="">
+<body class="" onload="onLoad()">
   <header>
     <!-- header -->
-    <nav class="top-nav" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+    <nav class="top-nav"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
       <div class="container-fluid">
         <div class="nav-wrapper">
           <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
-          <form class="" name="searchIkan">
-            <div class="search-field white" style="width: 78%; float: left; position: relative; height: 40px; margin: 8px 12px; line-height: 40px">
-              <input id="cariIkan" type="search" name="cariIkan" placeholder="Cari Ikan">
-            </div>    
-          </form>
-          <b class="right"><i class="tiny material-icons shopping_basket" onclick="window.location.href='../pembeli/pesanan-saya/detail_pesanan_saya.html'">shopping_basket</i><span class="badge red white-text" id="totalBasket" style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
+          <div class="search-field white grey lighten-3"
+            style="width: 60%; float: left; position: absolute; height: 40px; margin: 8px 12px; line-height: 40px">
+            <input id="cariIkan" type="text" name="cariIkan" placeholder=" Cari">
+            <!-- <label class="label-icon" for="cariIkan">-->
+          </div>
+          <div class="" style="position: absolute; margin-left: 65%; margin-top: -2px; margin-bottom: 8px;">
+            <button onclick="btn_search_clicked()" class="btn white grey lighten-3 black-text" style="height: 38px"><i class="material-icons" style="line-height: 40px;">search</i></button>
+          </div>
+          <b class="right"><i class="tiny material-icons shopping_basket"
+              onclick="window.location.href='../pembeli/pesanan-saya/detail_pesanan_saya.html'">shopping_basket</i>
+            <span class="badge red white-text" id="totalBasket"
+              style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
         </div>
       </div>
-    </nav> 
+    </nav>
   </header>
   <!-- ########## END: HEAD PANEL ########## -->
 
@@ -85,7 +99,9 @@
   <main>
     <div class="col s12">
       <div class="container">
-        <div class="row center">
+        <!-- <div class="row" style="padding: 0px 12px; margin-bottom: 36px;">
+        </div> -->
+        <div class="row center" id="content-search">
           <div class="col s12">
             <div class="row" style="position: relative; margin: 250px 0px 20px 0px">
               <p class="flow-text" style="font-size: small; width: 100%;">Cari produk ikan yang Anda inginkan</p>
@@ -94,14 +110,39 @@
         </div>
       </div>
     </div>
+    <!--    <a class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">filter_list</i></a>-->
   </main>
-
+  <div id="horizontal" class="scrollspy section">
+    <div style="position:relative; height: 70px">
+      <div class="fixed-action-btn click-to-toggle direction-top"
+        style="bottom: 72px !important; margin-right: 95% !important; left: 80%;">
+        <a class="btn-floating btn-large teal"><i class="large material-icons">filter_list</i></a>
+        <ul>
+          <li><a class="btn-floating btn-large blue btn-ordering" id="name_order" onclick="orderByName()"><span style="font-size: 20px;">A-Z</span></a>
+          </li>
+          <li><a class="btn-floating btn-large red btn-ordering" id="distance_order" onclick="orderByDistance()"><i class="material-icons md-48" style="">location_on</i></a>
+          </li>
+          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="max_to_min_price_order" onclick="orderFromMaxToMinPrice()"><span
+                style="font-size: 20px; line-height: 56px">Rp<sup><i class="material-icons md-48"
+                    style="">arrow_downward</i></sup></span></a>
+          </li>
+          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="min_to_max_price_order" onclick="orderFromMinToMaxPrice()"><span
+                style="font-size: 20px; line-height: 56px">Rp<sup><i class="material-icons md-48"
+                    style="">arrow_upward</i></sup></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <footer class="page-footer blue bottom-navbar">
     <div class="center row" style="margin-bottom: 0px !important;">
-      <div class="col s3 pt-5"><a class="center blue white-text" href="index_publik.html"><span class="material-icons">home</span><br>Home</a></div>
-      <div class="col s3 pt-5 white"><a class="center" href="#"><span class="material-icons">search</span><br>Cari</a></div>
-      <div class="col s3 pt-5"><a class="center blue white-text" href="pesanan_publik.html"><span class="material-icons">receipt</span><br>Pesanan</a></div>
-      <div class="col s3 pt-5"><a class="center blue white-text" href="akun_publik.html"><span class="material-icons">person</span><br>Akun</a></div>
+      <div class="col s3 pt-5"><a class="center blue white-text" href="index_publik.html"><span
+            class="material-icons">home</span><br>Home</a></div>
+      <div class="col s3 pt-5 white"><a class="center" href="#"><span class="material-icons">search</span><br>Cari</a>
+      </div>
+      <div class="col s3 pt-5"><a class="center blue white-text" href="pesanan_publik.html"><span
+            class="material-icons">receipt</span><br>Pesanan</a></div>
+      <div class="col s3 pt-5"><a class="center blue white-text" href="akun_publik.html"><span
+            class="material-icons">person</span><br>Akun</a></div>
     </div>
   </footer>
 
@@ -113,5 +154,98 @@
   <script type="text/javascript" src="../js/mobile_script.js">
   </script>
 
+  <script>
+    var onSearchOrderType = "ASC_PRODUK";
+    function onLoad() {
+
+    }
+    $(document).ready(function () {
+      $('.fixed-action-btn.click-to-toggle').floatingActionButton({
+        direction: 'top',
+        hoverEnabled: false
+      });
+    });
+
+    function orderByDistance(distance_all) {
+      let order_type = "DISTANCE_ORDER";
+      onSearchOrderType = order_type;
+      $(".btn-ordering").removeClass("active");
+      $("#distance_order").addClass("active");
+    }
+
+    function orderByName() {
+      $(".btn-ordering").removeClass("active");
+      $("#name_order").addClass("active");
+      let order_type = "ASC_PRODUK";
+      onSearchOrderType = order_type;
+      on_search();
+    }
+
+    function orderFromMinToMaxPrice() {
+      $(".btn-ordering").removeClass("active");
+      $("#min_to_max_price_order").addClass("active");
+      let order_type = "ASC_HARGA";
+      onSearchOrderType = order_type;
+      on_search();
+    }
+
+    function orderFromMaxToMinPrice() {
+      $(".btn-ordering").removeClass("active");
+      $("#max_to_min_price_order").addClass("active");
+      let order_type = "DESC_HARGA";
+      onSearchOrderType = order_type;
+      on_search();
+    }
+
+    function btn_search_clicked() {
+      onSearchOrderType=="ASC_PRODUK";
+      orderByName();
+    }
+
+    function on_search() {
+      let order_type = onSearchOrderType;
+      let input = $("#cariIkan").val();
+      $.get(API_SEARCH_PRODUK, { input, order_type }, function (data, status, xhqr) {
+        if (status == "success") {
+          let collection = `<ul id="dataProduct" class="collection">`;
+          let data_produk = data.data;
+          $.each(data_produk, (k, val) => {
+            let nama_produk = val.nama_produk;
+            let foto = `${base_url}/foto_usaha/produk/${val.foto_produk}`;
+            let minprice = val.minprice;
+            let maxprice = val.max_price;
+            let harga_display = (minprice==maxprice) ? minprice : `${minprice}~${maxprice}`;
+            let nama_usaha = val.nama_usaha;
+            
+            collection += `<li class="collection-item avatar" onclick="viewProduk(${val.id_produk}, ${k})">
+                        <img class="circle" src="${base_url}/foto_usaha/produk/${val.foto_produk}"
+                             alt="${val.nama_produk}">
+                        <span class="title black-text">${val.nama_produk}</span>
+                        <p class="orange-text">${harga_display}</p>
+                        <hr>
+                        <div class="row grey-text"
+                             style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">
+                            <div class="col s8" style="padding-left: 0px; padding-right: 0px">
+                                ${val.nama_usaha}
+                            </div>
+                            <div class="col s4"><p class="right" data-distance="${distance_text}">
+                                ${distance_text}</p></div>
+                        </div>
+                    </li>`
+          });
+          collection += `</ul>`;
+          $("#content-search").removeClass("center");
+          $("#content-search").html(collection);
+        }
+      });
+    }
+
+    function distance_matrix() {
+      
+    }
+
+  </script>
+
 </body>
+
 </html>
