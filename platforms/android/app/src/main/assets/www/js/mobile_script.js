@@ -1,7 +1,7 @@
 // var base_url = "http://10.0.1.182/backendikan/";
 const SERVER = "http://103.195.90.35:3300";
-// const LOCAL = "http://localhost";
-const LOCAL = "http://192.168.2.32";
+const LOCAL = "http://localhost";
+// const LOCAL = "http://192.168.2.32";
 var base_url = `${LOCAL}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);
 //  var base_url = "http://localhost/backendikan/";
@@ -141,7 +141,7 @@ const API_UPDATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/update";
 const API_UPDATE_VARIASI_PRODUK = API_GET_PRODUK_DASHBOARD + "/variasi/update";
 const API_ACTIVATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/aktifkan";
 const API_DISABLE_PRODUK = API_GET_PRODUK_DASHBOARD + "/non-aktifkan";
-const API_SEARCH_PRODUK = API_GET_PRODUK_DASHBOARD + "/search";
+const API_SEARCH_PRODUK = API_GET_PRODUK_DASHBOARD + "-search";
 const API_FILTERED_PRODUK = API_GET_PRODUK_DASHBOARD + "/filtered";
 const API_GET_ALL_VARIASI = API_GET_PRODUK_DASHBOARD + "/all-variasi";
 
