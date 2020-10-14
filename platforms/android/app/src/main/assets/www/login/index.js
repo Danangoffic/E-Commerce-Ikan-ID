@@ -1,6 +1,6 @@
 function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
-    onDeviceReady();
+    // onDeviceReady();
     $("#btnsubmit").click(kirim_data);
     // $("form").submit(kirim_data);
 }
