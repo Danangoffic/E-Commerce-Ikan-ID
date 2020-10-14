@@ -71,8 +71,8 @@ function simpan() {
         processData: false,
         type: 'POST',
         dataType: 'json',
-        success: function (resp) {
-            if (resp.status == 'sukses') {
+        success: function (resp, status) {
+            if (status=="success") {
                 localStorage.setItem("id_akun", resp.id_akun);
                 // alert('Selamat, Anda Berhasil Mendaftar');
                 M.toast({ html: "Berhasil Tambahkan Data Anda Sebagai Penjual" });

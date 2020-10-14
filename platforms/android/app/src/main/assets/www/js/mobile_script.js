@@ -1,8 +1,8 @@
 // var base_url = "http://10.0.1.182/backendikan/";
 const SERVER = "http://103.195.90.35:3300";
 const LOCAL = "http://localhost";
-// var base_url = "http://192.168.100.103/backendikan/";
-var base_url = `${SERVER}/backendikan/`;
+// const LOCAL = "http://192.168.2.32";
+var base_url = `${LOCAL}/backendikan/`;
 // console.log("App IN : " + navigator.appCodeName);
 //  var base_url = "http://localhost/backendikan/";
 // var base_url = "http://192.168.43.71/backendikan/";
@@ -141,7 +141,8 @@ const API_UPDATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/update";
 const API_UPDATE_VARIASI_PRODUK = API_GET_PRODUK_DASHBOARD + "/variasi/update";
 const API_ACTIVATE_PRODUK = API_GET_PRODUK_DASHBOARD + "/aktifkan";
 const API_DISABLE_PRODUK = API_GET_PRODUK_DASHBOARD + "/non-aktifkan";
-const API_SEARCH_PRODUK = API_GET_PRODUK_DASHBOARD + "/search";
+const API_SEARCH_PRODUK = API_GET_PRODUK_DASHBOARD + "-search";
+const API_SEARCH_USAHA_ON_SEARCHING_PRODUK = API_GET_PRODUK_DASHBOARD + "SearchUsaha";
 const API_FILTERED_PRODUK = API_GET_PRODUK_DASHBOARD + "/filtered";
 const API_GET_ALL_VARIASI = API_GET_PRODUK_DASHBOARD + "/all-variasi";
 
@@ -225,6 +226,7 @@ const API_KERANJANG = base_url + "api/keranjang";
 const API_UBAH_KERANJANG = API_KERANJANG + "/update";
 const API_HAPUS_KERANJANG = API_KERANJANG + "/delete";
 const API_HAPUS_PRODUK_KERANJANG = API_KERANJANG + "/delete-produk";
+const API_DETAIL_KERANJANG = API_KERANJANG + "-detail";
 
 function only_go_to(url_file="") {
   return location.replace(url_file);

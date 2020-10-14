@@ -12,7 +12,7 @@
         Apache Cordova Team
     </author>
     <content src="dashboard/index_publik.html" />
-    <access origin="*" />
+    <access origind="*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
     <allow-navigation href="data:*" />

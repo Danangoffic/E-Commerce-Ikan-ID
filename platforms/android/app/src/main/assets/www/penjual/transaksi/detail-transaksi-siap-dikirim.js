@@ -62,9 +62,11 @@ var app = {
             var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
             var HargaProduk = isi.harga;
             var TotalProduk = isi.jml_produk;
+            let catatan = isi.catatan;
             HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
                 '<span class="title">' + NamaProduk + '</span>' +
                 '<p class="orange-text">Rp' + app.formatNumber(HargaProduk) + '<br></p>' +
+                '<large class="grey-text">Catatan : ' + catatan + '</large>' +
                 '<span class="secondary-content teal-text darken-1">' + TotalProduk * 10 + '&nbsp Ons</span></li>';
         });
         HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk: <span class="secondary-content total-harga-produk"></span></b></li>';

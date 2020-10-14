@@ -99,8 +99,7 @@
                 class="fa fa-chevron-left"></span></a>
             <b class="header" style="font-size: large; margin-left: 14px;"></b>
             <b class="right"><i class="tiny material-icons shopping_basket"
-                onclick="openBasket()">shopping_basket</i><span
-                class="badge red white-text" id="totalBasket"
+                onclick="openBasket()">shopping_basket</i><span class="badge red white-text" id="totalBasket"
                 style="margin-top: -50px; border-radius: 10px; width: 5px !important;">0</span></b>
           </div>
           <!-- </div> -->
@@ -124,7 +123,8 @@
                 <div class="col s12 m4 l3 user-section-negative-margin"
                   style="height: auto !important; max-height: auto">
                   <div class="col s12 center-align">
-                    <div class="responsive-img z-depth-0 circle image-produk" alt="" style="max-width: 100%; object-fit: cover;">
+                    <div class="responsive-img z-depth-0 circle image-produk" alt=""
+                      style="max-width: 100%; object-fit: cover;">
                     </div>
                   </div>
                 </div>
@@ -137,8 +137,7 @@
               <div class="row" style="padding: 4px; margin-bottom: 0px" id="manage-produk">
                 <div class="input field col s8 left-align" style="margin-left: -8px">
                   <label for="variasi" class="right-align">Variasi</label>
-                  <select class="variasi" name="variasi" id="variasi" onchange="pilihVariasi()"
-                    autocomplete="off">
+                  <select class="variasi" name="variasi" id="variasi" onchange="pilihVariasi()" autocomplete="off">
                     <option value="" disabled selected>Pilih Variasi</option>
                   </select>
                 </div>
@@ -171,7 +170,7 @@
                     <p class="left" style="font-size: small;">Berat :</p>
                   </div>
                   <div class="col s6">
-                    <p class="right berat" style="font-size: small;"></p>
+                    <p class="right teal-text berat" style="font-size: small;"></p>
                   </div>
                 </div>
                 <div class="row">
@@ -179,7 +178,7 @@
                     <p class="left" style="font-size: small;">Kategori :</p>
                   </div>
                   <div class="col s6">
-                    <p class="right Kategori_produk" style="font-size: small"></p>
+                    <p class="right teal-text Kategori_produk" style="font-size: small"></p>
                   </div>
                 </div>
                 <div class="row">
@@ -187,7 +186,15 @@
                     <p class="left" style="font-size: small;">Minimal Pemesanan :</p>
                   </div>
                   <div class="col s6">
-                    <p class="right min_order" style="font-size: small;"></p>
+                    <p class="right teal-text min_order" style="font-size: small;"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s4">
+                    <p class="left" style="font-size: small;">Deskripsi :</p>
+                  </div>
+                  <div class="col s12">
+                    <p id="deskripsi" class="teal-text" style="font-size: small;"></p>
                   </div>
                 </div>
               </div>
@@ -222,22 +229,30 @@
           </div>
 
           <!-- Modal Structure -->
-          <div id="modal1" class="modal bottom-sheet half-heigth-bottom-sheet">
-            <div class="modal-content">
-              <h5 id="title-modal-sheet">Konfirmasi Pemilihan</h5>
+          <div id="modal1" class="modal bottom-sheet-footer">
+            <div class="modal-content" style="margin-bottom: -12px;">
+              <h5 style="text-align: center;" id="title-modal-sheet">Konfirmasi Pemilihan</h5>
               <div class="row">
-                <div class="col-12">
-                  <p>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p>
+                <div class="col s12">
+                  <p style="text-align: center;"><br>Tuliskan jumlah ikan yang diinginkan dalam 1 Kg dan jumlah potongan</p><br>
                 </div>
-                <div class="input-field col s6">
-                  <select name="jml_ikan" id="jml_ikan"></select>
-                  <!-- <textarea id="jml_ikan" name="jml_ikan" class="materialize-textarea" data-length="100"></textarea> -->
-                  <label>Jumlah Ikan per Kg</label>
+                <div class="col s12">
+                  <div class="input-field col s6">
+                    <select name="jml_ikan" id="jml_ikan"></select>
+                    <!-- <textarea id="jml_ikan" name="jml_ikan" class="materialize-textarea" data-length="100"></textarea> -->
+                    <label>Jumlah Ikan per Kg</label>
+                  </div>
+                  <div class="input-field col s6" id="mentah-potong-option">
+                    <select name="jml_potong" id="jml_potong"></select>
+                    <!-- <textarea id="jml_potong" name="jml_potong" class="materialize-textarea" data-length="100"></textarea> -->
+                    <label>Jumlah Potong per Ekor</label>
+                  </div>
                 </div>
-                <div class="input-field col s6" id="mentah-potong-option">
-                  <select name="jml_potong" id="jml_potong"></select>
-                  <!-- <textarea id="jml_potong" name="jml_potong" class="materialize-textarea" data-length="100"></textarea> -->
-                  <label>Jumlah Potong per Ekor</label>
+                <div class="col s12">
+                  <div class="input-field col s12">
+                    <input placeholder="Catatan" id="catatan" type="text">
+                    <label for="catatan">Catatan</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -249,7 +264,7 @@
 
         </form>
 
-        <div id="modalLogin" class="modal bottom-sheet full-heigth-bottom-sheet">
+        <div id="modalLogin" class="modal bottom-sheet-footer">
           <div class="modal-content">
             <div class="row">
               <form action="#" class="col s12">
