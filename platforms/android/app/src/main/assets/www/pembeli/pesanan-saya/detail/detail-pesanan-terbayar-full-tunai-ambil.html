@@ -179,8 +179,8 @@
         var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p>Rp ' + HargaProduk + '<br></p>' +
-          '<span class="secondary-content">' + TotalProduk + '&times;</span></li>';
+          '<p class="orange-text">Rp ' + HargaProduk + '<br></p>' +
+          '<span class="secondary-content">' + TotalProduk + ' Kg</span></li>';
       });
       HtmlProduk += '<li class="collection-item teal-text darken-1"><b>Total Harga Produk: <span class="secondary-content total-harga-produk"></span></b></li>';
       $(".collection-product").html(HtmlProduk);
