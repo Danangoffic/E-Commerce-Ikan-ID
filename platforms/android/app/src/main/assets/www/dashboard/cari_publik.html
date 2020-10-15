@@ -70,9 +70,9 @@
 </head>
 
 <body class="" onload="onLoad()">
-  <header>
+  <header class="navbar-fixed">
     <!-- header -->
-    <nav class="top-nav"
+    <nav class="top-nav nav-extended"
       style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
       <div class="container-fluid">
         <div class="nav-wrapper">
@@ -119,19 +119,20 @@
         style="bottom: 72px !important; margin-right: 95% !important; left: 80%;">
         <a class="btn-floating btn-large teal"><i class="large material-icons">filter_list</i></a>
         <ul>
-          <li><a class="btn-floating btn-large blue btn-ordering" id="name_order" onclick="orderByName()"><span
-                style="font-size: 20px;">A-Z</span></a>
-          </li>
-          <li><a class="btn-floating btn-large red btn-ordering" id="distance_order" onclick="orderByDistance()"><i
-                class="material-icons md-48" style="">location_on</i></a>
+          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="min_to_max_price_order"
+              onclick="orderFromMinToMaxPrice()"><span style="font-size: 20px; line-height: 56px">Rp<sup><i
+                    class="material-icons md-48" style="">arrow_upward</i></sup></span></a>
           </li>
           <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="max_to_min_price_order"
               onclick="orderFromMaxToMinPrice()"><span style="font-size: 20px; line-height: 56px">Rp<sup><i
                     class="material-icons md-48" style="">arrow_downward</i></sup></span></a>
           </li>
-          <li><a class="btn-floating btn-large yellow darken-3 btn-ordering" id="min_to_max_price_order"
-              onclick="orderFromMinToMaxPrice()"><span style="font-size: 20px; line-height: 56px">Rp<sup><i
-                    class="material-icons md-48" style="">arrow_upward</i></sup></span></a></li>
+          <li><a class="btn-floating btn-large red btn-ordering" id="distance_order" onclick="orderByDistance()"><i
+                class="material-icons md-48" style="">location_on</i></a>
+          </li>
+          <li><a class="btn-floating btn-large blue btn-ordering" id="name_order" onclick="orderByName()"><span
+                style="font-size: 20px;">A-Z</span></a>
+          </li>
         </ul>
       </div>
     </div>
@@ -208,7 +209,7 @@
 
     function btn_search_clicked() {
       onSearchOrderType == "ASC_PRODUK";
-      orderByName();
+      orderByDistance();
     }
 
     function on_search() {
@@ -219,6 +220,15 @@
         order_type
       }, function (data, status, xhqr) {
         load_map_with_distance_matrix(data, status);
+      }).fail((error, status, thr) => {
+        let errorMessage = `<div class="col s12">
+            <div class="row" style="position: relative; margin: 0px 0px 20px 0px">
+              <p class="flow-text" style="font-size: small; width: 100%;">Produk yang Anda cari tidak ada</p>
+            </div>
+          </div>`;
+        $("#content-search").addClass("center");
+        $("#content-search").empty();
+        $("#content-search").html(errorMessage);
       });
     }
 
@@ -418,12 +428,14 @@
                                             <p class="orange-text">${harga_display}</p>
                                             <hr>
                                             <div class="row grey-text" style="margin-top:-8px; margin-bottom: 0px; padding-top:0px">
-                                                <div class="col s8" style="padding-left: 0px; padding-right: 0px">${nama_usaha}</div>
+                                                <div class="col s8" style="padding-left: 8px; padding-right: 0px">${nama_usaha}</div>
                                                 <div class="col s4"><p class="right" data-distance="${distance_text}">${distance_text}</p></div>
                                             </div>
                                         </li>`;
               counter++;
             });
+          } else {
+
           }
           // console.log("id_usaha : " + v);
 
@@ -436,9 +448,17 @@
             $("#content-search").empty();
             $("#content-search").html(produks);
           }
-
-
         },
+        error: (error, status, thr) => {
+          let errorMessage = `<div class="col s12">
+            <div class="row" style="position: relative; margin: 250px 0px 20px 0px">
+              <p class="flow-text" style="font-size: small; width: 100%;">Produk yang Anda cari tidak ada</p>
+            </div>
+          </div>`;
+          $("#content-search").addClass("center");
+          $("#content-search").empty();
+          $("#content-search").html(errorMessage);
+        }
       });
       // outputDiv.innerHTML += 'jarak terdekat yaitu ke titik ke ' + idx_terdekat + '<br>yaitu ' + res[idx_terdekat].nama_usaha;
       // var start = titik_saat_ini;

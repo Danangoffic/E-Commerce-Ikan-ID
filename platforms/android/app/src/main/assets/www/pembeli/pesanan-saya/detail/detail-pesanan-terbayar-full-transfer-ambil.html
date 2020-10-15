@@ -85,7 +85,7 @@
         <div class="card">
           <ul class="collection">
             <li class="collection-item">
-              <h6>DETAIL PENGIRIMAN</h6>
+              <h5>DETAIL PENGIRIMAN</h5>
             </li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content">Ambil di Toko</span></li>
             <li class="collection-item">Tanggal Pengambilan yang Diajukan :<span
@@ -96,7 +96,7 @@
         <div class="card">
           <ul class="collection">
             <li class="collection-header" style="padding-left: 10px">
-              <h6>DETAIL PEMBAYARAN</h6>
+              <h5>DETAIL PEMBAYARAN</h5>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Bayar Penuh Transfer</span>
             </li>
@@ -162,8 +162,8 @@
         var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p>Rp ' + HargaProduk + '<br></p>' +
-          '<span class="secondary-content"><b>' + TotalProduk + '&times;</b></span></li>';
+          '<p class="orange-text">Rp ' + HargaProduk + '<br></p>' +
+          '<span class="secondary-content"><b>' + TotalProduk + ' Kg</b></span></li>';
       });
       HtmlProduk += '<b><a class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></a></b>';
       $(".collection-product").html(HtmlProduk);
