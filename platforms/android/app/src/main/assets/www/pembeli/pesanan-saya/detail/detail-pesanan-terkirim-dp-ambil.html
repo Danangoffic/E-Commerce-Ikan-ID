@@ -46,7 +46,7 @@
         <div class="nav-wrapper">
           <!-- <div class="row"> -->
             <div class="col s12 m10 offset-m1">
-              <a id="#" href="profil.html" onclick="return onBackKeyDown()" class="transparent"
+              <a id="#" href="../pesanan-saya.html" class="transparent"
                 style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
               <b class="header">&nbsp;Detail Pesanan</b>
             </div>
@@ -67,32 +67,13 @@
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span
-                  class="secondary-content NoPesanan"></span></b></li>
-            <li class="collection-item"><b>Waktu Pemesanan :<span class="secondary-content WaktuPemesanan"></span></b>
-            </li>
-            <li class="collection-item"><b>Waktu Pembayaran :<span class="secondary-content WaktuPembayaran"></span></b>
-            </li>
-            <li class="collection-item"><b>Waktu Pesanan Selesai :<span
-                  class="secondary-content WaktuPesananSelesai"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span class="badge NoPesanan teal-text darken-4"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span class="badge WaktuPemesanan teal-text darken-4"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>Waktu Pembayaran :<span class="badge WaktuPembayaran teal-text darken-4"></span></b></li>
           </ul>
         </div>
-        <a class="collection-item" href="#!">
-          <h6 class="nama-toko">Nama Toko (Link Toko)</h6>
-        </a>
         <div class="card">
-          <ul class="collection collection-product">
-            <li class="collection-header" style="padding-left: 10px">
-              <h5>DAFTAR PRODUK</h5>
-            </li>
-            <li class="collection-item avatar collection-product">
-              <span class="title">Nama Produk</span>
-              <p>Harga Produk<br>
-              </p>
-              <span class="badge">Total Produk</span>
-            </li>
-            <b><a class="collection-item">Total Harga Produk :<span class="badge">Rp</span></a></b>
-          </ul>
+          <ul class="collection collection-product"></ul>
         </div>
         <div class="card">
           <ul class="collection">
@@ -101,7 +82,7 @@
             </li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman"></span></li>
             <li class="collection-item">Tanggal Pengambilan :<span
-                class="secondary-content tanggal-pengiriman"></span><br><span class="teal-text total-berat"></span></li>
+                class="secondary-content tanggal-pengiriman"></span></li>
           </ul>
         </div>
         <div class="card">
@@ -148,6 +129,8 @@
       var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
       var AllPurchaseProduk = DetailPesanan.AllPurchaseProduk;
       var waktuPemesanan = DetailPesanan.waktuPemesanan;
+      var waktuPembayaran = DetailPesanan.waktu_pembayaran_new;
+
       var tglPengiriman = DetailPesanan.tglPengiriman;
       var TotalHargaProduk = DetailPesanan.TotalHargaProduk;
       var DataUsaha = DetailPesanan.DataUsaha;
@@ -168,8 +151,8 @@
         $(".status-pemesanan").html("PESANAN DITERIMA");
       }
       $(".NoPesanan").html(IDPESANAN);
-      $(".WaktuPemesanan").html("<?=$DisplayWaktuPemesanan?>");
-      $(".WaktuPembayaran").html("<?=$DisplayWaktuPembayaran?>");
+      $(".WaktuPemesanan").html(waktuPemesanan);
+      $(".WaktuPembayaran").html(waktuPembayaran);
       $(".WaktuPengiriman").html("<?=$DisplayWaktuPengiriman?>");
       var HtmlProduk = '';
       HtmlProduk += '<li class="collection-item"><h6 class="nama-toko">Nama Toko (Link Toko)</h6></li>' +
@@ -181,15 +164,15 @@
         var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p>Rp ' + HargaProduk + '<br></p>' +
-          '<span class="secondary-content"><b>' + TotalProduk + '&times;</b></span></li>';
+          '<p class="orange-text">Rp ' + HargaProduk + '<br></p>' +
+          '<span class="secondary-content"><b>' + TotalProduk + ' Kg</b></span></li>';
       });
       HtmlProduk += '<b><a class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></a></b>';
       $(".collection-product").html(HtmlProduk);
       $(".nama-toko").html("<a href='#!' onclick='GoToDetailUsaha(" + IdUsaha + ")'>" + nama_usaha + "</a>");
       $(".alamat").html(Alamat);
       $(".tipe-pengiriman").html(JenisPengiriman);
-      $(".tanggal-pengiriman-diajukan").html("<?=$DisplayWaktuPengirimanDiajukan;?>");
+      $(".tanggal-pengiriman").html(tglPengiriman);
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Ons");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
       $(".tipe-pembayaran").html(metode_pembayaran);
@@ -201,6 +184,12 @@
 
     function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function onBackKeyDown() {
+      // Handle the back button
+      localStorage.removeItem("DetailPesanan");
+      window.location.replace("../pesanan-saya.html");
     }
   </script>
 </body>

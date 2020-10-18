@@ -98,7 +98,7 @@
                   class="secondary-content biaya-pengiriman">Rp</span>
                 <p class="total-berat" style="margin-top: -5px; margin-bottom: -10px">(xxx ons)</p>
               </b></li>
-            <li class="collection-item"><button class="waves-effect waves-light btn blue" type="button"
+            <li class="collection-item"><button class="waves-effect waves-light btn blue" onclick="lacakPengiriman()" type="button"
                 style="width: 100%">Lacak Pengiriman</button></li>
           </ul>
         </div>
@@ -133,6 +133,13 @@
 
     $(document).ready(detail_pesanan);
 
+    var id_pemesanan;
+    
+    function lacakPengiriman() {
+      localStorage.setItem("id_pemesanan", id_pemesanan);
+      window.location.href = "../lacak-pengiriman-pembeli.html";
+    }
+
     function detail_pesanan() {
       var DetailPesanan = storage.getItem("DetailPesanan");
       DetailPesanan = JSON.parse(DetailPesanan);
@@ -155,6 +162,7 @@
       var TanggalPengiriman = DetailPesanan.tglPengiriman;
       var TotalProdukPesanan = DetailPesanan.TotalProduk / 10;
       var TotalBeratProduk = DetailPesanan.TotalBeratProduk / 10;
+      id_pemesanan = IDPESANAN;
       console.log("TotalBeratProduk : " + TotalBeratProduk);
       var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
       var DataPembayaran = DetailPesanan.DataPembayaran;

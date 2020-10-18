@@ -1,5 +1,5 @@
 var lacak = {
-    id_pengiriman: localStorage.id_pengiriman,
+    id_pemesanan: localStorage.id_pemesanan,
     id_akun: localStorage.id_akun,
     id_kurir: 0,
     init: function () {
@@ -22,8 +22,7 @@ var lacak = {
 
     },
     onBackKeyDown: function () {
-        return location.replace("transaksi.html");
-        // document.location.replace
+        document.location.replace("transaksi.html");
     },
     load_pengiriman: function () {
         // let data = {id_pengiriman: lacak.id_pengiriman, lacak: this.id_akun};
@@ -148,7 +147,7 @@ var lacak = {
 lacak.init();
 $(document).ready(lacak.onDeviceReady);
 function onBackKeyDown() {
-    return lacak.onBackKeyDown();
+    return lacak.onBackKeyDown;
 }
 
 function cancel_pos() {
