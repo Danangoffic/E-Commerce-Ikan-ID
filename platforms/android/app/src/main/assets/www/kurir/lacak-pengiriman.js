@@ -13,17 +13,17 @@ var app = {
     id_pengiriman: localStorage.id_pengiriman,
     akun: localStorage.id_akun,
     result_data: null,
-    id_pemesanan:null,
+    id_pemesanan: null,
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
-        
+        $('.modal').modal();
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
         document.addEventListener("menubutton", app.onMenuKeyDown, false);
-        document.addEventListener("backbutton", onBackKeyDown, false);
+        document.addEventListener("backbutton", app.onBackKeyDown, false);
         app.load_data();
     },
     onPause: function () {
@@ -47,11 +47,12 @@ var app = {
         app.result_data = data;
         let lokasi_kurir = data.lokasi_kurir;
         console.log("LOKASI KURIR: ", lokasi_kurir);
-        if (lokasi_kurir == "") {
+        if (lokasi_kurir == "" || lokasi_kurir == null) {
             app.current_location();
         } else {
             let latitude = lokasi_kurir.latitude, longitude = lokasi_kurir.longitude;
-            app.matrix_location(latitude, longitude);
+            // app.matrix_location(latitude, longitude);
+            initMap(latitude, longitude, { latitude, longitude });
         }
         // app.check_before_watch_location(lokasi_kurir);
     },
@@ -63,6 +64,7 @@ var app = {
         navigator.geolocation.getCurrentPosition(app.success_location, app.fail_location);
     },
     success_location: position => {
+        var marker;
         let firstLt = parseFloat(position.coords.latitude);
         let firstLg = parseFloat(position.coords.longitude);
         console.log('Latitude: ' + position.coords.latitude + '\n' +
@@ -73,7 +75,9 @@ var app = {
             'Heading: ' + position.coords.heading + '\n' +
             'Speed: ' + position.coords.speed + '\n' +
             'Timestamp: ' + position.timestamp + '\n');
-        app.matrix_location(firstLt, firstLg);
+        let markPosition = { latitude: firstLt, longitude: firstLg };
+        // app.matrix_location(firstLt, firstLg);
+        initMap(firstLt, firstLg, markPosition);
     },
     fail_location: error => {
 
@@ -83,7 +87,7 @@ var app = {
         var t;
         var tujuan = [];
         // var titik_saat_ini = new google.maps.LatLng(lat, lng);
-        var titik_saat_ini =new google.maps.LatLng(parseFloat(origin_.latitude), parseFloat(origin_.longitude));
+        var titik_saat_ini = new google.maps.LatLng(parseFloat(origin_.latitude), parseFloat(origin_.longitude));
         var map = new google.maps.Map(document.getElementById('map'), {
             center: titik_saat_ini,
             zoom: 13
@@ -93,7 +97,7 @@ var app = {
         var use_destinasi = {};
         let data_produk;
         let data_pembeli;
-        let counter_track=0;
+        let counter_track = 0;
         Array.prototype.forEach.call(detail_pengiriman, function (row, idx) {
             if (row.status == "pengantaran") {
                 counter_track++;
@@ -119,7 +123,7 @@ var app = {
                 // data_pembeli = detail_pembeli;
             }
         });
-        if(counter_track==0){
+        if (counter_track == 0) {
             window.location.replace("../penjual/transaksi/transaksi.html");
         }
         app.parse_produk(data_produk);
@@ -129,13 +133,14 @@ var app = {
         console.log('tujuan');
         console.log(JSON.stringify(tujuan));
 
-        
+
         // var origin1 = [{ lat: parseFloat(origin_.latitude), lng: parseFloat(origin_.longitude) }];
         let mar_point_origin = new google.maps.LatLng(parseFloat(origin_.latitude), parseFloat(origin_.longitude));
         // // des -7.567492, 110.832670 des  -7.566248, 110.833485 des  -7.569072, 110.831500
         marker = new google.maps.Marker({
             position: mar_point_origin,
-            map: map
+            map: map,
+            zoom: 7
             //icon
         });
         // var destinationA = t;
@@ -178,7 +183,7 @@ var app = {
         }
         let html_content = `<div class="row">
         <div class="col s6">
-          <p class="flow-text teal-text" style="font-weight: bold; font-size: medium">Total Pembayaran</p>${(type=="Lunas") ? content : ""}
+          <p class="flow-text teal-text" style="font-weight: bold; font-size: medium">Total Pembayaran</p>${(type == "Lunas") ? content : ""}
         </div>
         ${content_type_DP}
         </div>`;
@@ -227,7 +232,7 @@ var app = {
     parse_produk: (data_produk) => {
         console.log("data produk: ", JSON.stringify(data_produk));
         let html_pr = ``;
-        $.each(data_produk, (i, el)=>{
+        $.each(data_produk, (i, el) => {
             console.log(`id_produk: ${el.id_produk}`);
             html_pr += `<div class="card z-depth-0 produk" style="margin-bottom: -12px; margin-top: -8px">
           <div class="collection">
@@ -245,7 +250,7 @@ var app = {
         content_detail_produk.innerHTML = html_pr;
     },
     show_content_pembeli: (detail_pembeli) => {
-        console.log("Data Pembeli: ",JSON.stringify(detail_pembeli));
+        console.log("Data Pembeli: ", JSON.stringify(detail_pembeli));
         let nama_pembeli = detail_pembeli.nama;
         let alamat_pembeli = detail_pembeli.alamat_pembeli;
         let kelurahan = detail_pembeli.kelurahan, kecamatan = detail_pembeli.kecamatan, kabupaten = detail_pembeli.kabupaten;
@@ -256,28 +261,28 @@ var app = {
         let content_alamat = `<span id="alamat_pembeli">${alamat_pembeli}</span><br>`;
         let content_foto = `<img src="${foto}" alt="" id="img_pembeli" class="circle responsive-img" style="width: 58px; height: 70px">`;
         content_detail_foto.innerHTML = content_foto;
-        content_detail_pembeli.innerHTML = `${content_nama+content_alamat}${kelurahan}, ${kecamatan}, ${kabupaten}`;
+        content_detail_pembeli.innerHTML = `${content_nama + content_alamat}${kelurahan}, ${kecamatan}, ${kabupaten}`;
     },
-    submittin_penerima: ()=>{
+    submittin_penerima: () => {
         let nama_penerima = document.getElementById("nama_penerima").value;
         let id_pengiriman = app.id_pengiriman;
         let id_pemesanan = app.id_pemesanan;
-        let data = {nama_penerima, id_pengiriman, id_pemesanan};
+        let data = { nama_penerima, id_pengiriman, id_pemesanan };
         console.log("data submit: ", JSON.stringify(data));
         console.log("url submit : " + API_END_TRACK);
         POST_API(API_END_TRACK, data).then(app.success_submitting).catch(app.fail_submitting);
     },
-    success_submitting: data=>{
-        M.toast({html: "Berhasil submit penerima"});
+    success_submitting: data => {
+        M.toast({ html: "Berhasil submit penerima" });
         let code_res = data.code;
-        if(code_res==1){
+        if (code_res == 1) {
             app.load_data();
-        }else if(code_res==2){
+        } else if (code_res == 2) {
             window.location.replace("../penjual/transaksi/transaksi.html#selesai");
         }
     },
-    fail_submitting: error=>{
-        M.toast({html: "Failed submit penerima"});
+    fail_submitting: error => {
+        M.toast({ html: "Failed submit penerima" });
         console.log(error);
     },
     // Update DOM on a Received Event
@@ -286,14 +291,51 @@ var app = {
 function submit_penerima() {
     app.submittin_penerima();
 }
-app.initialize();
+// app.initialize();
 // $(document).ready(app.onDeviceReady);
-$(document).ready(function(){
-    $('.modal').modal();
-  });
-  function formatNumber(num) {
+$(document).ready(app.onDeviceReady);
+function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
-function onBackKeyDown(){
+function onBackKeyDown() {
     return app.onBackKeyDown();
+}
+
+function initMap(lat, lng, markPosition = null) {
+    // $("body").find("input[name='latitude']").val(lat);
+    // $("body").find("input[name='longitude']").val(lng);
+    var propertiPeta = {
+        center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
+        zoom: 15, //semakin banyak semakin dekat min 1 maksimal
+        mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
+    };
+    var point = null;
+    if (markPosition != null) {
+        point = new google.maps.LatLng(markPosition.latitude, markPosition.longitude);
+    }
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    let destinasi = new google.maps.LatLng(lacak.latlngPembeliNow.lat, lacak.latlngPembeliNow.lng);
+    var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
+    marker = new google.maps.Marker({
+        position: point,
+        map: peta,
+        zoom: 7
+        //icon
+    });
+    directionsRenderer.setMap(peta);
+    calcRoute(point, destinasi, directionsService, directionsRenderer)
+}
+
+function calcRoute(start, end, directionsService, directionsRenderer) {
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: 'DRIVING'
+    };
+    directionsService.route(request, function (result, status) {
+        if (status == 'OK') {
+            directionsRenderer.setDirections(result);
+        }
+    });
 }
