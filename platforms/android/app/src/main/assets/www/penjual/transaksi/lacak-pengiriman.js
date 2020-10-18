@@ -32,8 +32,7 @@ var lacak = {
     },
     onSuccessLoadPengiriman: function (data) {
         lacak.parse_detail(data);
-        lacak.id_kurir = data.id_kurir;
-        lacak.watch_pos();
+        
     },
     config_nav_geo_catch: {
         maximumAge: 3000,
@@ -57,7 +56,10 @@ var lacak = {
         let lat1 = origin.latitude, long1 = origin.longitude;
         console.log("data usaha: ", detail_usaha);
         lacak.parse_progression(detail_usaha, detail_pengiriman);
-        initMap(lat1, long1);
+        let markPosition = data.asal;
+        initMap(lat1, long1, markPosition);
+        lacak.id_kurir = data.id_kurir;
+        lacak.watch_pos();
     },
     parse_progression: function (usaha, pengiriman) {
         let html_progress_usaha = `<li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time>
@@ -70,8 +72,10 @@ var lacak = {
         Array.prototype.forEach.call(pengiriman, el => {
             let status = el.status;
             let alt_status = "";
+            let lokasi = el.destinasi;
             if(status=="pengantaran"){
                 alt_status = "Pesanan Dikirim";
+                lacak.latlngPembeliNow = {lat: lokasi.latitude, lng: lokasi.longitude};
             }else if(status=="selesai"){
                 alt_status = "Pesanan Diterima";
             }
@@ -137,7 +141,8 @@ var lacak = {
     },
     done_update_pengiriman: function () {
         lacak.load_pengiriman();
-    }
+    },
+    latlngPembeliNow: {}
 }
 lacak.init();
 $(document).ready(lacak.onDeviceReady);
@@ -182,7 +187,7 @@ function onError(error) {
         'message: ' + error.message + '\n');
 }
 
-function initMap(lat, lng) {
+function initMap(lat, lng, markPosition=null) {
     // $("body").find("input[name='latitude']").val(lat);
     // $("body").find("input[name='longitude']").val(lng);
     var propertiPeta = {
@@ -190,11 +195,33 @@ function initMap(lat, lng) {
         zoom: 15, //semakin banyak semakin dekat min 1 maksimal
         mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
     };
-    var point = new google.maps.LatLng(lat, lng);
+    var point = null;
+    if(markPosition!=null){
+        point = new google.maps.LatLng(markPosition.latitude, markPosition.longitude);
+    }
+    var directionsService = new google.maps.DirectionsService();
+    var directionsRenderer = new google.maps.DirectionsRenderer();
+    let destinasi = new google.maps.LatLng(lacak.latlngPembeliNow.lat, lacak.latlngPembeliNow.lng);
     var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
     marker = new google.maps.Marker({
-        // position: point,
-        map: peta
+        position: point,
+        map: peta,
+        zoom: 7
         //icon
+    });
+    directionsRenderer.setMap(peta);
+    calcRoute(point, destinasi, directionsService, directionsRenderer)
+}
+
+function calcRoute(start, end, directionsService, directionsRenderer) {
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: 'DRIVING'
+    };
+    directionsService.route(request, function(result, status) {
+    if (status == 'OK') {
+        directionsRenderer.setDirections(result);
+    }
     });
 }
