@@ -43,16 +43,16 @@ var app = {
         let param_get = `?id_pengiriman=${app.id_pengiriman}&akun=${app.akun}`;
         GET_API(API_PENGIRIMAN, param_get).then(app.success_load).catch(app.failed_data);
     },
-    success_load: function(data) {
-        console.log("DATA: "+ JSON.stringify(data));
+    success_load: function (data) {
+        console.log("DATA: " + JSON.stringify(data));
         app.result_data = data;
         let lokasi_kurir = data.lokasi_kurir;
         let detail = data.detail_pengiriman;
         app.done_load_data(detail);
-        $.each(detail, (k, v)=>{
+        $.each(detail, (k, v) => {
             let stat = v.status;
-            let destination = {lat: v.destinasi.latitude, lng: v.destinasi.longitude};
-            if(stat=="pengantaran"){
+            let destination = { lat: v.destinasi.latitude, lng: v.destinasi.longitude };
+            if (stat == "pengantaran") {
                 app.lokasi_pembeli = destination;
             }
         });
@@ -66,7 +66,7 @@ var app = {
             // app.matrix_location(latitude, longitude);
             initMap(latitude, longitude, currentLoc);
         }
-        
+
         // app.check_before_watch_location(lokasi_kurir);
     },
     failed_data: error => {
@@ -95,11 +95,11 @@ var app = {
     fail_location: error => {
 
     },
-    done_load_data: function(detail_pengiriman){
+    done_load_data: function (detail_pengiriman) {
         console.log("Masuk load data selesai untuk persiapan parsing");
         let counter_track = 0;
         var data_produk, data_pembeli;
-        $.each(detail_pengiriman, (idx, row)=>{
+        $.each(detail_pengiriman, (idx, row) => {
             if (row.status == "pengantaran") {
                 console.log("status: " + row.status);
                 counter_track++;
@@ -129,7 +129,7 @@ var app = {
                 // data_pembeli = detail_pembeli;
             }
         });
-        
+
         if (counter_track == 0) {
             window.location.replace("../penjual/transaksi/transaksi.html");
         }
@@ -154,7 +154,7 @@ var app = {
         let data_produk;
         let data_pembeli;
         let counter_track = 0;
-       
+
         console.log('tujuan');
         console.log(JSON.stringify(tujuan));
 
@@ -296,16 +296,21 @@ var app = {
         let data = { nama_penerima, id_pengiriman, id_pemesanan };
         console.log("data submit: ", JSON.stringify(data));
         console.log("url submit : " + API_END_TRACK);
-        POST_API(API_END_TRACK, JSON.stringify(data)).then(app.success_submitting).catch(app.fail_submitting);
+        $.post(API_END_TRACK, data, app.success_submitting).fail(app.fail_submitting);
+        // POST_API(API_END_TRACK, data).then(app.success_submitting).catch(app.fail_submitting);
     },
-    success_submitting: data => {
-        M.toast({ html: "Berhasil submit penerima" });
-        let code_res = data.code;
-        if (code_res == 1) {
-            app.load_data();
-        } else if (code_res == 2) {
-            window.location.replace("../penjual/transaksi/transaksi.html#selesai");
+    success_submitting: (data, status) => {
+        if (status == "success") {
+            console.log("SUKSES SUBMIT PENERIMAA");
+            M.toast({ html: "Berhasil submit penerima" });
+            let code_res = data.code;
+            if (code_res == 1) {
+                app.load_data();
+            } else if (code_res == 2) {
+                window.location.replace("../penjual/transaksi/transaksi.html#selesai");
+            }
         }
+
     },
     fail_submitting: error => {
         M.toast({ html: "Failed submit penerima" });
@@ -362,7 +367,7 @@ function calcRoute(start, end, directionsService, directionsRenderer) {
         destination: end,
         travelMode: 'DRIVING'
     };
-    console.log("request direction: "+ JSON.stringify(request));
+    console.log("request direction: " + JSON.stringify(request));
     directionsService.route(request, function (result, status) {
         if (status == 'OK') {
             directionsRenderer.setDirections(result);

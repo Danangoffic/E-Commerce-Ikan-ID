@@ -122,7 +122,13 @@ var lacak = {
         let html_detail_pembayaran = `<div class="col s6">
             <p class="flow-text teal-text" style="font-size: small; font-weight: bold">Total Pembayaran</p>
         </div>`;
-        let dp_status = `<div class="collection-item teal-text" id="status-pembayaran" style="font-weight: bold; font-size: medium"><span class="badge orange white-text">${status_pembayaran}</span>Status Pembayaran :</div>`;
+        let warna = "";
+        if(status_pembayaran=="Lunas") {
+            warna = "teal";
+        }else{
+            warna = "orange";
+        }
+        let dp_status = `<div class="collection-item teal-text" id="status-pembayaran" style="font-weight: bold; font-size: medium"><span class="badge ${warna} white-text">${status_pembayaran}</span>Status Pembayaran :</div>`;
         $("#payment-status").html(dp_status);
         console.log("Metode Pembayaran : " + metode);
         if(metode!="Full Transfer"){
