@@ -104,90 +104,7 @@
 }
 </style>
 
-<script type="text/javascript">
-  var firstLt, firstLg;
-  first();
-  function first() {
-    var onSuccess = function(position) {
-      var element = document.getElementById('map');
-      var marker;
-      var posisilat;
-      var posisilng;
-      firstLt = position.coords.latitude;
-      firstLg = position.coords.longitude;
-      initMap(firstLt, firstLg);
-    /*if(function_exists('initMap')){
-      initMap(position.coords.latitude, position.coords.longitude);  
-    }*/
 
-  };
-  navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
-
-    // onError Callback receives a PositionError object
-    //
-    function onError(error) {
-      alert('code: '    + error.code    + '\n' +
-        'message: ' + error.message + '\n');
-    }
-  </script>
-
-  <script type="text/javascript">
-
-    function taruhMarker(peta, posisiTitik) {
-      if (marker) {
-            // pindahkan marker
-            marker.setPosition(posisiTitik);
-          } else {
-            // buat marker baru
-            marker = new google.maps.Marker({
-              position: posisiTitik,
-              map: peta
-            });
-          }
-          posisilat = posisiTitik.lat();
-          posisilng = posisiTitik.lng();
-          console.log("Posisi marker: " + posisilat + "," + posisilng);
-          $("body").find("input[name='latitude_pb']").val(posisilat);
-        //$("#latitude_pb").val(posisilat);
-        //$("#longitude_pb").val(posisilng);
-        $("body").find("input[name='longitude_pb']").val(posisilng);
-      }
-
-
-      function initMap(lat, lng) {
-        $("body").find("input[name='latitude']").val(lat);
-        $("body").find("input[name='longitude']").val(lng);
-        var propertiPeta = {
-            center: new google.maps.LatLng(lat, lng), //nentuin titik pusat nya dimana (awal map kebuka, bukan posisi marker)
-            zoom: 17, //semakin banyak semakin dekat min 1 maksimal
-            mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
-          };
-          var point = new google.maps.LatLng(lat, lng);
-        var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
-        marker = new google.maps.Marker({
-          position: point,
-          map: peta
-            //icon
-          });
-        google.maps.event.addListener(peta, 'click', function (event) {
-          taruhMarker(this, event.latLng);
-        });
-      }
-      $("#simpan").click(function (e) {
-        e.preventDefault();
-        var data_form = $("form").serialize();
-        console.log(data_form);
-        $.ajax({
-          dataType: 'json',
-          type: 'POST',
-          url: url + "proses_mobile/pembeli/server_form_maps.php",
-          data: data_form,
-          success: function (resp) {
-          }
-        });
-      });
-    </script>
   </head>
 
   <body class="">
@@ -229,59 +146,29 @@
               <p class="flow-text black-text" style="font-size: smaller; text-align: justify; padding: 8px 24px 8px 24px">* Waktu pesanan sampai dapat berubah sewaktu-waktu tergantung cuaca hujan, kepadatan lalu lintas atau keadaan tak terduga lainnya.</p>
             </div>
             <div class="card-panel z-depth-0" style="padding: 12px 12px 4px 12px">
-              <div class="row valign-wrapper">
-                <div class="col s3" style="margin-left: 12px">
-                  <img src="../../img/blank-picture.png" alt="" class="circle responsive-img" style="width: 56px; height: 56px">
-                </div>
-                <div class="col s5" style="margin-left: -12px">
-                  <span id="namaKurir" style="font-weight: bold">(Nama Kurir)</span><br>
-                  <span id="jenisKendaraan">(Jenis Kendaraan)</span><br>
-                  <span id="noPlat">(No. Plat)</span>
-                </div>
+              <div class="row valign-wrapper" id="content-kurir">
+                <div class="col s12" style="margin-left: 12px"><b>Loading...</b></div>
               </div>
             </div>
             <div class="card z-depth-0" style="margin-top: -8px">
               <div class="card-content" style="padding: 4px 20px 4px 20px">
-                <ul class="events">
-                  <li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time> 
-                    <span>
-                      <b id="nama-usaha">(Nama Usaha)</b><br>
-                      <p id="alamat-usaha" class="teal-text">(Alamat Usaha)</p>
-                    </span>
-                  </li>
-                  <li>
-                    <time datetime="" class=" teal-text" style="margin-left: 42px;"></time>
-                    <div style="margin-left: 20px">
-                      <b id="nama-pb">(Nama Pembeli)</b><br>
-                      <p id="alamat-pb" class="teal-text">(Alamat Pembeli)</p>
-                    </div>
-                  </li>
+                <ul class="events" id="progression">
+                  <li><b>Loading...</b></li>
                 </ul>
               </div>
             </div>
             <div class="card-panel z-depth-0" style="margin-top: -8px; padding: 14px 20px 12px 20px">
-              <div class="col s12">
-                <div class="collection-item teal-text" id="status-pembayaran" style="font-weight: bold; font-size: medium"><span class="badge orange white-text">DP</span>Status Pembayaran :</div>
+              <div class="col s12" id="payment-status">
+                <div class="collection-item teal-text" style="font-weight: bold; font-size: medium">Loading...</div>
               </div>
             </div>
-            <div class="col s12">
-              <p class="flow-text black-text" style="font-size: smaller; text-align: justify; padding: 0px 24px 8px 24px">* Lakukan Pembayaran sebesar <b>Sisa Tagihan</b> kepada Kurir</p>
+            <div class="col s12" id="dp-info">
+
             </div>
             <div class="card z-depth-0" style="margin-top: -8px">
               <div class="card-content" style="padding: 12px 20px 0px 20px">
-                <div class="row">
-                  <div class="col s6">
-                    <p class="flow-text teal-text" style="font-size: small; font-weight: bold">Total Pembayaran</p>
-                  </div>
-                  <div class="col s6">
-                    <p class="flow-text dp-price-color right" style="font-size: small; font-weight: bold">Sisa Tagihan</p>
-                  </div>
-                  <div class="col s6">
-                    <h5 id="total-pembayaran" class="lunas-price-color">Rp100.000</h5>
-                  </div>
-                  <div class="col s6">
-                    <h5 id="sisa-tagihan" class="dp-price-color right">Rp20.000</h5>
-                  </div>
+                <div class="row" id="payment-content">
+                  
                 </div>
               </div>
             </div>

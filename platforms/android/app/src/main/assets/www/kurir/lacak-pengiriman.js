@@ -296,7 +296,7 @@ var app = {
         let data = { nama_penerima, id_pengiriman, id_pemesanan };
         console.log("data submit: ", JSON.stringify(data));
         console.log("url submit : " + API_END_TRACK);
-        POST_API(API_END_TRACK, data).then(app.success_submitting).catch(app.fail_submitting);
+        POST_API(API_END_TRACK, JSON.stringify(data)).then(app.success_submitting).catch(app.fail_submitting);
     },
     success_submitting: data => {
         M.toast({ html: "Berhasil submit penerima" });
