@@ -240,7 +240,8 @@
               console.log(resp);
               if(resp.status == 'berhasil'){
                 alert('Selamat, Anda Berhasil Mengunggah Bukti Pembayaran');
-                window.location.href = "pesanan-saya.html";
+                setTimeout(function () { window.location.href = "pesanan-saya.html"; }, 1000);
+                // window.location.href = "pesanan-saya.html";
               } else {
                 alert('Data gagal disimpan');
               }
