@@ -6,7 +6,7 @@ function onLoad() {
 // var app = {
 //     init: ()=>{document.addEventListener("deviceready", onDeviceReady, false);}
 // }
-$(document).ready(onDeviceReady);
+// $(document).ready(onDeviceReady);
 
 function onDeviceReady() {
     $("#variasi").prop('selectedIndex', null);
