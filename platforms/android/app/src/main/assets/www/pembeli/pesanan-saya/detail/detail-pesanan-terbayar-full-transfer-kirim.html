@@ -160,8 +160,8 @@
       var IdUsaha = DataUsaha.id_usaha;
       var JenisPengiriman = DetailPesanan.JenisPengiriman;
       var TanggalPengiriman = DetailPesanan.tglPengiriman;
-      var TotalProdukPesanan = DetailPesanan.TotalProduk / 10;
-      var TotalBeratProduk = DetailPesanan.TotalBeratProduk / 10;
+      var TotalProdukPesanan = DetailPesanan.TotalProduk;
+      var TotalBeratProduk = DetailPesanan.TotalBeratProduk;
       id_pemesanan = DetailPesanan.idPemesanan;
       console.log("TotalBeratProduk : " + TotalBeratProduk);
       var BiayaPengiriman = DetailPesanan.BiayaPengiriman;
@@ -178,7 +178,7 @@
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
         var HargaProduk = isi.harga;
-        var TotalProduk = isi.jml_produk / 10;
+        var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
           '<p>Rp ' + HargaProduk + '<br></p>' +
