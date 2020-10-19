@@ -28,12 +28,8 @@ var lacak = {
     load_pengiriman: function () {
         // let data = {id_pengiriman: lacak.id_pengiriman, lacak: this.id_akun};
         let config_api = `?id_pengiriman=${lacak.id_pengiriman}&akun=${lacak.id_akun}`;
-        GET_API(API_PENGIRIMAN, config_api).then(lacak.onSuccessLoadPengiriman).catch();
+        GET_API(API_PENGIRIMAN, config_api).then(lacak.parse_detail).catch();
         // $.getJSON(API_LACAK_PENGIRIMAN +`/${localStorage.id_pengiriman}/${localStorage.id_akun}`).then(this.onSuccessLoadPengiriman);
-    },
-    onSuccessLoadPengiriman: function (data) {
-        lacak.parse_detail(data);
-        
     },
     config_nav_geo_catch: {
         maximumAge: 3000,
