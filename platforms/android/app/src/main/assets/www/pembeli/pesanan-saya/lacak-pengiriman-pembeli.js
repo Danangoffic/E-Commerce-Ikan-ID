@@ -26,13 +26,13 @@ var lacak = {
     },
     load_pengiriman: function () {
         // let data = {id_pengiriman: lacak.id_pengiriman, lacak: this.id_akun};
-        let config_api = `?id_pengiriman=${lacak.id_pengiriman}&akun=${lacak.id_akun}`;
+        let config_api = `?id_pemesanan=${lacak.id_pemesanan}&akun=${lacak.id_akun}`;
         GET_API(API_PENGIRIMAN, config_api).then(lacak.onSuccessLoadPengiriman).catch();
         // $.getJSON(API_LACAK_PENGIRIMAN +`/${localStorage.id_pengiriman}/${localStorage.id_akun}`).then(this.onSuccessLoadPengiriman);
     },
     onSuccessLoadPengiriman: function (data) {
         lacak.parse_detail(data);
-        
+
     },
     config_nav_geo_catch: {
         maximumAge: 3000,
@@ -43,61 +43,131 @@ var lacak = {
         let kurir = data.detail_kurir;
         let kendaraan = data.detail_kendaraan;
         let detail_pengiriman = data.detail_pengiriman;
+        let detail_pemesanan = detail_pengiriman.detail_pemesanan;
+        lacak.cek_pembayaran(detail_pemesanan);
         let detail_usaha = data.detail_usaha;
-        let element_foto = document.getElementById("foto_kurir");
-        let element_nk = document.getElementById("nama_kurir");
-        let element_jk = document.getElementById("jenis_kendaraan");
-        let element_plat = document.getElementById("plat_kendaraan");
-        element_foto.setAttribute("src", kurir.foto_kurir);
-        element_nk.innerHTML = kurir.nama_kurir;
-        element_jk.innerHTML = kendaraan.jenis_kendaraan;
-        element_plat.innerHTML = kendaraan.plat;
+        lacak.parse_kurir(kendaraan, kurir);
         let origin = data.asal;
         let lat1 = origin.latitude, long1 = origin.longitude;
-        console.log("data usaha: ", detail_usaha);
+        console.log("data usaha: " + JSON.stringify(detail_usaha));
+        console.log("detail_pengiriman : " + JSON.stringify(detail_pengiriman));
         lacak.parse_progression(detail_usaha, detail_pengiriman);
-        let markPosition = data.asal;
+        let destinasi_pb = data.detail_pengiriman.destinasi;
+        let markPosition = data.detail_pengiriman.destinasi;
+        console.log("Mark position: " + JSON.stringify(markPosition));
+        console.log("Lat : " + lat1, "Long : " + long1);
+        lacak.latlngPembeliNow = { lat: destinasi_pb.latitude, lng: destinasi_pb.longitude };
         initMap(lat1, long1, markPosition);
         lacak.id_kurir = data.id_kurir;
         lacak.watch_pos();
     },
-    parse_progression: function (usaha, pengiriman) {
+    parse_kurir: function (kendaraan, kurir) {
+        console.log("Masuk kurir");
+        console.log("data kurir : " + JSON.stringify(kurir));
+        console.log("data kendaraan : " + JSON.stringify(kendaraan));
+        let foto = kurir.foto_kurir, nama = kurir.nama_kurir;
+        let jenis_kendaraan = kendaraan.jenis_kendaraan, plat = kendaraan.plat;
+        let html_kurir = `<div class="col s3" style="margin-left: 12px">
+        <img src="${foto}" alt="foto kurir ${nama}" class="circle responsive-img" style="width: 56px; height: 56px">
+        </div>
+        <div class="col s5" style="margin-left: -12px">
+            <span id="namaKurir" style="font-weight: bold">${nama}</span><br>
+            <span id="jenisKendaraan">${jenis_kendaraan}</span><br>
+            <span id="noPlat">${plat}</span>
+        </div>`;
+        $("#content-kurir").html(html_kurir);
+    },
+    parse_progression: function(usaha, pengiriman) {
+        console.log("Masuk parse progression");
         let html_progress_usaha = `<li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time>
-                <span>
-                    <b id="nama-usaha">${usaha.nama_usaha}</b><br>
-                    <p id="alamat-usaha" class="teal-text">${usaha.alamat_usaha}</p>
-                </span>
-            </li>`;
+            <span>
+                <b id="nama-usaha">${usaha.nama_usaha}</b><br>
+                <p id="alamat-usaha" class="teal-text">${usaha.alamat_usaha}</p>
+            </span>
+        </li>`;
         let html_progress_pengiriman = ``;
-        Array.prototype.forEach.call(pengiriman, el => {
-            let status = el.status;
-            let alt_status = "";
-            let lokasi = el.destinasi;
-            if(status=="pengantaran"){
-                alt_status = "Pesanan Dikirim";
-                lacak.latlngPembeliNow = {lat: lokasi.latitude, lng: lokasi.longitude};
-            }else if(status=="selesai"){
-                alt_status = "Pesanan Diterima";
-            }
-            html_progress_pengiriman += `<li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time>
+        console.log("data pengiriman : ", pengiriman);
+        let el = pengiriman;
+        console.log("element : " + el);
+        let status = el.status;
+        let alt_status = "";
+        let lokasi = el.destinasi;
+        if (status == "pengantaran") {
+            alt_status = "Pesanan Dikirim";
+            lacak.latlngPembeliNow = { lat: lokasi.latitude, lng: lokasi.longitude };
+        } else if (status == "selesai") {
+            alt_status = "Pesanan Diterima";
+        } else if (status == "menunggu") {
+            alt_status = "Pesanan Menunggu Diantar";
+        }
+        html_progress_pengiriman += `<li><time datetime="" class="teal-text waktu-berangkat">(08.30)</time>
             <span>
                 <b id="nama_pembeli${el.urutan}">${el.detail_pembeli.nama}</b><br>
                 <p id="alamat_pembeli${el.urutan}" class="teal-text">${el.detail_pembeli.alamat_pembeli}</p>
                 <p id="status_pengiriman${el.urutan}" class="black-text">${alt_status}</p>
             </span>
         </li>`;
-        });
+        
         html_progress_usaha += html_progress_pengiriman;
-        let element_progress = document.getElementById("progression");
-        element_progress.innerHTML = html_progress_usaha;
+        // let element_progress = document.getElementById("progression");
+        $("#progression").html(html_progress_usaha);
+        // element_progress.innerHTML = html_progress_usaha;
+    },
+    cek_pembayaran: function(detail_pemesanan){
+        console.log("detail pemesanan : ", detail_pemesanan);
+        let detail_pembayaran = detail_pemesanan.detail_pembayaran;
+        let status_pembayaran = detail_pembayaran.status_pembayaran;
+        let metode = detail_pembayaran.metode_pembayaran;
+        let total_harga = detail_pemesanan.total_harga;
+        let html_detail_pembayaran = `<div class="col s6">
+            <p class="flow-text teal-text" style="font-size: small; font-weight: bold">Total Pembayaran</p>
+        </div>`;
+        let dp_status = `<div class="collection-item teal-text" id="status-pembayaran" style="font-weight: bold; font-size: medium"><span class="badge orange white-text">${status_pembayaran}</span>Status Pembayaran :</div>`;
+        $("#payment-status").html(dp_status);
+        console.log("Metode Pembayaran : " + metode);
+        if(metode!="Full Transfer"){
+            console.log("Metode : " + metode);
+            let sisa_tagihan = total_harga * 0.7;
+            html_detail_pembayaran += `
+            <div class="col s6">
+                <p class="flow-text dp-price-color right" style="font-size: small; font-weight: bold">Sisa Tagihan</p>
+            </div>
+            <div class="col s6">
+                <h5 id="total-pembayaran" class="lunas-price-color">Rp${total_harga}</h5>
+            </div>
+            <div class="col s6">
+                <h5 id="sisa-tagihan" class="dp-price-color right">Rp${sisa_tagihan}</h5>
+            </div>`;
+            let dp_info = `<p class="flow-text black-text" style="font-size: smaller; text-align: justify; padding: 0px 24px 8px 24px">* Lakukan Pembayaran sebesar <b>Sisa Tagihan</b> kepada Kurir</p>`;
+            $("#dp-info").html(dp_info);
+        }else{
+            html_detail_pembayaran += `
+            <div class="col s6">
+                &nbsp;
+            </div>
+            <div class="col s6">
+                <h5 id="total-pembayaran" class="lunas-price-color">Rp${total_harga}</h5>
+            </div>
+            <div class="col s6">
+                &nbsp;
+            </div>`;
+            $("#dp-info").remove();
+        }
+        $("#payment-content").html(html_detail_pembayaran);
     },
     destination: [{}],
     watch_pos: () => navigator.geolocation.watchPosition(lacak.success_watch_pos, lacak.fail_watch_pos, lacak.config_nav_geo_catch),
     success_watch_pos: function (position) {
         let latitude = parseFloat(position.coords.latitude);
         let longitude = parseFloat(position.coords.longitude);
-        const data_post = { id_kurir: lacak.id_kurir, latitude, longitude };
-        const posting = POST_API(API_TRACK, data_post).then(lacak.success_post_watch).catch(this.fail_post_watch);
+        let asal = response.origin;
+        let tujuan = response.destination;
+        console.log("Tujuan : " + JSON.stringify(tujuan));
+
+        lacak.latlngPembeliNow = { lat: tujuan.latitude, lng: tujuan.longitude };
+        let latOrigin = asal.latitude, lngOrigin = asal.longitude;
+        console.log("latOrigin : " + latOrigin, "lngOrigin : " + lngOrigin);
+        initMap(latOrigin, lngOrigin, tujuan);
         // var element = document.getElementById('geolocation');
         // element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
         //                     'Longitude: ' + position.coords.longitude     + '<br />' +
@@ -167,7 +237,7 @@ var onSuccess = function (position) {
     let longitude = parseFloat(position.coords.longitude);
     // firstLt = position.coords.latitude;
     // firstLg = position.coords.longitude;
-    initMap(latitude, longitude);
+    initMap(latitude, longitude, { latitude, longitude });
     /*if(function_exists('initMap')){
       initMap(position.coords.latitude, position.coords.longitude);  
     }*/
@@ -187,7 +257,10 @@ function onError(error) {
         'message: ' + error.message + '\n');
 }
 
-function initMap(lat, lng, markPosition=null) {
+function initMap(lat, lng, markPosition = {}) {
+    console.log("Masuk init Map");
+    console.log("markPosition : " + JSON.stringify(markPosition));
+    console.log("Lat : " + lat, "lng : " + lng);
     // $("body").find("input[name='latitude']").val(lat);
     // $("body").find("input[name='longitude']").val(lng);
     var propertiPeta = {
@@ -196,19 +269,19 @@ function initMap(lat, lng, markPosition=null) {
         mapTypeId: google.maps.MapTypeId.ROADMAP //roadmap, satelite, hybrid, terrain
     };
     var point = null;
-    if(markPosition!=null){
-        point = new google.maps.LatLng(markPosition.latitude, markPosition.longitude);
+    if (markPosition != null) {
+        point = new google.maps.LatLng(lat, lng);
     }
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
     let destinasi = new google.maps.LatLng(lacak.latlngPembeliNow.lat, lacak.latlngPembeliNow.lng);
     var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
-    marker = new google.maps.Marker({
-        position: point,
-        map: peta,
-        zoom: 7
-        //icon
-    });
+    // marker = new google.maps.Marker({
+    //     position: point,
+    //     map: peta,
+    //     zoom: 7
+    //     //icon
+    // });
     directionsRenderer.setMap(peta);
     calcRoute(point, destinasi, directionsService, directionsRenderer)
 }
@@ -219,9 +292,12 @@ function calcRoute(start, end, directionsService, directionsRenderer) {
         destination: end,
         travelMode: 'DRIVING'
     };
-    directionsService.route(request, function(result, status) {
-    if (status == 'OK') {
-        directionsRenderer.setDirections(result);
-    }
+    directionsService.route(request, function (result, status) {
+        if (status == 'OK') {
+            console.log("direction service : " + status);
+            directionsRenderer.setDirections(result);
+        } else {
+            console.log("direction service : " + status);
+        }
     });
 }

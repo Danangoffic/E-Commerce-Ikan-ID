@@ -162,7 +162,7 @@
   <script type="text/javascript" src="../../js/mobile_script.js"></script>
   <script type="text/javascript">
 
-    var Pesanan, PesananPaid, PesananSent;
+    var Pesanan, PesananPaid, PesananSiapKirim, PesananSiapDiambil, PesananPengiriman, PesananSent;
     var idAkun = storage.getItem('id_akun');
 
     $('.tabs').tabs();
@@ -173,9 +173,9 @@
       storage.setItem("NOPESANAN", null);
       getPesanan(idAkun, "Baru");
       getPesananPaid(idAkun, "Terbayar");
-      getPesananPaid(idAkun, "Siap Dikirim");
-      getPesananPaid(idAkun, "Siap Diambil");
-      getPesananPaid(idAkun, "Pengiriman");
+      getPesananSiapDikirim(idAkun, "Siap Dikirim");
+      getPesananSiapDiambil(idAkun, "Siap Diambil");
+      getPesananPengiriman(idAkun, "Pengiriman");
       getPesananSent(idAkun, "Terkirim");
     });
 
@@ -238,7 +238,7 @@
                     statusVerifikasi += '</li>';
                     infoPayment = '<li class="collection-item teal-text darken-1"><b>Total yang Harus Dibayar :<span class="secondary-content orange-text">Rp ' + formatNumber(totalHargaAll) + '</span></b></li>';
                   }
-                } else if (status == "Terbayar") {
+                } else if (status == "Terbayar" || status == "Siap Diambil" || status == "Siap Dikirim" || status == "Pengiriman") {
                   StatusPemesanan = "Terbayar";
                 } else if (status == "Terkirim") {
                   StatusPemesanan = "Terkirim";
@@ -260,6 +260,174 @@
       });
     }
 
+    function getPesananSiapDikirim(idAkun, status) {
+      var data = { 'id_akun': idAkun, 'status': status };
+      $.ajax({
+        url: base_url + "Pemesanan/getAllPemesananByAkun",
+        type: 'get',
+        dataType: 'JSON',
+        data: data,
+        success: function (result) {
+          console.log(result);
+          var Html = '';
+          if (result.responseCode == "00") {
+            var dataPesanan = result.dataPesanan;
+            PesananSiapKirim = dataPesanan;
+            if (dataPesanan.length > 0) {
+              $.each(dataPesanan, function (i, isi) {
+                var idPemesanan = isi.idPemesanan;
+                console.log(idPemesanan);
+                var totalHargaAll = isi.TotalHargaAll;
+                var display = isi.display;
+                var namaProduk = display.namaProduk;
+                var hargaProduk = display.hargaProduk;
+                var totalProduk = display.totalProduk;
+                var fotoProduk = display.fotoProduk;
+                var JenisPengiriman = isi.JenisPengiriman;
+                var statusPengirimanDisplay = "";
+                var colorStatusPengiriman = "";
+                if (JenisPengiriman == "Cepat" || JenisPengiriman == "Biasa") {
+                  statusPengirimanDisplay = "Pesanan sedang dalam Proses";
+                  colorStatusPengiriman = "teal";
+                } else if (JenisPengiriman == "Ambil di Toko") {
+                  statusPengirimanDisplay = "Silahkan ambil Pesanan Anda";
+                  colorStatusPengiriman = "orange";
+                }
+                console.log(" totalHargaAll: Rp " + totalHargaAll);
+                console.log(" Yang perlu ditampilin: ");
+                console.log(display);
+                Html += '<div class="card">' +
+                  '<ul class="collection">' +
+                  '<li class="collection-item avatar" onclick="GoToDetail(\'' + idPemesanan + '\', \'' + status + '\')">' +
+                  '<img src="' + base_url + '/foto_usaha/produk/' + fotoProduk + '" alt="Foto ' + namaProduk + '" class="circle">' +
+                  '<span class="title">' + namaProduk + '</span>' +
+                  '<p class="orange-text">Rp ' + formatNumber(hargaProduk) + '<br></p>' +
+                  '<span class="secondary-content">' + totalProduk + '&nbsp Kg</span>' +
+                  '</li>' +
+                  '<li class="collection-item teal-text darken-1"><b>Total yang Sudah Dibayar :<span class="secondary-content orange-text">Rp ' + formatNumber(totalHargaAll) + '</span></b></li>' +
+                  '<li class="collection-item ' + colorStatusPengiriman + ' center white-text" style="padding: 0px; font-size: small">' + statusPengirimanDisplay + '</li>' +
+                  '</ul>' +
+                  '</div>';
+              });
+              $("#terbayar").append(Html);
+            }
+          }
+        }
+      });
+    }
+
+    function getPesananSiapDiambil(idAkun, status="") {
+      var data = { 'id_akun': idAkun, 'status': status };
+      $.ajax({
+        url: base_url + "Pemesanan/getAllPemesananByAkun",
+        type: 'get',
+        dataType: 'JSON',
+        data: data,
+        success: function (result) {
+          console.log(result);
+          var Html = '';
+          if (result.responseCode == "00") {
+            var dataPesanan = result.dataPesanan;
+            PesananSiapDiambil = dataPesanan;
+            if (dataPesanan.length > 0) {
+              $.each(dataPesanan, function (i, isi) {
+                var idPemesanan = isi.idPemesanan;
+                console.log(idPemesanan);
+                var totalHargaAll = isi.TotalHargaAll;
+                var display = isi.display;
+                var namaProduk = display.namaProduk;
+                var hargaProduk = display.hargaProduk;
+                var totalProduk = display.totalProduk;
+                var fotoProduk = display.fotoProduk;
+                var JenisPengiriman = isi.JenisPengiriman;
+                var statusPengirimanDisplay = "";
+                var colorStatusPengiriman = "";
+                if (JenisPengiriman == "Cepat" || JenisPengiriman == "Biasa") {
+                  statusPengirimanDisplay = "Pesanan sedang dalam Proses";
+                  colorStatusPengiriman = "teal";
+                } else if (JenisPengiriman == "Ambil di Toko") {
+                  statusPengirimanDisplay = "Silahkan ambil Pesanan Anda";
+                  colorStatusPengiriman = "orange";
+                }
+                console.log(" totalHargaAll: Rp " + totalHargaAll);
+                console.log(" Yang perlu ditampilin: ");
+                console.log(display);
+                Html += '<div class="card">' +
+                  '<ul class="collection">' +
+                  '<li class="collection-item avatar" onclick="GoToDetail(\'' + idPemesanan + '\', \'' + status + '\')">' +
+                  '<img src="' + base_url + '/foto_usaha/produk/' + fotoProduk + '" alt="Foto ' + namaProduk + '" class="circle">' +
+                  '<span class="title">' + namaProduk + '</span>' +
+                  '<p class="orange-text">Rp ' + formatNumber(hargaProduk) + '<br></p>' +
+                  '<span class="secondary-content">' + totalProduk + '&nbsp Kg</span>' +
+                  '</li>' +
+                  '<li class="collection-item teal-text darken-1"><b>Total yang Sudah Dibayar :<span class="secondary-content orange-text">Rp ' + formatNumber(totalHargaAll) + '</span></b></li>' +
+                  '<li class="collection-item ' + colorStatusPengiriman + ' center white-text" style="padding: 0px; font-size: small">' + statusPengirimanDisplay + '</li>' +
+                  '</ul>' +
+                  '</div>';
+              });
+              $("#terbayar").append(Html);
+            }
+          }
+        }
+      });
+    }
+
+    function getPesananPengiriman(idAkun, status="") {
+      var data = { 'id_akun': idAkun, 'status': status };
+      $.ajax({
+        url: base_url + "Pemesanan/getAllPemesananByAkun",
+        type: 'get',
+        dataType: 'JSON',
+        data: data,
+        success: function (result) {
+          console.log(result);
+          var Html = '';
+          if (result.responseCode == "00") {
+            var dataPesanan = result.dataPesanan;
+            PesananPengiriman = dataPesanan;
+            if (dataPesanan.length > 0) {
+              $.each(dataPesanan, function (i, isi) {
+                var idPemesanan = isi.idPemesanan;
+                console.log(idPemesanan);
+                var totalHargaAll = isi.TotalHargaAll;
+                var display = isi.display;
+                var namaProduk = display.namaProduk;
+                var hargaProduk = display.hargaProduk;
+                var totalProduk = display.totalProduk;
+                var fotoProduk = display.fotoProduk;
+                var JenisPengiriman = isi.JenisPengiriman;
+                var statusPengirimanDisplay = "";
+                var colorStatusPengiriman = "";
+                if (JenisPengiriman == "Cepat" || JenisPengiriman == "Biasa") {
+                  statusPengirimanDisplay = "Pesanan sedang dalam Proses";
+                  colorStatusPengiriman = "teal";
+                } else if (JenisPengiriman == "Ambil di Toko") {
+                  statusPengirimanDisplay = "Silahkan ambil Pesanan Anda";
+                  colorStatusPengiriman = "orange";
+                }
+                console.log(" totalHargaAll: Rp " + totalHargaAll);
+                console.log(" Yang perlu ditampilin: ");
+                console.log(display);
+                Html += '<div class="card">' +
+                  '<ul class="collection">' +
+                  '<li class="collection-item avatar" onclick="GoToDetail(\'' + idPemesanan + '\', \'' + status + '\')">' +
+                  '<img src="' + base_url + '/foto_usaha/produk/' + fotoProduk + '" alt="Foto ' + namaProduk + '" class="circle">' +
+                  '<span class="title">' + namaProduk + '</span>' +
+                  '<p class="orange-text">Rp ' + formatNumber(hargaProduk) + '<br></p>' +
+                  '<span class="secondary-content">' + totalProduk + '&nbsp Kg</span>' +
+                  '</li>' +
+                  '<li class="collection-item teal-text darken-1"><b>Total yang Sudah Dibayar :<span class="secondary-content orange-text">Rp ' + formatNumber(totalHargaAll) + '</span></b></li>' +
+                  '<li class="collection-item ' + colorStatusPengiriman + ' center white-text" style="padding: 0px; font-size: small">' + statusPengirimanDisplay + '</li>' +
+                  '</ul>' +
+                  '</div>';
+              });
+              $("#terbayar").append(Html);
+            }
+          }
+        }
+      });
+    }
+
     function GoToDetail(idPemesanan, status) {
       console.log("idPemesanan!!!:::" + idPemesanan);
       var id = idPemesanan;
@@ -271,6 +439,12 @@
         inEach = PesananPaid;
       } else if (status == "Terkirim") {
         inEach = PesananSent;
+      } else if (status == "Siap Diambil"){
+        inEach = PesananSiapDiambil;
+      } else if (status == "Siap Dikirim"){
+        inEach = PesananSiapKirim;
+      } else if (status == "Pengiriman"){
+        inEach = PesananPengiriman;
       }
       var isi = inEach.find(element => element.idPemesanan == idPemesanan);
       console.log(isi);
@@ -316,7 +490,7 @@
             lokasi_halaman = 'detail-pesanan-baru-full-transfer-kirim';
           }
         }
-      } else if (status == "Terbayar") {
+      } else if (status == "Terbayar" || status == "Pengiriman" || status == "Siap Dikirim" || status == "Siap Diambil") {
         if (isi.JenisPengiriman == "Ambil di Toko") {
           if (isi.DataPembayaran.metode_pembayaran == "Transfer Cash") {
             lokasi_halaman = 'detail-pesanan-terbayar-dp-ambil';
