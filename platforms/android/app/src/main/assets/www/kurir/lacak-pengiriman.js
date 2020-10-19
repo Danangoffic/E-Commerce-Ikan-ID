@@ -14,6 +14,7 @@ var app = {
     akun: localStorage.id_akun,
     result_data: null,
     id_pemesanan: null,
+    lokasi_pembeli: null,
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -42,18 +43,30 @@ var app = {
         let param_get = `?id_pengiriman=${app.id_pengiriman}&akun=${app.akun}`;
         GET_API(API_PENGIRIMAN, param_get).then(app.success_load).catch(app.failed_data);
     },
-    success_load: data => {
-        console.log("DATA: ", data);
+    success_load: function(data) {
+        console.log("DATA: "+ JSON.stringify(data));
         app.result_data = data;
         let lokasi_kurir = data.lokasi_kurir;
-        console.log("LOKASI KURIR: ", lokasi_kurir);
+        let detail = data.detail_pengiriman;
+        app.done_load_data(detail);
+        $.each(detail, (k, v)=>{
+            let stat = v.status;
+            let destination = {lat: v.destinasi.latitude, lng: v.destinasi.longitude};
+            if(stat=="pengantaran"){
+                app.lokasi_pembeli = destination;
+            }
+        });
+        console.log("LOKASI KURIR: ", JSON.stringify(lokasi_kurir));
         if (lokasi_kurir == "" || lokasi_kurir == null) {
             app.current_location();
         } else {
             let latitude = lokasi_kurir.latitude, longitude = lokasi_kurir.longitude;
+            let currentLoc = { latitude, longitude };
+            console.log("Current location: " + JSON.stringify(currentLoc),);
             // app.matrix_location(latitude, longitude);
-            initMap(latitude, longitude, { latitude, longitude });
+            initMap(latitude, longitude, currentLoc);
         }
+        
         // app.check_before_watch_location(lokasi_kurir);
     },
     failed_data: error => {
@@ -82,6 +95,49 @@ var app = {
     fail_location: error => {
 
     },
+    done_load_data: function(detail_pengiriman){
+        console.log("Masuk load data selesai untuk persiapan parsing");
+        let counter_track = 0;
+        var data_produk, data_pembeli;
+        $.each(detail_pengiriman, (idx, row)=>{
+            if (row.status == "pengantaran") {
+                console.log("status: " + row.status);
+                counter_track++;
+                app.id_pemesanan = row.id_pemesanan;
+                console.log("id pemesanan : " + app.id_pemesanan);
+                let dest = row.destinasi;
+                // t = { lat: parseFloat(dest.latitude), lng: parseFloat(dest.longitude) };
+                // use_destinasi = t;
+                // tujuan.push(t);
+                let status = row.status;
+                let detail_pemesanan = row.detail_pemesanan;
+                console.log("detail pemesanan: " + JSON.stringify(detail_pemesanan));
+                data_pembeli = row.detail_pembeli;
+                let detail_pembayaran = detail_pemesanan.detail_pembayaran;
+                let status_pembayaran = detail_pembayaran.status_pembayaran;
+                if (status_pembayaran == "DP") {
+                    console.log("status pembayaran: " + status_pembayaran);
+                    app.jenis_DP(detail_pemesanan);
+                } else {
+                    console.log("status pembayaran: " + status_pembayaran);
+                    app.jenis_LUNAS(detail_pemesanan);
+                }
+                console.log("status pembayaran : " + status_pembayaran);
+                data_produk = detail_pemesanan.detail_produk;
+                console.log("data produk : " + JSON.stringify(data_produk));
+                // app.parse_produk(detail_pemesanan.data_produk);
+                // data_pembeli = detail_pembeli;
+            }
+        });
+        
+        if (counter_track == 0) {
+            window.location.replace("../penjual/transaksi/transaksi.html");
+        }
+        app.parse_produk(data_produk);
+        app.show_content_pembeli(data_pembeli);
+        console.log('detail_pengiriman');
+        console.log(JSON.stringify(detail_pengiriman));
+    },
     matrix_location: (lat, lng) => {
         let origin_ = app.result_data.asal;
         var t;
@@ -98,38 +154,7 @@ var app = {
         let data_produk;
         let data_pembeli;
         let counter_track = 0;
-        Array.prototype.forEach.call(detail_pengiriman, function (row, idx) {
-            if (row.status == "pengantaran") {
-                counter_track++;
-                app.id_pemesanan = row.id_pemesanan;
-                let dest = row.destinasi;
-                t = { lat: parseFloat(dest.latitude), lng: parseFloat(dest.longitude) };
-                use_destinasi = t;
-                tujuan.push(t);
-                let status = row.status;
-                let detail_pemesanan = row.detail_pemesanan;
-                data_pembeli = row.detail_pembeli;
-                let detail_pembayaran = detail_pemesanan.detail_pembayaran;
-                let status_pembayaran = detail_pembayaran.status_pembayaran;
-                if (status_pembayaran == "DP") {
-                    console.log("status pembayaran: " + status_pembayaran);
-                    app.jenis_DP(detail_pemesanan);
-                } else {
-                    console.log("status pembayaran: " + status_pembayaran);
-                    app.jenis_LUNAS(detail_pemesanan);
-                }
-                data_produk = detail_pemesanan.detail_produk;
-                // app.parse_produk(detail_pemesanan.data_produk);
-                // data_pembeli = detail_pembeli;
-            }
-        });
-        if (counter_track == 0) {
-            window.location.replace("../penjual/transaksi/transaksi.html");
-        }
-        app.parse_produk(data_produk);
-        app.show_content_pembeli(data_pembeli);
-        console.log('detail_pengiriman');
-        console.log(JSON.stringify(detail_pengiriman));
+       
         console.log('tujuan');
         console.log(JSON.stringify(tujuan));
 
@@ -230,6 +255,7 @@ var app = {
         document.getElementById("content-important-alert").innerHTML = content_important_alert;
     },
     parse_produk: (data_produk) => {
+        console.log("Masuk Parsing Produk");
         console.log("data produk: ", JSON.stringify(data_produk));
         let html_pr = ``;
         $.each(data_produk, (i, el) => {
@@ -302,6 +328,7 @@ function onBackKeyDown() {
 }
 
 function initMap(lat, lng, markPosition = null) {
+    console.log("Inisialisasi Map");
     // $("body").find("input[name='latitude']").val(lat);
     // $("body").find("input[name='longitude']").val(lng);
     var propertiPeta = {
@@ -312,10 +339,11 @@ function initMap(lat, lng, markPosition = null) {
     var point = null;
     if (markPosition != null) {
         point = new google.maps.LatLng(markPosition.latitude, markPosition.longitude);
+        console.log("POINT: ", point);
     }
     var directionsService = new google.maps.DirectionsService();
     var directionsRenderer = new google.maps.DirectionsRenderer();
-    let destinasi = new google.maps.LatLng(lacak.latlngPembeliNow.lat, lacak.latlngPembeliNow.lng);
+    let destinasi = new google.maps.LatLng(app.lokasi_pembeli.lat, app.lokasi_pembeli.lng);
     var peta = new google.maps.Map(document.getElementById("map"), propertiPeta); //utama bikin map
     marker = new google.maps.Marker({
         position: point,
@@ -323,6 +351,7 @@ function initMap(lat, lng, markPosition = null) {
         zoom: 7
         //icon
     });
+    console.log("Marker: ", marker);
     directionsRenderer.setMap(peta);
     calcRoute(point, destinasi, directionsService, directionsRenderer)
 }
@@ -333,6 +362,7 @@ function calcRoute(start, end, directionsService, directionsRenderer) {
         destination: end,
         travelMode: 'DRIVING'
     };
+    console.log("request direction: "+ JSON.stringify(request));
     directionsService.route(request, function (result, status) {
         if (status == 'OK') {
             directionsRenderer.setDirections(result);

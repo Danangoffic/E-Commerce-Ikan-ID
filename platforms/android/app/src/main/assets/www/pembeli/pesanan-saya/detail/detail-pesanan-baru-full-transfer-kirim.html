@@ -109,9 +109,9 @@
           </ul>
         </div>
 
-        <button class="waves-effect waves-light btn blue" type="button" style="width: 100%"
+        <button id="btn-bayar" class="waves-effect waves-light btn blue" type="button" style="width: 100%"
           onclick="LanjutkanPembayaran()">Lanjutkan Ke Pembayaran</button>
-        <button class="waves-effect waves-light btn red accent-2 modal-trigger" data-target="modal1" type="button"
+        <button id="btn-batal" class="waves-effect waves-light btn red accent-2 modal-trigger" data-target="modal1" type="button"
           style="width: 100%; margin-top: 8px;">Batalkan Pesanan</button>
 
         <div id="modal1" class="modal large">
@@ -219,6 +219,10 @@
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".minimal-transfer").html("Rp&nbsp;" + formatNumber(MinTransfer));
       $(".sisa-tagihan").html("Rp&nbsp;" + formatNumber(SisaTagihan));
+      if (DataPembayaran.status_pembayaran == "Lunas") {
+        $("#btn-bayar").addClass("disabled").attr("disabled", "disabled");
+        $("#btn-batal").addClass("disabled").attr("disabled", "disabled");
+      }
     }
 
     var app = {
