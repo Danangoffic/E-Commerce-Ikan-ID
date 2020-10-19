@@ -3,7 +3,7 @@ var data_usaha = JSON.parse(localStorage.data_usaha);
 var id_usaha = data_usaha.id_usaha;
 var total_bobot_pesanan = parseInt(0);
 
-$(document).ready(onDeviceReady);
+// $(document).ready(onDeviceReady);
 function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
 }

@@ -28,9 +28,13 @@ var app = {
     onSuccessDetail: (e) => {
         if (e.responseMessage == "success") {
             DetailPesanan = (app.DetailPesanan !== e.dataPesanan) ? e.dataPesanan : app.DetailPesanan;
+            
         }
     },
     onCompleteDetail: () => {
+        if(DetailPesanan.statusPengiriman=="Terkirim"){
+            location.replace("detail-transaksi-selesai-all.html");
+        }
         var IDPESANAN = app.DetailPesanan.ID;
         app.id_pesanan = parseInt(app.DetailPesanan.idPemesanan);
         var TotalHargaAll = app.DetailPesanan.TotalHargaAll;
@@ -132,6 +136,22 @@ var app = {
 
 function onLoad() {
     app.init();
+}
+
+function btnSelesai() {
+    return selesaiPesanan(app.id_pesanan);
+}
+
+function selesaiPesanan(idPemesanan) {
+    var data = { id: idPemesanan };
+    $.post(API_PESANAN_SELESAI, data).then(onSuccessPesananSelesai);
+}
+
+function onSuccessPesananSelesai(e) {
+    if (e.message == "success") {
+        M.toast({ html: 'Sukses' });
+        setTimeout(app.loadDetailTransaksi, 1500);
+    }
 }
     // device APIs are available
     //

@@ -201,14 +201,14 @@
         // return window.location.href = "transaksi.html";
       }
 
-      if (window.location.href !== "login.html") {
+      if (window.location.href !== "login.html") {selesaiPesanan
         location.replace("transaksi.html");
       } else {
         throw new Error('Exit'); // This will suspend the app
       }
     }
 
-    function selesaiPesanan(idPemesanan) {
+    function (idPemesanan) {
       var data = { id: idPemesanan };
       $.post(API_PESANAN_SELESAI, data).then(onSuccessPesananSelesai);
     }

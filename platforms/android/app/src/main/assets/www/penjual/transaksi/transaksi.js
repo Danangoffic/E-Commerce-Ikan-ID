@@ -282,7 +282,7 @@ var app = {
                     //   } else if (status == "Terkirim") {
                     //     StatusPemesanan = "Terkirim";
                     //   }
-                    if (DataPembayaran.status_pembayaran !== null && DataPembayaran.verifikasi == "0") {
+                    if (DataPembayaran.status_pembayaran !== null && DataPembayaran.verifikasi == "0" && Status_pengiriman=="Baru") {
                         status_pembayaran = "Perlu di Konfirmasi", color_status_pembayaran = " amber lighten-4";
                         collection_item_status_pembayaran = '<li class="collection-item center' + color_status_pembayaran + '" id="status-pembayaran-' + isi.idPemesanan + '">' + status_pembayaran + '</li>';
                     } else if (DataPembayaran.status_pembayaran !== null) {
@@ -414,7 +414,7 @@ function GoToDetail(idPemesanan, statusPemesanan) {
             } else if (statusPemesanan == "Pengiriman") {
 
             } else if (statusPemesanan == "Terkirim") {
-
+                location.href = "detail-transaksi-selesai-all.html";
             }
         });
 
