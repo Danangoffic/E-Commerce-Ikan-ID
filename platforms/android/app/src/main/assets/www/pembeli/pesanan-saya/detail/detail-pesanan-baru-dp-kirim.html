@@ -62,18 +62,14 @@
         <div class="card">
           <ul class="collection">
             <li class="collection-item">
-              <b class="teal-text darken-1">STATUS PEMESANAN</b><span
-                class="secondary-content badge red accent-2 status-pemesanan"
-                style="font-size: 15px; border-radius: 8px;"></span>
+              <b class="teal-text darken-1">STATUS PEMESANAN</b><span class="secondary-content white-text badge red accent-2" style="font-size: 15px; border-radius: 8px;"><b>Tagihan 1 Belum Dibayar</b></span>
             </li>
           </ul>
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span
-                  class="secondary-content NoPesanan">310120181025</span></b></li>
-            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span
-                  class="secondary-content WaktuPemesanan">31/01/2020 23:00</span></b></li>
+            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span class="secondary-content NoPesanan">310120181025</span></b></li>
+            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span  class="secondary-content WaktuPemesanan">31/01/2020 23:00</span></b></li>
           </ul>
         </div>
         <div class="card">
@@ -81,8 +77,8 @@
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PENGIRIMAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PENGIRIMAN</b>
             </li>
             <li class="collection-item">Alamat Pengiriman :<span class="secondary-content alamat"></span></li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman">Biasa</span>
@@ -91,14 +87,12 @@
                 class="secondary-content tanggal-pengiriman">02/01/2020</span></li>
             <li class="collection-item teal-text darken-1"><b>Total Biaya Pengiriman :<span
                   class="secondary-content biaya-pengiriman">Rp</span></b><br><span class="total-jarak"></span></li>
-            <!-- <li class="collection-item" style="">(xxx ons)</p></b> -->
-            <!-- </a> -->
           </ul>
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PEMBAYARAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PEMBAYARAN</b>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Transfer dan Tunai</span>
             </li>
@@ -218,7 +212,7 @@
       $(".status-pemesanan").html("<b class='white-text'>" + StatusPemesanan + "</b>");
       $(".NoPesanan").html(IDPESANAN);
       $(".WaktuPemesanan").html(waktuPemesanan);
-      var HtmlProduk = '<li class="collection-item"><h6 class="nama-toko"></h6></li><li class="collection-item"><h5>DAFTAR PRODUK</h5></li>';
+      var HtmlProduk = '<li class="collection-item"><h6 class="nama-toko"></h6></li><li class="collection-item center"><b>DAFTAR PRODUK</b></li>';
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;

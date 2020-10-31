@@ -41,15 +41,16 @@
 
 <body class="" onload="onLoad()">
   <header class="navbar-fixed">
-    <nav class="top-nav nav-extended" style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
+    <nav class="top-nav nav-extended"
+      style="background-image: linear-gradient(to right, #00b7f8, #009dff, #0080ff, #005dff, #0029ee);">
       <div class="container-fluid">
         <div class="nav-wrapper">
           <!-- <div class="row"> -->
-            <div class="col s12 m10 offset-m1">
-              <a id="#" href="../pesanan-saya.html" class="transparent"
-                style="margin: auto 10px;"><span class="fa fa-chevron-left"></span></a>
-              <b class="header">&nbsp;Detail Pesanan</b>
-            </div>
+          <div class="col s12 m10 offset-m1">
+            <a id="#" href="../pesanan-saya.html" class="transparent" style="margin: auto 10px;"><span
+                class="fa fa-chevron-left"></span></a>
+            <b class="header">&nbsp;Detail Pesanan</b>
+          </div>
           <!-- </div> -->
         </div>
       </div>
@@ -67,9 +68,12 @@
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span class="badge NoPesanan teal-text darken-4"></span></b></li>
-            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span class="badge WaktuPemesanan teal-text darken-4"></span></b></li>
-            <li class="collection-item teal-text darken-1"><b>Waktu Pembayaran :<span class="badge WaktuPembayaran teal-text darken-4"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span
+                  class="badge NoPesanan teal-text darken-4"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span
+                  class="badge WaktuPemesanan teal-text darken-4"></span></b></li>
+            <li class="collection-item teal-text darken-1"><b>Waktu Pembayaran :<span
+                  class="badge WaktuPembayaran teal-text darken-4"></span></b></li>
           </ul>
         </div>
         <div class="card">
@@ -77,24 +81,28 @@
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PENGIRIMAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PENGIRIMAN</b>
             </li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman"></span></li>
-            <li class="collection-item">Tanggal Pengambilan :<span
-                class="secondary-content tanggal-pengiriman"></span></li>
+            <li class="collection-item">Tanggal Pengambilan :<span class="secondary-content tanggal-pengiriman"></span>
+            </li>
           </ul>
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PEMBAYARAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PEMBAYARAN</b>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content tipe-pembayaran"></span></li>
             <li class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk"></span>
             </li>
             <li class="collection-item teal-text darken-1"><b>Total Pembayaran :<span
-                  class="secondary-content total-pembayaran"></span></b></li>
+              class="secondary-content total-pembayaran"></span></b></li>
+          </ul>
+        </div>
+        <div class="card">
+          <ul class="collection">
             <li class="collection-item teal-text darken-1"><b>Pembayaran Ke-1 :<span
                   class="secondary-content pembayaran1"></span></b></li>
             <li class="collection-item teal-text darken-1"><b>Pembayaran Ke-2 :<span
@@ -103,8 +111,6 @@
         </div>
       </div>
     </div>
-  </div>
-  </div>
   </div>
 
   <!-- ########## END: MAIN PANEL ########## -->
@@ -115,7 +121,7 @@
   <script type="text/javascript" src="detailpesanan.js"></script>
   <script type="text/javascript">
     $('.modal').modal();
-    
+
     $(document).ready(detail_pesanan);
 
     function detail_pesanan() {
@@ -156,7 +162,7 @@
       $(".WaktuPengiriman").html("<?=$DisplayWaktuPengiriman?>");
       var HtmlProduk = '';
       HtmlProduk += '<li class="collection-item"><h6 class="nama-toko">Nama Toko (Link Toko)</h6></li>' +
-        '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>'
+        '<li class="collection-item center"><b>DAFTAR PRODUK</b></li>'
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
@@ -175,7 +181,14 @@
       $(".tanggal-pengiriman").html(tglPengiriman);
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Ons");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
-      $(".tipe-pembayaran").html(metode_pembayaran);
+      // $(".tipe-pembayaran").html(metode_pembayaran);
+      if (storage.getItem("metodePembayaran") == "Full Transfer") {
+        $(".tipe-pembayaran").html("Bayar Penuh Transfer");
+      } else if (storage.getItem("metodePembayaran") == "Transfer Cash") {
+        $(".tipe-pembayaran").html("Transfer dan Tunai");
+      } else if (storage.getItem("metodePembayaran") == "Full Cash") {
+        $(".tipe-pembayaran").html("Bayar Penuh Tunai");
+      }
       $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".pembayaran1").html("Rp&nbsp;" + formatNumber(MinTransfer));

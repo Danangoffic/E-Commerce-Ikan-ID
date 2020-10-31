@@ -84,8 +84,8 @@
 
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PENGIRIMAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PENGIRIMAN</b>
             </li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content">Ambil di Toko</span></li>
             <li class="collection-item">Tanggal Pengambilan yang Diajukan :<span
@@ -95,13 +95,13 @@
 
         <div class="card">
           <ul class="collection">
-            <li class="collection-header" style="padding-left: 10px">
-              <h5>DETAIL PEMBAYARAN</h5>
+            <li class="collection-item center" style="padding-left: 10px">
+              <b>DETAIL PEMBAYARAN</b>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Bayar Penuh Transfer</span>
             </li>
-            <li class="collection-item teal-text darken-1"><b>Total Harga Produk :<span
-                  class="secondary-content total-harga-produk">Rp</span></b></li>
+            <li class="collection-item">Total Harga Produk :<span
+                  class="secondary-content total-harga-produk">Rp</span></li>
             <li class="collection-item teal-text darken-1"><b>Total Pembayaran :<span
                   class="secondary-content total-pembayaran">Rp</span></b></li>
           </ul>
@@ -154,7 +154,7 @@
       $(".WaktuPemesanan").html(waktuPemesanan);
       var HtmlProduk = '';
       HtmlProduk += '<li class="collection-item"><h6 class="nama-toko">Nama Toko (Link Toko)</h6></li>' +
-        '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>'
+        '<li class="collection-item center"><b>DAFTAR PRODUK</b></li>'
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
@@ -173,7 +173,14 @@
       $(".tanggal-pengiriman").html(TanggalPengiriman);
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Ons");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
-      $(".tipe-pembayaran").html(metode_pembayaran);
+      // $(".tipe-pembayaran").html(metode_pembayaran);
+      if (storage.getItem("metodePembayaran") == "Full Transfer") {
+        $(".tipe-pembayaran").html("Bayar Penuh Transfer");
+      } else if (storage.getItem("metodePembayaran") == "Transfer Cash") {
+        $(".tipe-pembayaran").html("Transfer dan Tunai");
+      } else if (storage.getItem("metodePembayaran") == "Full Cash") {
+        $(".tipe-pembayaran").html("Bayar Penuh Tunai");
+      }
       $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".minimal-transfer").html("Rp&nbsp;" + formatNumber(MinTransfer));

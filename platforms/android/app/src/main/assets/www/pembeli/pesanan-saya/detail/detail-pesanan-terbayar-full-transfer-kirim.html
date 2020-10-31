@@ -85,8 +85,8 @@
 
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PENGIRIMAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PENGIRIMAN</b>
             </li>
             <li class="collection-item">Alamat Pengiriman :<span class="secondary-content alamat">Jl. Rw Bahagia No.
                 14</span></li>
@@ -95,23 +95,23 @@
             <li class="collection-item">Tanggal Pengiriman yang Diajukan :<span
                 class="secondary-content tanggal-pengiriman">02/01/2020</span></li>
             <li class="collection-item teal-text darken-1"><b>Total Biaya Pengiriman :<span
-                  class="secondary-content biaya-pengiriman">Rp</span>
-                <p class="total-berat" style="margin-top: -5px; margin-bottom: -10px">(xxx ons)</p>
-              </b></li>
-            <li class="collection-item"><button class="waves-effect waves-light btn blue" onclick="lacakPengiriman()" type="button"
-                style="width: 100%">Lacak Pengiriman</button></li>
+                  class="secondary-content biaya-pengiriman"></span></b><br><span class="total-jarak"></span></li>
+            <li class="collection-item"><button class="waves-effect waves-light btn blue" onclick="lacakPengiriman()"
+                type="button" style="width: 100%">Lacak Pengiriman</button></li>
           </ul>
         </div>
 
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PEMBAYARAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PEMBAYARAN</b>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content tipe-pembayaran">Bayar Penuh
                 Transfer</span></li>
-            <li class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></li>
-            <li class="collection-item">Total Biaya Pengiriman :<span class="secondary-content biaya-pengiriman">Rp</span></li>
+            <li class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span>
+            </li>
+            <li class="collection-item">Total Biaya Pengiriman :<span
+                class="secondary-content biaya-pengiriman">Rp</span></li>
             <li class="collection-item teal-text darken-1"><b>Total Pembayaran :<span
                   class="secondary-content teal-text darken-1 total-pembayaran">Rp</span></b></li>
           </ul>
@@ -134,7 +134,7 @@
     $(document).ready(detail_pesanan);
 
     var id_pemesanan;
-    
+
     function lacakPengiriman() {
       localStorage.setItem("id_pemesanan", id_pemesanan);
       window.location.href = "../lacak-pengiriman-pembeli.html";
@@ -173,7 +173,7 @@
 
       var HtmlProduk = '';
       HtmlProduk = '<li class="collection-item"><a href=""><h6 class="nama-toko"></h6></a></li>' +
-        '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>';
+        '<li class="collection-item center"><b>DAFTAR PRODUK</b></li>';
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
@@ -192,6 +192,8 @@
       $(".tanggal-pengiriman").html(TanggalPengiriman);
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Kg");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
+      var jarak = (DetailPesanan.jarak !== null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
+      $(".total-jarak").html(jarak);
       // $(".tipe-pembayaran").html(metode_pembayaran);
       if (storage.getItem("metodePembayaran") == "Full Transfer") {
         $(".tipe-pembayaran").html("Bayar Penuh Transfer");
@@ -200,7 +202,7 @@
       } else if (storage.getItem("metodePembayaran") == "Full Cash") {
         $(".tipe-pembayaran").html("Bayar Penuh Tunai");
       }
-      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk / 10));
+      $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".minimal-transfer").html("Rp&nbsp;" + formatNumber(MinTransfer));
       $(".sisa-tagihan").html("Rp&nbsp;" + formatNumber(SisaTagihan));
