@@ -57,7 +57,7 @@
   </header>
   <div class="container-fluid">
     <div class="row" style="margin-bottom: -30px">
-      <div class="col s12" style="padding: 0px">
+      <div class="col s12">
         <div class="card">
           <ul class="collection">
             <li class="collection-item teal-text darken-1"><b>STATUS PEMESANAN<span
@@ -69,36 +69,20 @@
           <ul class="collection">
             <li class="collection-item teal-text darken-1"><b>No. Pesanan :<span
                   class="secondary-content NoPesanan">310120181025</span></b></li>
-            <li class="collection-item"><b>Waktu Pemesanan :<span class="secondary-content WaktuPemesanan">31/01/2020
+            <li class="collection-item teal-text darken-1"><b>Waktu Pemesanan :<span class="secondary-content WaktuPemesanan">31/01/2020
                   23:00</b></span></li>
-            <li class="collection-item"><b>Waktu Pembayaran :<span class="secondary-content WaktuPembayaran">31/01/2020
+            <li class="collection-item teal-text darken-1"><b>Waktu Pembayaran :<span class="secondary-content WaktuPembayaran">31/01/2020
                   23:30</b></span></li>
-            <li class="collection-item"><b>Waktu Pesanan Selesai :<span
-                  class="secondary-content WaktuPesananSelesai">31/01/2020 23:30</b></span></li>
           </ul>
         </div>
-        <a class="collection-item" href="#!">
-          <h6 class="nama-toko">Nama Toko (Link Toko)</h6>
-        </a>
         <div class="card">
-          <ul class="collection">
-            <li class="collection-header" style="padding-left: 10px">
-              <h6>DAFTAR PRODUK</h6>
-            </li>
-            <li class="collection-item avatar collection-product">
-              <!-- <img src="images/yuna.jpg" alt="" class="circle"> -->
-              <span class="title">Nama Produk</span>
-              <p>Harga Produk<br>
-              </p>
-              <span class="badge">Total Produk</span>
-            </li>
-            <b><a class="collection-item">Total Harga Produk :<span class="secondary-content">Rp</span></a></b>
+          <ul class="collection collection-product">
           </ul>
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-header" style="padding-left: 10px">
-              <h5>DETAIL PENGIRIMAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PENGIRIMAN</b>
             </li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman">Ambil di
                 Toko</span></li>
@@ -109,14 +93,14 @@
         </div>
         <div class="card">
           <ul class="collection">
-            <li class="collection-header" style="padding-left: 10px">
-              <h5>DETAIL PEMBAYARAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PEMBAYARAN</b>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content tipe-pembayaran">Bayar Penuh
                 Tunai</span></li>
             <li class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span>
             </li>
-            <li class="collection-item" style="margin-bottom: -5px"><b>Total Pembayaran :<span
+            <li class="collection-item teal-text darken-1 style="margin-bottom: -5px"><b>Total Pembayaran :<span
                   class="secondary-content total-pembayaran">Rp</span></b></li>
           </ul>
         </div>
@@ -173,7 +157,7 @@
       $(".WaktuPengiriman").html("<?=$DisplayWaktuPengiriman?>");
       var HtmlProduk = '';
       HtmlProduk += '<li class="collection-item"><h6 class="nama-toko">Nama Toko (Link Toko)</h6></li>' +
-        '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>'
+        '<li class="collection-item center"><b>DAFTAR PRODUK</b></li>'
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
@@ -181,7 +165,7 @@
         var TotalProduk = isi.jml_produk;
         HtmlProduk += '<li class="collection-item avatar"><img src="' + FotoProduk + '" alt="" class="circle">' +
           '<span class="title">' + NamaProduk + '</span>' +
-          '<p class="orange-text">Rp ' + HargaProduk + '<br></p>' +
+          '<p class="orange-text">Rp ' + formatNumber(HargaProduk) + '<br></p>' +
           '<span class="secondary-content"><b>' + TotalProduk + ' Kg</b></span></li>';
       });
       HtmlProduk += '<b><a class="collection-item">Total Harga Produk :<span class="secondary-content total-harga-produk">Rp</span></a></b>';
@@ -192,7 +176,14 @@
       $(".tanggal-pengiriman-diajukan").html("<?=$DisplayWaktuPengirimanDiajukan;?>");
       $(".total-berat").html(TotalBeratProduk + "&nbsp;Ons");
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
-      $(".tipe-pembayaran").html(metode_pembayaran);
+      // $(".tipe-pembayaran").html(metode_pembayaran);
+      if (storage.getItem("metodePembayaran") == "Full Transfer") {
+        $(".tipe-pembayaran").html("Bayar Penuh Transfer");
+      } else if (storage.getItem("metodePembayaran") == "Transfer Cash") {
+        $(".tipe-pembayaran").html("Transfer dan Tunai");
+      } else if (storage.getItem("metodePembayaran") == "Full Cash") {
+        $(".tipe-pembayaran").html("Bayar Penuh Tunai");
+      }
       $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".pembayaran1").html("Rp&nbsp;" + formatNumber(MinTransfer));

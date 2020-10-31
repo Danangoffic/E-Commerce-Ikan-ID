@@ -81,8 +81,8 @@
 
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PENGIRIMAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PENGIRIMAN</b>
             </li>
             <li class="collection-item">Alamat Pengiriman :<span class="secondary-content alamat"></span></li>
             <li class="collection-item">Jenis Pengiriman :<span class="secondary-content tipe-pengiriman"></span></li>
@@ -95,8 +95,8 @@
 
         <div class="card">
           <ul class="collection">
-            <li class="collection-item">
-              <h5>DETAIL PEMBAYARAN</h5>
+            <li class="collection-item center">
+              <b>DETAIL PEMBAYARAN</b>
             </li>
             <li class="collection-item">Metode Pembayaran :<span class="secondary-content">Bayar Penuh Transfer</span>
             </li>
@@ -193,7 +193,7 @@
 
       var HtmlProduk = '';
       HtmlProduk = '<li class="collection-item"><a href=""><h6 class="nama-toko"></h6></a></li>' +
-        '<li class="collection-item"><h5>DAFTAR PRODUK</h5></li>';
+        '<li class="collection-item center"><b>DAFTAR PRODUK</b></li>';
       $.each(AllPurchaseProduk, function (i, isi) {
         var FotoProduk = base_url + '/foto_usaha/produk/' + isi.foto_produk;
         var NamaProduk = isi.nama_produk + ' ' + isi.nama_variasi;
@@ -214,7 +214,14 @@
       $(".biaya-pengiriman").html("Rp " + formatNumber(BiayaPengiriman));
       var jarak = (DetailPesanan.jarak !== null) ? DetailPesanan.jarak + "&nbsp;Km" : "";
       $(".total-jarak").html(jarak);
-      $(".tipe-pembayaran").html(metode_pembayaran);
+      // $(".tipe-pembayaran").html(metode_pembayaran);
+      if (storage.getItem("metodePembayaran") == "Full Transfer") {
+        $(".tipe-pembayaran").html("Bayar Penuh Transfer");
+      } else if (storage.getItem("metodePembayaran") == "Transfer Cash") {
+        $(".tipe-pembayaran").html("Transfer dan Tunai");
+      } else if (storage.getItem("metodePembayaran") == "Full Cash") {
+        $(".tipe-pembayaran").html("Bayar Penuh Tunai");
+      }
       $(".total-harga-produk").html("Rp&nbsp;" + formatNumber(TotalHargaProduk));
       $(".total-pembayaran").html("Rp&nbsp;" + formatNumber(TotalHargaAll));
       $(".minimal-transfer").html("Rp&nbsp;" + formatNumber(MinTransfer));
